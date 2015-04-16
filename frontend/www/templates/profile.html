@@ -1,0 +1,41 @@
+<ion-view view-title="">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a class="button button-icon button-clear">Sign Out</a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <div class="list list-inset" style="text-align:center;">
+      <div>
+        <img style="max-width: 75px; max-height: 75px; border-radius: 50%;" ng-if="!(profileInfo.fbPicture)" 
+             src="img/user_placeholder.png">
+        <img style="max-width: 75px; max-height: 75px; border-radius: 50%;" ng-if="(profileInfo.fbPicture)" 
+             src="{{ profileInfo.fbPicture }}">
+      </div>
+      <h3>Claire Marshall</h3>
+      <h4>@heyclaire</h4>
+      <ul class="list">
+        <li class="item item-toggle">
+           Show all restaurants
+           <label class="toggle toggle-assertive">
+             <input type="checkbox">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+      </ul>
+    </div>
+    <div class="list list-inset">
+      <p>Saved for later</p>
+      <div>
+        <img src="">
+      </div>
+      <p>Use the star icon to save restaurants you want to check out later!</p>
+    </div>
+  </ion-content>
+</ion-view>

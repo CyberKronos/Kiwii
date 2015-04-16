@@ -1,0 +1,20 @@
+<ion-view view-title="">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="left">
+        <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true" scroll="false">
+    <td-cards ng-if="shows.length">
+        <td-card ng-repeat="show in shows | limitTo: 1 track by show.id"
+                 on-partial-swipe="partialSwipeShow($index)"
+                 on-snap-back="snapBackShow($index)"
+                 on-destroy="destroyShow($index)"
+                 my-on-swipe-right="likedShow($index)"
+                 my-on-swipe-left="dislikedShow($index)">
+          <show-card show="show"></show-card>
+        </td-card>
+      </td-cards>
+  </ion-content>
+</ion-view>
