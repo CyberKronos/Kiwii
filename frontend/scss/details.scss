@@ -1,0 +1,22 @@
+/*.slider { 
+	height: 100%;
+}
+
+.scroll { 
+	height: 100% 
+}
+
+.slider-pager {
+	top: 0;
+	bottom: initial;
+}*/
+
+.details-container {
+	position: absolute;
+	width: 100%;
+	top: 50vh;
+
+	.details-text {
+		margin: 24px;
+	}
+}

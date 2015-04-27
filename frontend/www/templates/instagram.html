@@ -1,7 +1,7 @@
-<ion-view>
+<ion-view view-title="Le Marche St. George">
 	<ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
 		<ion-nav-buttons side="left">
-	        <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+	        <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
 	    </ion-nav-buttons>
 	    <ion-nav-buttons side="right">
 	        <button class="button" style="border:none;" ng-click="addToFavourites()" >
@@ -10,22 +10,21 @@
 	    </ion-nav-buttons>
     </ion-nav-bar>
 
-    <div class="tabs tabs-icon-top">
-        <a class="tab-item active" href="#/main/list/details">
-            <i class="icon ion-spoon"></i>
-            Info
-        </a>
-        <a class="tab-item" href="#/main/list/instagram" style="color: rgb(204, 35, 17)">
-            <i class="icon ion-social-instagram"></i>
-            Instagram
-        </a>
-        <a class="tab-item" href="#/main/list/reviews">
-            <i class="icon ion-ios-lightbulb"></i>
-            Tips &amp; Reviews
-        </a>
+    <div class="tabs-striped tabs-top tabs-color-assertive">
+        <div class="tabs">
+            <a class="tab-item" href="#/dash/list/details">
+                Info
+            </a>
+            <a class="tab-item active" href="#/dash/list/instagram">
+                Instagran
+            </a>
+            <a class="tab-item" href="#/dash/list/reviews">
+                Reviews
+            </a>
+        </div>
     </div>
 
-	<ion-content class="has-footer padding">
+	<ion-content class="padding">
 	    <!-- <div class="item item-image" ng-repeat="image in instagram.response.photos.items" style="width:50%; height:auto; display:inline-block;"> -->
 	    <div class="list card" ng-repeat="photo in photos">
 			<div class="item item-image">

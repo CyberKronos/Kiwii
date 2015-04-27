@@ -11,7 +11,7 @@
     Store.bindState($scope, function(action) {
       if (auth.isAuthenticated && action && action.actionType == AppConstants.SET_CURRENT_USER) {
         $rootScope.currentUser = Store.getCurrentUser();
-        $state.go('main');
+        $state.go('dash');
       }
     });
 

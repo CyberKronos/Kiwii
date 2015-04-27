@@ -1,0 +1,26 @@
+.profile-avatar {
+	border-radius: 50%;
+	max-height: 75px; 
+	max-width: 75px; 
+}
+
+.save-later-placeholder {
+	margin-top: 60px;
+  	margin-bottom: 30px;
+
+	img {
+		width: 120px;
+		height: auto;
+	}
+}
+
+.toggle-all-restaurants {
+	li {
+		color: #FFFFFF;
+		border: none !important;
+		background: transparent;
+		label {
+			right: 60px !important;
+		}	
+	}
+}

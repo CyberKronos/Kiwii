@@ -147,6 +147,8 @@
 
     line-height: $bar-height;
 
+    color: #FFFFFF;
+
     &.title-left {
       text-align: left;
     }
@@ -253,9 +255,7 @@
   .buttons.pull-right,
   .title + .buttons {
     position: absolute;
-    top: 5px;
     right: 5px;
-    bottom: 5px;
   }
 
 }

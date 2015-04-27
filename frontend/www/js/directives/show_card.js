@@ -9,11 +9,11 @@
         var $el = angular.element(el),
             $description = angular.element(el[0].querySelector('.show-card-details-container'));
 
-        scope.toggleExpandInfo = function() {
-          $el.toggleClass('info-is-expanded');
-        }
+        // scope.toggleExpandInfo = function() {
+        //   $el.toggleClass('info-is-expanded');
+        // }
 
-        $ionicGesture.on('tap', scope.toggleExpandInfo, $description);
+        // $ionicGesture.on('tap', scope.toggleExpandInfo, $description);
         // scope.$on('$destroy', function() {
         //   // Fix me - currently element is being removed before scope $destroy
         //   if ($description) {

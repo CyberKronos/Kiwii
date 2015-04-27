@@ -60,7 +60,7 @@ input[type="range"] {
 .range {
   @include display-flex();
   @include align-items(center);
-  padding: 2px 11px;
+  /*padding: 2px 11px;*/
 
   &.range-light {
     input { @include range-style($range-light-track-bg); }
@@ -102,8 +102,8 @@ input[type="range"] {
 .range input {
   @include flex(1);
   display: block;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 4px;
+  /*margin-left: 10px;*/
 }
 
 .range-label {

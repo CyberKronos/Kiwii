@@ -1,3 +1,26 @@
+/* Utility Styles */
+.title {
+  font-size: 20px;
+  padding: 6px 0;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.bar-header {
+  background: transparent;
+}
+
+.has-tabs-top {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat !important;
+  background-size: cover !important;
+}
+
+.icon-white {
+  color: #FFFFFF !important;
+}
+
 /* Modal */
 
 .shows-modal-title {
@@ -37,6 +60,10 @@
   color: #1F1F1F;
   background: #515151;
   border-bottom: none !important;
+}
+
+.text-button {
+  font-size: 20px !important;
 }
 
 .liked-shows-modal-content {
@@ -99,7 +126,7 @@
 
 .user-info-container {
   position: absolute;
-  right: 40px;
+  right: 10px;
   margin-top: 3px;
 }
 
@@ -157,9 +184,39 @@
   display: none;
 }
 
-input.ion-google-place[readonly]{
+input.ion-google-place[readonly] {
   background-color: transparent;
   cursor: text;
+  font-size: 22px;
+}
+
+.ion-google-place-search {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: rgb(144, 144, 144);
+  border-width: 1px;
+  padding-left: 0;
+
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #000000;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #000000;
+    opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #000000;
+    opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #000000;
+  }
+}
+
+#distance-textbox {
+  width: 52px;
+  text-align: right;
 }
 
 /*Radio Buttons*/
@@ -184,5 +241,11 @@ input.ion-google-place[readonly]{
 
 .item-radio .radio-icon {
   display: none;
+}
+
+.search-button {
+  height: 60px;
+  margin-top: 60px !important;
+  margin-bottom: 20px !important;
 }
 

@@ -17,7 +17,7 @@
       })
 
       .state('profile', {
-        url: '/main/profile',
+        url: '/dash/profile',
         templateUrl: 'templates/profile.html',
         data: {
           requiresLogin: true
@@ -25,7 +25,7 @@
       })
 
       .state('cards', {
-        url: '/main/cards',
+        url: '/dash/cards',
         templateUrl: 'templates/cards.html',
         controller: 'CardsCtrl',
         data: {
@@ -34,15 +34,16 @@
       })
 
       .state('details', {
-        url: '/main/list/details',
+        url: '/dash/list/details',
         templateUrl: 'templates/details.html',
+        controller: 'DetailsCtrl',
         data: {
           requiresLogin: true
         }
       })
 
       .state('instagram', {
-        url: '/main/list/instagram',
+        url: '/dash/list/instagram',
         templateUrl: 'templates/instagram.html',
         data: {
           requiresLogin: true
@@ -50,7 +51,7 @@
       })
 
       .state('reviews', {
-        url: '/main/list/reviews',
+        url: '/dash/list/reviews',
         templateUrl: 'templates/reviews.html',
         data: {
           requiresLogin: true

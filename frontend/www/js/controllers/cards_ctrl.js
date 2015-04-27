@@ -62,7 +62,7 @@
     }
 
     $scope.restaurantDetails = function() {
-      $state.go('details');
+      $state.go('details', {});
     };
 
     Actions.fetchShows();
