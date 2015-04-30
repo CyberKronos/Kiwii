@@ -35,7 +35,13 @@
     };
 
     $scope.searchRestaurants = function() {
-      $state.go('cards', {});
+      $rootScope.cardTitle = '';
+      $rootScope.cuisineType = '';
+      $state.go('cards');
+    };
+
+    $scope.topTenRestaurants = function() {
+      $state.go('topten');
     };
 
     $scope.selectCuisinesPopup = function() {

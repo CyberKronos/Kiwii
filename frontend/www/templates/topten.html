@@ -1,0 +1,19 @@
+<ion-view view-title="Top Ten Cuisines">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="right">
+        <a class="button button-icon button-clear ion-close" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <div style="background: url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat; opacity: 0.3; background-size: cover; height: 60vh; width: 100%; position: absolute; -webkit-filter: blur(5px);"></div>
+    <ul class="list">
+      <li class="item" ng-repeat="cuisine in topTenList"
+                       ng-click="topTenCards(cuisine.type)"
+                       style="background: transparent;">
+        {{ cuisine.type }} 
+      </li>
+    </ul>
+    <!-- </div> -->
+  </ion-content>
+</ion-view>

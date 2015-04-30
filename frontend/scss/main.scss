@@ -8,17 +8,6 @@
   text-align: center;
 }
 
-.bar-header {
-  background: transparent;
-}
-
-.background-tab {
-  .has-tabs-top {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat !important;
-    background-size: cover !important;
-  }
-}
-
 .icon-white {
   color: #FFFFFF !important;
 }
@@ -253,5 +242,22 @@ input.ion-google-place[readonly] {
   height: 60px;
   margin-top: 60px !important;
   margin-bottom: 20px !important;
+}
+
+.bar-header {
+  background: transparent;
+}
+
+.background-tab {
+  .has-tabs-top {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat !important;
+    background-size: cover !important;
+  }
+}
+
+.bar-title-white {
+  .title {
+    color: #FFFFFF;
+  }
 }
 

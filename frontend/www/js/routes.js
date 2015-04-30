@@ -24,6 +24,15 @@
         }
       })
 
+      .state('topten', {
+        url: '/dash/topten',
+        templateUrl: 'templates/topten.html',
+        controller: 'TopTenCtrl',
+        data: {
+          requiresLogin: true
+        }
+      })
+
       .state('cards', {
         url: '/dash/cards',
         templateUrl: 'templates/cards.html',
