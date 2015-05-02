@@ -24,28 +24,17 @@
         </div>
     </div>
 
-	<ion-content class="has-footer padding">
-		<div class="list card">
-		    <div class="item item-body">
-		        <h3>
-		            {{business.tips.count}} Tips &amp; Reviews
-		        </h3>
-		        <br/>
-		        <div ng-repeat="tip in business.tips.groups[1].items">
-		            <div>
-		                <div style="display:inline-block; width: 49%;">
-		                    {{ tip.user.firstName }}
-		                </div>
-		                <div style="display:inline-block; width:49%; text-align:right;">
-		                    {{ tip.likes.count }} Likes
-		                </div>
-		            </div>
-		            <br/>
-		            <div>
-		                {{ tip.text }}
-		            </div>
-		        </div>
-		    </div>
-		</div>
+	<ion-content style="margin-top: 42px;">
+		<ul class="list">
+		    <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;"> 
+		      	<div>
+		      		{{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+		      	</div>
+		      	<br/>
+		      	<div>
+		      		<strong>{{ tip.likes.count }} Likes</strong>
+		      	</div>
+		    </li>
+		</ul>
 	</ion-content>
 </ion-view>
