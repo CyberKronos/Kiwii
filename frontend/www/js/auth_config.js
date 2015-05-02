@@ -8,7 +8,7 @@
       domain: AUTH0_DOMAIN,
       clientID: AUTH0_CLIENT_ID,
       callbackURL: location.href,
-      loginState: 'login'
+      loginState: 'start'
     });
   })
 

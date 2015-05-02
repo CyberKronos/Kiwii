@@ -1,5 +1,5 @@
 (function() {
-  var CardsCtrl = function($scope, Store, PosterPreloader, Actions, $ionicSideMenuDelegate, AppConstants, ApiConstants, $state) {
+  var CardsCtrl = function($scope, Store, PosterPreloader, Actions, $ionicSideMenuDelegate, AppConstants, ApiConstants, $state, InstagramApi) {
     // $scope.sideMenuIsOpen = function() {
     //   return $ionicSideMenuDelegate.isOpenLeft();
     // }
@@ -62,6 +62,7 @@
     }
 
     $scope.restaurantDetails = function() {
+      InstagramApi.getLocationImages('4e5eb1e61fc724eac4c172e0');
       $state.go('details');
     };
 

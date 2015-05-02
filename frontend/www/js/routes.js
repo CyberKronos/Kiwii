@@ -1,10 +1,22 @@
 (function() {
   var Routes = function($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('start', {
+        url: '/start',
+        templateUrl: 'templates/start.html',
+        controller: 'StartCtrl'
+      })
+
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
+      })
+
+      .state('register', {
+        url: '/register',
+        templateUrl: 'templates/register.html',
+        controller: 'RegisterCtrl'
       })
 
       .state('dash', {
