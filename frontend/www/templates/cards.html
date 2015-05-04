@@ -11,8 +11,6 @@
     </div>
     <td-cards ng-if="shows.length">
         <td-card ng-repeat="show in shows | limitTo: 1 track by show.id"
-                 on-partial-swipe="partialSwipeShow($index)"
-                 on-snap-back="snapBackShow($index)"
                  on-destroy="destroyShow($index)"
                  my-on-swipe-right="likedShow($index)"
                  my-on-swipe-left="dislikedShow($index)">
