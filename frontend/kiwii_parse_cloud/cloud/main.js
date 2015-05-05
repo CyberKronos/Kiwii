@@ -30,6 +30,22 @@ Parse.Cloud.define('getRecentMediaByLocation', function(request, response) {
   });
 });
 
+// Foursquare Api
+Parse.Cloud.define("callFoursquareApi", function(request, response) {
+  Parse.Cloud.httpRequest({
+    method: "GET",
+    url: request.params.url,
+    params: request.params.queryParams,
+    success: function (httpResponse) {
+      var responseBody = JSON.parse(httpResponse.text);
+      response.success(responseBody.response);
+    },
+    error: function (httpResponse) {
+      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
+    }
+  });
+});
+
 // Parse.Cloud.define('searchTag', function(request, response) {
 //   ig.searchTag({
 //     q: 'latergram'
@@ -146,18 +162,3 @@ Parse.Cloud.define('getRecentMediaByLocation', function(request, response) {
 //     response.error(error);
 //   });
 // });
-
-// Foursquare Api
-Parse.Cloud.define("callFoursquareApi", function(request, response) {
-  Parse.Cloud.httpRequest({
-    method: "GET",
-    url: request.params.url,
-    success: function (httpResponse) {
-      response.success(httpResponse);
-    },
-    error: function (httpResponse) {
-      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
-    }
-  });
-});
-

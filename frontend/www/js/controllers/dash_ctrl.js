@@ -18,13 +18,13 @@
 
     // Default values
     $scope.data = {};
-    $scope.data.distance = '500';
+    $scope.data.radius = '500';
 
     $scope.updateDistance = function(item) {
       // $window.localStorage.setItem( 'distance', item.value );
       console.log(item);
-      $rootScope.searchCriteria['distance'] = item * 1000;
-      console.log( 'Distance: ' + $rootScope.searchCriteria['distance'] );
+      $rootScope.searchCriteria['radius'] = item * 1000;
+      console.log( 'Distance: ' + $rootScope.searchCriteria['radius'] );
     };
 
     $scope.updatePrice = function(item) {

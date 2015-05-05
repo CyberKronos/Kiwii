@@ -1,5 +1,5 @@
 (function () {
-    var CardsCtrl = function ($scope, $state, InstagramApi, FoursquareApi) {
+    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi) {
 
         $scope.dismissShow = function (show) {
             var i = $scope.restuarants.indexOf(show);
@@ -34,7 +34,7 @@
             $state.go('details');
         };
 
-        FoursquareApi.exploreRestaurants().then(
+        FoursquareApi.exploreRestaurants($rootScope.searchCriteria).then(
             function (response) {
                 $scope.restuarants = response;
                 $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.

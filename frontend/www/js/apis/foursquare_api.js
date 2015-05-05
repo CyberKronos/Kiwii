@@ -12,27 +12,37 @@
 
                 Parse.Cloud.run('callFoursquareApi', {url: endpointUrl})
                     .then(function (response) {
-                        var tips = response.data.response.tips.items;
+                        var tips = response.tips.items;
                         console.log(tips);
                         $rootScope.restaurantReviews = tips;
                     });
             },
             exploreRestaurants: function (queryParams) {
-                var endpointUrl = BASE_URL_VENUE + '/explore?ll=49.282062,-123.122710&section=food&openNow=1&radius=1000&price=2&venuePhotos=1&oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
+                var endpointUrl = BASE_URL_VENUE + 'explore';
+
+                queryParams.section = 'food';
+                queryParams.openNow = 1;
+                queryParams.venuePhotos = 1;
+                queryParams.oauth_token = OAUTH_TOKEN;
+                queryParams.v = API_VERSION;
+
                 var venues = [];
                 var transformVenueResponse = function (response) {
-                    var itemsResponse = response.data.response.groups[0].items;
+                    var itemsResponse = response.groups[0].items;
 
                     venues = itemsResponse.map(function (item, index) {
                         var venue = {};
-                        var venuePhoto = item.venue.photos.groups[0].items[0];
                         venue['itemIndex'] = index + 1;
                         venue['foursquareId'] = item.venue.id;
                         venue['title'] = item.venue.name;
                         venue['rating'] = item.venue.rating;
                         venue['category'] = item.venue.categories[0].shortName;
                         venue['hours'] = item.venue.hours;
-                        venue['imageUrl'] = venuePhoto.prefix + '500x500' + venuePhoto.suffix;
+
+                        if (item.venue.photos.groups.length != 0) {
+                            var venuePhoto = item.venue.photos.groups[0].items[0];
+                            venue['imageUrl'] = venuePhoto.prefix + '500x500' + venuePhoto.suffix;
+                        }
                         return venue;
                     });
                     return venues;
