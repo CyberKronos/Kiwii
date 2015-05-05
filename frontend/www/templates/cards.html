@@ -9,8 +9,8 @@
     <div class="assertive" ng-if="cuisineType != ''" style="text-align: center; font-size: 18px; padding-bottom:20px"> 
       <u>{{ cuisineType }}</u> Restaurants
     </div>
-    <td-cards ng-if="shows.length">
-        <td-card ng-repeat="show in shows | limitTo: 1 track by show.id"
+    <td-cards ng-if="restuarants.length">
+        <td-card ng-repeat="restuarant in restuarants | limitTo: 1 track by restuarant.itemIndex"
                  on-destroy="destroyShow($index)"
                  my-on-swipe-right="likedShow($index)"
                  my-on-swipe-left="dislikedShow($index)">

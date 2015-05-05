@@ -18,24 +18,28 @@
                     });
             },
             exploreRestaurants: function (queryParams) {
-                var endpointUrl = BASE_URL_VENUE + '/explore?ll=43.604500004500004,-79.6437976014868&section=food&openNow=1&radius=1000&price=2&venuePhotos=1&oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
+                var endpointUrl = BASE_URL_VENUE + '/explore?ll=49.282062,-123.122710&section=food&openNow=1&radius=1000&price=2&venuePhotos=1&oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
                 var venues = [];
-                return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl, queryParams: queryParams})
-                    .then(function (response) {
-                        var itemsResponse = response.data.response.groups[0].items;
+                var transformVenueResponse = function (response) {
+                    var itemsResponse = response.data.response.groups[0].items;
 
-                        venues = itemsResponse.map(function(item, index) {
-                            var venue = {};
-                            var venuePhoto = item.venue.photos.groups[0].items[0];
-                            venue['id'] = index + 1;
-                            venue['title'] = item.venue.name;
-                            venue['imdbRating'] = item.venue.rating;
-                            venue['imageUrl'] = venuePhoto.prefix + '500x500' + venuePhoto.suffix;
-                            venue['primaryColor'] = '#FF0000';
-                            return venue;
-                        });
-                        return venues;
+                    venues = itemsResponse.map(function (item, index) {
+                        var venue = {};
+                        var venuePhoto = item.venue.photos.groups[0].items[0];
+                        venue['itemIndex'] = index + 1;
+                        venue['foursquareId'] = item.venue.id;
+                        venue['title'] = item.venue.name;
+                        venue['rating'] = item.venue.rating;
+                        venue['category'] = item.venue.categories[0].shortName;
+                        venue['hours'] = item.venue.hours;
+                        venue['imageUrl'] = venuePhoto.prefix + '500x500' + venuePhoto.suffix;
+                        return venue;
                     });
+                    return venues;
+                };
+
+                return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl, queryParams: queryParams})
+                    .then(transformVenueResponse);
             }
         }
     };
