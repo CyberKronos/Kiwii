@@ -26,6 +26,14 @@
     $scope.goRegister = function() {
       $state.go('register');
     };
+
+    $scope.facebookLogin = function() {
+      if (!window.cordova) {
+        var appId = 1594340540779035;
+        facebookConnectPlugin.browserInit(appId);
+      }
+      Actions.facebookLogin();
+    };
   };
 
   angular.module('app').

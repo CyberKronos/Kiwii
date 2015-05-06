@@ -1,7 +1,6 @@
 
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 
-// Instagram Api
 // Copy the cloud module in your cloud folder
 var ig = require('cloud/instagram-v1-1.0.js');
 // Paste your client_id here
@@ -9,6 +8,7 @@ ig.initialize('83917d76cf494eb1a888bec8282f8611');
 // Paste your access_token here if needed
 ig.setAccessToken('10540106.83917d7.5369ddd80fec497da72ebce95b235cd5');
 
+// Instagram Api
 Parse.Cloud.define('searchLocation', function(request, response) {
   ig.searchLocation({
     foursquare_v2_id: request.params.foursquareId
@@ -27,6 +27,20 @@ Parse.Cloud.define('getRecentMediaByLocation', function(request, response) {
   },
   function(error) {
     response.error(error);
+  });
+});
+
+// Foursquare Api
+Parse.Cloud.define("callFoursquareApi", function(request, response) {
+  Parse.Cloud.httpRequest({
+    method: "GET",
+    url: request.params.url,
+    success: function (httpResponse) {
+      response.success(httpResponse);
+    },
+    error: function (httpResponse) {
+      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
+    }
   });
 });
 
@@ -146,18 +160,4 @@ Parse.Cloud.define('getRecentMediaByLocation', function(request, response) {
 //     response.error(error);
 //   });
 // });
-
-// Foursquare Api
-Parse.Cloud.define("callFoursquareApi", function(request, response) {
-  Parse.Cloud.httpRequest({
-    method: "GET",
-    url: request.params.url,
-    success: function (httpResponse) {
-      response.success(httpResponse);
-    },
-    error: function (httpResponse) {
-      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
-    }
-  });
-});
 

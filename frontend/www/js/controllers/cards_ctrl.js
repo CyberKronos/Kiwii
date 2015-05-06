@@ -1,5 +1,5 @@
 (function() {
-  var CardsCtrl = function($scope, Store, PosterPreloader, Actions, AppConstants, ApiConstants, $state, InstagramApi, FoursquareApi) {
+  var CardsCtrl = function($scope, $rootScope, Store, PosterPreloader, Actions, AppConstants, ApiConstants, $state, InstagramApi, FoursquareApi) {
     // $scope.sideMenuIsOpen = function() {
     //   return $ionicSideMenuDelegate.isOpenLeft();
     // }
@@ -64,8 +64,15 @@
     $scope.restaurantDetails = function() {
       var foursquareId = '4e5eb1e61fc724eac4c172e0';
 
-      InstagramApi.getLocationImages(foursquareId);
-      FoursquareApi.getRestaurantReviews(foursquareId);
+      InstagramApi.getLocationImages(foursquareId)
+      .then(function(images){
+        $rootScope.instagramImages = images; 
+      });
+
+      FoursquareApi.getRestaurantReviews(foursquareId)
+      .then(function(tips) {
+        $rootScope.restaurantReviews = tips;
+      });
 
       $state.go('details');
     };
