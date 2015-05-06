@@ -29,8 +29,10 @@
             $rootScope.cardTitle = '';
             $rootScope.cuisineType = '';
             if ($scope.data.location) {
-                var latlon = $scope.data.location.geometry.location;
-                $scope.criteria.ll =  latlon.j + ',' + latlon.C;
+                console.log($scope.data.location);
+                var latlng = $scope.data.location.geometry.location;
+                console.log(latlng);
+                $scope.criteria.ll =  latlng.lat() + ',' + latlng.lng();
             }
             $state.go('cards');
         };
