@@ -1,5 +1,5 @@
-(function () {
-    var FoursquareApi = function ($rootScope, $http) {
+(function() {
+  var FoursquareApi = function($http) {
         /* Private Methods */
         var OAUTH_TOKEN = 'RGT5ZXHWBGVROTMD1ETZN1GMK0CLTNQEBYMUHEC3OY4XAQDQ';
         var API_VERSION = '20141020';
@@ -14,7 +14,7 @@
                     .then(function (response) {
                         var tips = response.tips.items;
                         console.log(tips);
-                        $rootScope.restaurantReviews = tips;
+          return tips;
                     });
             },
             exploreRestaurants: function (queryParams) {

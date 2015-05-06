@@ -28,8 +28,15 @@
         };
 
         $scope.restaurantDetails = function (restuarant) {
-            InstagramApi.getLocationImages(restuarant.foursquareId);
-            FoursquareApi.getRestaurantReviews(restuarant.foursquareId);
+            InstagramApi.getLocationImages(restuarant.foursquareId)
+                .then(function (images) {
+                    $rootScope.instagramImages = images;
+                });
+
+            FoursquareApi.getRestaurantReviews(restuarant.foursquareId)
+                .then(function (tips) {
+                    $rootScope.restaurantReviews = tips;
+                });
 
             $state.go('details');
         };
