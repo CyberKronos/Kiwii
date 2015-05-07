@@ -1,6 +1,8 @@
 (function () {
     var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi) {
 
+        var previousRestuarants = [];
+
         $scope.dismissShow = function (show) {
             var i = $scope.restuarants.indexOf(show);
             $scope.dislikedShow(i);
@@ -14,17 +16,33 @@
         };
 
         /* Card callbacks from swiping */
-        $scope.destroyShow = function (index) {
+        //$scope.destroyRestuarant = function (index) {
+        //    $scope.restuarants.splice(index, 1);
+        //    console.log($scope.restuarants);
+        //};
+
+        $scope.nextRestuarant = function (index) {
+            console.log('Swiped Left');
+            previousRestuarants.push($scope.restuarants[index]);
             $scope.restuarants.splice(index, 1);
             console.log($scope.restuarants);
+            console.log(previousRestuarants);
+            if ($scope.restuarants <= 0) {
+                $state.go('dash');
+            }
         };
 
-        $scope.dislikedShow = function (index) {
-            //Actions.dislikeShow($scope.shows[index].id);
-        };
-
-        $scope.likedShow = function (index) {
-            //Actions.likeShow($scope.shows[index].id);
+        $scope.prevRestuarant = function (index) {
+            console.log('Swiped Right');
+            if (previousRestuarants.length > 0) {
+                var lastRestuarant = previousRestuarants.pop();
+                console.log(lastRestuarant);
+                $scope.restuarants.splice(index, 0, lastRestuarant);
+            } else {
+                $state.go('dash');
+            }
+            console.log($scope.restuarants);
+            console.log(previousRestuarants);
         };
 
         $scope.restaurantDetails = function (restuarant) {

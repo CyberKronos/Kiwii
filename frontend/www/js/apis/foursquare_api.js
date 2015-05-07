@@ -10,11 +10,11 @@
             getRestaurantReviews: function (foursquareId) {
                 var endpointUrl = 'https://api.foursquare.com/v2/venues/' + foursquareId + '/tips?oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
 
-                Parse.Cloud.run('callFoursquareApi', {url: endpointUrl})
+                return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl})
                     .then(function (response) {
                         var tips = response.tips.items;
                         console.log(tips);
-          return tips;
+                        return tips;
                     });
             },
             exploreRestaurants: function (queryParams) {
