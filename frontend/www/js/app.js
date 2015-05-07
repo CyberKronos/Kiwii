@@ -21,26 +21,20 @@
 
     // Load search rootscope
     $rootScope.searchCriteria = {
-      counter: '',
-      name: '',
-      restaurantName: '',
-      id: '',
-      twitter: '',
-      price: '',
-      distance: '',
-      cuisineId: '',
-      latitude: '',
-      longitude: ''
-    }
+      price: '1,4',
+      radius: 500,
+      ll: ''
+    };
+
     // Geolocation to get location position
     var posOptions = { timeout: 10000, enableHighAccuracy: false };
     $cordovaGeolocation
     .getCurrentPosition(posOptions)
     .then(function (position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-      $rootScope.searchCriteria['latitude'] = lat;
-      $rootScope.searchCriteria['longitude'] = long;
+      var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+      $rootScope.searchCriteria['ll'] = lat + ',' + long;
+
     }, function(err) {
       // error
       console.log("Error retrieving position " + err.code + " " + err.message)

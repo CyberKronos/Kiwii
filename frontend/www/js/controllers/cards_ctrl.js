@@ -1,85 +1,53 @@
-(function() {
-  var CardsCtrl = function($scope, $rootScope, Store, PosterPreloader, Actions, AppConstants, ApiConstants, $state, InstagramApi, FoursquareApi) {
-    // $scope.sideMenuIsOpen = function() {
-    //   return $ionicSideMenuDelegate.isOpenLeft();
-    // }
+(function () {
+    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi) {
 
-    $scope.dismissShow = function(show) {
-      var i = $scope.shows.indexOf(show);
-      $scope.dislikedShow(i);
-      $scope.destroyShow(i);
-    }
+        $scope.dismissShow = function (show) {
+            var i = $scope.restuarants.indexOf(show);
+            $scope.dislikedShow(i);
+            $scope.destroyShow(i);
+        };
 
-    $scope.saveShow = function(show) {
-      var i = $scope.shows.indexOf(show);
-      $scope.likedShow(i);
-      $scope.destroyShow(i);
-    }
+        $scope.saveShow = function (show) {
+            var i = $scope.restuarants.indexOf(show);
+            $scope.likedShow(i);
+            $scope.destroyShow(i);
+        };
 
-    /* Card callbacks from swiping */
-    $scope.destroyShow = function(index) {
-      $scope.shows.splice(index, 1);
-      if ($scope.shows.length <= 3 && !$scope.fetchInProgress) {
-        $scope.fetchInProgress = true;
-        $scope.appendShows = true;
-        Actions.fetchShows();
-      }
-    }
+        /* Card callbacks from swiping */
+        $scope.destroyShow = function (index) {
+            $scope.restuarants.splice(index, 1);
+            console.log($scope.restuarants);
+        };
 
-    $scope.dislikedShow = function(index) {
-      Actions.dislikeShow($scope.shows[index].id);
-    }
+        $scope.dislikedShow = function (index) {
+            //Actions.dislikeShow($scope.shows[index].id);
+        };
 
-    $scope.likedShow = function(index) {
-      Actions.likeShow($scope.shows[index].id);
-    }
+        $scope.likedShow = function (index) {
+            //Actions.likeShow($scope.shows[index].id);
+        };
 
-    $scope.partialSwipeShow = function(index) { }
-    $scope.snapBackShow = function(index) { }
+        $scope.restaurantDetails = function (restuarant) {
+            InstagramApi.getLocationImages(restuarant.foursquareId)
+                .then(function (images) {
+                    $rootScope.instagramImages = images;
+                });
 
-    /* Initialize the state */
-    Store.bindState($scope, function(action) {
-      if (action && action.actionType == AppConstants.FETCH_SHOWS) {
-        if (action.response == ApiConstants.PENDING) {
-          $scope.fetchInProgress = true;
-        } else {
-          $scope.updateShows(Store.getShows());
-          $scope.fetchInProgress = false;
-        }
-      }
-    });
+            FoursquareApi.getRestaurantReviews(restuarant.foursquareId)
+                .then(function (tips) {
+                    $rootScope.restaurantReviews = tips;
+                });
 
-    // Ensures that we don't have any duplicate shows
-    $scope.updateShows = function(shows) {
-      if ($scope.appendShows) {
-        $scope.shows = _.union($scope.shows, shows);
-        $scope.shows = _.uniq($scope.shows, false, function(show) {
-          return show.id;
-        });
-      } else {
-        $scope.shows = shows;
-      }
-    }
+            $state.go('details');
+        };
 
-    $scope.restaurantDetails = function() {
-      var foursquareId = '4e5eb1e61fc724eac4c172e0';
-
-      InstagramApi.getLocationImages(foursquareId)
-      .then(function(images){
-        $rootScope.instagramImages = images; 
-      });
-
-      FoursquareApi.getRestaurantReviews(foursquareId)
-      .then(function(tips) {
-        $rootScope.restaurantReviews = tips;
-      });
-
-      $state.go('details');
+        FoursquareApi.exploreRestaurants($rootScope.searchCriteria).then(
+            function (response) {
+                $scope.restuarants = response;
+                $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
+            });
     };
 
-    Actions.fetchShows();
-  };
-
-  angular.module('app').
-    controller('CardsCtrl', CardsCtrl);
+    angular.module('app').
+        controller('CardsCtrl', CardsCtrl);
 })();

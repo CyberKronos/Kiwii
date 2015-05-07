@@ -37,7 +37,7 @@
       <div class="list list-inset">
         <p>Location</p>
         <label class="item item-input ion-google-place-search">
-          <ion-google-place placeholder="Current location" ng-model="location" />
+          <ion-google-place placeholder="Current location" ng-model="data.location" />
         </label>
       </div>
 
@@ -47,11 +47,10 @@
           <input type="range" 
                  min="{{distanceList.min}}" 
                  max="{{distanceList.max}}" 
-                 value="{{distanceList.value}}" 
-                 step="0.5" 
-                 ng-model="distanceList.value" 
-                 ng-change="updateDistance(distanceList.value)">
-          <span id="distance-textbox">{{distanceList.value}} km</span>
+                 value="{{criteria.radius}}"
+                 step="{{distanceList.step}}"
+                 ng-model="criteria.radius"
+          <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
         </div>
       </div>
 
@@ -60,8 +59,7 @@
         <div class="button-bar">
           <ion-radio ng-repeat="item in priceList"
                      ng-value="item.value"
-                     ng-model="data.price"
-                     ng-change="updatePrice(item)"
+                     ng-model="criteria.price"
                      class="button button-assertive button-outline"
                      name="radio2">
             {{ item.text }}

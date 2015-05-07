@@ -35,8 +35,10 @@ Parse.Cloud.define("callFoursquareApi", function(request, response) {
   Parse.Cloud.httpRequest({
     method: "GET",
     url: request.params.url,
+    params: request.params.queryParams,
     success: function (httpResponse) {
-      response.success(httpResponse);
+      var responseBody = JSON.parse(httpResponse.text);
+      response.success(responseBody.response);
     },
     error: function (httpResponse) {
       response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
@@ -160,4 +162,3 @@ Parse.Cloud.define("callFoursquareApi", function(request, response) {
 //     response.error(error);
 //   });
 // });
-
