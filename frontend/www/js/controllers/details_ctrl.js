@@ -1,48 +1,46 @@
 (function() {
-  var DetailsCtrl = function($scope, $state, $timeout, $ionicPopover) {
+  var DetailsCtrl = function($scope, $state, $timeout, $ionicPopover, RestuarantPreference) {
+
+    // TODO: Don't use hardcoded restuarant
+    $scope.restuarant = {
+      title: 'Le Marché St. George',
+      id: '4d10e635e236548135997aea'
+    };
+
+    var restuarantPreference = null;
 
     $scope.toggleFavourite = function($event) {
-      // TODO: Update server
-      $scope.isFavourite = !$scope.isFavourite;
-      if ($scope.isFavourite) {
-        //$scope.showFavouritesPopup(); // Alternate way of showing saved popup
-        $scope.popover.show($event);
-      }
-    };
+      restuarantPreference.toggle()
+          .then(function(isFavourite) {
+            $scope.isFavourite = isFavourite;
 
-    $scope.restuarant = {
-      title: 'Le Marché St. George'
+            // TODO: Consider using https://github.com/rafbgarcia/angular-parse-wrapper
+            $scope.$digest();
+            if (isFavourite) {
+              $scope.popover.show($event);
+            }
+          });
     };
-
-    //$scope.showFavouritesPopup = function() {
-    //  var favouritesPopup = $ionicPopup.show({
-    //    title: 'Added <b>Le Marché St. George</b> to your \'Saved for later\' list.',
-    //    scope: $scope,
-    //    buttons: [
-    //      {text : 'Check out your list',
-    //       onTap : function(e) {
-    //        console.log(e);
-    //         $state.go('profile');
-    //       }}
-    //    ]
-    //  });
-    //  $timeout(function() {
-    //    favouritesPopup.close();
-    //  }, 3000);
-    //};
 
     $scope.popover = $ionicPopover.fromTemplateUrl('templates/favourites_popup.html' , {
-      scope: $scope,
+      scope: $scope
     }).then(function(popover) {
       $scope.popover = popover;
     });
 
-//Cleanup the popover when we're done with it!
     $scope.$on('$destroy', function() {
       $scope.popover.remove();
     });
 
-    $scope.isFavourite = false;
+    // TODO: Use Parse.User.current() instead
+    new Parse.Query('_User').get('0UqMUpM14U')
+        .then(function(user) {
+          restuarantPreference = new RestuarantPreference(user, $scope.restuarant.id);
+          return restuarantPreference.isFavourite();
+        })
+        .then(function(isFavourite) {
+          $scope.isFavourite = isFavourite;
+        });
   };
 
   angular.module('app').
