@@ -8,7 +8,7 @@
         /* Public Interface */
         return {
             getRestaurantReviews: function (foursquareId) {
-                var endpointUrl = 'https://api.foursquare.com/v2/venues/' + foursquareId + '/tips?oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
+                var endpointUrl = BASE_URL_VENUE + foursquareId + '/tips?oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
 
                 return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl})
                     .then(function (response) {
@@ -50,7 +50,17 @@
 
                 return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl, queryParams: queryParams})
                     .then(transformVenueResponse);
-            }
+            },
+            getRestaurantDetails: function (foursquareId) {
+                var endpointUrl = BASE_URL_VENUE + foursquareId + '?oauth_token=' + OAUTH_TOKEN + '&v=' + API_VERSION;
+
+                return Parse.Cloud.run('callFoursquareApi', {url: endpointUrl})
+                    .then(function (response) {
+                        var details = response.venue;
+                        console.log(details);
+                        return details;
+                    });
+            },
         }
     };
 

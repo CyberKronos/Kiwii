@@ -12,16 +12,19 @@
     </ion-nav-bar>
 
     <ion-content style="top: 0 !important;">
-        <div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat; background-size: cover; height: 50vh; width: 100%; position: absolute;">
+        <div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ restaurantDetails.bestPhoto.prefix }}500x500{{ restaurantDetails.bestPhoto.suffix }}') no-repeat; background-size: cover; height: 50vh; width: 100%; position: absolute;">
             <div style="color: #ffffff; position: absolute; bottom: 0; padding: 20px;">
-                <p class="title">Le Marche St. George</p>
-                <p class="subtext">Cafe</p>
-                <p class="subtext">Price: $$ (Moderate)</p>
-                <p class="subtext">9.3/10</p>
+                <p class="title">{{ restaurantDetails.name }}</p>
+                <p class="subtext">Cafe - need change</p>
+                <p class="subtext" ng-if="restaurantDetails.price.tier == 1">Price: $ ({{ restaurantDetails.price.message }})</p>
+                <p class="subtext" ng-if="restaurantDetails.price.tier == 2">Price: $$ ({{ restaurantDetails.price.message }})</p>
+                <p class="subtext" ng-if="restaurantDetails.price.tier == 3">Price: $$$ ({{ restaurantDetails.price.message }})</p>
+                <p class="subtext" ng-if="restaurantDetails.price.tier == 4">Price: $$$$ ({{ restaurantDetails.price.message }})</p>
+                <p class="subtext" ng-if="restaurantDetails.rating != null">{{ restaurantDetails.rating }}/10</p>
 
                 <br/>
 
-                <p>Open today until 7:00 PM</p>
+                <p>{{ restaurantDetails.hours.status }}</p>
             </div>
         </div>
 
@@ -41,21 +44,21 @@
             </div>
 
             <div class="item item-image" ng-click="goToMap()">
-                <!-- <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{business.location.lng}},{{business.location.lat}})/{{business.location.lng}},{{business.location.lat}},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ"> -->
-                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636(49.2842,-123.1211)/-123.1211,49.2842,17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
+                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lat }},{{ restaurantDetails.location.lng }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
             </div>
             <div class="details-text">
-                <p>E 28th Ave, Vancouver, BC V5V, Canada</p>
-                <p>604-565-5107</p>
-                <p>www.lemarchestgeorge.com</p>
+                <p>{{ restaurantDetails.location.formattedAddress[0] }}</p>
+                <p>{{ restaurantDetails.location.formattedAddress[1] }}</p>
+                <p>{{ restaurantDetails.contact.formattedPhone }}</p>
+                <p>{{ restaurantDetails.url }}</p>
 
                 <button class="button button-block button-assertive" 
-                        ng-click="openWebsite(business.menu.mobileUrl)">
+                        ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
                     Menu
                 </button>
 
                 <button class="button button-block button-assertive" 
-                        ng-click="openWebsite(business.reservations.url)">
+                        ng-click="openWebsite(restaurantDetails.reservations.url)">
                     Make a reservation
                 </button>
             </div>
