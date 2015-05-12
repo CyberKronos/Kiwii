@@ -42,7 +42,6 @@
         };
 
         $scope.selectCuisinesPopup = function () {
-            // $ionicHistory.currentTitle('Main');
             console.log($ionicHistory.viewHistory());
         };
     }

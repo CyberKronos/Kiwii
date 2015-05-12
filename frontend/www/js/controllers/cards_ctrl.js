@@ -28,6 +28,11 @@
         };
 
         $scope.restaurantDetails = function (restuarant) {
+            FoursquareApi.getRestaurantDetails(restuarant.foursquareId)
+                .then(function (details) {
+                    $rootScope.restaurantDetails = details;
+                });
+
             InstagramApi.getLocationImages(restuarant.foursquareId)
                 .then(function (images) {
                     $rootScope.instagramImages = images;
@@ -41,8 +46,8 @@
             $state.go('details');
         };
 
-        FoursquareApi.exploreRestaurants($rootScope.searchCriteria).then(
-            function (response) {
+        FoursquareApi.exploreRestaurants($rootScope.searchCriteria)
+            .then(function (response) {
                 $scope.restuarants = response;
                 $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
             });
