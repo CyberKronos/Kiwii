@@ -19,7 +19,7 @@
         <span class="button button-icon button-clear ion-chevron-right"></span>
         <h4 ng-bind-html="restuarant.title | unsafe"></h4>
         <p class="subtext">{{restuarant.category}}</p>
-        <p class="subtext">{{restuarant.rating}}/10</p>
+        <p class="subtext" ng-if="restuarant.rating">{{restuarant.rating}}/10</p>
         <!-- <div class="show-card-row show-card-plain-row pt0"> -->
           <!-- <span ng-bind-html="show.description | limitTo: 450 | unsafe"></span>
           <span ng-if="show.description.length >= 450">&hellip;</span> -->
