@@ -1,5 +1,13 @@
 (function() {
   var DetailsCtrl = function($scope, $state, $timeout, $ionicPopover, RestuarantPreference) {
+    
+    $scope.navSlide = function(index) {
+      	$ionicSlideBoxDelegate.slide(index, 500);
+    }
+
+    $scope.openWebsite = function(link) {
+    	window.open(link, '_blank', 'location=yes');
+    }
 
     // TODO: Don't use hardcoded restuarant
     $scope.restuarant = {

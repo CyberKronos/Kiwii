@@ -15,7 +15,7 @@
         <div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ restaurantDetails.bestPhoto.prefix }}500x500{{ restaurantDetails.bestPhoto.suffix }}') no-repeat; background-size: cover; height: 50vh; width: 100%; position: absolute;">
             <div style="color: #ffffff; position: absolute; bottom: 0; padding: 20px;">
                 <p class="title">{{ restaurantDetails.name }}</p>
-                <p class="subtext">Cafe - need change</p>
+                <p class="subtext">{{ restaurantDetails.categories[0].shortName }}</p>
                 <p class="subtext" ng-if="restaurantDetails.price.tier == 1">Price: $ ({{ restaurantDetails.price.message }})</p>
                 <p class="subtext" ng-if="restaurantDetails.price.tier == 2">Price: $$ ({{ restaurantDetails.price.message }})</p>
                 <p class="subtext" ng-if="restaurantDetails.price.tier == 3">Price: $$$ ({{ restaurantDetails.price.message }})</p>
@@ -50,14 +50,19 @@
                 <p>{{ restaurantDetails.location.formattedAddress[0] }}</p>
                 <p>{{ restaurantDetails.location.formattedAddress[1] }}</p>
                 <p>{{ restaurantDetails.contact.formattedPhone }}</p>
-                <p>{{ restaurantDetails.url }}</p>
+                <p ng-if="restaurantDetails.url" 
+                   ng-click="openWebsite(restaurantDetails.url)">
+                    {{ restaurantDetails.url }}
+                </p>
 
                 <button class="button button-block button-assertive" 
+                        ng-if="restaurantDetails.menu.mobileUrl"
                         ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
                     Menu
                 </button>
 
                 <button class="button button-block button-assertive" 
+                        ng-if="restaurantDetails.reservations.url"
                         ng-click="openWebsite(restaurantDetails.reservations.url)">
                     Make a reservation
                 </button>
