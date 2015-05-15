@@ -1,5 +1,5 @@
 (function () {
-    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi) {
+    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi, RestaurantDetails) {
 
         var previousRestuarants = [];
 
@@ -45,22 +45,9 @@
             console.log(previousRestuarants);
         };
 
-        $scope.restaurantDetails = function (restuarant) {
-            FoursquareApi.getRestaurantDetails(restuarant.foursquareId)
-                .then(function (details) {
-                    $rootScope.restaurantDetails = details;
-                });
-
-            InstagramApi.getLocationImages(restuarant.foursquareId)
-                .then(function (images) {
-                    $rootScope.instagramImages = images;
-                });
-
-            FoursquareApi.getRestaurantReviews(restuarant.foursquareId)
-                .then(function (tips) {
-                    $rootScope.restaurantReviews = tips;
-                });
-
+        $scope.restaurantDetails = function (restaurant) {
+            // TODO: Pass venue ID through state parameters instead
+            RestaurantDetails.setVenueId(restaurant.foursquareId);
             $state.go('details');
         };
 

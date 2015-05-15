@@ -35,7 +35,7 @@
 
         $rootScope.searchCriteria = $scope.criteria;
 
-        $scope.updateDistanceLabel = function(distance) {
+        $scope.updateDistanceLabel = function (distance) {
             var i;
             for (i = 0; i < DISTANCE_LABELS.length; i++) {
                 if (distance >= DISTANCE_LABELS[i].minDistance) {
