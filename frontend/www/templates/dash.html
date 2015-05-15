@@ -48,11 +48,13 @@
                     <i class="icon {{distanceLabel.icon}}"></i>
                 </div>
                 <div class="range range-assertive">
+                    <!--Min, max, step needs to be defined here due to a bug-->
+                    <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
                     <input type="range"
-                           min="{{distanceListConfig.min}}"
-                           max="{{distanceListConfig.max}}"
+                           min="1000"
+                           max="15000"
+                           step="1000"
                            value="{{criteria.radius}}"
-                           step="{{distanceListConfig.step}}"
                            ng-model="criteria.radius"
                            ng-change="updateDistanceLabel(criteria.radius)">
                     <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
