@@ -7,9 +7,13 @@
       if ((stateId == 'login') || (stateId == 'register')) {
         $state.go('start');
       }
-      // If view is in card list then remove history and set back to dash view
+      // If view is in card list, set back to dash view
       if (stateId == 'cards' || stateId == 'profile') { 
-        $state.go('dash');
+        if ($ionicHistory.backView().stateId == 'details') {
+          $state.go('details');
+        } else {
+          $state.go('dash');
+        }
       }
       // // If view is in map, go back to details
       // if (stateId == 'tab.map') {

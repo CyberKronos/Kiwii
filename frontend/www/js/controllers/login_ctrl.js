@@ -13,7 +13,10 @@
         var appId = 1594340540779035;
         facebookConnectPlugin.browserInit(appId);
       }
-      Actions.facebookLogin();
+      Actions.facebookLogin()
+      .then(function() {
+        $state.go('dash');
+      });
     };
   }
 
