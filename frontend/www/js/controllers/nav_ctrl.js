@@ -15,10 +15,10 @@
           $state.go('dash');
         }
       }
-      // // If view is in map, go back to details
-      // if (stateId == 'tab.map') {
-      //   $state.go('tab.details', {});
-      // }
+      // If view is in map, go back to details
+      if (stateId == 'maps') {
+        $state.go('details');
+      }
       // If view is in any of the tabbed pages, set back to card list
       if ((stateId == 'details') || (stateId == 'instagram') || (stateId == 'reviews')) {
         if ($ionicHistory.backView().stateId == 'profile') {

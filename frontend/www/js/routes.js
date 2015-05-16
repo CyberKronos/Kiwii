@@ -79,6 +79,15 @@
           data: {
           requiresLogin: true
         }
+      })
+
+      .state('maps', {
+        url: '/dash/list/details/maps',
+        templateUrl: 'templates/maps.html',
+        controller: 'MapsCtrl',
+        data: {
+          requiresLogin: true
+        }
       });
 
     $urlRouterProvider.otherwise('/dash');

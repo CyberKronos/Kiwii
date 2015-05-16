@@ -83,7 +83,7 @@
 
                   console.log("User signed up through Facebook!");
 
-                  // move to store.js
+                  // TODO: move to store.js
                   return $localStorage.$default({
                     profileInfo: profileInfo
                   });
