@@ -66,7 +66,8 @@
       .state('instagram', {
         url: '/dash/list/instagram',
         templateUrl: 'templates/instagram.html',
-        data: {
+          controller: 'DetailsCtrl',
+          data: {
           requiresLogin: true
         }
       })
@@ -74,7 +75,8 @@
       .state('reviews', {
         url: '/dash/list/reviews',
         templateUrl: 'templates/reviews.html',
-        data: {
+          controller: 'DetailsCtrl',
+          data: {
           requiresLogin: true
         }
       });

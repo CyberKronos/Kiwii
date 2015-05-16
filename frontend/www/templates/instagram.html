@@ -4,9 +4,10 @@
 	        <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
 	    </ion-nav-buttons>
 	    <ion-nav-buttons side="right">
-	        <button class="button" style="border:none;" ng-click="addToFavourites()" >
-	            <i class="{{ favouriteIcon }}"></i>
-	        </button>
+			<button class="button icon"
+					ng-class="{'ion-ios-star': isFavourite, 'ion-ios-star-outline': !isFavourite}"
+					ng-click="toggleFavourite(restuarant.id)">
+			</button>
 	    </ion-nav-buttons>
     </ion-nav-bar>
 

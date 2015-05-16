@@ -3,9 +3,12 @@
 		<ion-nav-buttons side="left">
 	        <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
 	    </ion-nav-buttons>
-	    <ion-nav-buttons side="right">
-	       <user-info></user-info>
-	    </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button icon"
+                    ng-class="{'ion-ios-star': isFavourite, 'ion-ios-star-outline': !isFavourite}"
+                    ng-click="toggleFavourite($event)">
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content style="top: 0 !important;">
@@ -41,7 +44,7 @@
             </div>
 
             <div class="item item-image" ng-click="goToMap()">
-                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
+                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lat }},{{ restaurantDetails.location.lng }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
             </div>
             <div class="details-text">
                 <p>{{ restaurantDetails.location.formattedAddress[0] }}</p>

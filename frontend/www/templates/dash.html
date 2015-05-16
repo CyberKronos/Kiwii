@@ -1,81 +1,87 @@
 <ion-view view-title="">
-  <ion-header-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
-     <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
-          ng-controller="NavCtrl">
-       <!-- <a ng-click="openLikedShowsModal()"
-          class="button button-icon button-clear ion-android-list
-                 favorites-button
-                 ng-class:{'button-positive': likedShowsModalIsOpen}">
-       </a> -->
+    <ion-header-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
+        <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
+             ng-controller="NavCtrl">
+            <!-- <a ng-click="openLikedShowsModal()"
+               class="button button-icon button-clear ion-android-list
+                      favorites-button
+                      ng-class:{'button-positive': likedShowsModalIsOpen}">
+            </a> -->
 
-       <user-info></user-info>
+            <user-info></user-info>
 
-       <!-- <a ng-click="openPopover($event)"
-          class="more-link-options button button-icon button-clear
-                 ion-android-more-vertical
-                 ng-class:{'button-positive': moreOptionsPopoverIsOpen}">
-       </a> -->
-    </div>
-  </ion-header-bar>
-
-  <ion-content padding="true" scroll="false"
-               ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
-    <div style="padding: 0 30px;">
-      <div class="list list-inset">
-        <p>Choose a cuisine</p>
-        <button class="button button-block button-assertive" 
-                ng-click="searchRestaurants()">
-          All Cuisines
-        </button>
-      </div>
-      <!-- <button class="button button-block button-assertive" ng-click="selectCuisinesPopup()">
-        Select Cuisine
-      </button> -->
-      <!-- <button class="button button-block button-assertive" ng-click="searchRecipes()">
-        Search Recipes
-      </button> -->
-      <div class="list list-inset">
-        <p>Location</p>
-        <label class="item item-input ion-google-place-search">
-          <ion-google-place placeholder="Current location" ng-model="data.location" />
-        </label>
-      </div>
-
-      <div class="list list-inset">
-        <p>Distance</p>
-        <div class="range range-assertive">
-          <input type="range" 
-                 min="{{distanceList.min}}" 
-                 max="{{distanceList.max}}" 
-                 value="{{criteria.radius}}"
-                 step="{{distanceList.step}}"
-                 ng-model="criteria.radius"
-          <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
+            <!-- <a ng-click="openPopover($event)"
+               class="more-link-options button button-icon button-clear
+                      ion-android-more-vertical
+                      ng-class:{'button-positive': moreOptionsPopoverIsOpen}">
+            </a> -->
         </div>
-      </div>
+    </ion-header-bar>
 
-      <div class="list list-inset">
-        <p>Price Range</p>
-        <div class="button-bar">
-          <ion-radio ng-repeat="item in priceList"
-                     ng-value="item.value"
-                     ng-model="criteria.price"
-                     class="button button-assertive button-outline"
-                     name="radio2">
-            {{ item.text }}
-          </ion-radio>
+    <ion-content padding="true" scroll="false"
+                 ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
+        <div style="padding: 0 30px;">
+            <div class="list list-inset">
+                <p>Choose a cuisine</p>
+                <button class="button button-block button-assertive"
+                        ng-click="searchRestaurants()">
+                    All Cuisines
+                </button>
+            </div>
+            <!-- <button class="button button-block button-assertive" ng-click="selectCuisinesPopup()">
+              Select Cuisine
+            </button> -->
+            <!-- <button class="button button-block button-assertive" ng-click="searchRecipes()">
+              Search Recipes
+            </button> -->
+            <div class="list list-inset">
+                <p>Location</p>
+                <label class="item item-input ion-google-place-search">
+                    <ion-google-place placeholder="Current location" ng-model="data.location"/>
+                </label>
+                <br>
+
+                <p>Distance</p>
+
+                <div id="distance-label" class="item item-icon-left">
+                    <h2>{{distanceLabel.text}}</h2>
+                    <i class="icon {{distanceLabel.icon}}"></i>
+                </div>
+                <div class="range range-assertive">
+                    <!--Min, max, step needs to be defined here due to a bug-->
+                    <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
+                    <input type="range"
+                           min="1000"
+                           max="15000"
+                           step="1000"
+                           value="{{criteria.radius}}"
+                           ng-model="criteria.radius"
+                           ng-change="updateDistanceLabel(criteria.radius)">
+                    <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
+                </div>
+
+                <p>Price Range</p>
+
+                <div class="button-bar bar-assertive">
+                    <ion-radio ng-repeat="item in priceList"
+                               ng-value="item.value"
+                               ng-model="criteria.price"
+                               class="button button-assertive button-outline"
+                               name="radio2">
+                        {{ item.text }}
+                    </ion-radio>
+                </div>
+            </div>
+
+            <button class="button button-block button-assertive search-button" ng-click="searchRestaurants()">
+                Let's eat!
+            </button>
+
+            <p class="text-centered">Or not sure what you're looking for?</p>
+
+            <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
+                Top Ten
+            </button>
         </div>
-      </div>
-
-      <button class="button button-block button-assertive search-button" ng-click="searchRestaurants()">
-        Let's eat!
-      </button>
-
-      <p class="text-centered">Or not sure what you're looking for?</p>
-
-      <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
-        Top Ten
-      </button>
-    </div>
-  </ion-content>
+    </ion-content>
 </ion-view>

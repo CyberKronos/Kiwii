@@ -1,5 +1,7 @@
 (function () {
-    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi) {
+    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi, RestaurantDetails) {
+
+        var previousRestuarants = [];
 
         $scope.dismissShow = function (show) {
             var i = $scope.restuarants.indexOf(show);
@@ -14,35 +16,38 @@
         };
 
         /* Card callbacks from swiping */
-        $scope.destroyShow = function (index) {
+        //$scope.destroyRestuarant = function (index) {
+        //    $scope.restuarants.splice(index, 1);
+        //    console.log($scope.restuarants);
+        //};
+
+        $scope.nextRestuarant = function (index) {
+            console.log('Swiped Left');
+            previousRestuarants.push($scope.restuarants[index]);
             $scope.restuarants.splice(index, 1);
             console.log($scope.restuarants);
+            console.log(previousRestuarants);
+            if ($scope.restuarants <= 0) {
+                $state.go('dash');
+            }
         };
 
-        $scope.dislikedShow = function (index) {
-            //Actions.dislikeShow($scope.shows[index].id);
+        $scope.prevRestuarant = function (index) {
+            console.log('Swiped Right');
+            if (previousRestuarants.length > 0) {
+                var lastRestuarant = previousRestuarants.pop();
+                console.log(lastRestuarant);
+                $scope.restuarants.splice(index, 0, lastRestuarant);
+            } else {
+                $state.go('dash');
+            }
+            console.log($scope.restuarants);
+            console.log(previousRestuarants);
         };
 
-        $scope.likedShow = function (index) {
-            //Actions.likeShow($scope.shows[index].id);
-        };
-
-        $scope.restaurantDetails = function (restuarant) {
-            FoursquareApi.getRestaurantDetails(restuarant.foursquareId)
-                .then(function (details) {
-                    $rootScope.restaurantDetails = details;
-                });
-
-            InstagramApi.getLocationImages(restuarant.foursquareId)
-                .then(function (images) {
-                    $rootScope.instagramImages = images;
-                });
-
-            FoursquareApi.getRestaurantReviews(restuarant.foursquareId)
-                .then(function (tips) {
-                    $rootScope.restaurantReviews = tips;
-                });
-
+        $scope.restaurantDetails = function (restaurant) {
+            // TODO: Pass venue ID through state parameters instead
+            RestaurantDetails.setVenueId(restaurant.foursquareId);
             $state.go('details');
         };
 
