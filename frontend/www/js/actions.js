@@ -70,8 +70,6 @@
                   userObject.set('fbPicture', response.data.url);
                   userObject.save();
 
-                  // $state.go('tab.dash', {});
-
                   console.log(userObject.attributes); 
                   
                   // Save to cache after successful login.
@@ -85,7 +83,7 @@
 
                   console.log("User signed up through Facebook!");
 
-                  // move to store.js
+                  // TODO: move to store.js
                   return $localStorage.$default({
                     profileInfo: profileInfo
                   });
@@ -96,7 +94,6 @@
                 console.log(error);
               });
             } else {
-              // $state.go('tab.dash', {});
               console.log(userObject);
               console.log("User logged in through Facebook!");
               return;
@@ -105,6 +102,27 @@
             console.log(error);
           }
         );
+      },
+
+      register: function(username, firstname, lastname, email, password) {
+        var user = new Parse.User();
+        user.set("username", username);
+        user.set("firstname", firstname);
+        user.set("lastname", lastname);
+        user.set("email", email); 
+        user.set("password", password);
+        return user.signUp(null, {
+            success: function(user) {
+                // Hooray! Let them use the app now.
+                console.log(user);
+            },
+            error: function(user, error) {
+                // Show the error message somewhere and let the user try again.
+                console.log("Error: " + error.code + " " + error.message);
+                // var message = "Error: " + error.code + " " + error.message;
+                // Alerts.error(message);
+            }
+        });
       },
 
       logout: function() {

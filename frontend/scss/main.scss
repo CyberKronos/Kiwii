@@ -12,8 +12,17 @@
   color: #FFFFFF !important;
 }
 
-/* Modal */
+/*Maps*/
+#map {
+  width: 100%;
+  height: 100%;
+}
 
+.scroll {
+  height: 100%;
+}
+
+/* Modal */
 .shows-modal-title {
   font-size: 21px;
   padding-top: 11px;
@@ -64,7 +73,6 @@
 }
 
 /* Header */
-
 .bar-header {
   padding-top: 14px;
   padding-left: 10px;
@@ -103,6 +111,7 @@
   top: 60px !important;
 }
 
+/*Other*/
 .user-avatar {
   height: 30px;
   width: 30px;

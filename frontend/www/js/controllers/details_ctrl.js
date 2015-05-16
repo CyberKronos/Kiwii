@@ -36,7 +36,8 @@
 
         RestaurantDetails.fetchFor().then(
             function (result) {
-                $scope.restaurantDetails = result.details;
+                // TODO: refactor restaurant lat/long into a service
+                $rootScope.restaurantDetails = result.details;
                 $scope.instagramImages = result.images;
                 $scope.restaurantReviews = result.reviews;
             }
@@ -45,12 +46,16 @@
                 return new Parse.Query('_User').get('0UqMUpM14U');
             }
         ).then(function (user) {
-                restuarantPreference = new RestuarantPreference(user, $scope.restaurantDetails.id);
+                restuarantPreference = new RestuarantPreference(user, $rootScope.restaurantDetails.id);
                 return restuarantPreference.isFavourite();
             }
         ).then(function (isFavourite) {
                 $scope.isFavourite = isFavourite;
             });
+
+        $scope.goToMaps = function() {
+            $state.go('maps');
+        };
     };
 
     angular.module('app').
