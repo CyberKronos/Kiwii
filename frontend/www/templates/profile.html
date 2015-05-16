@@ -1,5 +1,5 @@
-<ion-view view-title="">
-  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+<ion-view ng-controller="NavCtrl" view-title="">
+  <ion-nav-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -33,12 +33,31 @@
     </div>
     <div class="list list-inset">
       <p><strong>Saved for later</strong></p>
-      <div class="text-centered">
+
+      <div ng-if="!favouritesList.length" class="text-centered">
         <div class="save-later-placeholder">
           <img src="img/restaurant_placeholder.gif">
         </div>
         <p>Use the star icon to save restaurants <br/> you want to check out later!</p>
       </div>
+      <div ng-repeat="restaurant in favouritesList" class="card">
+        <div class="item item-thumbnail-left">
+          <img ng-src="{{restaurant.image}}" width="100%" height="100%">
+          <div class="row row-center">
+            <div class="col-90">
+              <h2>{{restaurant.title}}</h2>
+              <p>{{restaurant.category}}</p>
+              <p>{{restaurant.rating}}/10</p>
+            </div>
+            <div class="col-10">
+              <h1 ng-click="removeRestaurant($index)" class="icon ion-ios-close-empty"></h1>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
   </ion-content>
 </ion-view>
