@@ -10,7 +10,7 @@
       <u>{{ cuisineType }}</u> Restaurants
     </div>
     <td-cards ng-if="restuarants.length">
-        <td-card ng-repeat="restuarant in restuarants | limitTo: 1 track by restuarant.itemIndex"
+        <td-card ng-repeat="restuarant in restuarants | limitTo: 1"
                  my-on-swipe-right="nextRestuarant($index)"
                  my-on-swipe-left="prevRestuarant($index)">
           <show-card show="show"></show-card>
