@@ -1,5 +1,5 @@
-<ion-view ng-controller="NavCtrl" view-title="">
-  <ion-nav-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
+<ion-view view-title="">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -8,7 +8,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content style="top: 0 !important;">
+  <ion-content ng-controller="ProfileCtrl" style="top: 0 !important;">
     <div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://irs3.4sqi.net/img/general/width960/34995420_pV3byWlA_f2uIaYtF19OgvvVEjMZBNajPO6uub2tc0w.jpg') no-repeat; background-size: cover;  height: 44vh; width: 100%; postiion: absolute;">
       <div class="" style="text-align: center; position: absolute; width: 100%; top: 10%; color: #FFFFFF;">
         <div>
