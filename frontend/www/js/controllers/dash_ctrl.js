@@ -14,6 +14,32 @@
 
         $scope.distanceLabel = DISTANCE_LABELS[3];
 
+        $scope.cuisineList = [
+            { type: "All Cuisines" },
+            { type: "American" },
+            { type: "Asian" },
+            { type: "Bakery" },
+            { type: "Bistro" },
+            { type: "Breakfast Spots" },
+            { type: "Burger Joint" },
+            { type: "Cafe" },
+            { type: "Chinese" },
+            { type: "French" },
+            { type: "Greek" },
+            { type: "Indian" },
+            { type: "Italian" },
+            { type: "Japanese" },
+            { type: "Korean" },
+            { type: "Malaysian" },
+            { type: "Mexican" },
+            { type: "Middle Eastern" },
+            { type: "Southern / Soul" },
+            { type: "Spanish" },
+            { type: "Turkish" },
+            { type: "Vegetarian / Vegan" },
+            { type: "Vietnamese" }
+        ];
+
         $scope.priceList = [
             {text: '$', value: '1'},
             {text: '$$', value: '2'},

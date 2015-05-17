@@ -2,19 +2,9 @@
     <ion-header-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
         <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
              ng-controller="NavCtrl">
-            <!-- <a ng-click="openLikedShowsModal()"
-               class="button button-icon button-clear ion-android-list
-                      favorites-button
-                      ng-class:{'button-positive': likedShowsModalIsOpen}">
-            </a> -->
 
             <user-info></user-info>
-
-            <!-- <a ng-click="openPopover($event)"
-               class="more-link-options button button-icon button-clear
-                      ion-android-more-vertical
-                      ng-class:{'button-positive': moreOptionsPopoverIsOpen}">
-            </a> -->
+            
         </div>
     </ion-header-bar>
 
@@ -23,17 +13,12 @@
         <div style="padding: 0 30px;">
             <div class="list list-inset">
                 <p>Choose a cuisine</p>
-                <button class="button button-block button-assertive"
-                        ng-click="searchRestaurants()">
-                    All Cuisines
-                </button>
+                <label class="item item-input item-select" style="padding-left: 0; border: none;">
+                  <select style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
+                    <option ng-repeat="cuisine in cuisineList">{{ cuisine.type }}</option>
+                  </select>
+                </label>
             </div>
-            <!-- <button class="button button-block button-assertive" ng-click="selectCuisinesPopup()">
-              Select Cuisine
-            </button> -->
-            <!-- <button class="button button-block button-assertive" ng-click="searchRecipes()">
-              Search Recipes
-            </button> -->
             <div class="list list-inset">
                 <p>Location</p>
                 <label class="item item-input ion-google-place-search">
