@@ -1,6 +1,6 @@
 <div class="user-info-container">
   <!-- <img ng-src="{{regionalFlagUrl()}}" class="regional-flag" ng-click="changeRegion()" /> -->
   <div class="user-avatar" ng-click="goToProfile()">
-    <img ng-src="{{currentUser.fbPicture}}" />
+    <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}" />
   </div>
 </div>

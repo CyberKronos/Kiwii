@@ -74,26 +74,27 @@ Parse.Cloud.define('favourites', function (request, response) {
 
 function transformVenueResponse(item) {
     var venue = {};
-    venue['foursquareId'] = item.venue.id;
-    venue['name'] = item.venue.name;
-    venue['rating'] = item.venue.rating;
-    venue['category'] = item.venue.categories[0].shortName;
-    venue['hours'] = item.venue.hours;
-    venue['url'] = item.venue.url;
-    venue['location'] = item.venue.location;
+    var apiVenue = item.venue;
+    venue['foursquareId'] = apiVenue.id;
+    venue['name'] = apiVenue.name;
+    venue['rating'] = apiVenue.rating;
+    venue['category'] = apiVenue.categories[0].shortName;
+    venue['hours'] = apiVenue.hours;
+    venue['url'] = apiVenue.url;
+    venue['location'] = apiVenue.location;
 
-    if (item.venue.featuredPhotos.count > 0) {
-        var featuredPhoto = item.venue.featuredPhotos.items[0];
+    if (apiVenue.featuredPhotos && apiVenue.featuredPhotos.count > 0) {
+        var featuredPhoto = apiVenue.featuredPhotos.items[0];
         venue['imageUrl'] = featuredPhoto.prefix + IMAGE_SIZE + featuredPhoto.suffix;
-    } else if (item.venue.photos.groups.length != 0) {
-        var venuePhoto = item.venue.photos.groups[0].items[0];
+    } else if (apiVenue.photos && apiVenue.photos.groups.length != 0) {
+        var venuePhoto = apiVenue.photos.groups[0].items[0];
         venue['imageUrl'] = venuePhoto.prefix + IMAGE_SIZE + venuePhoto.suffix;
     }
     return venue;
 }
 
 function cacheVenues(venues) {
-    var RESTAURANT_CLASS = 'Restaurants_test';
+    var RESTAURANT_CLASS = 'Restaurants';
     var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
     var promises = venues.map(function (venue) {
         return new Parse.Query(RESTAURANT_CLASS)

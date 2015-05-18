@@ -42,11 +42,7 @@
                 $scope.restaurantReviews = result.reviews;
             }
         ).then(function () {
-                // TODO: Use Parse.User.current() instead
-                return new Parse.Query('_User').get('0UqMUpM14U');
-            }
-        ).then(function (user) {
-                restuarantPreference = new RestuarantPreference(user, $rootScope.restaurantDetails.id);
+                restuarantPreference = new RestuarantPreference(Parse.User.current(), $rootScope.restaurantDetails.id);
                 return restuarantPreference.isFavourite();
             }
         ).then(function (isFavourite) {
