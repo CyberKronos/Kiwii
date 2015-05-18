@@ -30,11 +30,10 @@
     };
 
     $scope.logOut = function() {
-      Actions.logOut();
-      $timeout(function() { $window.location.reload(true) }, 500);
-      if ($scope.moreOptionsPopoverIsOpen) {
-        $scope.closePopover();
-      }
+      Actions.logout()
+      .then(function() {
+        $state.go('start');
+      });
     }
 
     $scope.resetPreferences = function() {
