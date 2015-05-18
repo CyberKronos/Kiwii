@@ -4,19 +4,28 @@
       .state('start', {
         url: '/start',
         templateUrl: 'templates/start.html',
-        controller: 'StartCtrl'
+        controller: 'StartCtrl',
+        data: {
+          authenticate: false
+        }
       })
 
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        data: {
+          authenticate: false
+        }
       })
 
       .state('register', {
         url: '/register',
         templateUrl: 'templates/register.html',
-        controller: 'RegisterCtrl'
+        controller: 'RegisterCtrl',
+        data: {
+          authenticate: false
+        }
       })
 
       .state('dash', {
@@ -24,7 +33,7 @@
         templateUrl: 'templates/dash.html',
         controller: 'DashCtrl',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -32,7 +41,7 @@
         url: '/dash/profile',
         templateUrl: 'templates/profile.html',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -41,7 +50,7 @@
         templateUrl: 'templates/topten.html',
         controller: 'TopTenCtrl',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -50,7 +59,7 @@
         templateUrl: 'templates/cards.html',
         controller: 'CardsCtrl',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -59,7 +68,7 @@
         templateUrl: 'templates/details.html',
         controller: 'DetailsCtrl',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -68,7 +77,7 @@
         templateUrl: 'templates/instagram.html',
           controller: 'DetailsCtrl',
           data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -77,7 +86,7 @@
         templateUrl: 'templates/reviews.html',
           controller: 'DetailsCtrl',
           data: {
-          requiresLogin: true
+          authenticate: true
         }
       })
 
@@ -86,7 +95,7 @@
         templateUrl: 'templates/maps.html',
         controller: 'MapsCtrl',
         data: {
-          requiresLogin: true
+          authenticate: true
         }
       });
 

@@ -9,7 +9,7 @@
      'auth0',
      'angular-jwt'])
 
-  app.run(function($ionicPlatform, $rootScope, $cordovaGeolocation) {
+  app.run(function($ionicPlatform, $rootScope, $cordovaGeolocation, $state) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -26,6 +26,21 @@
       ll: ''
     };
 
+    // Load current user from cache
+    if (Parse.User.current()) {
+      $rootScope.currentUser = Parse.User.current().attributes;
+    }
+
+    // UI Router Authentication Check
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+      if (toState.data.authenticate && !Parse.User.current()) {
+        // User isn’t authenticated
+        $state.transitionTo('start');
+        event.preventDefault(); 
+      }
+    });
+
+    // TODO: Move to controller
     // Geolocation to get location position
     var posOptions = { timeout: 10000, enableHighAccuracy: false };
     $cordovaGeolocation

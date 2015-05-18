@@ -1,5 +1,5 @@
 (function() {
-  var Actions = function(FlixApi, Store, Dispatcher, ApiConstants, AppConstants, auth, $localStorage, $cordovaFacebook) {
+  var Actions = function($rootScope, FlixApi, Store, Dispatcher, ApiConstants, AppConstants, auth, $localStorage, $cordovaFacebook) {
     return {
       login: function(username, password) {
         return Parse.User.logIn(username, password, {
@@ -87,6 +87,8 @@
                   return $localStorage.$default({
                     profileInfo: profileInfo
                   });
+
+                  $rootScope.currentUser = profileInfo;
                 }, function(error) {
                   console.log(error);
                 });
@@ -96,6 +98,7 @@
             } else {
               console.log(userObject);
               console.log("User logged in through Facebook!");
+              $rootScope.currentUser = userObject.attributes;
               return;
             }
           }, function(error) {
@@ -115,6 +118,17 @@
             success: function(user) {
                 // Hooray! Let them use the app now.
                 console.log(user);
+                // Save to cache after successful login.
+                var profileInfo = {    
+                  username: username,
+                  firstname: firstname,
+                  lastname: lastname,
+                  email: email
+                };
+                // move to store.js
+                $localStorage.$default({
+                  profileInfo: profileInfo
+                });
             },
             error: function(user, error) {
                 // Show the error message somewhere and let the user try again.
@@ -126,37 +140,34 @@
       },
 
       logout: function() {
-        Parse.User.logOut();
         delete $localStorage.profileInfo;
-        var currentUser = Parse.User.current();  // this will now be null
-        console.log(currentUser);
-        $state.go('start');
+        return Parse.User.logOut();
       },
 
       // Old stuff to clean out
-      logIn: function(profile, token, accessToken, state, refreshToken) {
-        payload = {
-          actionType: AppConstants.SET_CURRENT_USER,
-          data: {
-            profile: profile,
-            token: token,
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            state: state
-          }
-        }
+      // logIn: function(profile, token, accessToken, state, refreshToken) {
+      //   payload = {
+      //     actionType: AppConstants.SET_CURRENT_USER,
+      //     data: {
+      //       profile: profile,
+      //       token: token,
+      //       accessToken: accessToken,
+      //       refreshToken: refreshToken,
+      //       state: state
+      //     }
+      //   }
 
-        Dispatcher.handleServerAction(payload);
-      },
+      //   Dispatcher.handleServerAction(payload);
+      // },
 
-      logOut: function() {
-        payload = {
-          actionType: AppConstants.LOG_OUT
-        }
+      // logOut: function() {
+      //   payload = {
+      //     actionType: AppConstants.LOG_OUT
+      //   }
 
-        Dispatcher.handleViewAction(payload);
-        auth.signout();
-      },
+      //   Dispatcher.handleViewAction(payload);
+      //   auth.signout();
+      // },
 
       updateAuthToken: function(newToken) {
         payload = {
