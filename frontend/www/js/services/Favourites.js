@@ -1,59 +1,60 @@
-(function() {
-    var Favourites = function() {
-        var FAVOURITES_CLASS = 'Favourites';
-        var PLACE_ID_COLUMN = 'foursquarePlaceId';
-        var USER_COLUMN = 'user';
+(function () {
+    var Favourites = function () {
+        var RESTAURANTS_CLASS = 'Restaurants';
+        var FAVOURITES_ATTRIBUTE = 'savedRestaurants';
+        var RESTAURANT_ID_COLUMN = 'foursquareId';
 
         var parseUserPointer = null;
         var foursquarePlaceId = '';
 
         // Private Methods
-        var RestuarantPreference = function(parseUser, restuarantId) {
+        var RestaurantPreference = function (parseUser, restuarantId) {
             parseUserPointer = parseUser;
             foursquarePlaceId = restuarantId;
         };
 
-        var getFavouriteEntry = function() {
-            return new Parse.Query(FAVOURITES_CLASS)
-                .equalTo(PLACE_ID_COLUMN, foursquarePlaceId)
-                .equalTo(USER_COLUMN, parseUserPointer)
-                .find()
-                .then(function (results) {
-                    if (results.length) {
-                        return results[0];
-                    }
-                });
+        var getFavouriteEntry = function () {
+            var savedRestaurants = Parse.User.current().relation(FAVOURITES_ATTRIBUTE);
+            return savedRestaurants.query()
+                .equalTo(RESTAURANT_ID_COLUMN, foursquarePlaceId)
+                .find();
         };
 
-        var makeFavouriteEntry = function() {
-            var Favourites = Parse.Object.extend(FAVOURITES_CLASS);
-            return new Favourites()
-                .set(PLACE_ID_COLUMN, foursquarePlaceId)
-                .set(USER_COLUMN, parseUserPointer)
-                .save();
+        var getRestaurant = function (foursquareId) {
+            var Restaurants = Parse.Object.extend(RESTAURANTS_CLASS);
+            var restaurantQuery = new Parse.Query(Restaurants)
+                .equalTo(RESTAURANT_ID_COLUMN, foursquareId);
+
+            return restaurantQuery.find()
+                .then(function (results) {
+                    console.log(results);
+                    return results[0];
+                });
         };
 
         // Public Methods
-        RestuarantPreference.prototype.isFavourite = function() {
+        RestaurantPreference.prototype.isFavourite = function () {
             return getFavouriteEntry()
-                .then(function(entry) {
-                    return entry ? true : false;
-                });
-        };
-        RestuarantPreference.prototype.toggle = function() {
-            var self = this;
-            return getFavouriteEntry()
-                .then(function (entry) {
-                    return entry ? entry.destroy() : makeFavouriteEntry();
-                })
-                .then(function() {
-                    return self.isFavourite();
+                .then(function (results) {
+                    return results.length ? true : false;
                 });
         };
 
-        return RestuarantPreference;
+        RestaurantPreference.prototype.set = function (isFavourite) {
+            var saveRestaurantsRelation = Parse.User.current().relation(FAVOURITES_ATTRIBUTE);
+            return getRestaurant(foursquarePlaceId)
+                .then(function (restaurant) {
+                    if (isFavourite) {
+                        saveRestaurantsRelation.add(restaurant);
+                    } else {
+                        saveRestaurantsRelation.remove(restaurant);
+                    }
+                    return Parse.User.current().save();
+                });
+        };
+        return RestaurantPreference;
     };
 
     angular.module('app').
-        factory('RestuarantPreference', Favourites);
+        factory('RestaurantPreference', Favourites);
 })();

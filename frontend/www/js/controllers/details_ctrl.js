@@ -1,5 +1,7 @@
 (function () {
-    var DetailsCtrl = function ($rootScope, $scope, $state, $timeout, $ionicPopover, RestuarantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($rootScope, $scope, $state, $timeout, $ionicPopover, RestaurantPreference, RestaurantDetails) {
+
+        var restaurantPreference = null;
 
         $scope.navSlide = function (index) {
             $ionicSlideBoxDelegate.slide(index, 500);
@@ -9,19 +11,8 @@
             window.open(link, '_blank', 'location=yes');
         };
 
-        var restuarantPreference = null;
-
-        $scope.toggleFavourite = function ($event) {
-            restuarantPreference.toggle()
-                .then(function (isFavourite) {
-                    $scope.isFavourite = isFavourite;
-
-                    // TODO: Consider using https://github.com/rafbgarcia/angular-parse-wrapper
-                    $scope.$digest();
-                    if (isFavourite) {
-                        $scope.popover.show($event);
-                    }
-                });
+        $scope.goToMaps = function () {
+            $state.go('maps');
         };
 
         $scope.popover = $ionicPopover.fromTemplateUrl('templates/favourites_popup.html', {
@@ -34,6 +25,21 @@
             $scope.popover.remove();
         });
 
+        $scope.$on('$stateChangeStart', function () {
+            $scope.popover.remove();
+        });
+
+        $scope.toggleFavourite = function ($event) {
+            restaurantPreference.set(!$scope.isFavourite)
+                .then(function () {
+                    $scope.isFavourite = !$scope.isFavourite;
+                    $scope.$digest();
+                    if ($scope.isFavourite) {
+                        $scope.popover.show($event);
+                    }
+                });
+        };
+
         RestaurantDetails.fetchFor().then(
             function (result) {
                 // TODO: refactor restaurant lat/long into a service
@@ -42,16 +48,12 @@
                 $scope.restaurantReviews = result.reviews;
             }
         ).then(function () {
-                restuarantPreference = new RestuarantPreference(Parse.User.current(), $rootScope.restaurantDetails.id);
-                return restuarantPreference.isFavourite();
+                restaurantPreference = new RestaurantPreference(Parse.User.current(), $rootScope.restaurantDetails.id);
+                return restaurantPreference.isFavourite();
             }
-        ).then(function (isFavourite) {
-                $scope.isFavourite = isFavourite;
+        ).then(function (isFavouriteRestaurant) {
+                $scope.isFavourite = isFavouriteRestaurant;
             });
-
-        $scope.goToMaps = function() {
-            $state.go('maps');
-        };
     };
 
     angular.module('app').
