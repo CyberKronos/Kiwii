@@ -1,5 +1,5 @@
 (function() {
-  var FoursquareApi = function($http) {
+  var FoursquareApi = function() {
         /* Private Methods */
         var OAUTH_TOKEN = 'RGT5ZXHWBGVROTMD1ETZN1GMK0CLTNQEBYMUHEC3OY4XAQDQ';
         var API_VERSION = '20141020';

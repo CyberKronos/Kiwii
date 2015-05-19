@@ -41,10 +41,10 @@
       </div>
       <div ng-repeat="restaurant in favouritesList" class="card">
         <div class="item item-thumbnail-left">
-          <img ng-src="{{restaurant.image}}" width="100%" height="100%">
+          <img ng-src="{{restaurant.imageUrl || 'img/image_placeholder.gif'}}" width="100%" height="100%">
           <div class="row row-center">
             <div class="col-90">
-              <h2>{{restaurant.title}}</h2>
+              <h2>{{restaurant.name}}</h2>
               <p>{{restaurant.category}}</p>
               <p>{{restaurant.rating}}/10</p>
             </div>
