@@ -59,13 +59,7 @@
                 userObject.set('email', response.email);
                 userObject.save();
 
-                var profilePicParams = {
-                  "type": "square",
-                  "height": "300",
-                  "width": "300"
-                }
-
-                return $cordovaFacebook.api("/me/picture", profilePicParams)
+                return $cordovaFacebook.api("/me/picture?type=large")
                 .then(function(response){
                   userObject.set('fbPicture', response.data.url);
                   userObject.save();
