@@ -1,5 +1,19 @@
 (function () {
-    var DashCtrl = function ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) {
+    var DashCtrl = function ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation) {
+
+        // Geolocation to get location position
+        var posOptions = { timeout: 10000, enableHighAccuracy: false };
+        $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          var lat  = position.coords.latitude;
+          var long = position.coords.longitude;
+          $rootScope.searchCriteria['ll'] = lat + ',' + long;
+          console.log($rootScope.searchCriteria);
+        }, function(err) {
+          // error
+          console.log("Error retrieving position " + err.code + " " + err.message)
+        });
 
         console.log($ionicHistory.currentView());
 

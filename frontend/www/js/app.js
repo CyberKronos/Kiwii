@@ -9,7 +9,7 @@
      'auth0',
      'angular-jwt'])
 
-  app.run(function($ionicPlatform, $rootScope, $cordovaGeolocation, $state) {
+  app.run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -39,23 +39,6 @@
         event.preventDefault(); 
       }
     });
-
-    // TODO: Move to controller
-    // Geolocation to get location position
-    var posOptions = { timeout: 10000, enableHighAccuracy: false };
-    $cordovaGeolocation
-    .getCurrentPosition(posOptions)
-    .then(function (position) {
-      var lat  = position.coords.latitude;
-      var long = position.coords.longitude;
-      $rootScope.searchCriteria['ll'] = lat + ',' + long;
-
-    }, function(err) {
-      // error
-      console.log("Error retrieving position " + err.code + " " + err.message)
-    });
-
-    console.log($rootScope.searchCriteria);
   });
 
   app.config(function($httpProvider) {
