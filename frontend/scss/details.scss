@@ -12,13 +12,13 @@
 }*/
 
 .details-container {
-	position: absolute;
-	width: 100%;
-	top: 50vh;
+  position: absolute;
+  width: 100%;
+  top: 50vh;
 
-	.details-text {
-		margin: 24px;
-	}
+  .details-text {
+    margin: 24px;
+  }
 }
 
 .popover.soft {
@@ -33,4 +33,5 @@
 .button.button-soft {
   border-color: #b2b2b2;
   background-color: #e6e6e6;
-  color: #898989; }
+  color: #898989;
+}

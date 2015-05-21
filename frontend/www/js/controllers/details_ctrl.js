@@ -1,5 +1,5 @@
 (function () {
-    var DetailsCtrl = function ($rootScope, $scope, $state, $timeout, $ionicPopover, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantPreference, RestaurantDetails) {
 
         var restaurantPreference = null;
         getRestaurantInfo();
@@ -16,21 +16,13 @@
             $state.go('maps');
         };
 
-        $scope.$on('$destroy', function () {
-            $scope.popover.remove();
-        });
-
-        $scope.$on('$stateChangeStart', function () {
-            $scope.popover.remove();
-        });
-
         $scope.toggleFavourite = function ($event) {
             restaurantPreference.set(!$scope.isFavourite)
                 .then(function () {
                     $scope.isFavourite = !$scope.isFavourite;
                     $scope.$digest();
                     if ($scope.isFavourite) {
-                        createPopover($event);
+                        createPopover();
                     }
                 });
         };
@@ -52,14 +44,13 @@
                 });
         }
 
-        function createPopover($event) {
-            $ionicPopover.fromTemplateUrl('templates/favourites_popup.html', {
-                scope: $scope
-            })
-                .then(function (popover) {
-                    $scope.popover = popover;
-                    $scope.popover.show($event);
-                })
+        function createPopover() {
+            $ionicLoading.show({
+                templateUrl: 'templates/favourites_popup.html',
+                hideOnStateChange: true,
+                noBackdrop: true,
+                duration: 2500
+            });
         }
     };
 
