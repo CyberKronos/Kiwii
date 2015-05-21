@@ -4,7 +4,7 @@
     $scope.emailRegister = function() {
         Actions.register($scope.registerObj.username, $scope.registerObj.firstname, $scope.registerObj.lastname, $scope.registerObj.email, $scope.registerObj.password)
         .then(function() {
-            $state.go('dash');
+            $state.go('intro');
         });
     };
   }

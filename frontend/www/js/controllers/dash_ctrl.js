@@ -15,8 +15,6 @@
           console.log("Error retrieving position " + err.code + " " + err.message)
         });
 
-        console.log($ionicHistory.currentView());
-
         // TODO: Use constant service
         var DISTANCE_LABELS = [
             {text: 'Off the Beaten Path', minDistance: 15000, icon: 'ion-android-compass'},
