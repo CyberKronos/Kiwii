@@ -28,6 +28,15 @@
         }
       })
 
+      .state('intro', {
+        url: '/intro',
+        templateUrl: 'templates/intro.html',
+        controller: 'IntroCtrl',
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('dash', {
         url: '/dash',
         templateUrl: 'templates/dash.html',

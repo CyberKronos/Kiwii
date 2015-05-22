@@ -34,7 +34,7 @@
       }
       Actions.facebookLogin()
       .then(function() {
-        $state.go('dash');
+        $state.go('intro');
       });
     };
   };
