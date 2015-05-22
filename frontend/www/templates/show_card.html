@@ -1,8 +1,7 @@
 <div class="show-card-container"
      ng-class="{'show-card-container': true}"
      style="background: #{{restuarant.primaryColor}}">
-  <div class="show-card-poster-glass"
-     style="background: url({{restuarant.imageUrl}}); background-size: cover;"></div>
+  <div class="show-card-poster-glass" back-img="{{restuarant.imageUrl}}"></div>
   <div class="show-card-details-container" 
        ng-click="restaurantDetails(restuarant)">
     <!-- <div class="show-card-title">
