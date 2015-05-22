@@ -1,19 +1,12 @@
 (function () {
     var DashCtrl = function ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation) {
 
-        // Geolocation to get location position
-        var posOptions = { timeout: 10000, enableHighAccuracy: false };
-        $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) {
-          var lat  = position.coords.latitude;
-          var long = position.coords.longitude;
-          $rootScope.searchCriteria['ll'] = lat + ',' + long;
-          console.log($rootScope.searchCriteria);
-        }, function(err) {
-          // error
-          console.log("Error retrieving position " + err.code + " " + err.message)
-        });
+        $scope.isLoadingLocation = true;
+
+        fetchCurrentLocation()
+            .then(function() {
+                $scope.isLoadingLocation = false;
+            });
 
         console.log($ionicHistory.currentView());
 
@@ -29,29 +22,29 @@
         $scope.distanceLabel = DISTANCE_LABELS[3];
 
         $scope.cuisineList = [
-            { type: "All Cuisines" },
-            { type: "American" },
-            { type: "Asian" },
-            { type: "Bakery" },
-            { type: "Bistro" },
-            { type: "Breakfast Spots" },
-            { type: "Burger Joint" },
-            { type: "Cafe" },
-            { type: "Chinese" },
-            { type: "French" },
-            { type: "Greek" },
-            { type: "Indian" },
-            { type: "Italian" },
-            { type: "Japanese" },
-            { type: "Korean" },
-            { type: "Malaysian" },
-            { type: "Mexican" },
-            { type: "Middle Eastern" },
-            { type: "Southern / Soul" },
-            { type: "Spanish" },
-            { type: "Turkish" },
-            { type: "Vegetarian / Vegan" },
-            { type: "Vietnamese" }
+            {type: "All Cuisines"},
+            {type: "American"},
+            {type: "Asian"},
+            {type: "Bakery"},
+            {type: "Bistro"},
+            {type: "Breakfast Spots"},
+            {type: "Burger Joint"},
+            {type: "Cafe"},
+            {type: "Chinese"},
+            {type: "French"},
+            {type: "Greek"},
+            {type: "Indian"},
+            {type: "Italian"},
+            {type: "Japanese"},
+            {type: "Korean"},
+            {type: "Malaysian"},
+            {type: "Mexican"},
+            {type: "Middle Eastern"},
+            {type: "Southern / Soul"},
+            {type: "Spanish"},
+            {type: "Turkish"},
+            {type: "Vegetarian / Vegan"},
+            {type: "Vietnamese"}
         ];
 
         $scope.priceList = [
@@ -87,7 +80,7 @@
                 console.log($scope.data.location);
                 var latlng = $scope.data.location.geometry.location;
                 console.log(latlng);
-                $scope.criteria.ll =  latlng.lat() + ',' + latlng.lng();
+                $scope.criteria.ll = latlng.lat() + ',' + latlng.lng();
             }
             $state.go('cards');
         };
@@ -99,6 +92,26 @@
         $scope.selectCuisinesPopup = function () {
             console.log($ionicHistory.viewHistory());
         };
+
+        $scope.updateLocation = function() {
+            $scope.isLoadingLocation = false;
+        };
+
+        function fetchCurrentLocation() {
+            // Geolocation to get location position
+            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            return $cordovaGeolocation
+                .getCurrentPosition(posOptions)
+                .then(function (position) {
+                    var lat = position.coords.latitude;
+                    var long = position.coords.longitude;
+                    $rootScope.searchCriteria['ll'] = lat + ',' + long;
+                    console.log($rootScope.searchCriteria);
+                }, function (err) {
+                    // error
+                    console.log("Error retrieving position " + err.code + " " + err.message)
+                });
+        }
     };
 
     angular.module('app').

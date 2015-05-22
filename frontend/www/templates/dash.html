@@ -4,7 +4,7 @@
              ng-controller="NavCtrl">
 
             <user-info></user-info>
-            
+
         </div>
     </ion-header-bar>
 
@@ -14,18 +14,17 @@
             <div class="list list-inset">
                 <p>Choose a cuisine</p>
                 <label class="item item-input item-select" style="padding-left: 0; border: none;">
-                  <select style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
-                    <option ng-repeat="cuisine in cuisineList">{{ cuisine.type }}</option>
-                  </select>
+                    <select style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
+                        <option ng-repeat="cuisine in cuisineList">{{ cuisine.type }}</option>
+                    </select>
                 </label>
             </div>
             <div class="list list-inset">
                 <p>Location</p>
                 <label class="item item-input ion-google-place-search">
-                    <ion-google-place placeholder="Current location" ng-model="data.location"/>
+                    <ion-google-place placeholder="Current location" ng-model="data.location" ng-change="updateLocation()"/>
                 </label>
                 <br>
-
                 <p>Distance</p>
 
                 <div id="distance-label" class="item item-icon-left">
@@ -58,8 +57,10 @@
                 </div>
             </div>
 
-            <button class="button button-block button-assertive search-button" ng-click="searchRestaurants()">
-                Let's eat!
+            <button class="button button-block button-assertive search-button"
+                    ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
+                <div ng-if="isLoadingLocation">Getting Current Location...</div>
+                <div ng-if="!isLoadingLocation">Let's eat!</div>
             </button>
 
             <p class="text-centered">Or not sure what you're looking for?</p>
