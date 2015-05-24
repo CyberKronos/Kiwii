@@ -22,7 +22,9 @@ Parse.Cloud.define("callFoursquareApi", function (request, response) {
 });
 
 Parse.Cloud.define('explore', function (request, response) {
-    request.params.queryParams.section = 'food';
+    if (request.params.queryParams.query == '') {
+        request.params.queryParams.section = 'food';
+    }
     request.params.queryParams.openNow = 1;
     request.params.queryParams.venuePhotos = 1;
     request.params.queryParams.oauth_token = OAUTH_TOKEN;

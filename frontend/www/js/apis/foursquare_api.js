@@ -18,6 +18,7 @@
                     });
             },
             exploreRestaurants: function (queryParams) {
+                console.log(queryParams);
                 return Parse.Cloud.run('explore', {queryParams: queryParams});
             },
             getRestaurantDetails: function (foursquareId) {
