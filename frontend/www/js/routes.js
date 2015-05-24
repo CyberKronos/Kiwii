@@ -74,6 +74,7 @@
 
       .state('details', {
         url: '/dash/list/details',
+        cache: false,
         templateUrl: 'templates/details.html',
         controller: 'DetailsCtrl',
         data: {
@@ -83,18 +84,20 @@
 
       .state('instagram', {
         url: '/dash/list/instagram',
+        cache: false,
         templateUrl: 'templates/instagram.html',
-          controller: 'DetailsCtrl',
-          data: {
+        controller: 'DetailsCtrl',
+        data: {
           authenticate: true
         }
       })
 
       .state('reviews', {
         url: '/dash/list/reviews',
+        cache: false,
         templateUrl: 'templates/reviews.html',
-          controller: 'DetailsCtrl',
-          data: {
+        controller: 'DetailsCtrl',
+        data: {
           authenticate: true
         }
       })
@@ -109,7 +112,7 @@
       });
 
     $urlRouterProvider.otherwise('/dash');
-  }
+  };
 
   angular.module('app')
     .config(Routes);

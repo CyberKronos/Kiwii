@@ -7,7 +7,8 @@
      'ngFlux',
      'ionic.contrib.ui.tinderCards',
      'auth0',
-     'angular-jwt'])
+     'angular-jwt',
+     'image-preloader']);
 
   app.run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {

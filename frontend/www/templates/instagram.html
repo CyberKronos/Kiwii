@@ -1,5 +1,5 @@
 <ion-view view-title="{{ restaurantDetails.name }}">
-	<ion-nav-bar class="background-tab bar-title-white" ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+	<ion-nav-bar class="bar-title-white" darken back-img="{{restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'img/userBackground_placeholder.jpg'}}" to-child ng-controller="NavCtrl">
 		<ion-nav-buttons side="left">
 	        <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
 	    </ion-nav-buttons>

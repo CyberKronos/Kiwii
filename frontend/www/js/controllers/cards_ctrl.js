@@ -1,7 +1,10 @@
 (function () {
-    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi, RestaurantDetails) {
+    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi, RestaurantDetails, ImagePreloader) {
 
         var previousRestuarants = [];
+
+        fetchRestaurants($rootScope.searchCriteria)
+            .then(preloadRestaurantPhotos);
 
         $scope.dismissShow = function (show) {
             var i = $scope.restuarants.indexOf(show);
@@ -51,11 +54,20 @@
             $state.go('details');
         };
 
-        FoursquareApi.exploreRestaurants($rootScope.searchCriteria)
-            .then(function (response) {
-                $scope.restuarants = response;
-                $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
-            });
+        function fetchRestaurants(searchCriteria) {
+            return FoursquareApi.exploreRestaurants(searchCriteria)
+                .then(function (response) {
+                    $scope.restuarants = response;
+                    $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
+                    return $scope.restuarants;
+                });
+        }
+
+        function preloadRestaurantPhotos(restaurants) {
+            return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
+                return r['imageUrl'];
+            }));
+        }
     };
 
     angular.module('app').
