@@ -6,8 +6,6 @@
      'ngStorage',
      'ngFlux',
      'ionic.contrib.ui.tinderCards',
-     'auth0',
-     'angular-jwt',
      'image-preloader']);
 
   app.run(function($ionicPlatform, $rootScope, $state) {
@@ -40,10 +38,6 @@
         event.preventDefault(); 
       }
     });
-  });
-
-  app.config(function($httpProvider) {
-    $httpProvider.interceptors.push('regionHttpInterceptor')
   });
 
   app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });

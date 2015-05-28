@@ -1,5 +1,5 @@
 (function() {
-  var Actions = function($rootScope, Store, Dispatcher, ApiConstants, AppConstants, auth, $localStorage, $cordovaFacebook) {
+  var Actions = function($rootScope, Store, Dispatcher, ApiConstants, AppConstants, $localStorage, $cordovaFacebook) {
     return {
       login: function(username, password) {
         return Parse.User.logIn(username, password, {

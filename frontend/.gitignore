@@ -5,3 +5,4 @@ plugins
 .idea
 platforms
 engine
+www/lib
