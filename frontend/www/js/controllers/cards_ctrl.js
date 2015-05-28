@@ -2,30 +2,21 @@
   var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, InstagramApi, FoursquareApi, RestaurantDetails, ImagePreloader) {
 
     var previousRestuarants = [];
+    var goNextOnSwipe = true;
 
     fetchRestaurants($rootScope.searchCriteria)
       .then(preloadRestaurantPhotos);
 
-    $scope.dismissShow = function (show) {
-      var i = $scope.restuarants.indexOf(show);
-      $scope.dislikedShow(i);
-      $scope.destroyShow(i);
+    $scope.swipeRestaurant = function (index) {
+      console.log('Swiping Card');
+      if (goNextOnSwipe) {
+        $scope.fetchNextRestaurant(index);
+      } else {
+        $scope.fetchPrevRestaurant(index);
+      }
     };
 
-    $scope.saveShow = function (show) {
-      var i = $scope.restuarants.indexOf(show);
-      $scope.likedShow(i);
-      $scope.destroyShow(i);
-    };
-
-    /* Card callbacks from swiping */
-    //$scope.destroyRestuarant = function (index) {
-    //    $scope.restuarants.splice(index, 1);
-    //    console.log($scope.restuarants);
-    //};
-
-    $scope.nextRestuarant = function (index) {
-      console.log('Swiped Left');
+    $scope.fetchNextRestaurant = function (index) {
       previousRestuarants.push($scope.restuarants[index]);
       $scope.restuarants.splice(index, 1);
       console.log($scope.restuarants);
@@ -35,8 +26,7 @@
       }
     };
 
-    $scope.prevRestuarant = function (index) {
-      console.log('Swiped Right');
+    $scope.fetchPrevRestaurant = function (index) {
       if (previousRestuarants.length > 0) {
         var lastRestuarant = previousRestuarants.pop();
         console.log(lastRestuarant);
@@ -46,6 +36,16 @@
       }
       console.log($scope.restuarants);
       console.log(previousRestuarants);
+    };
+
+    $scope.nextRestuarant = function() {
+      console.log('Swiped Left');
+      goNextOnSwipe = true;
+    };
+
+    $scope.prevRestuarant = function() {
+      console.log('Swiped Right');
+      goNextOnSwipe = false;
     };
 
     $scope.restaurantDetails = function (restaurant) {
@@ -64,12 +64,14 @@
         .then(function (response) {
           $scope.restuarants = response;
           $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
-          return $scope.restuarants;
         }, function (error) {
           $scope.apiError = true;
           console.log(error);
         })
-        .always(hideLoading);
+        .always(function () {
+          hideLoading();
+          return $scope.restuarants;
+        });
     }
 
     function showLoading() {
