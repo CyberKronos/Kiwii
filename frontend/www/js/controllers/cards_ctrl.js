@@ -63,7 +63,6 @@
       return FoursquareApi.exploreRestaurants(searchCriteria)
         .then(function (response) {
           $scope.restuarants = response;
-          $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
         }, function (error) {
           $scope.apiError = true;
           console.log(error);
