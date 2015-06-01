@@ -14,7 +14,7 @@
       <td-card ng-repeat="restuarant in restuarants | limitTo: 1"
                my-on-swipe-right="nextRestuarant()"
                my-on-swipe-left="prevRestuarant()"
-               on-destroy="swipeRestaurant($index)">
+               on-destroy="swipeRestaurant()">
         <show-card show="show"></show-card>
       </td-card>
     </td-cards>

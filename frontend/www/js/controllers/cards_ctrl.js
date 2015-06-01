@@ -1,50 +1,27 @@
 (function () {
-  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, InstagramApi, FoursquareApi, RestaurantDetails, ImagePreloader) {
+  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader) {
 
-    var previousRestuarants = [];
+    fetchRestaurants().then(preloadRestaurantPhotos);
+
     var goNextOnSwipe = true;
 
-    fetchRestaurants($rootScope.searchCriteria)
-      .then(preloadRestaurantPhotos);
-
-    $scope.swipeRestaurant = function (index) {
-      console.log('Swiping Card');
+    $scope.swipeRestaurant = function () {
+      var currentRestaurant = undefined;
       if (goNextOnSwipe) {
-        $scope.fetchNextRestaurant(index);
+        currentRestaurant = RestaurantExplorer.nextRestaurant();
       } else {
-        $scope.fetchPrevRestaurant(index);
+        currentRestaurant = RestaurantExplorer.prevRestaurant();
       }
-    };
-
-    $scope.fetchNextRestaurant = function (index) {
-      previousRestuarants.push($scope.restuarants[index]);
-      $scope.restuarants.splice(index, 1);
-      console.log($scope.restuarants);
-      console.log(previousRestuarants);
-      if ($scope.restuarants <= 0) {
-        $state.go('dash');
+      if (!currentRestaurant) {
+        $scope.returnToDash();
       }
-    };
-
-    $scope.fetchPrevRestaurant = function (index) {
-      if (previousRestuarants.length > 0) {
-        var lastRestuarant = previousRestuarants.pop();
-        console.log(lastRestuarant);
-        $scope.restuarants.splice(index, 0, lastRestuarant);
-      } else {
-        $state.go('dash');
-      }
-      console.log($scope.restuarants);
-      console.log(previousRestuarants);
     };
 
     $scope.nextRestuarant = function() {
-      console.log('Swiped Left');
       goNextOnSwipe = true;
     };
 
     $scope.prevRestuarant = function() {
-      console.log('Swiped Right');
       goNextOnSwipe = false;
     };
 
@@ -58,11 +35,11 @@
       $state.go('dash');
     };
 
-    function fetchRestaurants(searchCriteria) {
+    function fetchRestaurants() {
       showLoading();
-      return FoursquareApi.exploreRestaurants(searchCriteria)
-        .then(function (response) {
-          $scope.restuarants = response;
+      return RestaurantExplorer.fetch()
+        .then(function() {
+          $scope.restuarants = RestaurantExplorer.results;
         }, function (error) {
           $scope.apiError = true;
           console.log(error);
@@ -83,7 +60,6 @@
     function hideLoading() {
       $scope.isLoading = false;
       $ionicLoading.hide();
-
     }
 
     function preloadRestaurantPhotos(restaurants) {
