@@ -3,6 +3,6 @@
     return FluxUtil.createDispatcher();
   }
 
-  angular.module('app')
+  angular.module('kiwii')
     .factory('Dispatcher', Dispatcher)
 })();

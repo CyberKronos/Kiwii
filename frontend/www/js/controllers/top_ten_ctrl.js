@@ -32,6 +32,6 @@
     };
   };
 
-  angular.module('app').
+  angular.module('kiwii').
     controller('TopTenCtrl', TopTenCtrl);
 })();

@@ -140,5 +140,5 @@
     }
   };
 
-  angular.module('app').factory('Actions', Actions)
+  angular.module('kiwii').factory('Actions', Actions)
 })();

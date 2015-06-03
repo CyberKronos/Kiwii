@@ -29,6 +29,6 @@
     // }
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     controller('UserInfoCtrl', UserInfoCtrl);
 })();

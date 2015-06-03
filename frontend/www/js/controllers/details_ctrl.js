@@ -53,6 +53,6 @@
         }
     };
 
-    angular.module('app').
+    angular.module('kiwii').
         controller('DetailsCtrl', DetailsCtrl);
 })();

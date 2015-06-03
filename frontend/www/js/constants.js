@@ -15,7 +15,7 @@
     ]);
   };
 
-  angular.module('app')
+  angular.module('kiwii')
     .factory('AppConstants', AppConstants)
     .factory('ApiConstants', ApiConstants)
 })();

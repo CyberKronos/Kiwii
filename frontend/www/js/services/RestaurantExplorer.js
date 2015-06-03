@@ -38,6 +38,6 @@
     }
   };
 
-  angular.module('app')
+  angular.module('kiwii')
     .factory('RestaurantExplorer', ['$rootScope', 'FoursquareApi', RestaurantExplorer]);
 })();

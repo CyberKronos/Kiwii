@@ -8,6 +8,6 @@
     }
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     directive('userInfo', userInfo);
 })();

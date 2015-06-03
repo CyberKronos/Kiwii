@@ -34,6 +34,6 @@
         }
     };
 
-    angular.module('app').
+    angular.module('kiwii').
         factory('FoursquareApi', FoursquareApi)
 })();

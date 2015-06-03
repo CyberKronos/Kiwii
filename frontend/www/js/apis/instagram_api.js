@@ -19,6 +19,6 @@
     }
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     factory('InstagramApi', InstagramApi)
 })();

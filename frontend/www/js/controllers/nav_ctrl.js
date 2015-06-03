@@ -72,6 +72,6 @@
     });
   };
 
-  angular.module('app').
+  angular.module('kiwii').
     controller('NavCtrl', NavCtrl);
 })();

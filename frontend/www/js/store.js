@@ -139,6 +139,6 @@
   return store;
 }
 
-  angular.module('app')
+  angular.module('kiwii')
     .factory('Store', Store)
 })();
