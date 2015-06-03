@@ -1,21 +1,20 @@
-(function() {
+(function () {
   var app = angular.module('app',
     ['ionic',
-     'ion-google-place',
-     'ngCordova',
-     'ngStorage',
-     'ngFlux',
-     'ionic.contrib.ui.tinderCards',
-     'auth0',
-     'angular-jwt',
-     'image-preloader']);
+      'ion-google-place',
+      'ngCordova',
+      'ngStorage',
+      'ngFlux',
+      'ionic.contrib.ui.tinderCards',
+      'parse-angular',
+      'image-preloader']);
 
-  app.run(function($ionicPlatform, $rootScope, $state) {
-    $ionicPlatform.ready(function() {
-      if(window.cordova && window.cordova.plugins.Keyboard) {
+  app.run(function ($ionicPlatform, $rootScope, $state) {
+    $ionicPlatform.ready(function () {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
-      if(window.StatusBar) {
+      if (window.StatusBar) {
         StatusBar.styleDefault();
       }
     });
@@ -33,18 +32,16 @@
     }
 
     // UI Router Authentication Check
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
       if (toState.data.authenticate && !Parse.User.current()) {
         // User isn’t authenticated
         $state.transitionTo('start');
-        event.preventDefault(); 
+        event.preventDefault();
       }
     });
   });
 
-  app.config(function($httpProvider) {
-    $httpProvider.interceptors.push('regionHttpInterceptor')
+  app.filter('unsafe', function ($sce) {
+    return $sce.trustAsHtml;
   });
-
-  app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
 })();

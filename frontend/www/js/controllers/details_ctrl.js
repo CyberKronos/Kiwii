@@ -20,7 +20,6 @@
             restaurantPreference.set(!$scope.isFavourite)
                 .then(function () {
                     $scope.isFavourite = !$scope.isFavourite;
-                    $scope.$digest();
                     if ($scope.isFavourite) {
                         createPopover();
                     }

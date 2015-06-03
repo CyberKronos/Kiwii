@@ -4,3 +4,5 @@ npm-debug.log
 plugins
 .idea
 platforms
+engine
+www/lib

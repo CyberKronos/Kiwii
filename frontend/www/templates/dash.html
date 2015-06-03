@@ -60,8 +60,10 @@
                 </div>
             </div>
 
-            <button class="button button-block button-assertive search-button" ng-click="searchRestaurants()">
-                Let's eat!
+            <button class="button button-block button-assertive search-button"
+                    ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
+                <div ng-if="isLoadingLocation">Getting Current Location...</div>
+                <div ng-if="!isLoadingLocation">Let's eat!</div>
             </button>
 
             <p class="text-centered">Or not sure what you're looking for?</p>

@@ -1,75 +1,74 @@
 (function () {
-    var CardsCtrl = function ($rootScope, $scope, $state, InstagramApi, FoursquareApi, RestaurantDetails, ImagePreloader) {
+  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader) {
 
-        var previousRestuarants = [];
+    fetchRestaurants().then(preloadRestaurantPhotos);
 
-        fetchRestaurants($rootScope.searchCriteria)
-            .then(preloadRestaurantPhotos);
+    var goNextOnSwipe = true;
 
-        $scope.dismissShow = function (show) {
-            var i = $scope.restuarants.indexOf(show);
-            $scope.dislikedShow(i);
-            $scope.destroyShow(i);
-        };
-
-        $scope.saveShow = function (show) {
-            var i = $scope.restuarants.indexOf(show);
-            $scope.likedShow(i);
-            $scope.destroyShow(i);
-        };
-
-        /* Card callbacks from swiping */
-        //$scope.destroyRestuarant = function (index) {
-        //    $scope.restuarants.splice(index, 1);
-        //    console.log($scope.restuarants);
-        //};
-
-        $scope.nextRestuarant = function (index) {
-            console.log('Swiped Left');
-            previousRestuarants.push($scope.restuarants[index]);
-            $scope.restuarants.splice(index, 1);
-            console.log($scope.restuarants);
-            console.log(previousRestuarants);
-            if ($scope.restuarants <= 0) {
-                $state.go('dash');
-            }
-        };
-
-        $scope.prevRestuarant = function (index) {
-            console.log('Swiped Right');
-            if (previousRestuarants.length > 0) {
-                var lastRestuarant = previousRestuarants.pop();
-                console.log(lastRestuarant);
-                $scope.restuarants.splice(index, 0, lastRestuarant);
-            } else {
-                $state.go('dash');
-            }
-            console.log($scope.restuarants);
-            console.log(previousRestuarants);
-        };
-
-        $scope.restaurantDetails = function (restaurant) {
-            // TODO: Pass venue ID through state parameters instead
-            RestaurantDetails.setVenueId(restaurant.foursquareId);
-            $state.go('details');
-        };
-
-        function fetchRestaurants(searchCriteria) {
-            return FoursquareApi.exploreRestaurants(searchCriteria)
-                .then(function (response) {
-                    $scope.restuarants = response;
-                    $scope.$digest();   // Can't figure out how to get cards display consistently without manually calling digest cycle.
-                    return $scope.restuarants;
-                });
-        }
-
-        function preloadRestaurantPhotos(restaurants) {
-            return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
-                return r['imageUrl'];
-            }));
-        }
+    $scope.swipeRestaurant = function () {
+      var currentRestaurant = undefined;
+      if (goNextOnSwipe) {
+        currentRestaurant = RestaurantExplorer.nextRestaurant();
+      } else {
+        currentRestaurant = RestaurantExplorer.prevRestaurant();
+      }
+      if (!currentRestaurant) {
+        $scope.returnToDash();
+      }
     };
 
-    angular.module('app').
-        controller('CardsCtrl', CardsCtrl);
+    $scope.nextRestuarant = function() {
+      goNextOnSwipe = true;
+    };
+
+    $scope.prevRestuarant = function() {
+      goNextOnSwipe = false;
+    };
+
+    $scope.restaurantDetails = function (restaurant) {
+      // TODO: Pass venue ID through state parameters instead
+      RestaurantDetails.setVenueId(restaurant.foursquareId);
+      $state.go('details');
+    };
+
+    $scope.returnToDash = function () {
+      $state.go('dash');
+    };
+
+    function fetchRestaurants() {
+      showLoading();
+      return RestaurantExplorer.fetch()
+        .then(function() {
+          $scope.restuarants = RestaurantExplorer.results;
+        }, function (error) {
+          $scope.apiError = true;
+          console.log(error);
+        })
+        .always(function () {
+          hideLoading();
+          return $scope.restuarants;
+        });
+    }
+
+    function showLoading() {
+      $scope.isLoading = true;
+      $ionicLoading.show({
+        template: 'Searching...'
+      });
+    }
+
+    function hideLoading() {
+      $scope.isLoading = false;
+      $ionicLoading.hide();
+    }
+
+    function preloadRestaurantPhotos(restaurants) {
+      return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
+        return r['imageUrl'];
+      }));
+    }
+  };
+
+  angular.module('app').
+    controller('CardsCtrl', CardsCtrl);
 })();
