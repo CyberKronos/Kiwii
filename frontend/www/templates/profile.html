@@ -45,7 +45,7 @@
             <div ng-click="goToDetails(restaurant)" class="col-90">
               <h2>{{restaurant.name}}</h2>
               <p>{{restaurant.category}}</p>
-              <p>{{restaurant.rating}}/10</p>
+              <p ng-if="restaurant.rating">{{restaurant.rating}}/10</p>
             </div>
             <div class="col-10">
               <h1 ng-click="removeRestaurant($index, restaurant)" class="icon ion-ios-close-empty"></h1>

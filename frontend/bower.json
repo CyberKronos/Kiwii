@@ -4,7 +4,10 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-beta.14",
     "angular-jwt": "~0.0.6",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "angular-mocks": "~1.4.0",
+    "parse-js-sdk": "~1.4.2",
+    "ion-google-place": "~0.0.1"
   },
   "dependencies": {
     "ngCordova": "~0.1.9-alpha",

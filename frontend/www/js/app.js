@@ -1,4 +1,6 @@
 (function () {
+  Parse.initialize("g3pJuFTV11d3QNG1zSGsn0Ea6b8OiYEve5gCXQWp", "RvkvXdhs719ZLD81BQGFCAhCq1kQf1yF3DqwBlZD");
+
   var app = angular.module('app',
     ['ionic',
       'ion-google-place',
@@ -17,6 +19,7 @@
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+
     });
 
     // Load search rootscope

@@ -6,3 +6,4 @@ plugins
 platforms
 engine
 www/lib
+www/test/coverage
