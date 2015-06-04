@@ -16,11 +16,12 @@
 
 .toggle-all-restaurants {
   li {
-    color: #FFFFFF;
+    color: #000000;
     border: none !important;
     background: transparent;
+    padding: 16px 0 16px 0;
     label {
-      right: 60px !important;
+      right: 0 !important; 
     }
   }
 }
