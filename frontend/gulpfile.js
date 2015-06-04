@@ -9,12 +9,15 @@ var sh = require('shelljs');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglifyjs');
 var wrap = require('gulp-wrap');
+var karma = require('karma').server;
 
 var paths = {
   sass: ['./scss/**/*.scss'],
   js: ['./www/js/**/*.js'],
   vendor: ['./www/lib/**/*']
 };
+
+var __testDir = process.cwd() + '/www/test';
 
 gulp.task('default', ['sass', 'js']);
 
@@ -84,4 +87,17 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('test', function(done) {
+  karma.start({
+    configFile: __testDir + '/karma.conf.js'
+  }, done);
+});
+
+gulp.task('test-once', function(done) {
+  karma.start({
+    configFile: __testDir + '/karma.conf.js',
+    singleRun: true
+  }, done);
 });
