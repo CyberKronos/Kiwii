@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.9-alpha",
-    "parse-angular-patch": "~0.1.2"
+    "parse-angular-patch": "~0.1.2",
+    "ion-slide-box-tabs": "git@github.com:JKnorr91/ion-slide-box-tabs.git"
   }
 }

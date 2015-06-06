@@ -24,6 +24,6 @@
     }
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     directive('showCard', showCard);
 })();

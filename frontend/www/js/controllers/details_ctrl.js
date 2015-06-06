@@ -1,12 +1,8 @@
 (function () {
-    var DetailsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($rootScope, $scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, RestaurantPreference, RestaurantDetails) {
 
         var restaurantPreference = null;
         getRestaurantInfo();
-
-        $scope.navSlide = function (index) {
-            $ionicSlideBoxDelegate.slide(index, 500);
-        };
 
         $scope.openWebsite = function (link) {
             window.open(link, '_blank', 'location=yes');
@@ -53,6 +49,6 @@
         }
     };
 
-    angular.module('app').
+    angular.module('kiwii').
         controller('DetailsCtrl', DetailsCtrl);
 })();

@@ -2,8 +2,9 @@
   var Actions = function($rootScope, Store, Dispatcher, ApiConstants, AppConstants, $localStorage, $cordovaFacebook) {
     return {
       login: function(username, password) {
-        return Parse.User.logIn(username, password, {
-          success: function(user) {
+        return Parse.User.logIn(username, password)
+        .then(
+          function(user) {
             // Save to cache after successful login.
             var profileInfo = {    
               username: user.attributes.username,
@@ -15,14 +16,13 @@
             $localStorage.$default({
               profileInfo: profileInfo
             });
-          },
-          error: function(user, error) {
+            return; 
+          }, function() {
             // The login failed. Check error to see why.
-            console.log("error");
-            // var message = 'Incorrect username and password combination';
-            // Alerts.error(message);
+            var message = 'Incorrect username and password combination';
+            return message;
           }
-        }); 
+        );
       },
 
       facebookLogin: function() {
@@ -108,29 +108,27 @@
         user.set("lastname", lastname);
         user.set("email", email); 
         user.set("password", password);
-        return user.signUp(null, {
-            success: function(user) {
-                // Hooray! Let them use the app now.
-                console.log(user);
-                // Save to cache after successful login.
-                var profileInfo = {    
-                  username: username,
-                  firstname: firstname,
-                  lastname: lastname,
-                  email: email
-                };
-                // move to store.js
-                $localStorage.$default({
-                  profileInfo: profileInfo
-                });
-            },
-            error: function(user, error) {
-                // Show the error message somewhere and let the user try again.
-                console.log("Error: " + error.code + " " + error.message);
-                // var message = "Error: " + error.code + " " + error.message;
-                // Alerts.error(message);
-            }
-        });
+        return user.signUp(null)
+        .then(
+          function(user) {
+            // Hooray! Let them use the app now.
+            console.log(user);
+            // Save to cache after successful login.
+            var profileInfo = {    
+              username: username,
+              firstname: firstname,
+              lastname: lastname,
+              email: email
+            };
+            // move to store.js
+            $localStorage.$default({
+              profileInfo: profileInfo
+            });
+            return;
+          }, function(error) {
+            return error.message;
+          }
+        );
       },
 
       logout: function() {
@@ -140,5 +138,5 @@
     }
   };
 
-  angular.module('app').factory('Actions', Actions)
+  angular.module('kiwii').factory('Actions', Actions)
 })();

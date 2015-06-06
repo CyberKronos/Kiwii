@@ -10,6 +10,6 @@
         };
     };
 
-    angular.module('app')
+    angular.module('kiwii')
         .controller('IntroCtrl', IntroCtrl)
 })();

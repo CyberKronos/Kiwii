@@ -25,6 +25,6 @@
     minImdbRating: 7.0,
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     value('DEFAULT_PREFS', DEFAULT_PREFS);
 })();

@@ -235,11 +235,12 @@ input.ion-google-place[readonly] {
 
 .button-bar .button {
   min-height: 0;
-  line-height: 30px;
+  line-height: 30px;  
 }
 
 .button-bar > .item-radio.button {
   padding: 0;
+  margin-bottom: 0;
 }
 .item-radio input:checked ~ .item-content {
   /* style the item content when its checked */

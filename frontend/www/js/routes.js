@@ -114,6 +114,6 @@
     $urlRouterProvider.otherwise('/dash');
   };
 
-  angular.module('app')
+  angular.module('kiwii')
     .config(Routes);
 })();

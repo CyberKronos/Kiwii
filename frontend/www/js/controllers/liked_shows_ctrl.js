@@ -30,6 +30,6 @@
     }
   }
 
-  angular.module('app').
+  angular.module('kiwii').
     controller('LikedShowsCtrl', LikedShowsCtrl);
 })();

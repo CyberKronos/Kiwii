@@ -1,7 +1,7 @@
 (function () {
   Parse.initialize("g3pJuFTV11d3QNG1zSGsn0Ea6b8OiYEve5gCXQWp", "RvkvXdhs719ZLD81BQGFCAhCq1kQf1yF3DqwBlZD");
 
-  var app = angular.module('app',
+  var kiwii = angular.module('kiwii',
     ['ionic',
       'ion-google-place',
       'ngCordova',
@@ -11,7 +11,7 @@
       'parse-angular',
       'image-preloader']);
 
-  app.run(function ($ionicPlatform, $rootScope, $state) {
+  kiwii.run(function ($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -44,7 +44,7 @@
     });
   });
 
-  app.filter('unsafe', function ($sce) {
+  kiwii.filter('unsafe', function ($sce) {
     return $sce.trustAsHtml;
   });
 })();

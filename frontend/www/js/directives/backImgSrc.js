@@ -1,6 +1,6 @@
 // http://stackoverflow.com/questions/13781685/angularjs-ng-src-equivalent-for-background-imageurl
 (function () {
-    angular.module('app').directive('backImg', function () {
+    angular.module('kiwii').directive('backImg', function () {
 
         return function (scope, element, attrs) {
             var filter = '';

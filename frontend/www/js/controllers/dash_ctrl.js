@@ -118,6 +118,6 @@
         }
     };
 
-    angular.module('app').
+    angular.module('kiwii').
         controller('DashCtrl', DashCtrl);
 })();

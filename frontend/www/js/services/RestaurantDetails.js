@@ -28,6 +28,6 @@
             }
         };
 
-    angular.module('app')
+    angular.module('kiwii')
         .factory('RestaurantDetails', ['$q', 'FoursquareApi', 'InstagramApi', RestaurantDetails]);
 })();

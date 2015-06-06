@@ -55,6 +55,6 @@
         return RestaurantPreference;
     };
 
-    angular.module('app').
+    angular.module('kiwii').
         factory('RestaurantPreference', Favourites);
 })();
