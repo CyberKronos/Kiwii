@@ -7,7 +7,7 @@ $card-bottom-height: 70%;
 }
 
 .show-card-container {
-  position: relative;
+  position: absolute;
   height: $card-height;
   width: $card-width;
   overflow: hidden;
