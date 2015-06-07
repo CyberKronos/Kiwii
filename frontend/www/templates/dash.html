@@ -1,88 +1,89 @@
 <ion-view view-title="">
-    <ion-header-bar ng-class="{'main-app-nav': true, 'bar-light': true}">
-        <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
-             ng-controller="NavCtrl">
+  <ion-header-bar ng-class="{'main-app-nav': true}">
+    <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
+         ng-controller="NavCtrl">
+      <user-info></user-info>
+    </div>
+  </ion-header-bar>
 
-            <user-info></user-info>
-            
+  <ion-content padding="true" scroll="false"
+               ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
+    <div style="padding: 0 30px;">
+      <div class="list list-inset">
+        <p>Choose a cuisine</p>
+        <label class="item item-input item-select" style="padding-left: 0; border: none;">
+          <select ng-model="criteria.query"
+                  ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
+                  ng-change="logCuisine()"
+                  style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
+          </select>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <p>Location</p>
+        <label class="item item-input ion-google-place-search">
+          <ion-google-place placeholder="Current location" ng-model="data.location"/>
+        </label>
+        <br>
+
+        <p>Distance</p>
+
+        <div id="distance-label" class="item item-icon-left">
+          <h2>{{distanceLabel.text}}</h2>
+          <i class="icon {{distanceLabel.icon}}"></i>
         </div>
-    </ion-header-bar>
-
-    <ion-content padding="true" scroll="false"
-                 ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
-        <div style="padding: 0 30px;">
-            <div class="list list-inset">
-                <p>Choose a cuisine</p>
-                <label class="item item-input item-select" style="padding-left: 0; border: none;">
-                  <select ng-model="criteria.query" 
-                          ng-options="cuisine.name as cuisine.type for cuisine in cuisineList" 
-                          ng-change="logCuisine()"
-                          style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
-                  </select>
-                </label>
-            </div>
-            <div class="list list-inset">
-                <p>Location</p>
-                <label class="item item-input ion-google-place-search">
-                    <ion-google-place placeholder="Current location" ng-model="data.location"/>
-                </label>
-                <br>
-
-                <p>Distance</p>
-
-                <div id="distance-label" class="item item-icon-left">
-                    <h2>{{distanceLabel.text}}</h2>
-                    <i class="icon {{distanceLabel.icon}}"></i>
-                </div>
-                <div class="range range-assertive">
-                    <!--Min, max, step needs to be defined here due to a bug-->
-                    <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
-                    <input type="range"
-                           min="1000"
-                           max="15000"
-                           step="1000"
-                           value="{{criteria.radius}}"
-                           ng-model="criteria.radius"
-                           ng-change="updateDistanceLabel(criteria.radius)">
-                    <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
-                </div>
-
-                <p>Price Range</p>
-
-                <div class="button-bar bar-assertive">
-                    <ion-radio ng-repeat="item in priceList"
-                               ng-value="item.value"
-                               ng-model="criteria.price"
-                               class="button button-assertive button-outline"
-                               name="radio2">
-                        {{ item.text }}
-                    </ion-radio>
-                </div>
-            </div>
-
-            <ul class="list toggle-all-restaurants">
-              <li class="item item-toggle">
-                 Include closed restaurants
-                 <label class="toggle toggle-assertive">
-                   <input type="checkbox">
-                   <div class="track">
-                     <div class="handle"></div>
-                   </div>
-                 </label>
-              </li>
-            </ul>
-
-            <button class="button button-block button-assertive search-button"
-                    ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
-                <div ng-if="isLoadingLocation">Getting Current Location...</div>
-                <div ng-if="!isLoadingLocation">Let's eat!</div>
-            </button>
-
-            <p class="text-centered">Or not sure what you're looking for?</p>
-
-            <!-- <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
-                Top Ten
-            </button> -->
+        <div class="range range-assertive">
+          <!--Min, max, step needs to be defined here due to a bug-->
+          <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
+          <input type="range"
+                 min="1000"
+                 max="15000"
+                 step="1000"
+                 value="{{criteria.radius}}"
+                 ng-model="criteria.radius"
+                 ng-change="updateDistanceLabel(criteria.radius)">
+          <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
         </div>
-    </ion-content>
+
+        <p>Price Range</p>
+
+        <div class="button-bar bar-assertive">
+          <ion-radio ng-repeat="item in priceList"
+                     ng-value="item.value"
+                     ng-model="criteria.price"
+                     class="button button-assertive button-outline"
+                     name="radio2">
+            {{ item.text }}
+          </ion-radio>
+        </div>
+      </div>
+
+      <ul class="list toggle-all-restaurants">
+        <li class="item item-toggle">
+          Include closed restaurants
+          <label class="toggle toggle-assertive">
+            <input type="checkbox">
+
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+      </ul>
+
+      <button class="button button-block button-assertive search-button"
+              ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
+        <div ng-if="isLoadingLocation">
+          Getting Current Location...
+        </div>
+        <div ng-if="!isLoadingLocation">Let's eat!</div>
+      </button>
+
+      <p class="text-centered">Or not sure what you're looking for?</p>
+
+      <!-- <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
+          Top Ten
+      </button> -->
+    </div>
+  </ion-content>
 </ion-view>

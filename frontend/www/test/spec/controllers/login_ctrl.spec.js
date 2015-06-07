@@ -5,7 +5,7 @@ describe('Controller: LoginCtrl', function() {
   var scope;
 
   beforeEach(function() {
-    module('app');
+    module('kiwii');
   });
 
   beforeEach(inject(function($rootScope, $controller) {

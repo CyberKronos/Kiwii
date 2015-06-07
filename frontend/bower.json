@@ -2,11 +2,10 @@
   "name": "Kiwii",
   "private": "true",
   "devDependencies": {
-    "angular-mocks": "~1.4.0"
+    "angular-mocks": "~1.3.16"
   },
   "dependencies": {
     "angular-jwt": "~0.0.6",
-    "angular-cookies": "~1.4.0",
     "angular-flux-helpers": "~0.1.2",
     "angular-storage": "~0.5.0",
     "auth0-lock": "~7.5.6",
@@ -14,13 +13,16 @@
     "collide": "1.0.0-beta.3",
     "ngstorage": "~0.3.4",
     "auth0-angular": "~4.0.5",
-    "ionic": "driftyco/ionic-bower#1.0.0-beta.14",
+    "ionic": "driftyco/ionic-bower#1.0.0",
     "ion-slide-box-tabs": "https://github.com/JKnorr91/ion-slide-box-tabs.git",
     "ion-google-place": "~0.0.1",
     "ionic-contrib-tinder-cards": "*",
-    "ngCordova": "~0.1.9-alpha",
+    "ngCordova": "~0.1.17-alpha",
     "parse-js-sdk": "~1.4.2",
     "parse-angular-patch": "~0.1.2",
     "underscore": "~1.7.0"
+  },
+  "resolutions": {
+    "angular": "1.3.16"
   }
 }
