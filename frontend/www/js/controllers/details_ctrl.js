@@ -26,7 +26,7 @@
             RestaurantDetails.fetchFor().then(
                 function (result) {
                     // TODO: refactor restaurant lat/long into a service
-                    $rootScope.restaurantDetails = result.details;
+                    $scope.restaurantDetails = result.details;
                     $scope.instagramImages = result.images;
                     $scope.restaurantReviews = result.reviews;
                 }

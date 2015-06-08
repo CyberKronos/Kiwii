@@ -1,4 +1,4 @@
-<ion-view view-title="">
+<ion-view cache-view="false"  view-title="">
 	<ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
 		<ion-nav-buttons side="left">
 	        <a class="button button-icon button-clear ion-chevron-left icon-white" ng-click="goBack()"></a>
@@ -9,7 +9,7 @@
     </ion-nav-bar>
 
     <ion-content style="top: 0 !important;">
-        <div style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ restaurantDetails.bestPhoto.prefix }}500x500{{ restaurantDetails.bestPhoto.suffix }}') no-repeat; background-size: cover; height: 50vh; width: 100%; position: absolute;">
+        <div style="height: 50vh; width: 100%; position: absolute" darken back-img="{{restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'img/image_placeholder.gif' }}">
             <div style="color: #ffffff; position: absolute; bottom: 0; padding: 20px; width: 95%;">
                 <div style="padding-right: 14px;">
                     <p class="title">{{ restaurantDetails.name }}</p>
@@ -91,86 +91,6 @@
                     </div>
                 </ion-slide>
             </ion-slide-box>
-
-            <!-- <div class="item item-divider">
-                <div class="padding-vertical">
-                    <b>{{business.name}}</b>
-                </div>
-            </div>
-
-            <div class="item item-text-wrap">
-                <div class="padding-vertical">
-                    <div ng-if="business.price.tier == 1">Price: $10 under</div>
-                    <div ng-if="business.price.tier == 2">Price: $11-$30</div>
-                    <div ng-if="business.price.tier == 3">Price: $31-$50</div>
-                    <div ng-if="business.price.tier == 4">Price: $50+</div>
-                    <div ng-if="business.rating != null">
-                        Rating: {{business.rating}}/10
-                    </div>
-                </div>
-                <div class="padding-vertical">Today: {{ business.hours.status }}</div>
-            </div>
-
-            <div class="item item-image" ng-if="business.photos.count == 0">
-                <img src="img/img_placeholder.png">
-            </div>
-            <div class="item item-image" ng-if="business.photos.count != 0">
-                <img src="{{business.photos.groups[0].items[0].prefix}}500x500{{business.photos.groups[0].items[0].suffix}}">
-            </div>
-
-            <div class="item item-divider">
-                <br/>
-                <div style="font-weight: bold;">
-                    {{business.location.address}}
-                    <br/>
-                    {{business.location.city}}, {{business.location.state}}  {{business.location.postalCode}}
-                    <br/>
-                    {{business.location.country}}
-                </div>
-                <br/>
-            </div>
-            <div class="item item-image" ng-click="goToMap()">
-                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{business.location.lng}},{{business.location.lat}})/{{business.location.lng}},{{business.location.lat}},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
-            </div>
-
-            <div class="item item-text-wrap" style="display: table; width: 100%;">
-                <div style="font-weight:bold;">Hours</div>
-                <div ng-repeat="hours in business.hours.timeframes">
-                    <div style="display: table-cell; min-width: 120px;">{{ hours.days }}</div> 
-                    <div style="display: table-cell;">{{ hours.open[0].renderedTime }}</div>
-                </div>
-            </div>
-
-            <div class="item item-text-wrap">
-                <div style="font-weight:bold;">Details</div>
-                <br/>
-                <div ng-repeat="details in business.attributes.groups">
-                    <div ng-if="details.name == 'Menus'">{{ details.name }}: <b>{{ details.summary }}</b></div>
-                    <div ng-if="details.name != 'Menus'">{{ details.name }}: <b>{{ details.items[0].displayValue }}</b></div> 
-                </div>
-            </div>
-
-            <div>
-                <a ng-if="business.menu.mobileUrl != null" ng-click="openWebsite(business.menu.mobileUrl)" class="item item-icon-left">
-                    <i class="icon ion-ios-paper"></i>
-                    Menu
-                </a>
-
-                <a class="item item-icon-left" ng-if="business.contact.formattedPhone != null" ng-href="tel: {{business.contact.phone}}">
-                    <i class="icon ion-ios-telephone"></i>
-                    {{business.contact.formattedPhone}}
-                </a>
-
-                <a ng-if="business.url != null" ng-click="openWebsite(business.url)" class="item item-icon-left">
-                    <i class="icon ion-earth"></i>
-                    Website
-                </a>
-
-                <a ng-if="business.reservations.url != null" ng-click="openWebsite(business.reservations.url)" class="item item-icon-left">
-                    <i class="icon ion-ios-navigate"></i>
-                    OpenTable Reservation
-                </a>
-            </div> -->
         </div>
     </ion-content>
 </ion-view>

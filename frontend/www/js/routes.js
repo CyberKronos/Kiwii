@@ -82,26 +82,6 @@
         }
       })
 
-      .state('instagram', {
-        url: '/dash/list/instagram',
-        cache: false,
-        templateUrl: 'templates/instagram.html',
-        controller: 'DetailsCtrl',
-        data: {
-          authenticate: true
-        }
-      })
-
-      .state('reviews', {
-        url: '/dash/list/reviews',
-        cache: false,
-        templateUrl: 'templates/reviews.html',
-        controller: 'DetailsCtrl',
-        data: {
-          authenticate: true
-        }
-      })
-
       .state('maps', {
         url: '/dash/list/details/maps',
         templateUrl: 'templates/maps.html',
