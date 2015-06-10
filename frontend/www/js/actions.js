@@ -93,7 +93,7 @@
               console.log(userObject);
               console.log("User logged in through Facebook!");
               $rootScope.currentUser = userObject.attributes;
-              return;
+              return 'existing user';
             }
           }, function(error) {
             console.log(error);

@@ -18,8 +18,13 @@
         facebookConnectPlugin.browserInit(appId);
       }
       Actions.facebookLogin()
-      .then(function() {
-        $state.go('intro');
+      .then(function(response) {
+        console.log(response);
+        if (response == 'existing user') {
+          $state.go('dash');
+        } else {
+          $state.go('intro');
+        }
       });
     };
   };

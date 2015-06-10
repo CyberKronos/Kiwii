@@ -53,10 +53,16 @@
             {text: '$$$$', value: '4'}
         ];
 
+        $scope.openNow = {
+            text: 'Open restaurants only', 
+            checked: true
+        };
+
         $scope.criteria = {
             radius: 2000,
             price: '1,4',
-            query: $scope.cuisineList[0]['name']
+            query: $scope.cuisineList[0]['name'],
+            openNow: 1
         };
 
         $scope.data = {};
@@ -71,6 +77,11 @@
                     $scope.$digest();
                 }
             }
+        };
+
+        $scope.updateOpenNowValue = function() {
+            $scope.criteria.openNow = ($scope.openNow.checked == true ? 1 : 0);
+            console.log($rootScope.searchCriteria);
         };
 
         $scope.logCuisine = function() {
