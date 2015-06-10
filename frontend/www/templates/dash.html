@@ -72,16 +72,16 @@
       </ul>
 
       <button class="button button-block button-assertive search-button"
-              ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
-        <div ng-if="isLoadingLocation">
+              ng-class="{'disabled': !searchCriteria['ll']}" ng-click="searchRestaurants()">
+        <div ng-if="!searchCriteria['ll']">
           Getting Current Location...
         </div>
-        <div ng-if="!isLoadingLocation">Let's eat!</div>
+        <div ng-if="searchCriteria['ll']">Let's eat!</div>
       </button>
 
-      <p class="text-centered">Or not sure what you're looking for?</p>
+      <!--<p class="text-centered">Or not sure what you're looking for?</p>
 
-      <!-- <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
+       <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
           Top Ten
       </button> -->
     </div>
