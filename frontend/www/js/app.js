@@ -22,13 +22,6 @@
 
     });
 
-    // Load search rootscope
-    $rootScope.searchCriteria = {
-      price: '1,4',
-      radius: 500,
-      ll: ''
-    };
-
     // Load current user from cache
     if (Parse.User.current()) {
       $rootScope.currentUser = Parse.User.current().attributes;

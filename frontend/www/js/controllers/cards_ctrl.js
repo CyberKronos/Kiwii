@@ -5,6 +5,8 @@
 
     var goNextOnSwipe = true;
 
+    $scope.criteria = RestaurantExplorer.criteria;
+
     $scope.swipeRestaurant = function () {
       var currentRestaurant = undefined;
       if (goNextOnSwipe) {
