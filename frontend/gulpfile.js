@@ -37,6 +37,7 @@ gulp.task('vendor', function(done) {
   var paths = [
     './www/lib/underscore/underscore.js',
     './www/lib/ionic/js/ionic.bundle.js',
+    './www/lib/ionic-service-core/ionic-core.js',
     "./www/lib/collide/collide.js",
     "./www/lib/ngstorage/ngStorage.min.js",
     "./www/lib/angular-jwt/dist/angular-jwt.js",

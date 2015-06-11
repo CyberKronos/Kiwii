@@ -8,8 +8,9 @@
       <div class="show-card-description">
         <span class="button button-icon button-clear ion-chevron-right"></span>
         <h4 ng-bind-html="restuarant.name | unsafe"></h4>
-        <p class="subtext">{{restuarant.category}}</p>
-        <p class="subtext" ng-if="restuarant.rating">{{restuarant.rating}}/10</p>
+        <div class="subtext">{{restuarant.category}}</div>
+        <div class="subtext" ng-if="restuarant.rating">{{restuarant.rating}}/10</div>
+        <b class="subtext" ng-if="restuarant.hours.isOpen == false">Closed</b>
       </div>
     </div>
   </div>
