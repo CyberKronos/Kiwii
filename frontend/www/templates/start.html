@@ -7,6 +7,12 @@
 			<button class="button button-block button-assertive" ng-click="goRegister()">
 				Register with email
 			</button>
+			<button class="button button-primary button-block " ng-click="checkForUpdates()">
+	        	Check for updates
+	      	</button>
+	      	<button class="button button-stable button-block button-pulse" ng-if="hasUpdate" ng-click="doUpdate()">
+	        	Download update
+	      	</button>
 			<p style="text-align:center; padding: 20px 0;">Already a user? <a href="#/login"><strong>Log in</strong></a></p>
 		</div>
 	</ion-content>

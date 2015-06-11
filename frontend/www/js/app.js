@@ -10,7 +10,8 @@
       'ionic.contrib.ui.tinderCards',
       'parse-angular',
       'image-preloader',
-      'ionic.service.core']);
+      'ionic.service.core',
+      'ionic.service.deploy']);
 
   kiwii.config(function ($ionicAppProvider) {
     $ionicAppProvider.identify({
