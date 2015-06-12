@@ -36,5 +36,7 @@
     },
     "cordova-plugin-statusbar"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
