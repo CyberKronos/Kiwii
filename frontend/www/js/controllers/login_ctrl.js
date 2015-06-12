@@ -23,12 +23,17 @@
 
     $scope.facebookLogin = function() {
       if (!window.cordova) {
-        var appId = 1594340540779035;
+        var appId = 1597756577154303;
         facebookConnectPlugin.browserInit(appId);
       }
       Actions.facebookLogin()
-      .then(function() {
-        $state.go('dash');
+      .then(function(response) {
+        console.log(response);
+        if (response == 'existing user') {
+          $state.go('dash');
+        } else {
+          $state.go('intro');
+        }
       });
     };
   }

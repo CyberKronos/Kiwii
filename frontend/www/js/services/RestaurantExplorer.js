@@ -16,6 +16,7 @@
       return FoursquareApi.exploreRestaurants($rootScope.searchCriteria)
         .then(function(result) {
           service.results = result;
+          console.log(service.results);
           return service.results;
         });
     }
