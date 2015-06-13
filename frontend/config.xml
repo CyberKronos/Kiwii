@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.alexanderguyen.Kiwii" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Kiwii</name>
-  <description>&#xD;
-    Personal decision making app for food&#xD;
+  <description>&#xD;&#xD;
+    Personal decision making app for food&#xD;&#xD;
   </description>
-  <author email="alex44nguyen@gmail.com" href="http://www.alexandernguyen.me">&#xD;
-    Alexander Nguyen&#xD;
+  <author email="alex44nguyen@gmail.com" href="http://www.alexandernguyen.me">&#xD;&#xD;
+    Alexander Nguyen&#xD;&#xD;
   </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -38,5 +38,18 @@
     <splash src="resources\ios\splash\Default-568h@2x~iphone.png" width="640" height="1136"/>
     <splash src="resources\ios\splash\Default@2x~iphone.png" width="640" height="960"/>
     <splash src="resources\ios\splash\Default~iphone.png" width="320" height="480"/>
+  </platform>
+  <platform name="android">
+    <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
+    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
+    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi"/>
+    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi"/>
+    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
+    <splash src="resources\android\splash\drawable-land-ldpi-screen.png" density="land-ldpi"/>
+    <splash src="resources\android\splash\drawable-land-mdpi-screen.png" density="land-mdpi"/>
+    <splash src="resources\android\splash\drawable-port-ldpi-screen.png" density="port-ldpi"/>
+    <splash src="resources\android\splash\drawable-port-mdpi-screen.png" density="port-mdpi"/>
+    <splash src="resources\android\splash\drawable-port-hdpi-screen.png" density="port-hdpi"/>
   </platform>
 </widget>

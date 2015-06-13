@@ -32,7 +32,8 @@
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if (window.StatusBar) {
-        StatusBar.styleDefault();
+        StatusBar.overlaysWebView(true);
+        StatusBar.styleLightContent();
       }
     });
 

@@ -6,10 +6,11 @@
     </div>
   </ion-header-bar>
 
-  <ion-content padding="true" scroll="false"
+  <ion-content padding="true"
                ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
     <div style="padding: 0 30px;">
-      <div class="list list-inset">
+
+      <div class="padding-vertical">
         <p>Choose a cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
@@ -19,13 +20,15 @@
           </select>
         </label>
       </div>
-      <div class="list list-inset">
+
+      <div class="padding-vertical">
         <p>Location</p>
         <label class="item item-input ion-google-place-search">
           <ion-google-place placeholder="Current location" ng-model="data.location"/>
         </label>
-        <br>
+      </div>
 
+      <div class="padding-vertical">
         <p>Distance</p>
 
         <div id="distance-label" class="item item-icon-left">
@@ -44,7 +47,9 @@
                  ng-change="updateDistanceLabel(criteria.radius)">
           <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
         </div>
+      </div>
 
+      <div class="padding-vertical">
         <p>Price Range</p>
 
         <div class="button-bar bar-assertive">
@@ -58,13 +63,15 @@
         </div>
       </div>
 
-      <ion-toggle class="toggle-all-restaurants" 
-                  ng-model="openNow.checked"
-                  ng-checked="openNow.checked"
-                  ng-change="updateOpenNowValue()"
-                  toggle-class="toggle-assertive">
-        {{ openNow.text }}
-      </ion-toggle>
+      <div class="padding-vertical">
+        <ion-toggle class="toggle-all-restaurants" 
+                    ng-model="openNow.checked"
+                    ng-checked="openNow.checked"
+                    ng-change="updateOpenNowValue()"
+                    toggle-class="toggle-assertive">
+          {{ openNow.text }}
+        </ion-toggle>
+      </div>
 
       <button class="button button-block button-assertive search-button"
               ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
