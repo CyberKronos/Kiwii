@@ -58,18 +58,13 @@
         </div>
       </div>
 
-      <ul class="list toggle-all-restaurants">
-        <li class="item item-toggle">
-          Include closed restaurants
-          <label class="toggle toggle-assertive">
-            <input type="checkbox">
-
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </li>
-      </ul>
+      <ion-toggle class="toggle-all-restaurants" 
+                  ng-model="openNow.checked"
+                  ng-checked="openNow.checked"
+                  ng-change="updateOpenNowValue()"
+                  toggle-class="toggle-assertive">
+        {{ openNow.text }}
+      </ion-toggle>
 
       <button class="button button-block button-assertive search-button"
               ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
@@ -79,11 +74,7 @@
         <div ng-if="!isLoadingLocation">Let's eat!</div>
       </button>
 
-      <p class="text-centered">Or not sure what you're looking for?</p>
-
-      <!-- <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
-          Top Ten
-      </button> -->
+      <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->
     </div>
   </ion-content>
 </ion-view>

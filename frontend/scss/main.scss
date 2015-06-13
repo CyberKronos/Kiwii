@@ -112,6 +112,15 @@
 }
 
 /*Other*/
+.toggle-all-restaurants {
+  border: none !important;
+  background: transparent;
+  padding: 16px 0 16px 0;
+  label {
+    right: 4px !important; 
+  }
+}
+
 .user-avatar {
   height: 30px;
   width: 30px;
@@ -127,7 +136,6 @@
 .user-info-container {
   position: absolute;
   right: 10px;
-  margin-top: 3px;
 }
 
 .user-info-container .regional-flag {
