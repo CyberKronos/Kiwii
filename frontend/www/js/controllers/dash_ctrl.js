@@ -10,7 +10,7 @@
 
         // TODO: Use constant service
         var DISTANCE_LABELS = [
-            {text: 'Off the Beaten Path', minDistance: 15000, icon: 'ion-android-compass'},
+            {text: 'Off the Beaten Path', minDistance: 20000, icon: 'ion-android-compass'},
             {text: 'Driving Distance', minDistance: 8000, icon: 'ion-android-car'},
             {text: 'Biking Distance', minDistance: 4000, icon: 'ion-android-bicycle'},
             {text: 'Walking Distance', minDistance: 2000, icon: 'ion-android-walk'},
@@ -60,7 +60,7 @@
 
         $scope.criteria = {
             radius: 2000,
-            price: '1,4',
+            price: '1,2,3,4',
             query: $scope.cuisineList[0]['name'],
             openNow: 1
         };

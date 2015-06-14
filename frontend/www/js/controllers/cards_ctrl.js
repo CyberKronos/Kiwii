@@ -1,7 +1,9 @@
 (function () {
-  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader) {
+  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     fetchRestaurants().then(preloadRestaurantPhotos);
+
+    AnalyticsTracking.searchQuery($rootScope.searchCriteria);
 
     var goNextOnSwipe = true;
 
@@ -28,6 +30,7 @@
     $scope.restaurantDetails = function (restaurant) {
       // TODO: Pass venue ID through state parameters instead
       RestaurantDetails.setVenueId(restaurant.foursquareId);
+      AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
       $state.go('details');
     };
 
