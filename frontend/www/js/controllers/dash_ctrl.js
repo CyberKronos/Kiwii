@@ -90,7 +90,7 @@
 
         $scope.searchRestaurants = function () {
             $rootScope.cardTitle = '';
-            $rootScope.cuisineType = '';
+            $rootScope.cuisineType = $scope.criteria.query;
             if ($scope.data.location) {
                 console.log($scope.data.location);
                 var latlng = $scope.data.location.geometry.location;
