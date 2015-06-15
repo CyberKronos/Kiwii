@@ -41,13 +41,23 @@
                             <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
                         </div>
                         <div class="details-text">
-                            <div>{{ restaurantDetails.location.formattedAddress[0] }}</div>
-                            <div>{{ restaurantDetails.location.formattedAddress[1] }}</div>
-                            <div>{{ restaurantDetails.contact.formattedPhone }}</div>
-                            <div ng-if="restaurantDetails.url" 
-                               ng-click="openWebsite(restaurantDetails.url)">
-                                <u>{{ restaurantDetails.url }}</u>
-                            </div>
+                            <p>
+                                {{ restaurantDetails.location.formattedAddress[0] }}
+                                <br/>
+                                {{ restaurantDetails.location.formattedAddress[1] }}
+                            </p>
+                            <p> 
+                                {{ restaurantDetails.contact.formattedPhone }}
+                                <br/>
+                                <u ng-if="restaurantDetails.url" 
+                                   ng-click="openWebsite(restaurantDetails.url)">
+                                   {{ restaurantDetails.url }}
+                                </u>
+                            </p>
+                            <p ng-if="restaurantDetails.description"  
+                               style="font-style: italic;">
+                               "{{ restaurantDetails.description }}"
+                            </p>
 
                             <button class="button button-block button-assertive" 
                                     ng-if="restaurantDetails.menu.mobileUrl"
