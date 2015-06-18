@@ -10,16 +10,16 @@
       <u>{{ cuisineType || 'All Restaurants' }}</u>
     </div>
 
-    <td-cards ng-if="restuarants.length && !isLoading && !apiError">
-      <td-card ng-repeat="restuarant in restuarants | limitTo: 1"
-               on-swipe-right="nextRestuarant()"
-               on-swipe-left="prevRestuarant()"
+    <td-cards ng-if="restaurants.length && !isLoading && !apiError">
+      <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
+               on-swipe-right="nextRestaurant()"
+               on-swipe-left="prevRestaurant()"
                on-destroy="swipeRestaurant()">
         <show-card></show-card>
       </td-card>
     </td-cards>
 
-    <div class="row row-center" ng-if="!restuarants.length && !isLoading && !apiError">
+    <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">
       <div class="col-80 col-offset-10 text-centered">
         <i class="icon ion-android-search calm messageIcon"></i>
 

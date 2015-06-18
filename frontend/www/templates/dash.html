@@ -16,7 +16,7 @@
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
                   ng-change="logCuisine()"
-                  style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
+                  style="color: #000000; font-size: 20px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
           </select>
         </label>
       </div>
@@ -53,13 +53,13 @@
         <p>Price Range</p>
 
         <div class="button-bar bar-assertive">
-          <ion-radio ng-repeat="item in priceList"
-                     ng-value="item.value"
-                     ng-model="criteria.price"
-                     class="button button-assertive button-outline"
-                     name="radio2">
+          <ion-checkbox 
+                        ng-repeat="item in priceList" 
+                        ng-model="item.checked"
+                        ng-change="updatePriceValue()"
+                        ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
             {{ item.text }}
-          </ion-radio>
+          </ion-checkbox>
         </div>
       </div>
 

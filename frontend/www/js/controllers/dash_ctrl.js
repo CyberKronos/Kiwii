@@ -47,10 +47,10 @@
         ];
 
         $scope.priceList = [
-            {text: '$', value: '1'},
-            {text: '$$', value: '2'},
-            {text: '$$$', value: '3'},
-            {text: '$$$$', value: '4'}
+            {text: '$', value: '1', checked: false},
+            {text: '$$', value: '2', checked: false},
+            {text: '$$$', value: '3', checked: false},
+            {text: '$$$$', value: '4', checked: false}
         ];
 
         $scope.openNow = {
@@ -77,6 +77,17 @@
                     $scope.$digest();
                 }
             }
+        };
+
+        $scope.updatePriceValue = function() {
+            var i;
+            var priceList = [];
+            for (i = 0; i < $scope.priceList.length; i++) {
+                if ($scope.priceList[i].checked) {
+                    priceList.push($scope.priceList[i].value);
+                }
+            }
+            $scope.criteria.price = createCommaSeparatedList(priceList);
         };
 
         $scope.updateOpenNowValue = function() {
@@ -111,6 +122,12 @@
         $scope.updateLocation = function() {
             $scope.isLoadingLocation = false;
         };
+
+        function createCommaSeparatedList(arr) {
+          return arr.map(function (obj) {
+            return obj;
+          }).join(',');
+        }
 
         function fetchCurrentLocation() {
             // Geolocation to get location position
