@@ -1,5 +1,5 @@
 (function() {
-  var Actions = function($rootScope, Store, Dispatcher, ApiConstants, AppConstants, $localStorage, $cordovaFacebook) {
+  var Actions = function($rootScope, $localStorage, $cordovaFacebook) {
     return {
       login: function(username, password) {
         return Parse.User.logIn(username, password)
@@ -93,7 +93,7 @@
               console.log(userObject);
               console.log("User logged in through Facebook!");
               $rootScope.currentUser = userObject.attributes;
-              return;
+              return 'existing user';
             }
           }, function(error) {
             console.log(error);

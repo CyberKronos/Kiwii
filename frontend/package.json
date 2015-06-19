@@ -20,5 +20,24 @@
     "karma-chrome-launcher": "^0.1.12",
     "karma-jasmine": "^0.3.5",
     "shelljs": "^0.3.0"
-  }
+  },
+  "cordovaPlugins": [
+    {
+      "locator": "https://github.com/driftyco/ionic-plugins-deploy",
+      "id": "com.ionic.deploy"
+    },
+    {
+      "locator": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
+      "id": "com.phonegap.plugins.facebookconnect",
+      "variables": {
+        "APP_ID": "1597756577154303",
+        "APP_NAME": "Kiwii"
+      }
+    },
+    "cordova-plugin-statusbar"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    "android"
+  ]
 }

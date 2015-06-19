@@ -12,40 +12,51 @@
         <div style="height: 50vh; width: 100%; position: absolute" darken back-img="{{restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'img/image_placeholder.gif' }}">
             <div style="color: #ffffff; position: absolute; bottom: 0; padding: 20px; width: 95%;">
                 <div style="padding-right: 14px;">
-                    <p class="title">{{ restaurantDetails.name }}</p>
+                    <div class="title">{{ restaurantDetails.name }}</div>
                     <a class="button button-icon button-clear icon-white" 
                        ng-class="{'ion-ios-star': isFavourite, 'ion-ios-star-outline': !isFavourite}" 
                        ng-click="toggleFavourite($event)" 
                        style=" position: absolute; top: 14px; right: 0; font-size: 30px;">
                     </a>
                 </div>
-                <p class="subtext">{{ restaurantDetails.categories[0].shortName }}</p>
-                <p class="subtext" ng-if="restaurantDetails.price.tier == 1">Price: $ ({{ restaurantDetails.price.message }})</p>
-                <p class="subtext" ng-if="restaurantDetails.price.tier == 2">Price: $$ ({{ restaurantDetails.price.message }})</p>
-                <p class="subtext" ng-if="restaurantDetails.price.tier == 3">Price: $$$ ({{ restaurantDetails.price.message }})</p>
-                <p class="subtext" ng-if="restaurantDetails.price.tier == 4">Price: $$$$ ({{ restaurantDetails.price.message }})</p>
-                <p class="subtext" ng-if="restaurantDetails.rating != null">{{ restaurantDetails.rating }}/10</p>
+                <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
+                <div class="subtext" ng-if="restaurantDetails.price.tier == 1">Price: $ ({{ restaurantDetails.price.message }})</div>
+                <div class="subtext" ng-if="restaurantDetails.price.tier == 2">Price: $$ ({{ restaurantDetails.price.message }})</div>
+                <div class="subtext" ng-if="restaurantDetails.price.tier == 3">Price: $$$ ({{ restaurantDetails.price.message }})</div>
+                <div class="subtext" ng-if="restaurantDetails.price.tier == 4">Price: $$$$ ({{ restaurantDetails.price.message }})</div>
+                <div class="subtext" ng-if="restaurantDetails.rating != null">{{ restaurantDetails.rating }}/10</div>
 
                 <br/>
 
-                <p>{{ restaurantDetails.hours.status }}</p>
+                <div>{{ restaurantDetails.hours.status }}</div>
             </div>
         </div>
 
         <div class="details-container">
             <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
-                <ion-slide ion-slide-tab-label="Info">
-                    <div>
+                <ion-slide class="slide" dynamic-height ion-slide-tab-label="Info">
+                    <ion-scroll style="height:300px">
+                    <div class="slide-box box">
                         <div class="item item-image" ng-click="goToMaps()" style="background-color: #C0C0C0; width: 400px; height: 250px;">
                             <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},17/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
                         </div>
                         <div class="details-text">
-                            <p>{{ restaurantDetails.location.formattedAddress[0] }}</p>
-                            <p>{{ restaurantDetails.location.formattedAddress[1] }}</p>
-                            <p>{{ restaurantDetails.contact.formattedPhone }}</p>
-                            <p ng-if="restaurantDetails.url" 
-                               ng-click="openWebsite(restaurantDetails.url)">
-                                <u>{{ restaurantDetails.url }}</u>
+                            <p>
+                                {{ restaurantDetails.location.formattedAddress[0] }}
+                                <br/>
+                                {{ restaurantDetails.location.formattedAddress[1] }}
+                            </p>
+                            <p> 
+                                {{ restaurantDetails.contact.formattedPhone }}
+                                <br/>
+                                <u ng-if="restaurantDetails.url" 
+                                   ng-click="openWebsite(restaurantDetails.url)">
+                                   {{ restaurantDetails.url }}
+                                </u>
+                            </p>
+                            <p ng-if="restaurantDetails.description"  
+                               style="font-style: italic;">
+                               "{{ restaurantDetails.description }}"
                             </p>
 
                             <button class="button button-block button-assertive" 
@@ -61,9 +72,11 @@
                             </button>
                         </div>
                     </div>
+                    </ion-scroll>
                 </ion-slide>
-                <ion-slide ion-slide-tab-label="Instagram">
-                    <div>
+                <ion-slide class="slide" ion-slide-tab-label="Instagram">
+                    <ion-scroll style="height:300px">
+                    <div class="slide-box box">
                         <div class="list" ng-repeat="pic in instagramImages" 
                                           style="margin-bottom: 0; padding-bottom: 0;">
                             <div class="item item-image">
@@ -74,9 +87,11 @@
                             </div>
                         </div>
                     </div>
+                    </ion-scroll>
                 </ion-slide>
-                <ion-slide ion-slide-tab-label="Reviews">
-                    <div>
+                <ion-slide class="slide" ion-slide-tab-label="Reviews">
+                    <ion-scroll style="height:300px">
+                    <div class="slide-box box">
                         <ul class="list">
                             <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;"> 
                                 <div>
@@ -89,6 +104,7 @@
                             </li>
                         </ul>
                     </div>
+                    <ion-scroll></ion-scroll>
                 </ion-slide>
             </ion-slide-box>
         </div>

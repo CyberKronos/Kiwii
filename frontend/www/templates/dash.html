@@ -6,19 +6,21 @@
     </div>
   </ion-header-bar>
 
-  <ion-content padding="true" scroll="false"
+  <ion-content padding="true"
                ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
     <div style="padding: 0 30px;">
-      <div class="list list-inset">
+
+      <div class="padding-vertical">
         <p>Choose a cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
-                  style="color: #000000; font-size: 22px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
+                  style="color: #000000; font-size: 20px; direction: ltr; padding: 0; position: relative; max-width: 100%; width: 100%;">
           </select>
         </label>
       </div>
-      <div class="list list-inset">
+
+      <div class="padding-vertical">
         <p>Location</p>
         <div class="row row-center location-input">
           <div class="col-90">
@@ -33,10 +35,9 @@
                ng-class="{'positive': !fields.location, 'dark' : fields.location}"
                ng-click="getCurrentLocation()" ></i>
           </div>
-        </div>
+      </div>
 
-        <br>
-
+      <div class="padding-vertical">
         <p>Distance</p>
 
         <div id="distance-label" class="item item-icon-left">
@@ -48,39 +49,38 @@
           <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
           <input type="range"
                  min="1000"
-                 max="15000"
+                 max="20000"
                  step="1000"
                  value="{{criteria.radius}}"
                  ng-model="criteria.radius"
                  ng-change="updateDistanceLabel(criteria.radius)">
           <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
         </div>
+      </div>
 
+      <div class="padding-vertical">
         <p>Price Range</p>
 
         <div class="button-bar bar-assertive">
-          <ion-radio ng-repeat="item in priceList"
-                     ng-value="item.value"
-                     ng-model="criteria.price"
-                     class="button button-assertive button-outline"
-                     name="radio2">
+          <ion-checkbox 
+                        ng-repeat="item in priceList" 
+                        ng-model="item.checked"
+                        ng-change="updatePriceValue()"
+                        ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
             {{ item.text }}
-          </ion-radio>
+          </ion-checkbox>
         </div>
       </div>
 
-      <ul class="list toggle-all-restaurants">
-        <li class="item item-toggle">
-          Include closed restaurants
-          <label class="toggle toggle-assertive">
-            <input type="checkbox">
-
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </li>
-      </ul>
+      <div class="padding-vertical">
+        <ion-toggle class="toggle-all-restaurants" 
+                    ng-model="openNow.checked"
+                    ng-checked="openNow.checked"
+                    ng-change="updateOpenNowValue()"
+                    toggle-class="toggle-assertive">
+          {{ openNow.text }}
+        </ion-toggle>
+      </div>
 
       <button class="button button-block button-assertive search-button"
               ng-class="{'disabled': !criteria['ll']}" ng-click="searchRestaurants()">
@@ -90,11 +90,7 @@
         <div ng-if="criteria['ll']">Let's eat!</div>
       </button>
 
-      <!--<p class="text-centered">Or not sure what you're looking for?</p>
-
-       <button class="button button-block button-assertive" ng-click="topTenRestaurants()">
-          Top Ten
-      </button> -->
+      <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->
     </div>
   </ion-content>
 </ion-view>

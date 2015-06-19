@@ -25,7 +25,6 @@ Parse.Cloud.define('explore', function (request, response) {
     if (request.params.queryParams.query == '') {
         request.params.queryParams.section = 'food';
     }
-    request.params.queryParams.openNow = 1;
     request.params.queryParams.venuePhotos = 1;
     request.params.queryParams.oauth_token = OAUTH_TOKEN;
     request.params.queryParams.v = API_VERSION;

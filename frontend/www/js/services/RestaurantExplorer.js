@@ -6,7 +6,8 @@
         var criteria = {
           radius: CRITERIA_DEFAULTS.DISTANCE,
           price: CRITERIA_DEFAULTS.PRICES,
-          query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name']
+          query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name'],
+          openNow: CRITERIA_DEFAULTS.OPEN
         };
 
         var service = {

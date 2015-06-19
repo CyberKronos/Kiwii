@@ -1,7 +1,9 @@
 (function () {
-  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader) {
+  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     fetchRestaurants().then(preloadRestaurantPhotos);
+
+    AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
 
     var goNextOnSwipe = true;
 
@@ -19,17 +21,18 @@
       }
     };
 
-    $scope.nextRestuarant = function() {
+    $scope.nextRestaurant = function() {
       goNextOnSwipe = true;
     };
 
-    $scope.prevRestuarant = function() {
+    $scope.prevRestaurant = function() {
       goNextOnSwipe = false;
     };
 
     $scope.restaurantDetails = function (restaurant) {
       // TODO: Pass venue ID through state parameters instead
       RestaurantDetails.setVenueId(restaurant.foursquareId);
+      AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
       $state.go('details');
     };
 
@@ -41,14 +44,14 @@
       showLoading();
       return RestaurantExplorer.fetch()
         .then(function() {
-          $scope.restuarants = RestaurantExplorer.results;
+          $scope.restaurants = RestaurantExplorer.results;
         }, function (error) {
           $scope.apiError = true;
           console.log(error);
         })
         .always(function () {
           hideLoading();
-          return $scope.restuarants;
+          return $scope.restaurants;
         });
     }
 

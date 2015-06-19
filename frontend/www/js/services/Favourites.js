@@ -8,9 +8,9 @@
         var foursquarePlaceId = '';
 
         // Private Methods
-        var RestaurantPreference = function (parseUser, restuarantId) {
+        var RestaurantPreference = function (parseUser, restaurantId) {
             parseUserPointer = parseUser;
-            foursquarePlaceId = restuarantId;
+            foursquarePlaceId = restaurantId;
         };
 
         var getFavouriteEntry = function () {

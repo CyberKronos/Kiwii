@@ -1,13 +1,23 @@
 (function () {
   var DashCtrl = function ($scope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, RestaurantExplorer, CRITERIA_OPTIONS) {
 
-    fetchCurrentLocation();
+    $scope.isLoadingLocation = true;
+
+    fetchCurrentLocation()
+      .then(function () {
+        $scope.isLoadingLocation = false;
+      });
 
     $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
     $scope.priceList = CRITERIA_OPTIONS.PRICES;
 
     $scope.criteria = RestaurantExplorer.criteria;
+
+    $scope.openNow = {
+      text: 'Open restaurants only',
+      checked: true
+    };
 
     $scope.fields = {};
 
@@ -16,6 +26,11 @@
     $scope.updateDistanceLabel = function (distance) {
       $scope.distanceLabel = getDistanceLabel(distance);
       $scope.$digest();
+    };
+
+    $scope.updateOpenNowValue = function () {
+      $scope.criteria.openNow = ($scope.openNow.checked == true ? 1 : 0);
+      console.log($scope.criteria);
     };
 
     $scope.convertToLatLon = function (location) {
@@ -69,4 +84,5 @@
 
   angular.module('kiwii').
     controller('DashCtrl', DashCtrl);
-})();
+})
+();
