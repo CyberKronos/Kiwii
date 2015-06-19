@@ -1,5 +1,5 @@
 (function () {
-    var DetailsCtrl = function ($rootScope, $scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, RestaurantPreference, RestaurantDetails) {
 
         var restaurantPreference = null;
         getRestaurantInfo();
@@ -23,7 +23,7 @@
         };
 
         function getRestaurantInfo() {
-            RestaurantDetails.fetchFor().then(
+            RestaurantDetails.fetchVenue().then(
                 function (result) {
                     // TODO: refactor restaurant lat/long into a service
                     $scope.restaurantDetails = result.details;
@@ -31,7 +31,7 @@
                     $scope.restaurantReviews = result.reviews;
                 }
             ).then(function () {
-                    restaurantPreference = new RestaurantPreference(Parse.User.current(), $rootScope.restaurantDetails.id);
+                    restaurantPreference = new RestaurantPreference(Parse.User.current(), RestaurantDetails.getVenueId());
                     return restaurantPreference.isFavourite();
                 }
             ).then(function (isFavouriteRestaurant) {

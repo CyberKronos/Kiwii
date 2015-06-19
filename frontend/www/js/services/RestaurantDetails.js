@@ -3,16 +3,20 @@
             var selectedId = 0;
 
             return {
-                venueId: selectedId,
+                getVenueId: getVenueId,
                 setVenueId: setVenueId,
-                fetchFor: fetchFor
+                fetchVenue: fetch
             };
 
             function setVenueId(venueId) {
                 selectedId = venueId;
             }
 
-            function fetchFor(venueId) {
+            function getVenueId() {
+                return selectedId;
+            }
+
+            function fetch(venueId) {
                 if (!venueId) {
                     venueId = selectedId;
                 }

@@ -1,5 +1,5 @@
 (function () {
-  var CardsCtrl = function ($rootScope, $scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     fetchRestaurants().then(preloadRestaurantPhotos);
 

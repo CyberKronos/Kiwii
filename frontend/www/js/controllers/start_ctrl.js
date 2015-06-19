@@ -1,5 +1,5 @@
 (function() {
-  var StartCtrl = function($scope, $ionicDeploy, $rootScope, $state, Actions) {
+  var StartCtrl = function($scope, $ionicDeploy, $state, Actions) {
     // Update app code with new release from Ionic Deploy
     $scope.doUpdate = function() {
         $ionicDeploy.update().then(function(res) {
