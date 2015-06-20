@@ -23,9 +23,19 @@
 
       <div class="padding-vertical">
         <p>Location</p>
-        <label class="item item-input ion-google-place-search">
-          <ion-google-place placeholder="Current location" ng-model="data.location"/>
-        </label>
+        <div class="row row-center location-input">
+          <div class="col-90">
+            <label class="item item-input ion-google-place-search">
+              <ion-google-place placeholder="Current location"
+                                ng-model="fields.location"
+                                ng-change="convertToLatLon(fields.location)"/>
+            </label>
+          </div>
+          <div class="col-10">
+            <i class="icon ion-location current-location-button"
+               ng-class="{'positive': !fields.location, 'dark' : fields.location}"
+               ng-click="getCurrentLocation()" ></i>
+          </div>
       </div>
 
       <div class="padding-vertical">
@@ -74,11 +84,11 @@
       </div>
 
       <button class="button button-block button-assertive search-button"
-              ng-class="{'disabled': isLoadingLocation}" ng-click="searchRestaurants()">
-        <div ng-if="isLoadingLocation">
+              ng-class="{'disabled': !criteria['ll']}" ng-click="searchRestaurants()">
+        <div ng-if="!criteria['ll']">
           Getting Current Location...
         </div>
-        <div ng-if="!isLoadingLocation">Let's eat!</div>
+        <div ng-if="criteria['ll']">Let's eat!</div>
       </button>
 
       <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->

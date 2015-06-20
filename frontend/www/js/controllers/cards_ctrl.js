@@ -3,9 +3,11 @@
 
     fetchRestaurants().then(preloadRestaurantPhotos);
 
-    AnalyticsTracking.searchQuery($rootScope.searchCriteria);
+    AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
 
     var goNextOnSwipe = true;
+
+    $scope.criteria = RestaurantExplorer.criteria;
 
     $scope.swipeRestaurant = function () {
       var currentRestaurant = undefined;
