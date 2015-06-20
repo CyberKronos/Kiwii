@@ -5,24 +5,23 @@
 	    </ion-nav-buttons>
   	</ion-nav-bar>
   	<ion-content padding="true" scroll="false">
-		<!-- The content of the page -->
-		<!-- The widget is created by Auth0. We don't have to add anything here -->
 	  	<form ng-submit="emailLogin()">
 	  		<div class="padding">
-	  			<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="text" placeholder="Username" ng-model="loginObj.username" style="font-size: 18px;">
+	  			<div class="input-field">
+			    	<input type="text" placeholder="Username" ng-model="loginObj.username">
 			  	</div>
-			  	<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="password" placeholder="Password" ng-model="loginObj.password" style="font-size: 18px;">
+			  	<div class="input-field">
+			    	<input type="password" placeholder="Password" ng-model="loginObj.password">
 			  	</div>
 			  	<br/>
 			  	<button class="button button-block button-assertive" type="submit">Sign In</button>
 			</div>
 	  	</form>
-	  	<div style="border-bottom: grey 2px solid; position: absolute; width: 95%; bottom: 40%;"></div>
-	  	<div style="position: absolute; width: 30px; height: 30px; border: 2px solid grey; background-color: #ffffff; border-radius: 50%; text-align: center; padding-top: 2px; bottom: 37.5%; left: 45%;">or</div>
-	  	<div class="padding" style="position: absolute; width: 95%; bottom: 20%;">
-		  	<button class="button button-block button-positive" ng-click="facebookLogin()">
+	  	<div id="or-line"></div>
+	  	<div id="or-circle">or</div>
+	  	<div class="padding fb-login-container">
+		  	<button class="button button-block button-positive" 
+		  			ng-click="facebookLogin()">
 				Login with Facebook
 			</button>
 		</div>

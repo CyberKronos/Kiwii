@@ -1,5 +1,5 @@
 (function () {
-    var DashCtrl = function ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation) {
+    var DashCtrl = function ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $ionicPopup) {
 
         $scope.isLoadingLocation = true;
 
@@ -141,7 +141,16 @@
                     console.log($rootScope.searchCriteria);
                 }, function (err) {
                     // error
-                    console.log("Error retrieving position " + err.code + " " + err.message)
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Location Error',
+                        template: "Error retrieving position " + err.code + " " + err.message,
+                        buttons: [
+                          { 
+                            text: 'Ok',
+                            type: 'button-assertive',
+                          }
+                        ]
+                    });
                 });
         }
     };

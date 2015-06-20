@@ -1,7 +1,15 @@
-.profile-avatar {
-  border-radius: 50%;
-  max-height: 75px;
-  max-width: 75px;
+.profile-top-container {
+  text-align: center; 
+  position: absolute; 
+  width: 100%; 
+  top: 10%; 
+  color: #FFFFFF;
+
+  .profile-avatar {
+    border-radius: 50%;
+    max-height: 75px;
+    max-width: 75px;
+  }
 }
 
 .save-later-placeholder {
