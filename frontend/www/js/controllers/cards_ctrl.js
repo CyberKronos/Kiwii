@@ -45,6 +45,7 @@
       return RestaurantExplorer.fetch()
         .then(function() {
           $scope.restaurants = RestaurantExplorer.results;
+          console.log($scope.restaurants);
         }, function (error) {
           $scope.apiError = true;
           console.log(error);

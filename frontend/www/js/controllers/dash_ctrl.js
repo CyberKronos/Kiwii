@@ -5,9 +5,9 @@
         $scope.isLoadingLocation = true;
 
         fetchCurrentLocation()
-          .then(function () {
-            $scope.isLoadingLocation = false;
-          });
+            .then(function () {
+                $scope.isLoadingLocation = false;
+            });
 
         $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
@@ -16,8 +16,8 @@
         $scope.criteria = RestaurantExplorer.criteria;
 
         $scope.openNow = {
-          text: 'Open restaurants only',
-          checked: true
+            text: 'Open restaurants only',
+            checked: true
         };
 
         $scope.fields = {};
