@@ -1,11 +1,20 @@
 (function () {
-    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $cordovaInAppBrowser, RestaurantPreference, RestaurantDetails) {
 
         var restaurantPreference = null;
         getRestaurantInfo();
 
         $scope.openWebsite = function (link) {
-            window.open(link, '_blank', 'location=yes');
+            var options = {
+              location: 'yes',
+              clearcache: 'yes',
+              toolbar: 'no'
+              // toolbarposition: 'top'
+            };
+
+            // to change window to $cordovaInAppBrowser to get options
+            // but it will break
+            $cordovaInAppBrowser.open(link, '_blank', options);
         };
 
         $scope.goToMaps = function () {

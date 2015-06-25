@@ -26,6 +26,10 @@
       "locator": "https://github.com/driftyco/ionic-plugins-deploy",
       "id": "com.ionic.deploy"
     },
+    "cordova-plugin-statusbar",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-console",
+    "cordova-plugin-device",
     {
       "locator": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
       "id": "com.phonegap.plugins.facebookconnect",
@@ -34,7 +38,12 @@
         "APP_NAME": "Kiwii"
       }
     },
-    "cordova-plugin-statusbar"
+    {
+      "locator": "https://github.com/driftyco/ionic-plugins-keyboard.git",
+      "id": "com.ionic.keyboard"
+    },
+    "cordova-plugin-geolocation",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [
     "ios",

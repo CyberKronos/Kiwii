@@ -17,10 +17,10 @@
               profileInfo: profileInfo
             });
             return; 
-          }, function() {
+          }, function(error) {
             // The login failed. Check error to see why.
-            var message = 'Incorrect username and password combination';
-            return message;
+            // var message = 'Incorrect username and password combination';
+            return error.message;
           }
         );
       },

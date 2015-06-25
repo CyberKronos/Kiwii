@@ -36,9 +36,13 @@ angular.module('kiwii')
       { type: 'Vietnamese', name: 'Vietnamese Restaurant', id: '4bf58dd8d48988d14a941735' }
     ],
     'PRICES' : [
-      {text: '$', value: '1'},
-      {text: '$$', value: '2'},
-      {text: '$$$', value: '3'},
-      {text: '$$$$', value: '4'}
+      // {text: '$', value: '1'},
+      // {text: '$$', value: '2'},
+      // {text: '$$$', value: '3'},
+      // {text: '$$$$', value: '4'}
+      {text: '$', value: '1', checked: false},
+      {text: '$$', value: '2', checked: false},
+      {text: '$$$', value: '3', checked: false},
+      {text: '$$$$', value: '4', checked: false}
     ]
   });

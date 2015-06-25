@@ -5,27 +5,25 @@
 	    </ion-nav-buttons>
   	</ion-nav-bar>
   	<ion-content padding="true" scroll="false">
-		<!-- The content of the page -->
-		<!-- The widget is created by Auth0. We don't have to add anything here -->
 	  	<form ng-submit="emailRegister()">
 	  		<div class="padding">
-	  			<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="text" placeholder="Username" ng-model="registerObj.username" style="font-size: 18px;" required>
+	  			<div class="input-field">
+			    	<input type="text" placeholder="Username" ng-model="registerObj.username" required>
 			  	</div>
-			  	<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="text" placeholder="First Name" ng-model="registerObj.firstname" style="font-size: 18px;" required>
+			  	<div class="input-field">
+			    	<input type="text" placeholder="First Name" ng-model="registerObj.firstname" required>
 			  	</div>
-			  	<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="text" placeholder="Last Name" ng-model="registerObj.lastname" style="font-size: 18px;" required>
+			  	<div class="input-field">
+			    	<input type="text" placeholder="Last Name" ng-model="registerObj.lastname" required>
 			  	</div>
-			  	<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="email" placeholder="Email" ng-model="registerObj.email" style="font-size: 18px;" required>
+			  	<div class="input-field">
+			    	<input type="email" placeholder="Email" ng-model="registerObj.email" required>
 			  	</div>
-			  	<div style="border-bottom: grey 2px solid; margin: 8px 0;">
-			    	<input type="password" placeholder="Password" ng-model="registerObj.password" style="font-size: 18px;">
+			  	<div class="input-field">
+			    	<input type="password" placeholder="Password" ng-model="registerObj.password">
 			  	</div>
 			  	<br/>
-			  	<button class="button button-block button-assertive activated" type="submit">Sign up</button>
+			  	<button class="button button-block button-assertive" type="submit">Sign up</button>
 			</div>
 	  	</form>
 	</ion-content>
