@@ -40,39 +40,49 @@
                                 </div>
                             </div>
 
-                            <div class="item item-image map" ng-click="goToMaps()">
-                                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
-                            </div>
-                            <div class="details-text">
-                                <p>
-                                    {{ restaurantDetails.location.formattedAddress[0] }}
+                            <div class="list">
+                                <div class="item item-divider" style="font-weight:normal;">
+                                    Address
+                                </div>
+                                <div class="item" style="font-size: 14px;">
+                                    {{ restaurantDetails.location.formattedAddress[0] }} 
                                     <br/>
                                     {{ restaurantDetails.location.formattedAddress[1] }}
-                                </p>
-                                <p> 
-                                    {{ restaurantDetails.contact.formattedPhone }}
-                                    <br/>
-                                    <u ng-if="restaurantDetails.url" 
-                                       ng-click="openWebsite(restaurantDetails.url)">
-                                       {{ restaurantDetails.url }}
-                                    </u>
-                                </p>
-                                <p ng-if="restaurantDetails.description" 
-                                   class="italic">
-                                   "{{ restaurantDetails.description }}"
-                                </p>
+                                </div> 
+                                <div class="item item-image map" ng-click="goToMaps()">
+                                    <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
+                                </div>
 
-                                <button class="button button-block button-assertive" 
-                                        ng-if="restaurantDetails.menu.mobileUrl"
-                                        ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
-                                    Menu
-                                </button>
+                                <div class="item item-divider" style="font-weight:normal;">
+                                    Details
+                                </div>
 
-                                <button class="button button-block button-assertive" 
-                                        ng-if="restaurantDetails.reservations.url"
-                                        ng-click="openWebsite(restaurantDetails.reservations.url)">
-                                    Make a reservation
-                                </button>
+                                <div class="details-text">
+                                    <p> 
+                                        {{ restaurantDetails.contact.formattedPhone }}
+                                        <br/>
+                                        <u ng-if="restaurantDetails.url" 
+                                           ng-click="openWebsite(restaurantDetails.url)">
+                                           {{ restaurantDetails.url }}
+                                        </u>
+                                    </p>
+                                    <p ng-if="restaurantDetails.description" 
+                                       class="italic">
+                                       "{{ restaurantDetails.description }}"
+                                    </p>
+
+                                    <button class="button button-block button-assertive" 
+                                            ng-if="restaurantDetails.menu.mobileUrl"
+                                            ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
+                                        Menu
+                                    </button>
+
+                                    <button class="button button-block button-assertive" 
+                                            ng-if="restaurantDetails.reservations.url"
+                                            ng-click="openWebsite(restaurantDetails.reservations.url)">
+                                        Make a reservation
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </ion-scroll>
