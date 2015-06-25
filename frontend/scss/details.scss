@@ -1,7 +1,7 @@
 .restaurant-bg-img {
   height: 50vh; 
   width: 100%; 
-  position: absolute;
+  position: relative;
   
   .inner-container {
     color: #ffffff; 
@@ -40,25 +40,25 @@
   position: absolute;
   width: 100%;
   top: 50vh;
+}
 
-  .details-text {
-    margin: 24px;
-  }
+.details-text {
+  margin: 24px;
+}
 
-  .scroll-height { 
-    height: 300px;
-  }
+.scroll-height { 
+  height: 560px;
+}
 
-  .map {
-    background-color: #C0C0C0; 
-    width: 400px; 
-    height: 250px;
-  }
+.map {
+  background-color: #C0C0C0; 
+  width: 400px; 
+  height: 250px;
+}
 
-  .ig-spacing-fix { 
-    margin-bottom: 0; 
-    padding-bottom: 0;
-  }
+.ig-spacing-fix { 
+  margin-bottom: 0; 
+  padding-bottom: 0;
 }
 
 .popover.soft {
