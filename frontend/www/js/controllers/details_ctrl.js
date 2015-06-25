@@ -35,12 +35,13 @@
             RestaurantDetails.fetchFor().then(
                 function (result) {
                     // TODO: refactor restaurant lat/long into a service
+                    $rootScope.latlon = result.details.location;
                     $scope.restaurantDetails = result.details;
                     $scope.instagramImages = result.images;
                     $scope.restaurantReviews = result.reviews;
                 }
             ).then(function () {
-                    restaurantPreference = new RestaurantPreference(Parse.User.current(), $rootScope.restaurantDetails.id);
+                    restaurantPreference = new RestaurantPreference(Parse.User.current(), $scope.restaurantDetails.id);
                     return restaurantPreference.isFavourite();
                 }
             ).then(function (isFavouriteRestaurant) {

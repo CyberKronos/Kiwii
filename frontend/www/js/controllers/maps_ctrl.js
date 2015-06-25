@@ -2,7 +2,7 @@
   var MapsCtrl = function($scope, $rootScope, $compile) {
     $scope.init = function() {
       // TODO: retrive lat/long from service instead of rootScope
-      var myLatlng = new google.maps.LatLng($rootScope.restaurantDetails.location.lat, $rootScope.restaurantDetails.location.lng);
+      var myLatlng = new google.maps.LatLng($rootScope.latlon.lat, $rootScope.latlon.lng);
 
       var mapOptions = {
         center: myLatlng,

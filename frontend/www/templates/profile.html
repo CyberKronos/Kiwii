@@ -10,7 +10,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content ng-controller="ProfileCtrl" style="top: 0 !important;">
+  <ion-content has-bouncing="false" ng-controller="ProfileCtrl" style="top: 0 !important;">
     <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
     <div class="profile-top-container">
       <div>
