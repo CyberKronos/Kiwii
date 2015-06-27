@@ -78,11 +78,11 @@
                   console.log("User signed up through Facebook!");
 
                   // TODO: move to store.js
-                  return $localStorage.$default({
+                  $localStorage.$default({
                     profileInfo: profileInfo
                   });
 
-                  $rootScope.currentUser = profileInfo;
+                  return $rootScope.currentUser = profileInfo;
                 }, function(error) {
                   console.log(error);
                 });
