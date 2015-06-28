@@ -7,6 +7,7 @@
   </ion-header-bar>
 
   <ion-content padding="true"
+               has-bouncing="false"
                ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
     <div style="padding: 0 30px;">
 
@@ -33,7 +34,7 @@
           </div>
           <div class="col-10">
             <i class="icon ion-location current-location-button"
-               ng-class="{'positive': !fields.location, 'dark' : fields.location}"
+               ng-class="{'assertive': !fields.location, 'dark' : fields.location}"
                ng-click="getCurrentLocation()" ></i>
           </div>
       </div>

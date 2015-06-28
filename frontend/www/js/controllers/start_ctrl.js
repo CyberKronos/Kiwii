@@ -22,10 +22,6 @@
         });
     };
 
-    function handleLoginError() {
-      // Do something
-    }
-
     $scope.goLogin = function() {
       $state.go('login');
     };

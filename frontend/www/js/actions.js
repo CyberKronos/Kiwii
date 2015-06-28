@@ -1,29 +1,29 @@
 (function() {
   var Actions = function($rootScope, $localStorage, $cordovaFacebook) {
     return {
-      login: function(username, password) {
-        return Parse.User.logIn(username, password)
-        .then(
-          function(user) {
-            // Save to cache after successful login.
-            var profileInfo = {    
-              username: user.attributes.username,
-              firstname: user.attributes.firstname,
-              lastname: user.attributes.lastname,
-              email: user.attributes.email
-            };
-            // move to store.js
-            $localStorage.$default({
-              profileInfo: profileInfo
-            });
-            return; 
-          }, function(error) {
-            // The login failed. Check error to see why.
-            // var message = 'Incorrect username and password combination';
-            return error.message;
-          }
-        );
-      },
+      // login: function(username, password) {
+      //   return Parse.User.logIn(username, password)
+      //   .then(
+      //     function(user) {
+      //       // Save to cache after successful login.
+      //       var profileInfo = {    
+      //         username: user.attributes.username,
+      //         firstname: user.attributes.firstname,
+      //         lastname: user.attributes.lastname,
+      //         email: user.attributes.email
+      //       };
+      //       // move to store.js
+      //       $localStorage.$default({
+      //         profileInfo: profileInfo
+      //       });
+      //       return; 
+      //     }, function(error) {
+      //       // The login failed. Check error to see why.
+      //       // var message = 'Incorrect username and password combination';
+      //       return error.message;
+      //     }
+      //   );
+      // },
 
       facebookLogin: function() {
         return $cordovaFacebook.login(["public_profile", "email", "user_friends"])
@@ -59,7 +59,7 @@
                 userObject.set('email', response.email);
                 userObject.save();
 
-                return $cordovaFacebook.api("/me/picture?type=large")
+                return $cordovaFacebook.api("/me/picture?redirect=false&width=500&height=500", ["public_profile"])
                 .then(function(response){
                   userObject.set('fbPicture', response.data.url);
                   userObject.save();
@@ -78,11 +78,11 @@
                   console.log("User signed up through Facebook!");
 
                   // TODO: move to store.js
-                  return $localStorage.$default({
+                  $localStorage.$default({
                     profileInfo: profileInfo
                   });
 
-                  $rootScope.currentUser = profileInfo;
+                  return $rootScope.currentUser = profileInfo;
                 }, function(error) {
                   console.log(error);
                 });
@@ -101,35 +101,35 @@
         );
       },
 
-      register: function(username, firstname, lastname, email, password) {
-        var user = new Parse.User();
-        user.set("username", username);
-        user.set("firstname", firstname);
-        user.set("lastname", lastname);
-        user.set("email", email); 
-        user.set("password", password);
-        return user.signUp(null)
-        .then(
-          function(user) {
-            // Hooray! Let them use the app now.
-            console.log(user);
-            // Save to cache after successful login.
-            var profileInfo = {    
-              username: username,
-              firstname: firstname,
-              lastname: lastname,
-              email: email
-            };
-            // move to store.js
-            $localStorage.$default({
-              profileInfo: profileInfo
-            });
-            return;
-          }, function(error) {
-            return error.message;
-          }
-        );
-      },
+      // register: function(username, firstname, lastname, email, password) {
+      //   var user = new Parse.User();
+      //   user.set("username", username);
+      //   user.set("firstname", firstname);
+      //   user.set("lastname", lastname);
+      //   user.set("email", email); 
+      //   user.set("password", password);
+      //   return user.signUp(null)
+      //   .then(
+      //     function(user) {
+      //       // Hooray! Let them use the app now.
+      //       console.log(user);
+      //       // Save to cache after successful login.
+      //       var profileInfo = {    
+      //         username: username,
+      //         firstname: firstname,
+      //         lastname: lastname,
+      //         email: email
+      //       };
+      //       // move to store.js
+      //       $localStorage.$default({
+      //         profileInfo: profileInfo
+      //       });
+      //       return;
+      //     }, function(error) {
+      //       return error.message;
+      //     }
+      //   );
+      // },
 
       logout: function() {
         delete $localStorage.profileInfo;
