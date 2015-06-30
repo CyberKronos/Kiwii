@@ -46,7 +46,7 @@ ion-slide {
         color: #fff;
       }
 
-      .ink {
+      /*.ink {
         display: block; position: absolute;
         background: #ffd180;
         border-radius: 100%;
@@ -55,7 +55,7 @@ ion-slide {
 
       .ink.animate {
         @include animation(ripple 0.65s linear);
-      }
+      }*/
 
     }
   }
