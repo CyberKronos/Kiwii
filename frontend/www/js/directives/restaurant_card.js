@@ -1,8 +1,8 @@
 (function() {
-  var showCard = function($ionicGesture) {
+  var restaurantCard = function($ionicGesture) {
     return {
       restrict: 'E',
-      templateUrl: 'templates/show_card.html',
+      templateUrl: 'templates/restaurant_card.html',
       replace: true,
       link: function(scope, el, attrs) {
         scope.expandInfo = false;
@@ -25,5 +25,5 @@
   }
 
   angular.module('kiwii').
-    directive('showCard', showCard);
+    directive('restaurantCard', restaurantCard);
 })();

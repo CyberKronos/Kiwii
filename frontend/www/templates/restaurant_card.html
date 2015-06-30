@@ -1,11 +1,9 @@
-<div class="show-card-container"
-     ng-class="{'show-card-container': true}"
-     style="background: #{{restaurant.primaryColor}}">
-  <div class="show-card-poster-glass" back-img="{{restaurant.imageUrl}}"></div>
-  <div class="show-card-details-container"
+<div class="restaurant-card-container">
+  <div class="restaurant-card-poster-glass" back-img="{{restaurant.imageUrl}}"></div>
+  <div class="restaurant-card-details-container"
        ng-click="restaurantDetails(restaurant)">
-    <div class="show-card-bottom">
-      <div class="show-card-description">
+    <div class="restaurant-card-bottom">
+      <div class="restaurant-card-description">
         <span class="button button-icon button-clear ion-chevron-right"></span>
         <h4 ng-bind-html="restaurant.name | unsafe"></h4>
         <div class="subtext">{{restaurant.category}}</div>
