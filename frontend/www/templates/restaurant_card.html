@@ -2,13 +2,15 @@
   <div class="restaurant-card-poster-glass" back-img="{{restaurant.imageUrl}}"></div>
   <div class="restaurant-card-details-container"
        ng-click="restaurantDetails(restaurant)">
-    <div class="restaurant-card-bottom">
-      <div class="restaurant-card-description">
-        <span class="button button-icon button-clear ion-chevron-right"></span>
+    <div class="row restaurant-card-description">
+      <div class="col-90">
         <h4 ng-bind-html="restaurant.name | unsafe"></h4>
         <div class="subtext">{{restaurant.category}}</div>
         <div class="subtext" ng-if="restaurant.rating">{{restaurant.rating}}/10</div>
         <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
+      </div>
+      <div class="col-10 col-center">
+        <span class="button button-icon button-clear ion-chevron-right"></span>
       </div>
     </div>
   </div>
