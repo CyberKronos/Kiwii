@@ -1,15 +1,14 @@
 <ion-view view-title="">
-  <ion-header-bar ng-class="{'main-app-nav': true}">
-    <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
-         ng-controller="NavCtrl">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="right">
       <user-info></user-info>
-    </div>
-  </ion-header-bar>
+    </ion-nav-buttons>
+  </ion-nav-bar>
 
   <ion-content padding="true"
                has-bouncing="false"
                ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
-    <div style="padding: 0 30px;">
+    <div style="padding: 0 20px;">
 
       <div class="padding-vertical">
         <p>Choose a cuisine</p>

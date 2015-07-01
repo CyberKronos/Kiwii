@@ -109,7 +109,7 @@
 }
 
 .bar-header .button-icon.close-modal-button:before {
-  font-size: 23px !important;
+  // font-size: 23px !important;
   color: #343434;
 }
 
@@ -131,14 +131,14 @@
 
 /* Header */
 .bar-header {
-  padding-top: 14px;
-  padding-left: 10px;
+  // padding-top: 14px;
+  // padding-left: 10px;
   z-index: 10000;
 }
 
 .bar-header {
-  height: 60px;
-  position: relative;
+  // height: 60px;
+  // position: relative;
 
   .more-link-options:before {
     line-height: 29px !important;
@@ -165,7 +165,7 @@
 }
 
 .has-header {
-  top: 60px !important;
+  // top: 60px !important;
 }
 
 /*Other*/
@@ -191,8 +191,10 @@
 }
 
 .user-info-container {
-  position: absolute;
-  right: 10px;
+  position: relative;
+  padding-top: 3px;
+  padding-right: 3px;
+  // right: 10px;
 }
 
 .user-info-container .regional-flag {
@@ -215,7 +217,7 @@
 }
 
 .bar-header .button-icon.more-link-options:before {
-  font-size: 35px !important;
+  // font-size: 35px !important;
   line-height: 38px;
   padding-top: 5px;
 }
