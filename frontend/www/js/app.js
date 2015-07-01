@@ -25,7 +25,7 @@
     });
   });
 
-  kiwii.run(function ($ionicPlatform, $ionicApp, $rootScope, $state) {
+  kiwii.run(function ($ionicPlatform, $ionicApp, $rootScope, $state, $cordovaStatusbar) {
     console.log('Running', $ionicApp.getApp());
 
     $ionicPlatform.ready(function () {
@@ -33,8 +33,8 @@
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if (window.StatusBar) {
-        StatusBar.overlaysWebView(true);
-        StatusBar.styleLightContent();
+        $cordovaStatusbar.overlaysWebView(true);
+        $cordovaStatusbar.style(0);
       }
     });
 

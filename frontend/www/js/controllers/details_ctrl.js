@@ -8,7 +8,7 @@
             var options = {
               location: 'yes',
               clearcache: 'yes',
-              toolbar: 'no'
+              toolbar: 'yes'
               // toolbarposition: 'top'
             };
 
