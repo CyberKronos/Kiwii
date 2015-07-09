@@ -1,13 +1,16 @@
 <ion-view title="">
 	<ion-content scroll="false">
+		<div style="height: 100%; width: auto;" darken-start back-img="img/start_bg_img.jpeg">
 			<div class="text-center padding-horizontal" style="position: relative; top: 10vh;">
-				<img src="img/logo.png" style="height: auto; width: 50%;">
-				<h4>Login to discover new restaurants and cafes from your friends.</h4>
+				<img src="img/logo.png" style="height: auto; width: 20%;">
 			</div>
-			<div class="start-text-container">
+			<h4 class="text-center text-white padding-horizontal" style="position: relative; top: 30vh;">
+				Login to discover and curate new restaurants and cafes with your friends
+			</h4>
+			<div class="no-padding-container">
 				<button class="button button-positive"
 						ng-click="facebookLogin()">
-				  Login with Facebook
+				  	<strong>Login with Facebook</strong>
 				</button>
 				<!-- <button class="button button-block button-assertive" 
 						ng-click="goRegister()">
@@ -24,5 +27,6 @@
 		      	</button> -->
 				<!-- <p class="login-text">Already a user? <a href="#/login"><strong>Log in</strong></a></p> -->
 			</div>
+		</div>
 	</ion-content>
 </ion-view>

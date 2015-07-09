@@ -11,7 +11,7 @@
     <div style="padding: 0 10px;">
 
       <div class="padding-vertical">
-        <p>Choose a cuisine</p>
+        <p class="text-orange">Choose a cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
@@ -22,7 +22,7 @@
       </div>
 
       <div class="padding-vertical">
-        <p>Location</p>
+        <p class="text-orange">Location</p>
         <div class="row row-center location-input">
           <div class="col-90">
             <label class="item item-input ion-google-place-search">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="padding-vertical">
-        <p>Distance</p>
+        <p class="text-orange">Distance</p>
 
         <div id="distance-label" class="item item-icon-left">
           <h2>{{distanceLabel.text}}</h2>
@@ -61,9 +61,9 @@
       </div>
 
       <div class="padding-vertical">
-        <p>Price Range</p>
+        <p class="text-orange">Price Range</p>
 
-        <div class="button-bar bar-assertive">
+        <div class="button-bar">
           <ion-checkbox 
                         ng-repeat="item in priceList" 
                         ng-model="item.checked"
@@ -90,7 +90,7 @@
           <div ng-if="!criteria['ll']">
             Getting Current Location...
           </div>
-          <div ng-if="criteria['ll']">Let's eat!</div>
+          <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
         </button>
       </div>
 
