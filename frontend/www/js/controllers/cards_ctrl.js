@@ -1,5 +1,9 @@
 (function () {
-  var CardsCtrl = function ($scope, $state, $ionicLoading, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+
+    if (window.cordova) { 
+      $cordovaStatusbar.style(0);
+    }
 
     fetchRestaurants().then(preloadRestaurantPhotos);
 

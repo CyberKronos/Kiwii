@@ -34,14 +34,15 @@
       }
       if (window.StatusBar) {
         $cordovaStatusbar.overlaysWebView(true);
-        $cordovaStatusbar.style(0);
+        // Load current user from cache
+        if (Parse.User.current()) {
+          $rootScope.currentUser = Parse.User.current().attributes;
+          $cordovaStatusbar.style(0);
+        } else {
+          $cordovaStatusbar.style(1);
+        }
       }
     });
-
-    // Load current user from cache
-    if (Parse.User.current()) {
-      $rootScope.currentUser = Parse.User.current().attributes;
-    }
 
     // UI Router Authentication Check
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

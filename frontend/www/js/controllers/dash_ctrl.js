@@ -1,6 +1,10 @@
 (function () {
 
-    var DashCtrl = function ($scope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $ionicPopup, RestaurantExplorer, CRITERIA_OPTIONS) {
+    var DashCtrl = function ($scope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, CRITERIA_OPTIONS) {
+
+        if (window.cordova) { 
+          $cordovaStatusbar.style(0);
+        }
 
         $scope.isLoadingLocation = true;
 

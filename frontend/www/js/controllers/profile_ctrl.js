@@ -1,5 +1,9 @@
 (function() {
-    var ProfileCtrl = function($scope, $state, RestaurantDetails, RestaurantPreference) {
+    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, RestaurantDetails, RestaurantPreference) {
+        if (window.cordova) { 
+          $cordovaStatusbar.style(1);
+        }
+
         var savedRestaurants = Parse.User.current().relation('savedRestaurants');
         savedRestaurants.query().collection().fetch()
             .then(function(restaurants) {
