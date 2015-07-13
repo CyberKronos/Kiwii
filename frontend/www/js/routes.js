@@ -19,14 +19,14 @@
         }
       })
 
-      .state('register', {
-        url: '/register',
-        templateUrl: 'templates/register.html',
-        controller: 'RegisterCtrl',
-        data: {
-          authenticate: false
-        }
-      })
+      // .state('register', {
+      //   url: '/register',
+      //   templateUrl: 'templates/register.html',
+      //   controller: 'RegisterCtrl',
+      //   data: {
+      //     authenticate: false
+      //   }
+      // })
 
       .state('intro', {
         url: '/intro',
@@ -37,14 +37,37 @@
         }
       })
 
-      .state('dash', {
-        url: '/dash',
-        templateUrl: 'templates/dash.html',
-        controller: 'DashCtrl',
+      // setup an abstract state for the tabs directive
+      .state('tab', {
+        url: "/tab",
+        abstract: true,
+        templateUrl: "templates/tabs.html",
         data: {
           authenticate: true
         }
       })
+
+      .state('tab.dash', {
+        url: '/dash',
+        views: {
+          'dash': {
+            templateUrl: 'templates/dash.html',
+            controller: 'DashCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      // .state('dash', {
+      //   url: '/dash',
+      //   templateUrl: 'templates/dash.html',
+      //   controller: 'DashCtrl',
+      //   data: {
+      //     authenticate: true
+      //   }
+      // })
 
       .state('profile', {
         url: '/dash/profile',
@@ -54,14 +77,14 @@
         }
       })
 
-      .state('topten', {
-        url: '/dash/topten',
-        templateUrl: 'templates/topten.html',
-        controller: 'TopTenCtrl',
-        data: {
-          authenticate: true
-        }
-      })
+      // .state('topten', {
+      //   url: '/dash/topten',
+      //   templateUrl: 'templates/topten.html',
+      //   controller: 'TopTenCtrl',
+      //   data: {
+      //     authenticate: true
+      //   }
+      // })
 
       .state('cards', {
         url: '/dash/cards',
@@ -91,7 +114,7 @@
         }
       });
 
-    $urlRouterProvider.otherwise('/dash');
+    $urlRouterProvider.otherwise('/tab/dash');
   };
 
   angular.module('kiwii')

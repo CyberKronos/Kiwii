@@ -5,7 +5,7 @@
         }
         // Called to navigate to the main app
         $scope.goToDashView = function() {
-            $state.go('dash');
+            $state.go('tab.dash');
         };
         // Called each time the slide changes
         $scope.slideChanged = function(index) {
