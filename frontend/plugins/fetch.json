@@ -33,13 +33,12 @@
     },
     "com.phonegap.plugins.facebookconnect": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
-            "subdir": "."
+            "type": "local",
+            "path": "/Users/timch326/Programming/Kiwii/phonegap-facebook-plugin"
         },
         "is_top_level": true,
         "variables": {
-            "APP_ID": "1597756577154303",
+            "APP_ID": "913438105380438",
             "APP_NAME": "Kiwii"
         }
     },
