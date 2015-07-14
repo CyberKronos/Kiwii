@@ -1,0 +1,24 @@
+<div class="modal">
+    <ion-header-bar class="bar bar-header bar-assertive" style="background-color: #ffa300;">
+      <a class="button button-icon button-clear ion-android-close" ng-click="modal.hide()"></a>
+      <h1 class="title" style="line-height: 32px;">Pick a List</h1>
+      <a class="button button-icon button-clear ion-ios-plus-outline" ng-click="modal.hide()"></a>
+    </ion-header-bar>
+    <ion-content>
+      	<div class="list">
+      		<a class="item item-thumbnail-left">
+  		      <!-- <img src="cover.jpg"> -->
+  		      <img src="{{ imgURI || 'http://placehold.it/95x95' }}">
+  		      <textarea>asdfasdf</textarea>
+  		    </a>
+        	<label class="item item-input">
+          	<span class="input-label">Name</span>
+          	<input type="text" ng-model="imagePost.name">
+        	</label>
+        	<label class="item item-input">
+	          <span class="input-label">Description</span>
+	          <input type="text" ng-model="imagePost.description">
+        	</label>
+      	</div>
+    </ion-content>
+ </div>

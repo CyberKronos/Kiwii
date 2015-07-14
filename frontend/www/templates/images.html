@@ -1,0 +1,14 @@
+<ion-view view-title="">
+  	<ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+	    <ion-nav-buttons side="right">
+	      	<user-info></user-info>
+	    </ion-nav-buttons>
+	 </ion-nav-bar>
+
+  	<ion-content>
+	    <!-- <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="width: 100%; height: auto;">
+	    <img ng-show="imgURI === undefined" ng-src="http://placehold.it/400x400" style="width: 100%; height: auto;"> -->
+	    <button class="button" ng-click="takePicture()">Take Picture</button>
+	    <button class="button" ng-click="choosePicture()">Choose Picture</button>
+	</ion-content>
+</ion-view>

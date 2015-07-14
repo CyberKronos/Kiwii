@@ -129,6 +129,19 @@
         data: {
           authenticate: true
         }
+      })
+
+      .state('tab.images', {
+        url: '/images',
+        views: {
+          'images': {
+            templateUrl: 'templates/images.html',
+            controller: 'ImagesCtrl',
+          }
+        },
+        data: {
+          authenticate: true
+        }
       });
 
     $urlRouterProvider.otherwise('/tab/dash');
