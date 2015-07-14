@@ -3,27 +3,34 @@ Create tabs with an icon and label, using the tabs style.
 Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
-<ion-tabs class="tabs-icon-top tabs-color-active-assertive">
+<div>
+<ion-tabs class="tabs-icon-only tabs-color-active-assertive">
 
   <!-- Dashboard Tab -->
-  <ion-tab title="Home" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/dash">
+  <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
     <ion-nav-view name="dash"></ion-nav-view>
   </ion-tab>
 
-  <!-- Images Tab -->
-  <ion-tab title="Images" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
-    <ion-nav-view name="tab-chats"></ion-nav-view>
+  <!-- Lists Tab -->
+  <ion-tab title="Lists" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/lists">
+    <ion-nav-view name="tab-lists"></ion-nav-view>
   </ion-tab>
 
-  <!-- Lists Tab -->
-  <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
+  <!-- Images Tab -->
+  <ion-tab title="Images" icon-off="ion-ios-camera-outline" icon-on="ion-ios-camera" href="#/tab/images">
+    <ion-nav-view name="tab-images"></ion-nav-view>
   </ion-tab>
 
   <!-- Search Tab -->
-  <ion-tab title="Search" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
+  <ion-tab title="Search" icon-off="ion-ios-search" icon-on="ion-ios-search-strong" href="#/tab/searhc">
     <ion-nav-view name="tab-account"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Profile Tab -->
+  <ion-tab title="Profile" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/profile">
+    <ion-nav-view name="profile"></ion-nav-view>
   </ion-tab>
 
 
 </ion-tabs>
+</div>

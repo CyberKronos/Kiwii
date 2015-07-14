@@ -22,7 +22,7 @@
         };
 
         $scope.goToMaps = function () {
-            $state.go('maps');
+            $state.go('tab.maps');
         };
 
         $scope.toggleFavourite = function ($event) {

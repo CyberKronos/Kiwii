@@ -74,7 +74,7 @@
         // };
 
         $scope.searchRestaurants = function () {
-          $state.go('cards');
+          $state.go('tab.cards');
         };
 
         function getDistanceLabel(distance) {

@@ -38,8 +38,13 @@
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
           $cordovaStatusbar.style(0);
+          console.log($rootScope.currentUser);
         } else {
           $cordovaStatusbar.style(1);
+        }
+      } else {
+        if (Parse.User.current()) {
+          $rootScope.currentUser = Parse.User.current().attributes;
         }
       }
     });

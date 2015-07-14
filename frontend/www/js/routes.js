@@ -69,9 +69,14 @@
       //   }
       // })
 
-      .state('profile', {
-        url: '/dash/profile',
-        templateUrl: 'templates/profile.html',
+      .state('tab.profile', {
+        url: '/profile',
+        views: {
+          'profile': {
+            templateUrl: 'templates/profile.html',
+            controller: 'ProfileCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
@@ -86,29 +91,41 @@
       //   }
       // })
 
-      .state('cards', {
+      .state('tab.cards', {
         url: '/dash/cards',
-        templateUrl: 'templates/cards.html',
-        controller: 'CardsCtrl',
+        views: {
+          'dash': {
+            templateUrl: 'templates/cards.html',
+            controller: 'CardsCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('details', {
+      .state('tab.details', {
         url: '/dash/list/details',
         cache: false,
-        templateUrl: 'templates/details.html',
-        controller: 'DetailsCtrl',
+        views: {
+          'dash': {
+            templateUrl: 'templates/details.html',
+            controller: 'DetailsCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('maps', {
+      .state('tab.maps', {
         url: '/dash/list/details/maps',
-        templateUrl: 'templates/maps.html',
-        controller: 'MapsCtrl',
+        views: {
+          'dash': {
+            templateUrl: 'templates/maps.html',
+            controller: 'MapsCtrl',
+          }
+        },
         data: {
           authenticate: true
         }
