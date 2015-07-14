@@ -1,18 +1,17 @@
 <ion-view view-title="">
-  <ion-header-bar ng-class="{'main-app-nav': true}">
-    <div ng-class="{'buttons': true, 'nav-buttons': true, 'out-of-focus': sideMenuIsOpen()}"
-         ng-controller="NavCtrl">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="right">
       <user-info></user-info>
-    </div>
-  </ion-header-bar>
+    </ion-nav-buttons>
+  </ion-nav-bar>
 
   <ion-content padding="true"
                has-bouncing="false"
                ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
-    <div style="padding: 0 30px;">
+    <div style="padding: 0 10px;">
 
       <div class="padding-vertical">
-        <p>Choose a cuisine</p>
+        <p class="text-orange">Choose a cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
@@ -23,7 +22,7 @@
       </div>
 
       <div class="padding-vertical">
-        <p>Location</p>
+        <p class="text-orange">Location</p>
         <div class="row row-center location-input">
           <div class="col-90">
             <label class="item item-input ion-google-place-search">
@@ -37,10 +36,11 @@
                ng-class="{'assertive': !fields.location, 'dark' : fields.location}"
                ng-click="getCurrentLocation()" ></i>
           </div>
+        </div>
       </div>
 
       <div class="padding-vertical">
-        <p>Distance</p>
+        <p class="text-orange">Distance</p>
 
         <div id="distance-label" class="item item-icon-left">
           <h2>{{distanceLabel.text}}</h2>
@@ -61,9 +61,9 @@
       </div>
 
       <div class="padding-vertical">
-        <p>Price Range</p>
+        <p class="text-orange">Price Range</p>
 
-        <div class="button-bar bar-assertive">
+        <div class="button-bar">
           <ion-checkbox 
                         ng-repeat="item in priceList" 
                         ng-model="item.checked"
@@ -84,13 +84,15 @@
         </ion-toggle>
       </div>
 
-      <button class="button button-block button-assertive search-button"
-              ng-class="{'disabled': !criteria['ll']}" ng-click="searchRestaurants()">
-        <div ng-if="!criteria['ll']">
-          Getting Current Location...
-        </div>
-        <div ng-if="criteria['ll']">Let's eat!</div>
-      </button>
+      <div class="padding-vertical">
+        <button class="button button-block button-assertive search-button"
+                ng-class="{'disabled': !criteria['ll']}" ng-click="searchRestaurants()">
+          <div ng-if="!criteria['ll']">
+            Getting Current Location...
+          </div>
+          <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
+        </button>
+      </div>
 
       <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->
     </div>

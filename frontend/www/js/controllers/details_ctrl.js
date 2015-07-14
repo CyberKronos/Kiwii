@@ -1,5 +1,9 @@
 (function () {
-    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $cordovaInAppBrowser, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails) {
+
+        if (window.cordova) { 
+          $cordovaStatusbar.style(0);
+        }
 
         var restaurantPreference = null;
         getRestaurantInfo();
@@ -8,7 +12,7 @@
             var options = {
               location: 'yes',
               clearcache: 'yes',
-              toolbar: 'no'
+              toolbar: 'yes'
               // toolbarposition: 'top'
             };
 

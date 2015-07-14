@@ -4,9 +4,12 @@
        ng-click="restaurantDetails(restaurant)">
     <div class="row restaurant-card-description">
       <div class="col-90">
-        <h4 ng-bind-html="restaurant.name | unsafe"></h4>
+        <!-- <div class="" ng-bind-html="restaurant.name | unsafe"></div>
         <div class="subtext">{{restaurant.category}}</div>
-        <div class="subtext" ng-if="restaurant.rating">{{restaurant.rating}}/10</div>
+        <div class="subtext" ng-if="restaurant.rating">{{restaurant.rating}}/10</div> -->
+        <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
+        <div id="restaurant-category">{{restaurant.category}}</div>
+        <div id="restaurant-rating" ng-if="restaurant.rating">{{restaurant.rating}}/10</div>
         <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
       </div>
       <div class="col-10 col-center">

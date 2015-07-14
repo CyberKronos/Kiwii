@@ -25,7 +25,7 @@
     });
   });
 
-  kiwii.run(function ($ionicPlatform, $ionicApp, $rootScope, $state) {
+  kiwii.run(function ($ionicPlatform, $ionicApp, $rootScope, $state, $cordovaStatusbar) {
     console.log('Running', $ionicApp.getApp());
 
     $ionicPlatform.ready(function () {
@@ -33,15 +33,16 @@
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if (window.StatusBar) {
-        StatusBar.overlaysWebView(true);
-        StatusBar.styleLightContent();
+        $cordovaStatusbar.overlaysWebView(true);
+        // Load current user from cache
+        if (Parse.User.current()) {
+          $rootScope.currentUser = Parse.User.current().attributes;
+          $cordovaStatusbar.style(0);
+        } else {
+          $cordovaStatusbar.style(1);
+        }
       }
     });
-
-    // Load current user from cache
-    if (Parse.User.current()) {
-      $rootScope.currentUser = Parse.User.current().attributes;
-    }
 
     // UI Router Authentication Check
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

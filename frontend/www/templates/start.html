@@ -1,24 +1,32 @@
 <ion-view title="">
-	<ion-content padding="true" scroll="false">
-		<div class="start-text-container">
-			<button class="button button-block button-positive" 
-					ng-click="facebookLogin()">
-				Login with Facebook
-			</button>
-			<!-- <button class="button button-block button-assertive" 
-					ng-click="goRegister()">
-				Register with email
-			</button> -->
-			<button class="button button-primary button-block" 
-					ng-click="checkForUpdates()">
-	        	Check for updates
-	      	</button>
-	      	<button class="button button-stable button-block button-pulse" 
-	      			ng-if="hasUpdate" 
-	      			ng-click="doUpdate()">
-	        	Download update
-	      	</button>
-			<!-- <p class="login-text">Already a user? <a href="#/login"><strong>Log in</strong></a></p> -->
+	<ion-content scroll="false">
+		<div style="height: 100%; width: auto;" darken-start back-img="img/start_bg_img.jpeg">
+			<div class="text-center padding-horizontal" style="position: relative; top: 10vh;">
+				<img src="img/logo.png" style="height: auto; width: 20%;">
+			</div>
+			<h4 class="text-center text-white padding-horizontal" style="position: relative; top: 30vh;">
+				Login to discover and curate new restaurants and cafes with your friends
+			</h4>
+			<div class="no-padding-container">
+				<button class="button button-positive"
+						ng-click="facebookLogin()">
+				  	<strong>Login with Facebook</strong>
+				</button>
+				<!-- <button class="button button-block button-assertive" 
+						ng-click="goRegister()">
+					Register with email
+				</button> -->
+				<!-- <button class="button button-primary button-block" 
+						ng-click="checkForUpdates()">
+		        	Check for updates
+		      	</button>
+		      	<button class="button button-stable button-block button-pulse" 
+		      			ng-if="hasUpdate" 
+		      			ng-click="doUpdate()">
+		        	Download update
+		      	</button> -->
+				<!-- <p class="login-text">Already a user? <a href="#/login"><strong>Log in</strong></a></p> -->
+			</div>
 		</div>
 	</ion-content>
 </ion-view>
