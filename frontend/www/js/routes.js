@@ -1,5 +1,7 @@
 (function() {
-  var Routes = function($stateProvider, $urlRouterProvider) {
+  var Routes = function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+
     $stateProvider
       .state('start', {
         url: '/start',
@@ -72,15 +74,6 @@
           authenticate: true
         }
       })
-
-      // .state('topten', {
-      //   url: '/dash/topten',
-      //   templateUrl: 'templates/topten.html',
-      //   controller: 'TopTenCtrl',
-      //   data: {
-      //     authenticate: true
-      //   }
-      // })
 
       .state('tab.cards', {
         url: '/dash/cards',

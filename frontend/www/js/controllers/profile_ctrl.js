@@ -22,7 +22,7 @@
 
         $scope.goToDetails = function(restaurant) {
             RestaurantDetails.setVenueId(restaurant.foursquareId);
-            $state.go('details');
+            $state.go('tab.details');
         };
     };
 
