@@ -60,15 +60,6 @@
         }
       })
 
-      // .state('dash', {
-      //   url: '/dash',
-      //   templateUrl: 'templates/dash.html',
-      //   controller: 'DashCtrl',
-      //   data: {
-      //     authenticate: true
-      //   }
-      // })
-
       .state('tab.profile', {
         url: '/profile',
         views: {

@@ -24,11 +24,11 @@
       $scope.modal.remove();
     });
 
-    $scope.takePicture = function() {
+    $scope.uploadImage = function(source) {
       var options = { 
         quality : 100, 
         destinationType : Camera.DestinationType.DATA_URL, 
-        sourceType : Camera.PictureSourceType.CAMERA, 
+        sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
         allowEdit : true,
         encodingType: Camera.EncodingType.JPEG,
         targetWidth: 400,
@@ -37,35 +37,12 @@
         saveToPhotoAlbum: false
       };
 
-      $cordovaCamera.getPicture(options).then(function(imageData) {
+      $cordovaCamera.getPicture(options)
+      .then(function(imageData) {
         $scope.imgURI = "data:image/jpeg;base64," + imageData;
         $scope.openModal();
-      }, function(err) {
-        // An error occured. Show a message to the user
       });
     }
-
-    $scope.choosePicture = function() {
-      var options = { 
-        quality : 100, 
-        destinationType : Camera.DestinationType.DATA_URL, 
-        sourceType : Camera.PictureSourceType.PHOTOLIBRARY, 
-        allowEdit : true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 400,
-        targetHeight: 400,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
-      };
-
-      $cordovaCamera.getPicture(options).then(function(imageData) {
-        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        $scope.openModal();
-      }, function(err) {
-        // An error occured. Show a message to the user
-      });
-    }
-
   };
 
   angular.module('kiwii').
