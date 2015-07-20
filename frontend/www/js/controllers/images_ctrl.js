@@ -1,20 +1,21 @@
 (function () {
-  var ImagesCtrl = function ($scope, $cordovaCamera, $ionicModal) {
-    $scope.imagePost = {
-      name: 'Restaurant Name',
-      description: 'Image description...',
+  var ImagesCtrl = function ($scope, $cordovaCamera, $cordovaStatusbar, $ionicModal, UserPhotos) {
+    if (window.cordova) { 
+      $cordovaStatusbar.style(1);
     }
+
+    $scope.imagePost = {};
 
     $ionicModal.fromTemplateUrl('templates/edit_image_popup.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      $scope.modal = modal
-    })  
+      $scope.modal = modal;
+    });  
 
     $scope.openModal = function() {
-      $scope.modal.show()
-    }
+      $scope.modal.show();
+    };
 
     $scope.closeModal = function() {
       $scope.modal.hide();
@@ -40,9 +41,20 @@
       $cordovaCamera.getPicture(options)
       .then(function(imageData) {
         $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        $scope.imagePost['imageURI'] = "data:image/jpeg;base64," + imageData;
         $scope.openModal();
       });
-    }
+      // $scope.openModal();
+    };
+
+    $scope.postPhoto = function() {
+      UserPhotos.savePhoto($scope.imagePost)
+      .then(function(){
+        console.log("POST SUCCESS!");
+        $scope.closeModal();
+      });
+      console.log("posted!");
+    };
   };
 
   angular.module('kiwii').
