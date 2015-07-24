@@ -75,6 +75,45 @@
         }
       })
 
+      .state('tab.photoDetails', {
+        url: '/profile/photoDetails',
+        views: {
+          'profile': {
+            templateUrl: 'templates/photo_details.html',
+            controller: 'PhotoDetailsCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      // .state('tab.photos', {
+      //   url: '/profile/photos',
+      //   views: {
+      //     'profile': {
+      //       templateUrl: 'templates/profile.html',
+      //       controller: 'ProfileCtrl'
+      //     }
+      //   },
+      //   data: {
+      //     authenticate: true
+      //   }
+      // })
+
+      // .state('tab.lists', {
+      //   url: '/profile/lists',
+      //   views: {
+      //     'profile': {
+      //       templateUrl: 'templates/profile.html',
+      //       controller: 'ProfileCtrl'
+      //     }
+      //   },
+      //   data: {
+      //     authenticate: true
+      //   }
+      // })
+
       .state('tab.cards', {
         url: '/dash/cards',
         views: {
@@ -89,10 +128,10 @@
       })
 
       .state('tab.details', {
-        url: '/dash/list/details',
+        url: '/dash/details',
         cache: false,
         views: {
-          'dash': {
+          'details': {
             templateUrl: 'templates/details.html',
             controller: 'DetailsCtrl'
           }
@@ -103,9 +142,9 @@
       })
 
       .state('tab.maps', {
-        url: '/dash/list/details/maps',
+        url: '/dash/details/maps',
         views: {
-          'dash': {
+          'details': {
             templateUrl: 'templates/maps.html',
             controller: 'MapsCtrl',
           }
