@@ -1,0 +1,52 @@
+<ion-view view-title="{{ list.name || 'Saved for Later' }}">
+  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content has-bouncing="false"> 
+    <div class="list list-inset" 
+         style="margin-top: 0px;">
+      <div class="list card"
+           style="margin-left: 2px; margin-right: 2px;">
+        <div class="item item-text-wrap" style="font-size: 14px;">
+          {{ list.description || 'Save the restaurants you want to check out later' }}
+        </div>
+        <div class="item item-divider" style="font-weight: 200; font-size: 14px;">
+          Category: {{ list.category || 'All cuisines' }}
+        </div>
+        <div class="item item-avatar">
+          <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+          <button class="button button-outline button-small button-assertive" 
+                  style="right: 15px;
+                        position: absolute;
+                        margin-top: 4px;
+                        min-width: 80px;
+                        min-height: 30px;
+                        line-height: 28px;
+                        font-size: 14px;">
+            Edit
+          </button>
+        </div>
+      </div>
+      <div class="list card" 
+           ng-repeat="restaurant in favouritesList" 
+           style="margin-left: 2px; margin-right: 2px;">
+        <a class="item item-thumbnail-left" ng-click="goToDetails(restaurant)">
+          <img ng-src="{{restaurant.imageUrl || 'http://placehold.it/95x95'}}" width="100%" height="100%">
+          <div class="row row-center">
+            <div class="col-90">
+              <p id="restaurant-name"><strong>{{restaurant.name}}</strong></p>
+              <p id="restaurant-category">{{restaurant.category}}</p>
+              <p id="restaurant-rating" ng-if="restaurant.rating">{{restaurant.rating}}/10</p>
+            </div>
+            <div class="col-10">
+              <h1 ng-click="removeRestaurant($index, restaurant)" class="icon ion-ios-close-empty"></h1>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

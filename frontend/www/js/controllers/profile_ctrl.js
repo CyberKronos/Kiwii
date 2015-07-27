@@ -1,15 +1,8 @@
 (function() {
-    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, RestaurantDetails, RestaurantPreference, PhotoDetails) {
+    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, RestaurantDetails, RestaurantPreference, PhotoDetails) {
         if (window.cordova) { 
           $cordovaStatusbar.style(1);
         }
-
-        var savedRestaurants = Parse.User.current().relation('savedRestaurants');
-        savedRestaurants.query().collection().fetch()
-            .then(function(restaurants) {
-                $scope.favouritesList = restaurants.toJSON();
-                $scope.$digest();
-            });
 
         var uploadedPhotos = Parse.User.current().relation('uploadedPhotos');
         uploadedPhotos.query().collection().fetch()
@@ -19,23 +12,38 @@
                 $scope.$digest();
             });
 
-        $scope.removeRestaurant = function(index, restaurant) {
-            $scope.favouritesList.splice(index, 1);
-            var preference = new RestaurantPreference(Parse.User.current(), restaurant.foursquareId);
-            preference.set(false)
-                .then(function() {
-                    console.log('Removed');
-                });
+        $scope.newList = {};
+
+        $ionicModal.fromTemplateUrl('templates/create_list_popup.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });  
+
+        $scope.openModal = function() {
+            $scope.modal.show();
         };
 
-        $scope.goToDetails = function(restaurant) {
-            RestaurantDetails.setVenueId(restaurant.foursquareId);
-            $state.go('tab.details');
+        $scope.closeModal = function() {
+            $scope.modal.hide();
         };
 
         $scope.photoDetails = function(photo) {
             PhotoDetails.setPhotoDetails(photo);
             $state.go('tab.photoDetails');
+        };
+
+        $scope.createList = function(){ 
+            $scope.openModal();
+        };
+
+        $scope.saveList = function() {
+
+        };
+
+        $scope.goToList = function() {
+            $state.go('tab.lists');
         };
     };
 

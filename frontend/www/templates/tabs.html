@@ -16,6 +16,11 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="details"></ion-nav-view>
   </ion-tab>
 
+  <!-- Hidden tab to render lists for profile and home -->
+  <ion-tab title="Lists" href="#/tab/lists" hidden="true">
+    <ion-nav-view name="lists"></ion-nav-view>
+  </ion-tab>
+
   <!-- Images Tab -->
   <ion-tab title="Images" icon-off="ion-ios-camera-outline" icon-on="ion-ios-camera" href="#/tab/images">
     <ion-nav-view name="images"></ion-nav-view>

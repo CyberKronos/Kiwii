@@ -76,7 +76,7 @@
       })
 
       .state('tab.photoDetails', {
-        url: '/profile/photoDetails',
+        url: '/photoDetails',
         views: {
           'profile': {
             templateUrl: 'templates/photo_details.html',
@@ -88,34 +88,18 @@
         }
       })
 
-      // .state('tab.photos', {
-      //   url: '/profile/photos',
-      //   views: {
-      //     'profile': {
-      //       templateUrl: 'templates/profile.html',
-      //       controller: 'ProfileCtrl'
-      //     }
-      //   },
-      //   data: {
-      //     authenticate: true
-      //   }
-      // })
-
-      // .state('tab.lists', {
-      //   url: '/profile/lists',
-      //   views: {
-      //     'profile': {
-      //       templateUrl: 'templates/profile.html',
-      //       controller: 'ProfileCtrl'
-      //     }
-      //   },
-      //   data: {
-      //     authenticate: true
-      //   }
-      // })
+      .state('tab.lists', {
+        url: '/lists',
+        views: {
+          'lists': { 
+            templateUrl: 'templates/lists.html',
+            controller: 'ListsCtrl'
+          }
+        }
+      })
 
       .state('tab.cards', {
-        url: '/dash/cards',
+        url: '/cards',
         views: {
           'dash': {
             templateUrl: 'templates/cards.html',
@@ -128,10 +112,10 @@
       })
 
       .state('tab.details', {
-        url: '/dash/details',
+        url: '/details',
         cache: false,
         views: {
-          'details': {
+          'details': { 
             templateUrl: 'templates/details.html',
             controller: 'DetailsCtrl'
           }
@@ -142,7 +126,7 @@
       })
 
       .state('tab.maps', {
-        url: '/dash/details/maps',
+        url: '/maps',
         views: {
           'details': {
             templateUrl: 'templates/maps.html',
