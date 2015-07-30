@@ -47,7 +47,6 @@
     };
 
     $scope.postPhoto = function() {
-      // console.log($scope.imagePost);
       showLoading();
       UserPhotos.savePhoto($scope.imagePost)
       .then(function(success){

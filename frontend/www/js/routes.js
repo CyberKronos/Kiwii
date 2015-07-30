@@ -90,6 +90,7 @@
 
       .state('tab.lists', {
         url: '/lists',
+        cache: false,
         views: {
           'lists': { 
             templateUrl: 'templates/lists.html',
