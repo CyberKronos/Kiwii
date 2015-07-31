@@ -1,0 +1,35 @@
+<div class="modal">
+  <ion-header-bar class="bar bar-header bar-assertive" style="background-color: #ffa300;">
+    <a class="button button-icon button-clear ion-android-close" ng-click="modal.hide()"></a>
+    <h1 class="title" style="line-height: 32px;">Add to List</h1>
+  </ion-header-bar>
+  <ion-content scroll="false">
+  	<div class="list">
+  		<a class="item item-thumbnail-left">
+	      <img src="{{ restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'http://placehold.it/95x95?text=Kiwii' }}">
+        <div class="col-90">
+          <p id="restaurant-name"><strong>{{restaurantDetails.name}}</strong></p>
+          <p id="restaurant-category">{{restaurantDetails.categories[0].shortName}}</p>
+          <p id="restaurant-rating" ng-if="restaurantDetails.rating">{{restaurantDetails.rating}}/10</p>
+        </div>
+    </a>
+	    </a>
+    	<div class="list">
+        <div class="item item-divider" style="font-weight: 200; font-size: 14px;">
+          All lists
+        </div>
+        <a class="item item-thumbnail-left"
+           ng-click="saveToList('saveForLater')">
+          <!-- <img src="cover.jpg"> -->
+          <h2>Save for Later</h2>
+        </a>
+        <a class="item item-thumbnail-left" 
+           ng-repeat="userList in userLists"
+           ng-click="saveToList(userList)">
+          <!-- <img src="cover.jpg"> -->
+          <h2>{{ userList.name }}</h2>
+        </a>
+      </div>
+  	</div>
+  </ion-content>
+</div>
