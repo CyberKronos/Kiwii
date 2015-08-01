@@ -119,6 +119,6 @@
     };
 
   angular.module('kiwii').
-    controller('DashCtrl', DashCtrl);
+    controller('SearchCtrl', DashCtrl);
 })
 ();
