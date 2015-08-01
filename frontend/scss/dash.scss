@@ -1,0 +1,36 @@
+.home-x-list {
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.home-nugget {
+  display: inline-block;
+  max-width: 110px;
+  max-height: 160px;
+  padding: 0 5px;
+  background-color: bisque;
+  background-clip: content-box;
+}
+
+.home-nugget > img {
+  padding-bottom: 5px;
+}
+
+.home-nugget > .restaurant-description {
+  padding: 0 3px;
+}
+
+.home-nugget > .restaurant-description > p {
+  font-size: 10pt;
+  line-height: 95%;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  word-wrap: break-word;
+  white-space: pre;
+}
+
+.home-nugget > .restaurant-description > p.type {
+  color: grey;
+}

@@ -53,8 +53,8 @@
         url: '/dash',
         views: {
           'dash': {
-            templateUrl: 'templates/search.html',
-            controller: 'SearchCtrl'
+            templateUrl: 'templates/dash.html',
+            controller: 'DashCtrl'
           }
         },
         data: {
