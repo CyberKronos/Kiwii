@@ -22,7 +22,7 @@
         };
 
         $scope.goToMaps = function () {
-            $state.go('maps');
+            $state.go('tab.maps');
         };
 
         $scope.toggleFavourite = function ($event) {
@@ -38,7 +38,6 @@
         function getRestaurantInfo() {
             RestaurantDetails.fetchVenue().then(
                 function (result) {
-                    // TODO: refactor restaurant lat/long into a service
                     $scope.restaurantDetails = result.details;
                     $scope.instagramImages = result.images;
                     $scope.restaurantReviews = result.reviews;

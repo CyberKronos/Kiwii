@@ -1,5 +1,7 @@
 (function() {
-  var Routes = function($stateProvider, $urlRouterProvider) {
+  var Routes = function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+
     $stateProvider
       .state('start', {
         url: '/start',
@@ -19,14 +21,14 @@
         }
       })
 
-      .state('register', {
-        url: '/register',
-        templateUrl: 'templates/register.html',
-        controller: 'RegisterCtrl',
-        data: {
-          authenticate: false
-        }
-      })
+      // .state('register', {
+      //   url: '/register',
+      //   templateUrl: 'templates/register.html',
+      //   controller: 'RegisterCtrl',
+      //   data: {
+      //     authenticate: false
+      //   }
+      // })
 
       .state('intro', {
         url: '/intro',
@@ -37,61 +39,120 @@
         }
       })
 
-      .state('dash', {
+      // setup an abstract state for the tabs directive
+      .state('tab', {
+        url: "/tab",
+        abstract: true,
+        templateUrl: "templates/tabs.html",
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.dash', {
         url: '/dash',
-        templateUrl: 'templates/dash.html',
-        controller: 'DashCtrl',
+        views: {
+          'dash': {
+            templateUrl: 'templates/dash.html',
+            controller: 'DashCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('profile', {
-        url: '/dash/profile',
-        templateUrl: 'templates/profile.html',
+      .state('tab.profile', {
+        url: '/profile',
+        views: {
+          'profile': {
+            templateUrl: 'templates/profile.html',
+            controller: 'ProfileCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('topten', {
-        url: '/dash/topten',
-        templateUrl: 'templates/topten.html',
-        controller: 'TopTenCtrl',
+      .state('tab.photoDetails', {
+        url: '/photoDetails',
+        views: {
+          'profile': {
+            templateUrl: 'templates/photo_details.html',
+            controller: 'PhotoDetailsCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('cards', {
-        url: '/dash/cards',
-        templateUrl: 'templates/cards.html',
-        controller: 'CardsCtrl',
-        data: {
-          authenticate: true
-        }
-      })
-
-      .state('details', {
-        url: '/dash/list/details',
+      .state('tab.lists', {
+        url: '/lists',
         cache: false,
-        templateUrl: 'templates/details.html',
-        controller: 'DetailsCtrl',
+        views: {
+          'lists': { 
+            templateUrl: 'templates/lists.html',
+            controller: 'ListsCtrl'
+          }
+        }
+      })
+
+      .state('tab.cards', {
+        url: '/cards',
+        views: {
+          'dash': {
+            templateUrl: 'templates/cards.html',
+            controller: 'CardsCtrl'
+          }
+        },
         data: {
           authenticate: true
         }
       })
 
-      .state('maps', {
-        url: '/dash/list/details/maps',
-        templateUrl: 'templates/maps.html',
-        controller: 'MapsCtrl',
+      .state('tab.details', {
+        url: '/details',
+        cache: false,
+        views: {
+          'details': { 
+            templateUrl: 'templates/details.html',
+            controller: 'DetailsCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.maps', {
+        url: '/maps',
+        views: {
+          'details': {
+            templateUrl: 'templates/maps.html',
+            controller: 'MapsCtrl',
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.images', {
+        url: '/images',
+        views: {
+          'images': {
+            templateUrl: 'templates/images.html',
+            controller: 'ImagesCtrl',
+          }
+        },
         data: {
           authenticate: true
         }
       });
 
-    $urlRouterProvider.otherwise('/dash');
+    $urlRouterProvider.otherwise('/tab/dash');
   };
 
   angular.module('kiwii')

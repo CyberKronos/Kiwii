@@ -1,0 +1,24 @@
+<ion-view view-title="">
+  	<!-- <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+	    <ion-nav-buttons side="right">
+	      	<user-info></user-info>
+	    </ion-nav-buttons>
+	</ion-nav-bar>
+ -->
+  	<ion-content scroll="false" style="background-color: #ffa300">
+		<div class="row row-center" style="height: 100%;">
+			<div class="col text-centered">
+				<div class="button button-icon" ng-click="uploadImage('CAMERA')">
+				    <i class="ion-camera icon-white" style="font-size: 100px;"></i>
+				    <p class="text-white"><strong>Take Photo</strong></p>
+			    </div>
+		    </div>
+		    <div class="col text-centered">
+			    <div class="button button-icon" ng-click="uploadImage('PHOTOLIBRARY')">
+				    <i class="ion-images icon-white" style="font-size: 100px;"></i>
+				    <p class="text-white"><strong>Upload Photo</strong></p>
+			    </div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

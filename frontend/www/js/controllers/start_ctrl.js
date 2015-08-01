@@ -39,7 +39,7 @@
       .then(function(response) {
         console.log(response);
         if (response == 'existing user') {
-          $state.go('dash');
+          $state.go('tab.dash');
         } else {
           $state.go('intro');
         }
