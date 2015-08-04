@@ -94,27 +94,39 @@
         }
 
         function fetchCurrentLocation() {
-            // Geolocation to get location position
-            var posOptions = {timeout: 10000, enableHighAccuracy: false};
-            return $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-            .then(function (position) {
-                var lat = position.coords.latitude;
-                var long = position.coords.longitude;
-                $scope.criteria['ll'] = lat + ',' + long;
-            }, function (err) {
-                // error
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Location Error',
-                    template: "Error retrieving position " + err.code + " " + err.message,
-                    buttons: [
-                      { 
-                        text: 'Ok',
-                        type: 'button-assertive',
-                      }
-                    ]
-                });
+          // Geolocation to get location position
+          var posOptions = {timeout: 5000, enableHighAccuracy: false};
+          return $cordovaGeolocation
+          .getCurrentPosition(posOptions)
+          .then(function (position) {
+              var lat = position.coords.latitude;
+              var long = position.coords.longitude;
+              $scope.criteria['ll'] = lat + ',' + long;
+          }, function (err) {
+            // error
+            var confirmPopup = $ionicPopup.confirm({
+              title: 'Location Error',
+              template: "Error retrieving position. Check your connection and location settings?",
+              buttons: [
+                { 
+                  text: 'Cancel' 
+                },
+                {
+                  text: 'Ok',
+                  type: 'button-assertive',
+                  onTap: function() {
+                    confirmPopup.close();
+                    cordova.plugins.diagnostic.switchToLocationSettings();
+                    setTimeout(function() {
+                      fetchCurrentLocation().then(function() {
+                        $scope.isLoadingLocation = false;
+                      });
+                    }, 8000);
+                  }
+                }
+              ]
             });
+          });
         }
     };
 
