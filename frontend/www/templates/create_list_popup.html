@@ -10,12 +10,13 @@
       	<input type="text" placeholder="List Name" ng-model="newList.name">
     	</label>
       <label class="item item-input">
-        <ion-autocomplete ng-model="model"
-                          item-value-key="id"
-                          item-view-value-key="name"
+        <ion-autocomplete ng-model="newList.category"
+                          item-value-key="shortName"
+                          item-view-value-key="shortName"
+                          item-view-value-key="id"
                           items-method="getTestItems(query)"
                           items-method-value-key="items"
-                          placeholder="Enter test query ..."
+                          placeholder="Enter cuisine type"
                           items-clicked-method="itemsClicked(callback)"/>
       </label>
       <label class="item item-input">

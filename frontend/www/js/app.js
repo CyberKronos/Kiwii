@@ -13,7 +13,8 @@
       'image-preloader',
       'ionic.service.core',
       'ionic.service.deploy',
-      'ionic.service.analytics']);
+      // 'ionic.service.analytics'
+      ]);
 
   kiwii.config(function ($ionicAppProvider) {
     $ionicAppProvider.identify({
