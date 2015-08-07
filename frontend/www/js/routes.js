@@ -62,6 +62,19 @@
         }
       })
 
+      .state('tab.search', {
+        url: '/search',
+        views: {
+          'search': {
+            templateUrl: 'templates/search.html',
+            controller: 'SearchCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('tab.profile', {
         url: '/profile',
         views: {
