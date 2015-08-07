@@ -46,6 +46,16 @@
             
             return list.save();
           });
+      },
+      removeRestaurantListRelation: function(list, foursquarePlaceId) {
+        var restaurantListRelation = list.relation('restaurants');
+        return getRestaurant(foursquarePlaceId)
+          .then(function (restaurant) {
+            console.log(restaurant);
+            restaurantListRelation.remove(restaurant);
+            
+            return list.save();
+          });
       }
     };
   };

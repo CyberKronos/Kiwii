@@ -1,5 +1,5 @@
 (function() {
-    var ListsCtrl = function($scope, $state, RestaurantDetails, RestaurantPreference, ListDetails) {
+    var ListsCtrl = function($scope, $state, RestaurantDetails, RestaurantPreference, ListDetails, Lists) {
         loadListData();
 
         $scope.removeRestaurant = function(index, restaurant) {
@@ -11,7 +11,11 @@
                         console.log('Removed');
                     });
             } else {
-                console.log('to remove!');
+                $scope.restaurantList.splice(index, 1);
+                Lists.removeRestaurantListRelation($scope.listData, restaurant.foursquareId)
+                    .then(function() {
+                        console.log('Removed');
+                    })
             }     
         };
 

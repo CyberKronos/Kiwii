@@ -57,22 +57,33 @@
         };
 
         $scope.saveToList = function (list) {
-            Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-                .then(function() {
-                    $scope.closeModal();
-                    createPopover();
-                });
+            if (list == 'saveForLater') {
+                restaurantPreference.set(!$scope.isFavourite)
+                    .then(function () {
+                        $scope.isFavourite = !$scope.isFavourite;
+                        if ($scope.isFavourite) {
+                            $scope.closeModal();
+                            createPopover();
+                        }
+                    });
+            } else {
+                Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
+                    .then(function() {
+                        $scope.closeModal();
+                        createPopover();
+                    });
+            }
         };
 
-        $scope.toggleFavourite = function ($event) {
-            restaurantPreference.set(!$scope.isFavourite)
-                .then(function () {
-                    $scope.isFavourite = !$scope.isFavourite;
-                    if ($scope.isFavourite) {
-                        createPopover();
-                    }
-                });
-        };
+        // $scope.toggleFavourite = function ($event) {
+        //     restaurantPreference.set(!$scope.isFavourite)
+        //         .then(function () {
+        //             $scope.isFavourite = !$scope.isFavourite;
+        //             if ($scope.isFavourite) {
+        //                 createPopover();
+        //             }
+        //         });
+        // };
 
         function getRestaurantInfo() {
             RestaurantDetails.fetchVenue().then(
