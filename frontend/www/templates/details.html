@@ -3,9 +3,6 @@
 		<ion-nav-buttons side="left">
 	        <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
 	    </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <user-info></user-info>
-        </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content scroll="false" has-bouncing="false"> 
@@ -17,10 +14,13 @@
                             <div class="inner-container">
                                 <div class="padding-fix">
                                     <div class="title">{{ restaurantDetails.name }}</div>
-                                    <a class="button button-icon button-clear icon-white favourite-icon" 
+                                    <a class="button button-icon button-clear icon-white ion-plus favourite-icon" 
+                                       ng-click="addToList()">
+                                    </a>
+                                    <!-- <a class="button button-icon button-clear icon-white favourite-icon" 
                                        ng-class="{'ion-ios-star': isFavourite, 'ion-ios-star-outline': !isFavourite}" 
                                        ng-click="toggleFavourite($event)">
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
                                 <div class="subtext" ng-if="restaurantDetails.price.tier">Price: {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})</div>

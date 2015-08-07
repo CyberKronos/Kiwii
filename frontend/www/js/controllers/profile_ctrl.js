@@ -73,6 +73,22 @@
             $state.go('tab.lists');
         };
 
+        // test
+        $scope.model = "";
+        $scope.callbackValueModel = "";
+        $scope.getTestItems = function (query) {
+            return {
+                items: [
+                    {id: "1", name: "test" },
+                    {id: "2", name: "haha" },
+                    {id: "3", name: "asdfasdfasd" }
+                ]
+            };
+        };
+        $scope.itemsClicked = function (callback) {
+            $scope.callbackValueModel = callback;
+        }
+
         function showLoading() {
             $scope.isLoading = true;
             $ionicLoading.show({

@@ -4,6 +4,7 @@
   var kiwii = angular.module('kiwii',
     [ 'ionic',
       'ion-google-place',
+      'ion-autocomplete',
       'ngCordova',
       'ngStorage',
       'ngFlux',

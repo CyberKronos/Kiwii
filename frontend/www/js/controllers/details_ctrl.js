@@ -1,5 +1,5 @@
 (function () {
-    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails) {
 
         if (window.cordova) { 
           $cordovaStatusbar.style(0);
@@ -7,6 +7,33 @@
 
         var restaurantPreference = null;
         getRestaurantInfo();
+
+        var userLists = Parse.User.current().relation('lists');
+        userLists.query().collection().fetch()
+            .then(function(lists) {
+                $scope.userLists = lists.toJSON();
+                console.log($scope.userLists);
+                $scope.$digest();
+            });
+
+        $ionicModal.fromTemplateUrl('templates/add_to_list_popup.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+        });  
+
+        $scope.openModal = function() {
+          $scope.modal.show();
+        };
+
+        $scope.closeModal = function() {
+          $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function() {
+          $scope.modal.remove();
+        });
 
         $scope.openWebsite = function (link) {
             var options = {
@@ -23,6 +50,15 @@
 
         $scope.goToMaps = function () {
             $state.go('tab.maps');
+        };
+
+        $scope.addToList = function () {
+            $scope.openModal();
+        };
+
+        $scope.saveToList = function (list) {
+            console.log(list);
+            $scope.closeModal();
         };
 
         $scope.toggleFavourite = function ($event) {

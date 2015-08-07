@@ -12,8 +12,8 @@
 
     <td-cards ng-if="restaurants.length && !isLoading && !apiError">
       <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
-               on-swipe-right="nextRestaurant()"
-               on-swipe-left="prevRestaurant()"
+               on-swipe-right="prevRestaurant()"
+               on-swipe-left="nextRestaurant()"
                on-destroy="swipeRestaurant()">
         <restaurant-card></restaurant-card>
       </td-card>

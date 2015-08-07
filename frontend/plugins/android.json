@@ -110,6 +110,34 @@
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 2
                         }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Diagnostic\"><param name=\"android-package\" value=\"cordova.plugins.Diagnostic\" /></feature>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -152,6 +180,9 @@
             "PACKAGE_NAME": "com.kiwiiapp.Kiwii"
         },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.kiwiiapp.Kiwii"
+        },
+        "cordova.plugins.diagnostic": {
             "PACKAGE_NAME": "com.kiwiiapp.Kiwii"
         }
     },
