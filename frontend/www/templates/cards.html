@@ -14,10 +14,32 @@
       <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
                on-swipe-right="prevRestaurant()"
                on-swipe-left="nextRestaurant()"
+               on-partial-swipe="showSwipeHints(true)"
+               on-snap-back="showSwipeHints(false)"
                on-destroy="swipeRestaurant()">
         <restaurant-card></restaurant-card>
       </td-card>
     </td-cards>
+
+    <div class="bar bar-footer bar-stable">
+      <div class="cards-hint row"
+            ng-if="isShowingHints">
+        <div>
+          <i class="icon ion-arrow-left-c">
+          </i>
+          Next Card
+        </div>
+
+        <div>
+          Last Card
+          <i class="icon ion-arrow-right-c">
+          </i>
+        </div>
+      </div>
+      <div class="text-center"
+        ng-if="!isShowingHints">Powered By Foursquare
+      </div>
+    </div>
 
     <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">
       <div class="col-80 col-offset-10 text-centered">

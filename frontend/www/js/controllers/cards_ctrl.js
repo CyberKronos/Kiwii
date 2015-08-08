@@ -10,11 +10,13 @@
     AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
 
     var goNextOnSwipe = true;
+    $scope.isShowingHints = false;
 
     $scope.criteria = RestaurantExplorer.criteria;
 
     $scope.swipeRestaurant = function () {
       var currentRestaurant = undefined;
+      $scope.showSwipeHints(false);
       if (goNextOnSwipe) {
         currentRestaurant = RestaurantExplorer.nextRestaurant();
       } else {
@@ -41,8 +43,10 @@
     };
 
     $scope.returnToDash = function () {
-      $state.go('tab.dash');
+      $state.go('tab.search');
     };
+
+    $scope.showSwipeHints = showSwipeHints;
 
     function fetchRestaurants() {
       showLoading();
@@ -76,6 +80,11 @@
       return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
         return r['imageUrl'];
       }));
+    }
+
+    function showSwipeHints(option) {
+      console.log(option);
+      $scope.isShowingHints = option;
     }
   };
 

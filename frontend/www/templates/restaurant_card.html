@@ -1,19 +1,33 @@
-<div class="restaurant-card-container">
-  <div class="restaurant-card-poster-glass" back-img="{{restaurant.imageUrl}}"></div>
-  <div class="restaurant-card-details-container"
-       ng-click="restaurantDetails(restaurant)">
-    <div class="row restaurant-card-description">
-      <div class="col-90">
-        <!-- <div class="" ng-bind-html="restaurant.name | unsafe"></div>
-        <div class="subtext">{{restaurant.category}}</div>
-        <div class="subtext" ng-if="restaurant.rating">{{restaurant.rating}}/10</div> -->
+<div class="restaurant-card-container"
+     ng-click="restaurantDetails(restaurant)">
+  <div class="restaurant-card-header">
+    <span class="text-minor">{{restaurant.category}}</span>
+    <span class="text-minor"
+          ng-if="restaurant.rating"
+          style="float:right;">
+            <i class="icon ion-star text-orange"></i>
+            {{restaurant.rating}}/10
+    </span>
+  </div>
+  <div class="restaurant-card-image" back-img="{{restaurant.imageUrl}}"></div>
+  <div class="restaurant-card-details-container">
+    <div class="restaurant-card-description">
+      <div class="row">
         <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
-        <div id="restaurant-category">{{restaurant.category}}</div>
-        <div id="restaurant-rating" ng-if="restaurant.rating">{{restaurant.rating}}/10</div>
         <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
       </div>
-      <div class="col-10 col-center">
-        <span class="button button-icon button-clear ion-chevron-right"></span>
+      <div class="row">
+        Some Description or review here...
+      </div>
+      <div class="restaurant-actions row">
+        <span class="col">
+          <i class="icon ion-android-car"></i>
+          42min
+        </span>
+        <span class="col">
+          <i class="icon ion-calendar"></i>
+          Reserve
+        </span>
       </div>
     </div>
   </div>

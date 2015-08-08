@@ -7,22 +7,22 @@ $card-bottom-height: 30%;
 }
 
 .restaurant-card-container {
-  position: absolute;
+  //position: absolute;
   height: $card-height;
   width: $card-width;
   overflow: hidden;
-  box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 td-cards {
   display: block;
   position: relative;
-  width: 95%;
-  height: 94% !important;
-  min-width: 300px;
-  min-height: 420px;
-  max-height: 700px;
-  max-width: 550px;
+  width: 90vw;
+  height: 67vh;
+  //min-width: 300px;
+  //min-height: 420px;
+  //max-height: 700px;
+  //max-width: 550px;
   margin: 0 auto;
 }
 
@@ -38,9 +38,8 @@ td-card {
   position: absolute;
   top: 14px;
   width: $card-width;
-  /*height: $card-height;*/
-  height: 80%;
-  border-radius: 2px;
+  height: $card-height;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0px 2px 5px 2px rgba(222, 222, 222, 0.6);
 
@@ -49,17 +48,15 @@ td-card {
   }
 }
 
-.restaurant-card-poster-glass {
+.restaurant-card-header {
+  margin: 5px 10px;
+}
+
+.restaurant-card-image {
   background-size: cover;
   position: absolute;
-  top: -80px;
-  left: -3px;
-  width: $card-width + 5%;
+  width: $card-width;
   height: 100%;
-  /*opacity: 0.8;*/
-  /*-webkit-filter: brightness(0.5) contrast(1.4);*/
-  border-radius: 2px;
-  margin: 1px;
 }
 
 .restaurant-card-details-container {
@@ -74,13 +71,13 @@ td-card {
   position: absolute;
   width: 100%;
   margin: 0;
-  padding: 15px 0 15px 15px;
+  padding: 10px;
   overflow: hidden;
-  box-shadow: 0px -10px 10px 0 rgba(0,0,0,0.4);
+  box-shadow: 0px -10px 10px 0 rgba(0, 0, 0, 0.4);
   bottom: 0;
-  font-family: 'Droid Sans', 'Helvetica Neue';
   background: #fff;
   height: $card-bottom-height;
+  display: table;
 
   span {
     //position: absolute;
@@ -92,12 +89,31 @@ td-card {
   }
 }
 
+.restaurant-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  font-size: 1.5em;
+}
+
+.restaurant-actions > span {
+  text-align: center;
+  margin: auto;
+}
+
+.cards-hint {
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
 .messageIcon {
   font-size: 10em;
 }
 
 .cuisine-type-title {
-  text-align: center; 
+  text-align: center;
   font-size: 18px;
   padding: 10px 0;
 }
