@@ -1,13 +1,12 @@
 <div class="restaurant-card-container"
      ng-click="restaurantDetails(restaurant)">
   <div class="restaurant-card-header">
-    <span class="text-minor">{{restaurant.category}}</span>
-    <span class="text-minor"
-          ng-if="restaurant.rating"
-          style="float:right;">
+    <div class="text-minor">{{restaurant.category}}</div>
+    <div class="text-minor"
+          ng-if="restaurant.rating">
             <i class="icon ion-star text-orange"></i>
             {{restaurant.rating}}/10
-    </span>
+    </div>
   </div>
   <div class="restaurant-card-image" back-img="{{restaurant.imageUrl}}"></div>
   <div class="restaurant-card-details-container">

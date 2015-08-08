@@ -23,22 +23,23 @@
 
     <div class="bar bar-footer bar-stable">
       <div class="cards-hint row"
-            ng-if="isShowingHints">
-        <div>
+           ng-class="{'cards-hint-show': isShowingHints,
+                      'cards-hint-hide': !isShowingHints}">
+        <div ng-if="isShowingHints">
           <i class="icon ion-arrow-left-c">
           </i>
-          Next Card
+          Next
         </div>
 
-        <div>
-          Last Card
+        <img style="width:24pt;" src="../img/logo.png"/>
+
+        <div ng-if="isShowingHints">
+          Last
           <i class="icon ion-arrow-right-c">
           </i>
         </div>
       </div>
-      <div class="text-center"
-        ng-if="!isShowingHints">Powered By Foursquare
-      </div>
+
     </div>
 
     <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">
