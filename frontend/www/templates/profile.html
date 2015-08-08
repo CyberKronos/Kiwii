@@ -1,5 +1,5 @@
 <ion-view view-title="Profile">
-  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="right" style="top:none; bottom: none;">
       <button class="button button-clear text-button icon-white" ng-click="logOut()">
         Sign out
@@ -7,7 +7,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content has-bouncing="false" ng-controller="ProfileCtrl" style="top: 0 !important;">
+  <ion-content has-bouncing="false" ng-controller="ProfileCtrl">
     <ion-tabs class="tabs-light">
 
       <ion-tab title="Lists">
