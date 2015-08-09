@@ -19,6 +19,7 @@
 
         $scope.editList = function(listData) {
             $scope.newList = {
+                type: 'edit',
                 objectId: $scope.listData.id,
                 category: $scope.listData.attributes.category,
                 description: $scope.listData.attributes.description,
@@ -30,12 +31,26 @@
 
         $scope.saveList = function() {
             console.log($scope.newList);
-            showLoading();
+            showLoading('Saving list...');
             Lists.editList($scope.newList)
             .then(function(success) {
                 console.log(success);
                 hideLoading();
                 $scope.closeModal();
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        $scope.removeList = function(listData) {
+            console.log(listData);
+            showLoading('Removing list...');
+            Lists.removeList(listData)
+            .then(function(success) {
+                console.log(success);
+                hideLoading();
+                $scope.closeModal();
+                $state.go('tab.profile');
             }, function(error) {
                 console.log(error);
             });
@@ -86,7 +101,7 @@
 
         function loadListData() {
             $scope.listData = ListDetails.getListDetails();
-            
+
             if ($scope.listData.name == 'Save for Later') {
                 var savedRestaurants = Parse.User.current().relation('savedRestaurants');
                 return savedRestaurants.query().collection().fetch()
@@ -104,10 +119,10 @@
             }
         }
 
-        function showLoading() {
+        function showLoading(msg) {
             $scope.isLoading = true;
             $ionicLoading.show({
-                template: 'Creating list...'
+                template: msg
             });
         }
 

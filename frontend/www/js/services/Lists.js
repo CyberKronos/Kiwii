@@ -58,6 +58,12 @@
             return list.save();
           });
       },
+      removeList: function(listData) {
+        return getList(listData)
+          .then(function (list) {
+            return list.destroy();
+          });
+      },
       saveRestaurantListRelation: function(list, foursquarePlaceId) {
         var restaurantListRelation = list.relation('restaurants');
         return getRestaurant(foursquarePlaceId)

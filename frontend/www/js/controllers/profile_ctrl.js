@@ -48,7 +48,9 @@
             $state.go('tab.photoDetails');
         };
 
-        $scope.createList = function(){ 
+        $scope.createList = function(){
+            $scope.newList['type'] = 'create';
+            console.log($scope.newList);
             $scope.openModal();
         };
 
