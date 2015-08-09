@@ -163,6 +163,19 @@
         data: {
           authenticate: true
         }
+      })
+
+      .state('tab.exploreLists', {
+        url: '/exploreLists',
+        views: {
+          'exploreLists': {
+            templateUrl: 'templates/exploreLists.html',
+            controller: 'ExploreListsCtrl',
+          }
+        },
+        data: {
+          authenticate: true
+        }
       });
 
     $urlRouterProvider.otherwise('/tab/dash');
