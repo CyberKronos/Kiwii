@@ -18,6 +18,17 @@
         });
     };
 
+    var getList = function (listData) {
+      var List = Parse.Object.extend(LISTS_CLASS);
+      var listQuery = new Parse.Query(List);
+
+      return listQuery.get(listData.objectId)
+        .then(function (result) {
+          console.log(result);
+          return result;
+        });
+    };
+
     /* Public Interface */
     return {
       saveList: function (listData) {
@@ -35,6 +46,16 @@
             saveListRelation.add(saveList);
             
             return Parse.User.current().save();
+          });
+      },
+      editList: function(listData) {
+        return getList(listData)
+          .then(function (list) {
+            list.set("name", listData.name);
+            list.set("description", listData.description);
+            list.set("category", listData.category);
+            
+            return list.save();
           });
       },
       saveRestaurantListRelation: function(list, foursquarePlaceId) {

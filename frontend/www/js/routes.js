@@ -115,7 +115,7 @@
       .state('tab.cards', {
         url: '/cards',
         views: {
-          'dash': {
+          'search': {
             templateUrl: 'templates/cards.html',
             controller: 'CardsCtrl'
           }

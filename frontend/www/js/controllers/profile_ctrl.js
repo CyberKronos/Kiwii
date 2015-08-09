@@ -75,7 +75,7 @@
 
         $scope.callbackValueModel = "";        
 
-        $scope.getTestItems = function (query) {
+        $scope.getCuisineItems = function (query) {
             var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
             var returnValue = { items: [] };
             searchItems.forEach(function(item){

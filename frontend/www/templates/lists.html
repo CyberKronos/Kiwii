@@ -1,5 +1,5 @@
 <ion-view view-title="{{ listData.attributes.name || listData.name}}">
-  <ion-nav-bar ng-controller="NavCtrl" ng-class="{'main-app-nav': true, 'bar-light': true}">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -18,7 +18,9 @@
         </div>
         <div class="item item-avatar">
           <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
-          <button class="button button-outline button-small button-assertive" 
+          <button ng-if="listData.name != 'Save for Later'"
+                  ng-click="editList(listData)"
+                  class="button button-outline button-small button-assertive" 
                   style="right: 15px;
                         position: absolute;
                         margin-top: 4px;
@@ -30,6 +32,8 @@
           </button>
         </div>
       </div>
+
+      <!-- For save for later list -->
       <div class="list card" 
            ng-if="listData.name == 'Save for Later'"
            ng-repeat="restaurant in favouritesList" 
@@ -49,6 +53,7 @@
         </a>
       </div>
 
+      <!-- For all other lists -->
       <div class="list card" 
            ng-if="listData.name != 'Save for Later'"
            ng-repeat="restaurant in restaurantList" 
