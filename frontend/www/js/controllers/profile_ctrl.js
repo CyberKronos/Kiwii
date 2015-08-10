@@ -1,5 +1,5 @@
 (function() {
-    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails) {
+    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, ALL_CUISINE_TYPES) {
         if (window.cordova) { 
           $cordovaStatusbar.style(1);
         }
@@ -19,9 +19,9 @@
             });
 
         var userLists = Parse.User.current().relation('lists');
-        userLists.query().collection().fetch()
+        userLists.query().find()
             .then(function(lists) {
-                $scope.userLists = lists.toJSON();
+                $scope.userLists = lists;
                 console.log($scope.userLists);
                 $scope.$digest();
             });
@@ -48,7 +48,10 @@
             $state.go('tab.photoDetails');
         };
 
-        $scope.createList = function(){ 
+        $scope.createList = function(){
+            $scope.newList = {};
+            $scope.newList['type'] = 'create';
+            console.log($scope.newList);
             $scope.openModal();
         };
 
@@ -73,21 +76,26 @@
             $state.go('tab.lists');
         };
 
-        // test
-        $scope.model = "";
-        $scope.callbackValueModel = "";
-        $scope.getTestItems = function (query) {
-            return {
-                items: [
-                    {id: "1", name: "test" },
-                    {id: "2", name: "haha" },
-                    {id: "3", name: "asdfasdfasd" }
-                ]
-            };
+        $scope.callbackValueModel = "";        
+
+        $scope.getCuisineItems = function (query) {
+            var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
+            var returnValue = { items: [] };
+            searchItems.forEach(function(item){
+                if (item.name.toLowerCase().indexOf(query) > -1 ){
+                    returnValue.items.push(item);
+                }
+                else if (item.id.toLowerCase().indexOf(query) > -1 ){
+                returnValue.items.push(item);
+                }
+            });
+            return returnValue;
         };
+
         $scope.itemsClicked = function (callback) {
             $scope.callbackValueModel = callback;
-        }
+            $scope.newList['categoryId'] = callback.item.id;
+        };
 
         function showLoading() {
             $scope.isLoading = true;

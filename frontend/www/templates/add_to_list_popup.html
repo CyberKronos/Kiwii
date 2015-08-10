@@ -21,13 +21,15 @@
         <a class="item item-thumbnail-left"
            ng-click="saveToList('saveForLater')">
           <!-- <img src="cover.jpg"> -->
-          <h2>Save for Later</h2>
+          <p id="restaurant-name"><strong>Save for Later</strong></p>
+          <p id="restaurant-category">All cuisines</p>
         </a>
         <a class="item item-thumbnail-left" 
            ng-repeat="userList in userLists"
            ng-click="saveToList(userList)">
           <!-- <img src="cover.jpg"> -->
-          <h2>{{ userList.name }}</h2>
+          <p id="restaurant-name"><strong>{{userList.attributes.name}}</strong></p>
+          <p id="restaurant-category">{{userList.attributes.category}}</p>
         </a>
       </div>
   	</div>

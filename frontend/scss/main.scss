@@ -137,7 +137,7 @@
 
 .modal .bar-header {
   color: #1F1F1F;
-  background: #515151;
+  background: $assertive;
   border-bottom: none !important;
 }
 
@@ -286,6 +286,7 @@
   text-align: center;
 }
 
+/* ion-google-place */
 .ion-google-place-container {
   position: fixed;
   top: 0;
@@ -338,9 +339,34 @@ input.ion-google-place[readonly] {
   }
 }
 
+/* ion-autocomplete */
+.ion-autocomplete-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: none;
+
+  .bar-header {
+    background: #FFFFFF;
+  }
+}
+
+input.ion-autocomplete[readonly] {
+  background-color: transparent;
+  cursor: text;
+}
+
+.ion-autocomplete-loading-icon {
+  padding-left: 10px;
+}
+
 #distance-textbox {
   width: 52px;
   text-align: right;
+  font-weight: 200;
 }
 
 #distance-label {

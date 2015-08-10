@@ -1,6 +1,21 @@
 <ion-view view-title="Explore">
-  <ion-nav-bar class="bar-stable">
+  <ion-nav-bar class="bar-assertive">
   </ion-nav-bar>
+
+  <div class="bar bar-assertive bar-header item-input-inset">
+    <label class="item-input-wrapper" style="text-align: center;">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <ion-autocomplete ng-model=""
+                        item-value-key=""
+                        item-view-value-key=""
+                        item-view-value-key=""
+                        items-method=""
+                        items-method-value-key=""
+                        placeholder="Search"
+                        items-clicked-method="itemsClicked(callback)"
+                        select-items-label=""/>
+    </label>
+  </div>
 
   <ion-content padding="true"
                has-bouncing="false"
@@ -61,8 +76,7 @@
         <p class="text-orange">Price Range</p>
 
         <div class="button-bar">
-          <ion-checkbox 
-                        ng-repeat="item in priceList" 
+          <ion-checkbox ng-repeat="item in priceList" 
                         ng-model="item.checked"
                         ng-change="updatePriceValue()"
                         ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">

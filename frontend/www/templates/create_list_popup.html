@@ -1,7 +1,8 @@
 <div class="modal">
   <ion-header-bar class="bar bar-header bar-assertive" style="background-color: #ffa300;">
     <a class="button button-icon button-clear ion-android-close" ng-click="modal.hide()"></a>
-    <h1 class="title">Create a list</h1>
+    <h1 class="title" ng-if="newList.type == 'edit'">Edit list</h1>
+    <h1 class="title" ng-if="newList.type == 'create'">Create a list</h1>
     <a class="button button-icon button-clear" ng-click="saveList()">Done</a>
   </ion-header-bar>
   <ion-content scroll="false">
@@ -10,13 +11,15 @@
       	<input type="text" placeholder="List Name" ng-model="newList.name">
     	</label>
       <label class="item item-input">
-        <ion-autocomplete ng-model="model"
-                          item-value-key="id"
-                          item-view-value-key="name"
-                          items-method="getTestItems(query)"
+        <ion-autocomplete ng-model="newList.category"
+                          item-value-key="shortName"
+                          item-view-value-key="shortName"
+                          item-view-value-key="id"
+                          items-method="getCuisineItems(query)"
                           items-method-value-key="items"
-                          placeholder="Enter test query ..."
-                          items-clicked-method="itemsClicked(callback)"/>
+                          placeholder="Cuisine Type"
+                          items-clicked-method="itemsClicked(callback)"
+                          select-items-label="Select Cuisine:"/>
       </label>
       <label class="item item-input">
         <textarea placeholder="Description" 
@@ -24,5 +27,13 @@
                   ng-model="newList.description"></textarea>
       </label>
   	</div>
+    <button class="button button-full button-assertive"
+            ng-if="newList.type == 'edit'"
+            ng-click="removeList(newList)"
+            style="bottom: 0;
+                   position: absolute;
+                   margin: 0;">
+      Delete List 
+    </button>
   </ion-content>
 </div>

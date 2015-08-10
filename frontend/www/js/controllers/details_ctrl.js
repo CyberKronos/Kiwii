@@ -1,5 +1,5 @@
 (function () {
-    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails) {
+    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails, Lists) {
 
         if (window.cordova) { 
           $cordovaStatusbar.style(0);
@@ -9,9 +9,9 @@
         getRestaurantInfo();
 
         var userLists = Parse.User.current().relation('lists');
-        userLists.query().collection().fetch()
+        userLists.query().find()
             .then(function(lists) {
-                $scope.userLists = lists.toJSON();
+                $scope.userLists = lists;
                 console.log($scope.userLists);
                 $scope.$digest();
             });
@@ -57,19 +57,33 @@
         };
 
         $scope.saveToList = function (list) {
-            console.log(list);
-            $scope.closeModal();
+            if (list == 'saveForLater') {
+                restaurantPreference.set(!$scope.isFavourite)
+                    .then(function () {
+                        $scope.isFavourite = !$scope.isFavourite;
+                        if ($scope.isFavourite) {
+                            $scope.closeModal();
+                            createPopover();
+                        }
+                    });
+            } else {
+                Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
+                    .then(function() {
+                        $scope.closeModal();
+                        createPopover();
+                    });
+            }
         };
 
-        $scope.toggleFavourite = function ($event) {
-            restaurantPreference.set(!$scope.isFavourite)
-                .then(function () {
-                    $scope.isFavourite = !$scope.isFavourite;
-                    if ($scope.isFavourite) {
-                        createPopover();
-                    }
-                });
-        };
+        // $scope.toggleFavourite = function ($event) {
+        //     restaurantPreference.set(!$scope.isFavourite)
+        //         .then(function () {
+        //             $scope.isFavourite = !$scope.isFavourite;
+        //             if ($scope.isFavourite) {
+        //                 createPopover();
+        //             }
+        //         });
+        // };
 
         function getRestaurantInfo() {
             RestaurantDetails.fetchVenue().then(

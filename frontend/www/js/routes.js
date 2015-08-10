@@ -101,6 +101,32 @@
         }
       })
 
+      .state('tab.followers', {
+        url: '/followers',
+        views: {
+          'profile': {
+            templateUrl: 'templates/followers.html'
+            // controller: 'FollowersCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.following', {
+        url: '/following',
+        views: {
+          'profile': {
+            templateUrl: 'templates/following.html'
+            // controller: 'FollowingCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('tab.lists', {
         url: '/lists',
         cache: false,
@@ -115,7 +141,7 @@
       .state('tab.cards', {
         url: '/cards',
         views: {
-          'dash': {
+          'search': {
             templateUrl: 'templates/cards.html',
             controller: 'CardsCtrl'
           }
@@ -158,6 +184,19 @@
           'images': {
             templateUrl: 'templates/images.html',
             controller: 'ImagesCtrl',
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.exploreLists', {
+        url: '/exploreLists',
+        views: {
+          'exploreLists': {
+            templateUrl: 'templates/exploreLists.html',
+            controller: 'ExploreListsCtrl',
           }
         },
         data: {
