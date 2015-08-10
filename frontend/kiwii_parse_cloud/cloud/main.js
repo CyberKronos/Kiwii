@@ -1,4 +1,5 @@
 require('cloud/foursquareApi.js');
+require('cloud/restaurantsBeforeSave.js');
 
 // Instagram Api
 var ig = require('cloud/instagram-v1-1.0.js');
@@ -8,24 +9,24 @@ ig.initialize('83917d76cf494eb1a888bec8282f8611');
 ig.setAccessToken('10540106.83917d7.5369ddd80fec497da72ebce95b235cd5');
 
 Parse.Cloud.define('searchLocation', function (request, response) {
-    ig.searchLocation({
-        foursquare_v2_id: request.params.foursquareId
-    }).then(function (httpResponse) {
-            response.success(httpResponse.data);
-        },
-        function (error) {
-            response.error(error);
-        });
+  ig.searchLocation({
+    foursquare_v2_id: request.params.foursquareId
+  }).then(function (httpResponse) {
+      response.success(httpResponse.data);
+    },
+    function (error) {
+      response.error(error);
+    });
 });
 
 Parse.Cloud.define('getRecentMediaByLocation', function (request, response) {
-    ig.getRecentMediaByLocation(request.params.locationId, {})
-        .then(function (httpResponse) {
-            response.success(httpResponse.data);
-        },
-        function (error) {
-            response.error(error);
-        });
+  ig.getRecentMediaByLocation(request.params.locationId, {})
+    .then(function (httpResponse) {
+      response.success(httpResponse.data);
+    },
+    function (error) {
+      response.error(error);
+    });
 });
 
 // Parse.Cloud.define('searchTag', function(request, response) {
