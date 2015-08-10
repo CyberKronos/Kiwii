@@ -76,15 +76,14 @@
       $ionicLoading.hide();
     }
 
+    function showSwipeHints(option) {
+      $scope.isShowingHints = option;
+    }
+
     function preloadRestaurantPhotos(restaurants) {
       return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
         return r['imageUrl'];
       }));
-    }
-
-    function showSwipeHints(option) {
-      console.log(option);
-      $scope.isShowingHints = option;
     }
   };
 

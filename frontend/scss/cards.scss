@@ -112,24 +112,15 @@ td-card {
 .cards-hint {
   display: flex;
   align-items: center;
-  padding: 0 10px;
-}
-
-.cards-hint-show {
   justify-content: space-between;
-}
-
-.cards-hint-hide {
-  justify-content: center;
+  padding: 0 10px;
 }
 
 .cards-hint > div {
   font-size: 1.2em;
+  width: 20vw;
 }
 
-.cards-hint > img {
-
-}
 .messageIcon {
   font-size: 10em;
 }
