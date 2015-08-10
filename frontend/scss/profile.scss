@@ -2,7 +2,7 @@
   text-align: center; 
   position: absolute; 
   width: 100%; 
-  top: 10%; 
+  top: 5%; 
   color: #FFFFFF;
 
   .profile-avatar {
@@ -36,24 +36,4 @@
 
 #restaurant-category, #restaurant-rating {
   color: #808080;
-}
-
-/* ion-autocomplete */
-.ion-autocomplete-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20;
-  display: none;
-}
-
-input.ion-autocomplete[readonly] {
-  background-color: transparent;
-  cursor: text;
-}
-
-.ion-autocomplete-loading-icon {
-  padding-left: 10px;
 }

@@ -101,6 +101,32 @@
         }
       })
 
+      .state('tab.followers', {
+        url: '/followers',
+        views: {
+          'profile': {
+            templateUrl: 'templates/followers.html'
+            // controller: 'FollowersCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.following', {
+        url: '/following',
+        views: {
+          'profile': {
+            templateUrl: 'templates/following.html'
+            // controller: 'FollowingCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('tab.lists', {
         url: '/lists',
         cache: false,

@@ -1,4 +1,4 @@
-<ion-view view-title="Profile">
+<ion-view view-title="{{ currentUser.handle || 'Profile' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="right" style="top:none; bottom: none;">
       <button class="button button-clear text-button icon-white" ng-click="logOut()">
@@ -18,7 +18,16 @@
             <div class="padding-vertical">
               <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
             </div>
-            <p class="title padding-vertical">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+            <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+            <p>
+              <a href="#/tab/followers" class="text-white" style="text-decoration: none;">
+                <strong>{{ currentUser.followers || '0' }}</strong> Followers
+              </a> 
+              &nbsp; &nbsp;
+              <a href="#/tab/following" class="text-white" style="text-decoration: none;">
+                <strong>{{ currentUser.following || '0' }}</strong> Following
+              </a>
+            </p>
           </div>
 
           <div class="list list-inset" 
@@ -71,6 +80,15 @@
               <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
             </div>
             <p class="title padding-vertical">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+            <p>
+              <a href="#/tab/followers" class="text-white" style="text-decoration: none;">
+                <strong>{{ currentUser.followers || '0' }}</strong> Followers
+              </a> 
+              &nbsp; &nbsp;
+              <a href="#/tab/following" class="text-white" style="text-decoration: none;">
+                <strong>{{ currentUser.following || '0' }}</strong> Following
+              </a>
+            </p>
           </div>
 
           <div ng-if="!photos.length" class="text-centered">
@@ -80,7 +98,10 @@
             <p>Start uploading photos!</p>
           </div>
 
-          <div collection-repeat="photo in photos" style="padding:1px;" class="col col-25"> 
+           <div class="item item-divider" style="font-size: 14px;">
+            Kiwii
+          </div>
+          <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 
             <a ng-click="photoDetails(photo)">
               <div style="background-image:url({{photo.photo.url}});
                           background-repeat:no-repeat;
@@ -91,6 +112,9 @@
                           padding-top:100%"> 
               </div>
             </a>
+          </div>
+           <div class="item item-divider" style="font-size: 14px;">
+            Instagram
           </div>
 
         </ion-content> 

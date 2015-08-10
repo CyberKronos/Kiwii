@@ -49,6 +49,7 @@
         };
 
         $scope.createList = function(){
+            $scope.newList = {};
             $scope.newList['type'] = 'create';
             console.log($scope.newList);
             $scope.openModal();
