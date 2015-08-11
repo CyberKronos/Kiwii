@@ -1,17 +1,29 @@
 (function () {
 
-    var DashCtrl = function ($scope, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, CRITERIA_OPTIONS) {
+    var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
 
         if (window.cordova) { 
           $cordovaStatusbar.style(0);
         }
 
+        $scope.$on('$ionicView.leave', function(){ //This is fired twice in a row
+          $scope.restaurantDetails = "";
+        });
+
         $scope.isLoadingLocation = true;
 
         fetchCurrentLocation()
-            .then(function () {
-                $scope.isLoadingLocation = false;
-            });
+          .then(function () {
+            $scope.isLoadingLocation = false;
+            return RestaurantExplorer.searchRestaurant($scope.criteria.ll)
+              .then(function(results) {
+                console.log(results);
+                // Save to cache
+                return $localStorage.$default({
+                  searchRestaurantItems: results
+                });
+              });
+          });
 
         $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
@@ -75,6 +87,28 @@
 
         $scope.searchRestaurants = function () {
           $state.go('tab.cards');
+        };     
+
+        $scope.getRestaurants = function (query) {
+          var searchItems = $localStorage.searchRestaurantItems;
+          var returnValue = { items: [] };
+          searchItems.forEach(function(item){
+              if (item.name.toLowerCase().indexOf(query) > -1 ){
+                  returnValue.items.push(item);
+              }
+              else if (item.foursquareId.toLowerCase().indexOf(query) > -1 ){
+              returnValue.items.push(item);
+              }
+          });
+          return returnValue;
+        };
+
+        $scope.restaurantsClicked = function (callback) {
+          console.log(callback.item);
+          // TODO: Pass venue ID through state parameters instead
+          RestaurantDetails.setVenueId(callback.item.foursquareId);
+          // AnalyticsTracking.explorerSelectedVenue(callback.item.foursquareId);
+          $state.go('tab.details');
         };
 
         function getDistanceLabel(distance) {
@@ -131,6 +165,6 @@
     };
 
   angular.module('kiwii').
-    controller('SearchCtrl', DashCtrl);
+    controller('SearchCtrl', SearchCtrl);
 })
 ();

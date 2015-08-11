@@ -1,5 +1,5 @@
 (function () {
-  var ImagesCtrl = function ($scope, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, UserPhotos) {
+  var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, UserPhotos) {
     if (window.cordova) { 
       $cordovaStatusbar.style(1);
     }
@@ -26,24 +26,26 @@
     });
 
     $scope.uploadImage = function(source) {
-      var options = { 
-        quality : 100, 
-        destinationType : Camera.DestinationType.DATA_URL, 
-        sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
-        allowEdit : true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 600,
-        targetHeight: 600,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
-      };
+      $scope.imagePost = {};
+      // var options = { 
+      //   quality : 100, 
+      //   destinationType : Camera.DestinationType.DATA_URL, 
+      //   sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
+      //   allowEdit : true,
+      //   encodingType: Camera.EncodingType.JPEG,
+      //   targetWidth: 600,
+      //   targetHeight: 600,
+      //   popoverOptions: CameraPopoverOptions,
+      //   saveToPhotoAlbum: false
+      // };
 
-      $cordovaCamera.getPicture(options)
-      .then(function(imageData) {
-        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
-        $scope.openModal();
-      });
+      // $cordovaCamera.getPicture(options)
+      // .then(function(imageData) {
+      //   $scope.imgURI = "data:image/jpeg;base64," + imageData;
+      //   $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
+      //   $scope.openModal();
+      // });
+      $scope.openModal();
     };
 
     $scope.postPhoto = function() {
@@ -57,6 +59,25 @@
       }, function(error) {
         console.log(error);
       });
+    };
+
+     $scope.getRestaurants = function (query) {
+      var searchItems = $localStorage.searchRestaurantItems;
+      var returnValue = { items: [] };
+      searchItems.forEach(function(item){
+          if (item.name.toLowerCase().indexOf(query) > -1 ){
+              returnValue.items.push(item);
+          }
+          else if (item.foursquareId.toLowerCase().indexOf(query) > -1 ){
+          returnValue.items.push(item);
+          }
+      });
+      return returnValue;
+    };
+
+    $scope.restaurantsClicked = function (callback) {
+      $scope.imagePost['foursquareId'] = callback.item.foursquareId;
+      console.log($scope.imagePost);
     };
 
     function showLoading() {

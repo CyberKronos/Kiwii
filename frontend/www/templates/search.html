@@ -5,15 +5,16 @@
   <div class="bar bar-assertive bar-header item-input-inset">
     <label class="item-input-wrapper" style="text-align: center;">
       <i class="icon ion-ios-search placeholder-icon"></i>
-      <ion-autocomplete ng-model=""
-                        item-value-key=""
-                        item-view-value-key=""
-                        item-view-value-key=""
-                        items-method=""
-                        items-method-value-key=""
+      <ion-autocomplete ng-model="restaurantDetails"
+                        template-url="templates/search_restaurants_popup.html"
+                        item-value-key="name"
+                        item-view-value-key="name"
+                        item-view-value-key="foursquareId"
+                        items-method="getRestaurants(query)"
+                        items-method-value-key="items"
                         placeholder="Search"
-                        items-clicked-method="itemsClicked(callback)"
-                        select-items-label=""/>
+                        items-clicked-method="restaurantsClicked(callback)"
+                        select-items-label="Select Restaurant:"/>
     </label>
   </div>
 

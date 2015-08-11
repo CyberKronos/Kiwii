@@ -14,11 +14,30 @@
           fetch: fetch,
           criteria: criteria,
           results: [],
+          searchRestaurant: searchRestaurant,
           nextRestaurant: nextRestaurant,
           prevRestaurant: prevRestaurant
         };
 
         return service;
+
+        function searchRestaurant(geoPoint) {
+          // Create a query for places
+          var query = new Parse.Query('Restaurants');
+          // Interested in locations near user.
+          query.withinKilometers("geoPoint", geoPoint, 30000);
+          // Limit what could be a lot of points.
+          query.limit(1000);
+          // Final list of objects
+          return query.find()
+            .then(function(results) {
+              // console.log(results);
+              return results;
+            }, function(error) {
+              // console.log(error);
+              return error;
+            });
+        }
 
         function fetch() {
           clearOldSearchResults();

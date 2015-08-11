@@ -15,7 +15,16 @@
 	    </a>
     	<label class="item item-input">
       	<i class="icon ion-pricetag placeholder-icon"></i>
-      	<input type="text" placeholder="Restaurant Name" ng-model="imagePost.name">
+      	<ion-autocomplete ng-model="imagePost.restaurantName"
+                          template-url="templates/search_restaurants_popup.html"
+                          item-value-key="name"
+                          item-view-value-key="name"
+                          item-view-value-key="foursquareId"
+                          items-method="getRestaurants(query)"
+                          items-method-value-key="items"
+                          placeholder="Tag Restaurant"
+                          items-clicked-method="restaurantsClicked(callback)"
+                          select-items-label="Select Restaurant:"/>
     	</label>
     	<label class="item item-input">
         <i class="icon ion-ios-list placeholder-icon"></i>
