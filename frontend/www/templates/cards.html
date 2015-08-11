@@ -1,5 +1,8 @@
 <ion-view view-title="{{ cardTitle || 'Explore'}}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon ion-ios-list-outline"></a>
+    </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <a class="button button-icon ion-android-close" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -21,22 +24,24 @@
       </td-card>
     </td-cards>
 
-    <div class="bar bar-footer bar-stable">
-      <div class="cards-hint row"
-           ng-class="{'cards-hint-show': isShowingHints,
-                      'cards-hint-hide': !isShowingHints}">
-        <div ng-if="isShowingHints">
-          <i class="icon ion-arrow-left-c">
-          </i>
-          Next
+    <div class="bar bar-footer">
+      <div class="cards-hint row">
+        <div>
+          <div ng-if="isShowingHints">
+            <i class="icon ion-arrow-left-a">
+            </i>
+            Next
+          </div>
         </div>
 
         <img style="width:24pt;" src="../img/logo.png"/>
 
-        <div ng-if="isShowingHints">
-          Last
-          <i class="icon ion-arrow-right-c">
-          </i>
+        <div>
+          <div ng-if="isShowingHints" style="text-align: right">
+            Last
+            <i class="icon ion-arrow-right-a">
+            </i>
+          </div>
         </div>
       </div>
 
