@@ -39,9 +39,13 @@
             });
         }
 
-        function fetch() {
+        function fetch(givenCritiera) {
+          var queryCriteria = criteria;
+          if (givenCritiera) {
+            queryCriteria = givenCritiera;
+          }
           clearOldSearchResults();
-          return FoursquareApi.exploreRestaurants(criteria)
+          return FoursquareApi.exploreRestaurants(queryCriteria)
             .then(function (result) {
               service.results = result;
               return service.results;

@@ -17,16 +17,14 @@
     <div class="padding-horizontal">
       <h4 class="text-orange">Near You</h4>
       <ion-scroll direction="x" class="micro-card-list padding-bottom">
+        <div class="dash-loading-list">
+          <ion-spinner ng-if="!restaurantsNearby"></ion-spinner>
+        </div>
         <restaurant-micro-card
-          restaurant="{image: 'http://placehold.it/100x100?text=Kiwii',
-                       name: 'Some Restaurant With a Really Long Long Name',
-                       type: 'A Genre'}">
+          ng-if="restaurantsNearby"
+          ng-repeat="restaurant in restaurantsNearby"
+          restaurant="restaurant">
         </restaurant-micro-card>
-
-        <restaurant-micro-card
-          restaurant="{image: 'http://placehold.it/100x100?text=Kiwii',
-                       name: 'A Restaurant',
-                       type: 'Testing'}">
       </ion-scroll>
 
       <h4 class="text-orange">From Your List</h4>

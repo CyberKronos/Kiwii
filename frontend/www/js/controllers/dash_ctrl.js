@@ -1,13 +1,23 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', 'RestaurantExplorer',
-      function ($scope, RestaurantExplorer) {
+    controller('DashCtrl', ['$scope', 'LocationService', 'RestaurantExplorer', 'CRITERIA_OPTIONS',
+      function ($scope, LocationService, RestaurantExplorer, CRITERIA_OPTIONS) {
 
         findRestaurantsNearby();
         findRestaurantsSavedForLater();
 
         function findRestaurantsNearby() {
-
+          LocationService.fetchCurrentLocation()
+            .then(function (latLng) {
+              return RestaurantExplorer.fetch({
+                ll: latLng.lat + ',' + latLng.lng,
+                radius: 2000,
+                query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name']
+              });
+            })
+            .then(function (results) {
+              $scope.restaurantsNearby = results;
+            })
         }
 
         function findRestaurantsSavedForLater() {
@@ -16,39 +26,39 @@
 
         $scope.myList = [
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'A Place',
-            type: 'Italian'
+            category: 'Italian'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'Bistro',
-            type: 'French'
+            category: 'French'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'The Dragon',
-            type: 'Chinese'
+            category: 'Chinese'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'Crawford',
-            type: 'British'
+            category: 'British'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'Sofkra',
-            type: 'Indian'
+            category: 'Indian'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'Hajime',
-            type: 'Japanese'
+            category: 'Japanese'
           },
           {
-            image: 'http://placehold.it/100x100?text=Kiwii',
+            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
             name: 'Sodium Laureth Sulfate',
-            type: 'Modern'
+            category: 'Modern'
           }
         ]
       }]);

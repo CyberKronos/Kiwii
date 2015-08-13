@@ -1,8 +1,8 @@
 <div class="micro-card">
-  <img ng-src="{{restaurant.image}}">
+  <img ng-src="{{restaurant.imageUrl || 'http://placehold.it/100x100?text=Kiwii'}}">
 
   <div class="micro-card-desc">
     <div class="name">{{restaurant.name}}</div>
-    <div class="type">{{restaurant.type}}</div>
+    <div class="type">{{restaurant.category}}</div>
   </div>
 </div>
