@@ -1,10 +1,21 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', 'LocationService', 'RestaurantExplorer', 'CRITERIA_OPTIONS',
-      function ($scope, LocationService, RestaurantExplorer, CRITERIA_OPTIONS) {
+    controller('DashCtrl', ['$scope', '$state', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
+      function ($scope, $state, LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
 
         findRestaurantsNearby();
         findRestaurantsSavedForLater();
+
+        $scope.restaurantDetails = function (restaurant) {
+          // TODO: Pass venue ID through state parameters instead
+          RestaurantDetails.setVenueId(restaurant.foursquareId);
+          AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
+          $state.go('tab.details');
+        };
+
+        $scope.goToSearch = function () {
+          $state.go('tab.search');
+        };
 
         function findRestaurantsNearby() {
           LocationService.fetchCurrentLocation()
@@ -12,54 +23,29 @@
               return RestaurantExplorer.fetch({
                 ll: latLng.lat + ',' + latLng.lng,
                 radius: 2000,
-                query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name']
+                query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name'],
+                limit: 10
               });
             })
             .then(function (results) {
-              $scope.restaurantsNearby = results;
+              $scope.nearbyRestaurants = results;
             })
         }
 
         function findRestaurantsSavedForLater() {
-
+          getSavedForLater()
+            .then(function (results) {
+              $scope.savedRestaurants = results;
+            })
         }
 
-        $scope.myList = [
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'A Place',
-            category: 'Italian'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'Bistro',
-            category: 'French'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'The Dragon',
-            category: 'Chinese'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'Crawford',
-            category: 'British'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'Sofkra',
-            category: 'Indian'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'Hajime',
-            category: 'Japanese'
-          },
-          {
-            imageUrl: 'http://placehold.it/100x100?text=Kiwii',
-            name: 'Sodium Laureth Sulfate',
-            category: 'Modern'
-          }
-        ]
+        function getSavedForLater() {
+          return Parse.User.current()
+            .relation('savedRestaurants')
+            .query().collection().fetch()
+            .then(function (restaurantCollection) {
+              return restaurantCollection.toJSON();
+            });
+        }
       }]);
 })();

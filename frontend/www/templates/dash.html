@@ -16,28 +16,35 @@
     </ion-slide-box>
     <div class="padding-horizontal">
       <h4 class="text-orange">Near You</h4>
-      <ion-scroll direction="x" class="micro-card-list padding-bottom">
-        <div class="dash-loading-list">
-          <ion-spinner ng-if="!restaurantsNearby"></ion-spinner>
+      <ion-scroll direction="x" class="micro-card-list">
+        <div class="dash-loading-list" ng-if="!nearbyRestaurants">
+          <ion-spinner></ion-spinner>
         </div>
         <restaurant-micro-card
-          ng-if="restaurantsNearby"
-          ng-repeat="restaurant in restaurantsNearby"
+          ng-if="nearbyRestaurants"
+          ng-repeat="restaurant in nearbyRestaurants"
+          ng-click="restaurantDetails(restaurant)"
           restaurant="restaurant">
         </restaurant-micro-card>
       </ion-scroll>
 
       <h4 class="text-orange">From Your List</h4>
-      <ion-scroll direction="x" class="micro-card-list padding-bottom">
+      <ion-scroll direction="x" class="micro-card-list">
+        <div class="dash-loading-list" ng-if="!savedRestaurants">
+          <ion-spinner></ion-spinner>
+        </div>
         <restaurant-micro-card
-          ng-repeat="restaurant in myList"
+          ng-if="savedRestaurants"
+          ng-repeat="restaurant in savedRestaurants"
+          ng-click="restaurantDetails(restaurant)"
           restaurant="restaurant">
         </restaurant-micro-card>
       </ion-scroll>
 
       <hr>
 
-      <button class="button button-block button-assertive">
+      <button class="button button-block button-assertive"
+        ng-click="goToSearch()">
         Explore Restaurants
       </button>
 
