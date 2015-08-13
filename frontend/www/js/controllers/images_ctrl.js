@@ -27,25 +27,24 @@
 
     $scope.uploadImage = function(source) {
       $scope.imagePost = {};
-      // var options = { 
-      //   quality : 100, 
-      //   destinationType : Camera.DestinationType.DATA_URL, 
-      //   sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
-      //   allowEdit : true,
-      //   encodingType: Camera.EncodingType.JPEG,
-      //   targetWidth: 600,
-      //   targetHeight: 600,
-      //   popoverOptions: CameraPopoverOptions,
-      //   saveToPhotoAlbum: false
-      // };
+      var options = { 
+        quality : 100, 
+        destinationType : Camera.DestinationType.DATA_URL, 
+        sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 600,
+        targetHeight: 600,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+      };
 
-      // $cordovaCamera.getPicture(options)
-      // .then(function(imageData) {
-      //   $scope.imgURI = "data:image/jpeg;base64," + imageData;
-      //   $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
-      //   $scope.openModal();
-      // });
-      $scope.openModal();
+      $cordovaCamera.getPicture(options)
+      .then(function(imageData) {
+        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
+        $scope.openModal();
+      });
     };
 
     $scope.postPhoto = function() {

@@ -11,9 +11,9 @@
         };
 
         var uploadedPhotos = Parse.User.current().relation('uploadedPhotos');
-        uploadedPhotos.query().collection().fetch()
+        uploadedPhotos.query().find()
             .then(function(photos) {
-                $scope.photos = photos.toJSON();
+                $scope.photos = photos;
                 console.log($scope.photos);
                 $scope.$digest();
             });

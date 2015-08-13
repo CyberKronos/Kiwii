@@ -103,7 +103,7 @@
           </div>
           <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 
             <a ng-click="photoDetails(photo)">
-              <div style="background-image:url({{photo.photo.url}});
+              <div style="background-image:url({{photo.attributes.photo._url}});
                           background-repeat:no-repeat;
                           background-size:contain; 
                           background-position:center;

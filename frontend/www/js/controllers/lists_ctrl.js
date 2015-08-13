@@ -102,6 +102,8 @@
         function loadListData() {
             $scope.listData = ListDetails.getListDetails();
 
+            console.log($scope.listData);
+
             if ($scope.listData.name == 'Save for Later') {
                 var savedRestaurants = Parse.User.current().relation('savedRestaurants');
                 return savedRestaurants.query().collection().fetch()
