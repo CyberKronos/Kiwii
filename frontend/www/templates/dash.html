@@ -6,7 +6,7 @@
   </ion-nav-bar>
 
   <ion-content>
-    <ion-slide-box show-pager="false" style="height: 30vh;">
+    <ion-slide-box show-pager="false" class="dash-feature">
       <ion-slide back-img="http://placehold.it/300x150/FA4D54/000000?text=Feature1">
       </ion-slide>
       <ion-slide back-img="http://placehold.it/300x150/4465F8/000000?text=Feature2">
@@ -16,50 +16,24 @@
     </ion-slide-box>
     <div class="padding-horizontal">
       <h4 class="text-orange">Near You</h4>
-      <ion-scroll direction="x" class="home-x-list padding-bottom">
-        <!--<div class="card">-->
-        <!--<a class="item item-thumbnail-left">-->
-        <!--<img ng-src="{{'http://placehold.it/80x80?text=Kiwii'}}">-->
-
-        <!--<div class="row row-center">-->
-        <!--<div class="col">-->
-        <!--<p id="restaurant-name"><strong>Saved for later</strong></p>-->
-
-        <!--<p id="restaurant-category">All restaurants</p>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="home-nugget">-->
-        <!--<img class="restuarant-thumb"-->
-        <!--ng-src="{{'http://placehold.it/100x100?text=Kiwii'}}">-->
-
-        <!--<div class="restaurant-description">-->
-        <!--<p class="name">Some Restaurant</p>-->
-        <!--<p class="type">A Genre</p>-->
-        <!--</div>-->
-        <!--</div>-->
-        <restaurant-micro-card image="http://placehold.it/100x100?text=Kiwii"
-                               name="Some Restaurant"
-                               type="A Genre">
+      <ion-scroll direction="x" class="micro-card-list padding-bottom">
+        <restaurant-micro-card
+          restaurant="{image: 'http://placehold.it/100x100?text=Kiwii',
+                       name: 'Some Restaurant With a Really Long Long Name',
+                       type: 'A Genre'}">
         </restaurant-micro-card>
 
-        <restaurant-micro-card image="http://placehold.it/100x100?text=Kiwii"
-                               name="A Restaurant"
-                               type="Testing">
-        </restaurant-micro-card>
-
+        <restaurant-micro-card
+          restaurant="{image: 'http://placehold.it/100x100?text=Kiwii',
+                       name: 'A Restaurant',
+                       type: 'Testing'}">
       </ion-scroll>
 
       <h4 class="text-orange">From Your List</h4>
-      <ion-scroll direction="x" class="home-x-list padding-bottom">
+      <ion-scroll direction="x" class="micro-card-list padding-bottom">
         <restaurant-micro-card
           ng-repeat="restaurant in myList"
-          image="{{restaurant.image}}"
-          name="{{restaurant.name}}"
-          type="{{restaurant.type}}">
+          restaurant="restaurant">
         </restaurant-micro-card>
       </ion-scroll>
 
