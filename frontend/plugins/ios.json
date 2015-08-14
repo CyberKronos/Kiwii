@@ -169,7 +169,7 @@
                 "parents": {
                     "FacebookAppID": [
                         {
-                            "xml": "<string>913438105380438</string>",
+                            "xml": "<string>1597756577154303</string>",
                             "count": 1
                         }
                     ],
@@ -181,7 +181,7 @@
                     ],
                     "CFBundleURLTypes": [
                         {
-                            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb913438105380438</string></array></dict></array>",
+                            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb1597756577154303</string></array></dict></array>",
                             "count": 1
                         }
                     ],
@@ -203,7 +203,7 @@
             "PACKAGE_NAME": "com.alexanderguyen.Kiwii"
         },
         "com.phonegap.plugins.facebookconnect": {
-            "APP_ID": "913438105380438",
+            "APP_ID": "1597756577154303",
             "APP_NAME": "Kiwii",
             "PACKAGE_NAME": "com.alexanderguyen.Kiwii"
         },

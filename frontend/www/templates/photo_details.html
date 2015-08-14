@@ -9,18 +9,20 @@
     <div class="list card">
 
       <div class="item item-image">
-        <img src="{{ photoData.photo.url }}">
+        <img src="{{ photoData.attributes.photo._url }}">
       </div>
 
       <div class="item item-avatar">
         <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}" />
         <h2>Alexander Nguyen</h2>
-        <p>November 05, 1955</p>
+        <p ng-click="restaurantDetails(taggedRestaurant[0].foursquareId)" class="text-orange">
+          {{ taggedRestaurant[0].name }}
+        </p>
       </div>
 
       <div class="item item-body">
         <p>
-          {{ photoData.description }}
+          {{ photoData.attributes.description }}
         </p>
       </div>
 
