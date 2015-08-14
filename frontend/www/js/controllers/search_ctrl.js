@@ -12,18 +12,18 @@
 
     $scope.isLoadingLocation = true;
 
-    fetchCurrentLocation()
-      .then(function () {
-        $scope.isLoadingLocation = false;
-        return RestaurantExplorer.searchRestaurant($scope.criteria.ll)
-          .then(function (results) {
-            console.log(results);
-            // Save to cache
-            return $localStorage.$default({
-              searchRestaurantItems: results
-            });
-          });
-      });
+    fetchCurrentLocation();
+      //.then(function () {
+      //  $scope.isLoadingLocation = false;
+      //  return RestaurantExplorer.findWithKiwii($scope.criteria.ll)
+      //    .then(function (results) {
+      //      console.log(results);
+      //      // Save to cache
+      //      return $localStorage.$default({
+      //        searchRestaurantItems: results
+      //      });
+      //    });
+      //});
 
     $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
@@ -80,28 +80,43 @@
       console.log($scope.criteria);
     };
 
-    // Still need?
-    // $scope.updateLocation = function() {
-    //     $scope.isLoadingLocation = false;
-    // };
-
     $scope.searchRestaurants = function () {
       $state.go('tab.cards');
     };
 
     $scope.getRestaurants = function (query) {
-      var searchItems = $localStorage.searchRestaurantItems;
-      var returnValue = {items: []};
-      searchItems.forEach(function (item) {
-        if (item.name.toLowerCase().indexOf(query) > -1) {
-          returnValue.items.push(item);
-        }
-        else if (item.foursquareId.toLowerCase().indexOf(query) > -1) {
-          returnValue.items.push(item);
-        }
-      });
-      return returnValue;
+      if (!query) {
+        return {};
+      }
+      return RestaurantExplorer.findWithKiwii({
+        'query': query,
+        'll': $scope.criteria['ll'],
+        'radius': 20000,
+        'limit': 10
+      })
+        .then(function (restaurants) {
+          return {
+            items: restaurants
+          };
+        });
     };
+
+    //$scope.getRestaurants = function (query) {
+    //  var searchItems = $localStorage.searchRestaurantItems;
+    //  console.log(searchItems);
+    //  var returnValue = {items: []};
+    //  console.log(query);
+    //  searchItems.forEach(function (item) {
+    //    if (item.name.toLowerCase().indexOf(query) > -1) {
+    //      returnValue.items.push(item);
+    //    }
+    //    else if (item.foursquareId.toLowerCase().indexOf(query) > -1) {
+    //      returnValue.items.push(item);
+    //    }
+    //  });
+    //  console.log(returnValue);
+    //  return returnValue;
+    //};
 
     $scope.restaurantsClicked = function (callback) {
       console.log(callback.item);

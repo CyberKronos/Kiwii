@@ -14,28 +14,38 @@
           fetch: fetch,
           criteria: criteria,
           results: [],
-          searchRestaurant: searchRestaurant,
+          findWithKiwii: findWithKiwii,
           nextRestaurant: nextRestaurant,
           prevRestaurant: prevRestaurant
         };
 
         return service;
 
-        function searchRestaurant(geoPoint) {
+        /**
+         Finds Restaurants with Kiwii's Database (in Parse).
+         @param {Object} criteria The search criteria parameter is expected to be in the same format as the one used for
+         searching through the Foursquare API.
+         **/
+        function findWithKiwii(criteria) {
+          console.log(criteria);
           // Create a query for places
           var query = new Parse.Query('Restaurants');
+          // Keyword(s) provided by the user
+          if (criteria.query) {
+            query.containsAll('nameIndex', criteria.query.toLowerCase().match(/\S+/g));
+          }
           // Interested in locations near user.
-          query.withinKilometers("geoPoint", geoPoint, 30000);
+          if (criteria.ll) {
+            query.withinKilometers("geoPoint", toGeoPoint(criteria.ll), criteria.radius / 1000);
+          }
           // Limit what could be a lot of points.
-          query.limit(1000);
+          query.limit(criteria.limit);
           // Final list of objects
+          console.log(query);
           return query.find()
-            .then(function(results) {
-              // console.log(results);
-              return results;
-            }, function(error) {
-              // console.log(error);
-              return error;
+            .then(function (results) {
+              results = new Parse.Collection(results);
+              return results.toJSON();
             });
         }
 
@@ -67,6 +77,14 @@
         function clearOldSearchResults() {
           prevRestaurants = [];
           service.results = [];
+        }
+
+        function toGeoPoint(string) {
+          if (!string) {
+            return new Parse.GeoPoint();
+          }
+          var latLng = _.map(string.split(','), parseFloat);
+          return new Parse.GeoPoint(latLng[0], latLng[1]);
         }
       }]);
 })();

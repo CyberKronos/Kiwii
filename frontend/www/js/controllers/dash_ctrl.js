@@ -20,7 +20,7 @@
         function findRestaurantsNearby() {
           LocationService.fetchCurrentLocation()
             .then(function (latLng) {
-              return RestaurantExplorer.fetch({
+              return RestaurantExplorer.findWithKiwii({
                 ll: latLng.lat + ',' + latLng.lng,
                 radius: 2000,
                 query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name'],
