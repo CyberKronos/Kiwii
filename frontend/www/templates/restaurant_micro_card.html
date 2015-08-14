@@ -1,9 +1,8 @@
-<div class="home-nugget">
-  <img class="restuarant-thumb"
-       ng-src="">
+<div class="micro-card">
+  <img ng-src="{{restaurant.imageUrl || 'http://placehold.it/100x100?text=Kiwii'}}">
 
-  <div class="restaurant-description">
-    <p class="name"></p>
-    <p class="type"></p>
+  <div class="micro-card-desc">
+    <div class="name">{{restaurant.name}}</div>
+    <div class="type">{{restaurant.category}}</div>
   </div>
 </div>

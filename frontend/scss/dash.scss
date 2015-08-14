@@ -1,36 +1,59 @@
-.home-x-list {
+.dash-feature {
+  height: 30vh;
+}
+
+.dash-loading-list {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  height: 160px;
+}
+
+.micro-card-list {
   overflow: scroll;
   white-space: nowrap;
 }
 
-.home-nugget {
-  display: inline-block;
-  max-width: 110px;
+.micro-card-list > .scroll {
+  display: flex;
+  flex-direction: row;
+}
+
+.micro-card {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
   height: 160px;
-  padding: 0 5px;
-  background-color: bisque;
-  background-clip: content-box;
+  margin: 0 5px;
 }
 
-.home-nugget > img {
-  padding-bottom: 5px;
+.micro-card > img {
+  margin-bottom: 5px;
+  height: 100px;
+  width: 100px;
+  border-radius: 12px;
 }
 
-.home-nugget > .restaurant-description {
-  padding: 0 3px;
+.micro-card > .micro-card-desc {
+  padding: 3px 3px;
+  max-height: 50px;
 }
 
-.home-nugget > .restaurant-description > p {
-  font-size: 10pt;
-  line-height: 95%;
-  text-overflow: ellipsis;
+.micro-card > .micro-card-desc > div {
+  font-size: 9pt;
+  line-height: 100%;
+  margin-bottom: 4.5pt;
+
+  /* Show only a maximum 2 lines in restaurant names: */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
   word-wrap: break-word;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
-.home-nugget > .restaurant-description > p.type {
+.micro-card > .micro-card-desc > div.type {
   color: grey;
 }
