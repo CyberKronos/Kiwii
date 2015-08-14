@@ -18,7 +18,7 @@ td-cards {
   display: block;
   position: relative;
   width: 90vw;
-  height: 67vh;
+  height: 75vh;
   //min-width: 300px;
   //min-height: 420px;
   //max-height: 700px;
@@ -36,7 +36,7 @@ td-cards {
 
 td-card {
   position: absolute;
-  top: 14px;
+  top: 6px;
   width: $card-width;
   height: $card-height;
   border-radius: 3px;

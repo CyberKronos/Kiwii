@@ -1,4 +1,4 @@
-<ion-view view-title="{{ cardTitle || 'Explore'}}">
+<ion-view view-title="{{ cuisineType || 'All Restaurants' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="left">
       <a class="button button-icon ion-ios-list-outline"></a>
@@ -9,9 +9,9 @@
   </ion-nav-bar>
 
   <ion-content padding="true" scroll="false">
-    <div class="assertive cuisine-type-title">
-      <u>{{ cuisineType || 'All Restaurants' }}</u>
-    </div>
+    <!--<div class="assertive cuisine-type-title">-->
+      <!--<u>{{ cuisineType || 'All Restaurants' }}</u>-->
+    <!--</div>-->
 
     <td-cards ng-if="restaurants.length && !isLoading && !apiError">
       <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
@@ -20,7 +20,9 @@
                on-partial-swipe="showSwipeHints(true)"
                on-snap-back="showSwipeHints(false)"
                on-destroy="swipeRestaurant()">
-        <restaurant-card></restaurant-card>
+        <restaurant-card restaurant="restaurant"
+                         ng-click="restaurantDetails(restaurant)">
+        </restaurant-card>
       </td-card>
     </td-cards>
 

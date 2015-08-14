@@ -1,11 +1,10 @@
-<div class="restaurant-card-container"
-     ng-click="restaurantDetails(restaurant)">
+<div class="restaurant-card-container">
   <div class="restaurant-card-header">
     <div class="text-minor">{{restaurant.category}}</div>
     <div class="text-minor"
-          ng-if="restaurant.rating">
-            <i class="icon ion-star text-orange"></i>
-            {{restaurant.rating}}/10
+         ng-if="restaurant.rating">
+      <i class="icon ion-star text-orange"></i>
+      {{restaurant.rating}}/10
     </div>
   </div>
   <div class="restaurant-card-image" back-img="{{restaurant.imageUrl}}"></div>
@@ -16,14 +15,16 @@
         <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
       </div>
       <div class="row">
-        Some Description or review here...
+        {{restaurant.tips[0].text}}
       </div>
       <div class="restaurant-actions row">
         <span class="col">
           <i class="icon ion-android-car"></i>
           42min
         </span>
-        <span class="col">
+        <span class="col"
+              ng-if="restaurant.reservations && restaurant.reservations.url"
+              ng-click="$event.stopPropagation(); openWebsite(restaurant.reservations.url);">
           <i class="icon ion-calendar"></i>
           Reserve
         </span>

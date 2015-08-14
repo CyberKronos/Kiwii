@@ -113,6 +113,6 @@
     }
   })();
 
-  angular.module('ionicApp').directive('horizontalScrollFix', ['$timeout', '$ionicScrollDelegate', HorizontalScrollFix]);
+  angular.module('kiwii').directive('horizontalScrollFix', ['$timeout', '$ionicScrollDelegate', HorizontalScrollFix]);
 
 })();
