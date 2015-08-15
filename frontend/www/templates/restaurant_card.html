@@ -21,7 +21,7 @@
         <img src="../img/foursquare-logomark.png"/>
       </div>
       <div class="action text-minor">
-        <i class="icon ion-android-car"></i>
+        <i class="icon ion-android-car assertive"></i>
         <div class="label">
           42 min
         </div>
@@ -29,8 +29,8 @@
       <div class="action text-minor"
            ng-if="restaurant.reservations && restaurant.reservations.url"
            ng-click="$event.stopPropagation(); openWebsite(restaurant.reservations.url);">
-        <i class="icon ion-calendar"></i>
-        <div>
+        <i class="icon ion-calendar assertive"></i>
+        <div class="label">
           Reserve
         </div>
       </div>
