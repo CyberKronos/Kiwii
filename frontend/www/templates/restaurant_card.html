@@ -8,26 +8,31 @@
     </div>
   </div>
   <div class="restaurant-card-image" back-img="{{restaurant.imageUrl}}"></div>
-  <div class="restaurant-card-details-container">
-    <div class="restaurant-card-description">
-      <div class="row">
-        <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
-        <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
+  <div class="restaurant-card-details">
+    <div>
+      <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
+      <b class="subtext" ng-if="!restaurant.hours.isOpen">Closed</b>
+    </div>
+    <div class="description">
+      {{restaurant.tips[0].text}}
+    </div>
+    <div class="footer">
+      <div class="attribution">
+        <img src="../img/foursquare-logomark.png"/>
       </div>
-      <div class="row">
-        {{restaurant.tips[0].text}}
+      <div class="action">
+        <i class="icon ion-android-car"></i>
+        <div class="label">
+          42 min
+        </div>
       </div>
-      <div class="restaurant-actions row">
-        <span class="col">
-          <i class="icon ion-android-car"></i>
-          42min
-        </span>
-        <span class="col"
-              ng-if="restaurant.reservations && restaurant.reservations.url"
-              ng-click="$event.stopPropagation(); openWebsite(restaurant.reservations.url);">
-          <i class="icon ion-calendar"></i>
+      <div class="action"
+        ng-if="restaurant.reservations && restaurant.reservations.url"
+        ng-click="$event.stopPropagation(); openWebsite(restaurant.reservations.url);">
+        <i class="icon ion-calendar"></i>
+        <div>
           Reserve
-        </span>
+        </div>
       </div>
     </div>
   </div>
