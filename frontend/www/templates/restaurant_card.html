@@ -15,16 +15,16 @@
         <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
         <b class="subtext" ng-if="restaurant.hours.isOpen == false">Closed</b>
       </div>
-      <div class="row">
+      <div class="row text-minor">
         Some Description or review here...
       </div>
       <div class="restaurant-actions row">
-        <span class="col">
-          <i class="icon ion-android-car"></i>
-          42min
+        <span class="col text-minor">
+          <i class="icon ion-android-car assertive"></i>
+          42 mins
         </span>
-        <span class="col">
-          <i class="icon ion-calendar"></i>
+        <span class="col text-minor">
+          <i class="icon ion-calendar assertive"></i>
           Reserve
         </span>
       </div>

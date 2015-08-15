@@ -2,11 +2,12 @@
   angular.module('kiwii').
     controller('MapsCtrl', ['$scope', '$compile', 'RestaurantDetails',
       function ($scope, $compile, RestaurantDetails) {
-        $scope.init = function () {
 
+        $scope.init = function () {
           RestaurantDetails.fetchVenue()
             .then(function (restaurant) {
-              showOnMap(restaurant.details)
+              showOnMap(restaurant.details);
+              $scope.latlong = restaurant.details.location;
             });
 
           function showOnMap(restaurantDetails) {
@@ -41,5 +42,18 @@
             $scope.map = map;
           }
         };
+
+        $scope.openMapsApp = function() {
+          var isIOS = ionic.Platform.isIOS();
+          var isAndroid = ionic.Platform.isAndroid();
+          if (isIOS) {
+            console.log('this is iOS');
+            window.location.href = "maps://maps.apple.com/?q=" + $scope.latlong.lat + "," + $scope.latlong.lng;
+          } 
+          if (isAndroid) {
+            console.log('this is android');
+          }
+        };
+
       }]);
 })();

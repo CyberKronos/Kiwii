@@ -143,6 +143,7 @@
     }
 
     function fetchCurrentLocation() {
+      var isAndroid = ionic.Platform.isAndroid();
       return LocationService.fetchCurrentLocation()
         .then(function (latLng) {
           $scope.criteria['ll'] = latLng.lat + ',' + latLng.lng;
@@ -160,12 +161,14 @@
                 type: 'button-assertive',
                 onTap: function () {
                   confirmPopup.close();
-                  cordova.plugins.diagnostic.switchToLocationSettings();
-                  setTimeout(function () {
-                    fetchCurrentLocation().then(function () {
-                      $scope.isLoadingLocation = false;
-                    });
-                  }, 8000);
+                  if (isAndroid) {
+                    cordova.plugins.diagnostic.switchToLocationSettings();
+                    setTimeout(function () {
+                      fetchCurrentLocation().then(function () {
+                        $scope.isLoadingLocation = false;
+                      });
+                    }, 8000);
+                  }
                 }
               }
             ]
