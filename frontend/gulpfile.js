@@ -3,6 +3,7 @@ var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
@@ -24,6 +25,9 @@ gulp.task('default', ['sass', 'js']);
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
+    .pipe(autoprefixer({
+      browsers: ['> 1%', 'iOS > 6']
+    }))
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -42,7 +46,7 @@ gulp.task('vendor', function(done) {
     "./www/lib/ngstorage/ngStorage.min.js",
     "./www/lib/angular-jwt/dist/angular-jwt.js",
     './www/lib/ngCordova/dist/ng-cordova.js'
-  ]
+  ];
 
   return gulp.src(paths)
     .pipe(concat('vendor.js'))

@@ -18,7 +18,7 @@
     "ion-google-place": "~0.0.1",
     "ionic-contrib-tinder-cards": "*",
     "ionic-service-core": "https://github.com/driftyco/ionic-service-core.git",
-    "ngCordova": "~0.1.17-alpha",
+    "ngCordova": "^0.1.17-alpha",
     "parse-js-sdk": "~1.4.2",
     "parse-angular-patch": "~0.1.2",
     "underscore": "~1.7.0",
