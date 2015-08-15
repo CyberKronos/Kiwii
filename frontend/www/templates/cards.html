@@ -18,6 +18,7 @@
                on-snap-back="showSwipeHints(false)"
                on-destroy="swipeRestaurant()">
         <restaurant-card restaurant="restaurant"
+                         current-location="criteria.ll"
                          ng-click="restaurantDetails(restaurant)">
         </restaurant-card>
       </td-card>

@@ -3,6 +3,15 @@
 
     var controller = ['$scope', '$cordovaInAppBrowser',
       function ($scope, $cordovaInAppBrowser) {
+        $scope.distanceBetweenRestaurant = function () {
+          if (_.isString($scope.currentLocation)) {
+            $scope.currentLocation = $scope.currentLocation.split(',');
+          }
+          var currentLocation = new Parse.GeoPoint($scope.currentLocation);
+          var restaurantLocation = new Parse.GeoPoint($scope.restaurant.location.lat, $scope.restaurant.location.lng);
+          return currentLocation.kilometersTo(restaurantLocation).toFixed(1);
+        };
+        
         $scope.openWebsite = function (link) {
           console.log(link);
           var options = {
@@ -14,12 +23,14 @@
         };
       }];
 
+
     return {
       restrict: 'E',
       templateUrl: 'templates/restaurant_card.html',
       replace: true,
       scope: {
-        restaurant: '='
+        restaurant: '=',
+        currentLocation: '='
       },
       controller: controller
     }

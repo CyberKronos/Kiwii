@@ -13,18 +13,12 @@
       <div id="restaurant-name" ng-bind-html="restaurant.name | unsafe" style="font-weight: bold;"></div>
       <!-- <span class="text-minor" ng-if="!restaurant.hours.isOpen" style="margin-left: 4px;">Closed</span> -->
     </div>
-    <div class="row text-minor">
+    <div class="description row text-minor">
       {{restaurant.tips[0].text}}
     </div>
     <div class="footer">
       <div class="attribution">
         <img src="./img/foursquare-logomark.png"/>
-      </div>
-      <div class="action text-minor">
-        <i class="icon ion-android-car assertive"></i>
-        <div class="label">
-          42 min
-        </div>
       </div>
       <div class="action text-minor"
            ng-if="restaurant.reservations && restaurant.reservations.url"
@@ -32,6 +26,12 @@
         <i class="icon ion-calendar assertive"></i>
         <div class="label">
           Reserve
+        </div>
+      </div>
+      <div class="action text-minor">
+        <i class="icon ion-android-car assertive"></i>
+        <div class="label">
+          {{distanceBetweenRestaurant()}} km
         </div>
       </div>
     </div>

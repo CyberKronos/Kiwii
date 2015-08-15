@@ -66,6 +66,7 @@ td-card {
   bottom: 0;
   width: 100%;
   height: $card-bottom-height;
+  min-height: 6em;
   padding: 10px;
 
   overflow: hidden;
@@ -78,7 +79,6 @@ td-card {
 }
 
 .restaurant-card-details > .description  {
-  padding: 5px;
   /* Show only a maximum 3 lines in restaurant description: */
   display: -webkit-box;
   -webkit-box-orient: vertical;
