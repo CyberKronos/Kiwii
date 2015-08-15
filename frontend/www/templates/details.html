@@ -17,10 +17,6 @@
                                     <a class="button button-icon button-clear icon-white ion-plus favourite-icon" 
                                        ng-click="addToList()">
                                     </a>
-                                    <!-- <a class="button button-icon button-clear icon-white favourite-icon" 
-                                       ng-class="{'ion-ios-star': isFavourite, 'ion-ios-star-outline': !isFavourite}" 
-                                       ng-click="toggleFavourite($event)">
-                                    </a> -->
                                 </div>
                                 <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
                                 <div class="subtext" ng-if="restaurantDetails.price.tier">Price: {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})</div>

@@ -1,7 +1,12 @@
 <ion-view view-title="Location">
-	<ion-nav-bar ng-controller="NavCtrl" class="bar-stable">
+	<ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
 		<ion-nav-buttons side="left">
 	        <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+	    </ion-nav-buttons>
+	    <ion-nav-buttons side="right">
+	        <button class="button button-clear icon-white" ng-click="openMapsApp()">
+	        	Directions
+	      	</button>
 	    </ion-nav-buttons>
     </ion-nav-bar>
 
