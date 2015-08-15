@@ -47,7 +47,6 @@ function indexName(restaurant) {
   words = _.filter(words, hasNoStopWords);
 
   var prefixIndex = generateAllPrefixes(words);
-  console.log(prefixIndex);
   restaurant.set('nameIndex', prefixIndex);
 }
 
