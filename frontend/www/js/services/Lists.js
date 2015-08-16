@@ -29,6 +29,16 @@
         });
     };
 
+    var getRestaurantsInList = function(list) {
+      var relation = list.relation("restaurants");
+      var query = relation.query();
+      return query.find()
+        .then(function (results) {
+          console.log(results[0]);
+          return results[0];
+        });
+    };  
+
     /* Public Interface */
     return {
       saveList: function (listData) {
@@ -70,8 +80,13 @@
           .then(function (restaurant) {
             console.log(restaurant);
             restaurantListRelation.add(restaurant);
-            
-            return list.save();
+
+            return list.save().then(function() {
+              // Save latest saved restaurant thumbnail to list
+              list.set("thumbnailUrl", restaurant.attributes.imageUrl);
+
+              return list.save();
+            });
           });
       },
       removeRestaurantListRelation: function(list, foursquarePlaceId) {
@@ -80,8 +95,21 @@
           .then(function (restaurant) {
             console.log(restaurant);
             restaurantListRelation.remove(restaurant);
-            
-            return list.save();
+              
+            return list.save()
+              .then(function(){
+                // update restaurant thumbnail on list
+                getRestaurantsInList(list)
+                  .then(function(data) {
+                    if (data == undefined) {
+                      list.unset("thumbnailUrl");
+                    } else {
+                      list.set("thumbnailUrl", data.attributes.imageUrl); 
+                    }
+
+                    return list.save();
+                  });
+              });
           });
       }
     };

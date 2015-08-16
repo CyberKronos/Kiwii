@@ -75,16 +75,6 @@
             }
         };
 
-        // $scope.toggleFavourite = function ($event) {
-        //     restaurantPreference.set(!$scope.isFavourite)
-        //         .then(function () {
-        //             $scope.isFavourite = !$scope.isFavourite;
-        //             if ($scope.isFavourite) {
-        //                 createPopover();
-        //             }
-        //         });
-        // };
-
         function getRestaurantInfo() {
             RestaurantDetails.fetchVenue().then(
                 function (result) {
