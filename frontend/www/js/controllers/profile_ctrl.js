@@ -1,8 +1,14 @@
 (function() {
-    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, ALL_CUISINE_TYPES) {
+    var ProfileCtrl = function($scope, $rootScope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, ALL_CUISINE_TYPES) {
         if (window.cordova) { 
           $cordovaStatusbar.style(1);
         }
+
+        FacebookApi.getFriendsInApp()
+            .then(function(response) {
+                $rootScope.friendsInApp = response.data;
+                console.log($scope.friendsInApp);
+            });
 
         var saveForLaterList = {
             name: 'Save for Later',
