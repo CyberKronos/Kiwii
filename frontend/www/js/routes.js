@@ -105,8 +105,8 @@
         url: '/followers',
         views: {
           'profile': {
-            templateUrl: 'templates/followers.html'
-            // controller: 'FollowersCtrl'
+            templateUrl: 'templates/followers.html',
+            controller: 'FollowCtrl'
           }
         },
         data: {
@@ -118,8 +118,8 @@
         url: '/following',
         views: {
           'profile': {
-            templateUrl: 'templates/following.html'
-            // controller: 'FollowingCtrl'
+            templateUrl: 'templates/following.html',
+            controller: 'FollowCtrl'
           }
         },
         data: {
