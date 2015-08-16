@@ -41,6 +41,7 @@ Parse.Cloud.define('explore', function (request, response) {
 
   function parseHttpResponse(httpResponse) {
     var apiResponse = JSON.parse(httpResponse.text).response;
+    console.log(apiResponse);
     var items = apiResponse.groups[0].items;
     var venues = items.map(transformVenueResponse);
 

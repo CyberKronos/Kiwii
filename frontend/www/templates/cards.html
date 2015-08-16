@@ -1,8 +1,5 @@
 <ion-view view-title="{{ cuisineType || 'All Restaurants' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
-    <ion-nav-buttons side="left">
-      <a class="button button-icon ion-ios-list-outline"></a>
-    </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <a class="button button-icon ion-android-close" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -24,27 +21,22 @@
       </td-card>
     </td-cards>
 
-    <div class="bar bar-footer">
-      <div class="cards-hint row">
-        <div class="text-minor">
-          <div ng-if="isShowingHints">
-            <i class="icon ion-arrow-left-a">
-            </i>
-            Next
-          </div>
-        </div>
-
-        <img style="width:24pt;" src="./img/logo.png"/>
-
-        <div class="text-minor">
-          <div ng-if="isShowingHints" style="text-align: right">
-            Last
-            <i class="icon ion-arrow-right-a">
-            </i>
-          </div>
+    <div class="cards-hint row">
+      <div class="text-minor">
+        <div ng-if="isShowingHints">
+          <i class="icon ion-arrow-left-a">
+          </i>
+          Next
         </div>
       </div>
 
+      <div class="text-minor">
+        <div ng-if="isShowingHints" style="text-align: right">
+          Last
+          <i class="icon ion-arrow-right-a">
+          </i>
+        </div>
+      </div>
     </div>
 
     <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">

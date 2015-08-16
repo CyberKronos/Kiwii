@@ -13,17 +13,6 @@
     $scope.isLoadingLocation = true;
 
     fetchCurrentLocation();
-      //.then(function () {
-      //  $scope.isLoadingLocation = false;
-      //  return RestaurantExplorer.findWithKiwii($scope.criteria.ll)
-      //    .then(function (results) {
-      //      console.log(results);
-      //      // Save to cache
-      //      return $localStorage.$default({
-      //        searchRestaurantItems: results
-      //      });
-      //    });
-      //});
 
     $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
@@ -100,23 +89,6 @@
           };
         });
     };
-
-    //$scope.getRestaurants = function (query) {
-    //  var searchItems = $localStorage.searchRestaurantItems;
-    //  console.log(searchItems);
-    //  var returnValue = {items: []};
-    //  console.log(query);
-    //  searchItems.forEach(function (item) {
-    //    if (item.name.toLowerCase().indexOf(query) > -1) {
-    //      returnValue.items.push(item);
-    //    }
-    //    else if (item.foursquareId.toLowerCase().indexOf(query) > -1) {
-    //      returnValue.items.push(item);
-    //    }
-    //  });
-    //  console.log(returnValue);
-    //  return returnValue;
-    //};
 
     $scope.restaurantsClicked = function (callback) {
       console.log(callback.item);
