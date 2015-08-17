@@ -1,6 +1,7 @@
 (function () {
 
-  var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
+  var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup,
+                             RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
 
     if (window.cordova) {
       $cordovaStatusbar.style(0);
@@ -63,14 +64,6 @@
       $scope.fields.location = '';
       $scope.criteria['ll'] = '';
       fetchCurrentLocation();
-    };
-
-    $scope.logCuisine = function () {
-      console.log($scope.criteria);
-    };
-
-    $scope.searchRestaurants = function () {
-      $state.go('tab.cards');
     };
 
     $scope.getRestaurants = function (query) {
