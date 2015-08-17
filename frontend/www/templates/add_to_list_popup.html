@@ -6,7 +6,7 @@
   <ion-content scroll="false">
   	<div class="list">
   		<a class="item item-thumbnail-left">
-	      <img src="{{ restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'http://placehold.it/95x95?text=Kiwii' }}">
+	      <img ng-src="{{ restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'http://placehold.it/95x95?text=Kiwii' }}">
         <div class="col-90">
           <p id="restaurant-name"><strong>{{restaurantDetails.name}}</strong></p>
           <p id="restaurant-category">{{restaurantDetails.categories[0].shortName}}</p>

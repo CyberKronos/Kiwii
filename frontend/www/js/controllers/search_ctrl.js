@@ -80,7 +80,7 @@
       return RestaurantExplorer.findWithKiwii({
         'query': query,
         'll': $scope.criteria['ll'],
-        'radius': 20000,
+        'radius': 50000,
         'limit': 10
       })
         .then(function (restaurants) {
@@ -91,11 +91,7 @@
     };
 
     $scope.restaurantsClicked = function (callback) {
-      console.log(callback.item);
-      // TODO: Pass venue ID through state parameters instead
-      RestaurantDetails.setVenueId(callback.item.foursquareId);
-      // AnalyticsTracking.explorerSelectedVenue(callback.item.foursquareId);
-      $state.go('tab.details');
+      $state.go('tab.details', {venueId: callback.item.foursquareId});
     };
 
     function getDistanceLabel(distance) {

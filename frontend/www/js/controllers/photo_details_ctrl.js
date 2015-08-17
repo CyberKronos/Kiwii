@@ -1,13 +1,11 @@
 (function() {
     var PhotoDetailsCtrl = function($scope, $state, PhotoDetails, RestaurantDetails) {
-        
+
         loadPhotoData();
 
         $scope.restaurantDetails = function (foursquareId) {
 			// TODO: Pass venue ID through state parameters instead
-			RestaurantDetails.setVenueId(foursquareId);
-			// AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
-			$state.go('tab.details');
+			 $state.go('tab.details', {venueId: foursquareId});
 		};
 
         function loadPhotoData() {

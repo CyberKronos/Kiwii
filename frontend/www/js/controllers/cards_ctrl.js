@@ -36,10 +36,7 @@
     };
 
     $scope.restaurantDetails = function (restaurant) {
-      // TODO: Pass venue ID through state parameters instead
-      RestaurantDetails.setVenueId(restaurant.foursquareId);
-      AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
-      $state.go('tab.details');
+      $state.go('tab.details', {venueId: restaurant.foursquareId});
     };
 
     $scope.returnToDash = function () {

@@ -28,7 +28,7 @@
 	<ion-content style="margin-top: 42px;">
 	    <div class="list ig-spacing-fix" ng-repeat="pic in instagramImages">
 			<div class="item item-image">
-				<img src="{{ pic.images.standard_resolution.url }}"/>
+				<img ng-src="{{ pic.images.standard_resolution.url }}"/>
 			</div>
 			<div ng-if="pic.caption != null" class="item item-body">
 				{{ pic.caption.text }}

@@ -95,8 +95,7 @@
         };
 
         $scope.goToDetails = function(restaurant) {
-            RestaurantDetails.setVenueId(restaurant.foursquareId);
-            $state.go('tab.details');
+            $state.go('tab.details', {venueId: restaurant.foursquareId});
         };
 
         function loadListData() {
