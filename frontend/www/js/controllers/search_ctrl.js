@@ -1,11 +1,6 @@
 (function () {
 
-  var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup,
-                             RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
-
-    if (window.cordova) {
-      $cordovaStatusbar.style(0);
-    }
+  var SearchCtrl = function($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
 
     $scope.$on('$ionicView.leave', function () { //This is fired twice in a row
       $scope.restaurantDetails = "";

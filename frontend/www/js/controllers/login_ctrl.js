@@ -1,5 +1,6 @@
 (function() {
   var LoginCtrl = function($scope, $q, $state, $ionicPopup, Actions) {
+    
     $scope.loginObj = {};
     $scope.emailLogin = function() {
       Actions.login($scope.loginObj.username, $scope.loginObj.password)

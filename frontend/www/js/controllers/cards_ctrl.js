@@ -1,10 +1,6 @@
 (function () {
   var CardsCtrl = function ($scope, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
-    if (window.cordova) { 
-      $cordovaStatusbar.style(0);
-    }
-
     fetchRestaurants().then(preloadRestaurantPhotos);
 
     AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);

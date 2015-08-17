@@ -23,8 +23,8 @@
                 <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
                   {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
                 </div>
-                <div class="subtext" ng-if="restaurantDetails.rating != null">Rating: {{ restaurantDetails.rating
-                  }}/10
+                <div class="subtext" ng-if="restaurantDetails.rating != null">
+                  Rating: {{ restaurantDetails.rating }}/10
                 </div>
 
                 <br/>
@@ -53,16 +53,27 @@
 
               <div class="details-text">
                 <p>
+                  <strong>Phone</strong> 
                   {{ restaurantDetails.contact.formattedPhone }}
-                  <br/>
+                </p>
+
+                <p>
+                  <strong>Website</strong>
                   <u ng-if="restaurantDetails.url"
                      ng-click="openWebsite(restaurantDetails.url)">
-                    {{ restaurantDetails.url }}
+                     {{ restaurantDetails.url }}
                   </u>
                 </p>
 
-                <p ng-if="restaurantDetails.description"
-                   class="italic">
+                <p ng-repeat="attribute in detailsAttributes"
+                   ng-if="attribute.name != attribute.value">
+                  <strong>{{ attribute.name }}</strong>
+                  {{ attribute.value }}
+                </p>
+
+                <p ng-if="restaurantDetails.description">
+                   <strong>Description</strong>
+                   <br/>
                   "{{ restaurantDetails.description }}"
                 </p>
 

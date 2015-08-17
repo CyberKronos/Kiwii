@@ -1,8 +1,5 @@
 (function () {
   var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, UserPhotos) {
-    if (window.cordova) { 
-      $cordovaStatusbar.style(1);
-    }
 
     $scope.imagePost = {};
 
