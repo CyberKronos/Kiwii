@@ -3,11 +3,13 @@ $card-height: 100%;
 $card-bottom-height: 30%;
 
 .cards-container {
-  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 }
 
 .restaurant-card-container {
-  //position: absolute;
   height: $card-height;
   width: $card-width;
   overflow: hidden;
@@ -64,7 +66,7 @@ td-card {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: $card-bottom-height;
+  height: auto;
   min-height: 6em;
   padding: 10px;
 
@@ -78,12 +80,15 @@ td-card {
 }
 
 .restaurant-card-details > .description  {
+  min-height: 5em;
+
   /* Show only a maximum 3 lines in restaurant description: */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   text-overflow: ellipsis;
   word-wrap: break-word;
+  padding: 5px;
   overflow: hidden;
 }
 

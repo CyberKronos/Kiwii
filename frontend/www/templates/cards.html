@@ -5,7 +5,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content padding="true" scroll="false">
+  <ion-content class="cards-container" padding="true" scroll="false">
 
     <td-cards ng-if="restaurants.length && !isLoading && !apiError">
       <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
