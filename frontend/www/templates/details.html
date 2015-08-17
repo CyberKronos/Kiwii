@@ -42,7 +42,7 @@
                 <br/>
                 {{ restaurantDetails.location.formattedAddress[1] }}
               </div>
-              <div class="item item-image map" ng-click="goToMaps()">
+              <div class="item item-image map" ui-sref="tab.maps({venueId: restaurantDetails.id})">
                 <img
                   ng-src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
               </div>

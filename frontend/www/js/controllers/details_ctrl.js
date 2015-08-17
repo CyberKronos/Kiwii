@@ -1,6 +1,6 @@
 (function () {
-    var DetailsCtrl = function ($scope, $state, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar,
-                                venueId, RestaurantPreference, RestaurantDetails, Lists) {
+    var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar,
+                                RestaurantPreference, RestaurantDetails, Lists) {
 
     if (window.cordova) {
       $cordovaStatusbar.style(0);
@@ -49,10 +49,6 @@
       $cordovaInAppBrowser.open(link, '_blank', options);
     };
 
-    $scope.goToMaps = function () {
-      $state.go('tab.maps');
-    };
-
     $scope.addToList = function () {
       $scope.openModal();
     };
@@ -77,14 +73,14 @@
     };
 
         function getRestaurantInfo() {
-            RestaurantDetails.fetchVenue(venueId).then(
+            RestaurantDetails.fetchVenue($stateParams.venueId).then(
                 function (result) {
                     $scope.restaurantDetails = result.details;
                     $scope.instagramImages = result.images;
                     $scope.restaurantReviews = result.reviews;
                 }
             ).then(function () {
-                    restaurantPreference = new RestaurantPreference(Parse.User.current(), venueId);
+                    restaurantPreference = new RestaurantPreference(Parse.User.current(), $stateParams.venueId);
                     return restaurantPreference.isFavourite();
                 }
             ).then(function (isFavouriteRestaurant) {

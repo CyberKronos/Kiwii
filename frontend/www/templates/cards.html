@@ -16,7 +16,7 @@
                on-destroy="swipeRestaurant()">
         <restaurant-card restaurant="restaurant"
                          current-location="criteria.ll"
-                         ng-click="restaurantDetails(restaurant)">
+                         ui-sref="tab.details({venueId: restaurant.foursquareId})">
         </restaurant-card>
       </td-card>
     </td-cards>
@@ -45,7 +45,7 @@
 
         <p>We can't find any restaurants within the criteria you specified!</p>
         <br>
-        <button class="button button-assertive" ng-click="returnToDash()">Update Criteria</button>
+        <button class="button button-assertive" ui-sref="tab.search">Update Criteria</button>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
 
         <p>Sorry, something went wrong! Try making a search again.</p>
         <br>
-        <button class="button button-assertive" ng-click="returnToDash()">Try Again</button>
+        <button class="button button-assertive" ui-sref="tab.search">Try Again</button>
       </div>
     </div>
 

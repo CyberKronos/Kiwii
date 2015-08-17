@@ -144,11 +144,6 @@
 
       .state('tab.details', {
         url: '/details/{venueId}',
-        resolve: {
-          venueId: function ($stateParams) {
-            return $stateParams.venueId;
-          }
-        },
         cache: false,
         views: {
           'details': {
@@ -162,7 +157,7 @@
       })
 
       .state('tab.maps', {
-        url: '/maps',
+        url: '/maps/{venueId}',
         views: {
           'details': {
             templateUrl: 'templates/maps.html',
