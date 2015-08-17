@@ -1,5 +1,5 @@
-(function() {
-  var Routes = function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+(function () {
+  var Routes = function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
 
     $stateProvider
@@ -20,15 +20,6 @@
           authenticate: false
         }
       })
-
-      // .state('register', {
-      //   url: '/register',
-      //   templateUrl: 'templates/register.html',
-      //   controller: 'RegisterCtrl',
-      //   data: {
-      //     authenticate: false
-      //   }
-      // })
 
       .state('intro', {
         url: '/intro',
@@ -131,7 +122,7 @@
         url: '/lists',
         cache: false,
         views: {
-          'lists': { 
+          'lists': {
             templateUrl: 'templates/lists.html',
             controller: 'ListsCtrl'
           }
@@ -152,10 +143,10 @@
       })
 
       .state('tab.details', {
-        url: '/details',
+        url: '/details/{venueId}',
         cache: false,
         views: {
-          'details': { 
+          'details': {
             templateUrl: 'templates/details.html',
             controller: 'DetailsCtrl'
           }
@@ -166,7 +157,7 @@
       })
 
       .state('tab.maps', {
-        url: '/maps',
+        url: '/maps/{venueId}',
         views: {
           'details': {
             templateUrl: 'templates/maps.html',

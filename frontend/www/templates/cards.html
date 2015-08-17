@@ -1,14 +1,11 @@
 <ion-view view-title="{{ cuisineType || 'All Restaurants' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
-    <ion-nav-buttons side="left">
-      <a class="button button-icon ion-ios-list-outline"></a>
-    </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <a class="button button-icon ion-android-close" ng-click="goBack()"></a>
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content padding="true" scroll="false">
+  <ion-content class="cards-container" padding="true" scroll="false">
 
     <td-cards ng-if="restaurants.length && !isLoading && !apiError">
       <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
@@ -18,32 +15,28 @@
                on-snap-back="showSwipeHints(false)"
                on-destroy="swipeRestaurant()">
         <restaurant-card restaurant="restaurant"
-                         ng-click="restaurantDetails(restaurant)">
+                         current-location="criteria.ll"
+                         ui-sref="tab.details({venueId: restaurant.foursquareId})">
         </restaurant-card>
       </td-card>
     </td-cards>
 
-    <div class="bar bar-footer">
-      <div class="cards-hint row">
-        <div class="text-minor">
-          <div ng-if="isShowingHints">
-            <i class="icon ion-arrow-left-a">
-            </i>
-            Next
-          </div>
-        </div>
-
-        <img style="width:24pt;" src="./img/logo.png"/>
-
-        <div class="text-minor">
-          <div ng-if="isShowingHints" style="text-align: right">
-            Last
-            <i class="icon ion-arrow-right-a">
-            </i>
-          </div>
+    <div class="cards-hint row">
+      <div class="text-minor">
+        <div ng-if="isShowingHints">
+          <i class="icon ion-arrow-left-a">
+          </i>
+          Next
         </div>
       </div>
 
+      <div class="text-minor">
+        <div ng-if="isShowingHints" style="text-align: right">
+          Last
+          <i class="icon ion-arrow-right-a">
+          </i>
+        </div>
+      </div>
     </div>
 
     <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">
@@ -52,7 +45,7 @@
 
         <p>We can't find any restaurants within the criteria you specified!</p>
         <br>
-        <button class="button button-assertive" ng-click="returnToDash()">Update Criteria</button>
+        <button class="button button-assertive" ui-sref="tab.search">Update Criteria</button>
       </div>
     </div>
 
@@ -62,7 +55,7 @@
 
         <p>Sorry, something went wrong! Try making a search again.</p>
         <br>
-        <button class="button button-assertive" ng-click="returnToDash()">Try Again</button>
+        <button class="button button-assertive" ui-sref="tab.search">Try Again</button>
       </div>
     </div>
 

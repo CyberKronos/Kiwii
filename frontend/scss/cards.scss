@@ -3,11 +3,13 @@ $card-height: 100%;
 $card-bottom-height: 30%;
 
 .cards-container {
-  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 }
 
 .restaurant-card-container {
-  //position: absolute;
   height: $card-height;
   width: $card-width;
   overflow: hidden;
@@ -18,7 +20,7 @@ td-cards {
   display: block;
   position: relative;
   width: 90vw;
-  height: 75vh;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -32,7 +34,6 @@ td-cards {
 
 td-card {
   position: absolute;
-  top: 6px;
   width: $card-width;
   height: $card-height;
   border-radius: 3px;
@@ -65,7 +66,8 @@ td-card {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: $card-bottom-height;
+  height: auto;
+  min-height: 6em;
   padding: 10px;
 
   overflow: hidden;
@@ -78,13 +80,15 @@ td-card {
 }
 
 .restaurant-card-details > .description  {
-  padding: 5px;
+  min-height: 5em;
+
   /* Show only a maximum 3 lines in restaurant description: */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   text-overflow: ellipsis;
   word-wrap: break-word;
+  padding: 5px;
   overflow: hidden;
 }
 
@@ -115,10 +119,15 @@ td-card {
 }
 
 .cards-hint {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 3;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
 }
 
 .cards-hint > div {

@@ -1,111 +1,119 @@
 <ion-view cache-view="false" view-title="{{restaurantDetails.name || 'Restaurant Details'}}">
-	<ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
-		<ion-nav-buttons side="left">
-	        <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
-	    </ion-nav-buttons>
-    </ion-nav-bar>
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
 
-    <ion-content scroll="false" has-bouncing="false"> 
-        <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
-            <ion-slide class="slide" dynamic-height ion-slide-tab-label="Info">
-                <ion-scroll class="scroll-height">
-                    <div class="slide-box box">
-                        <div class="restaurant-bg-img" darken back-img="{{restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'img/image_placeholder.gif' }}">
-                            <div class="inner-container">
-                                <div class="padding-fix">
-                                    <div class="title">{{ restaurantDetails.name }}</div>
-                                    <a class="button button-icon button-clear icon-white ion-plus favourite-icon" 
-                                       ng-click="addToList()">
-                                    </a>
-                                </div>
-                                <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
-                                <div class="subtext" ng-if="restaurantDetails.price.tier">Price: {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})</div>
-                                <div class="subtext" ng-if="restaurantDetails.rating != null">Rating: {{ restaurantDetails.rating }}/10</div>
-
-                                <br/>
-
-                                <div>{{ restaurantDetails.hours.status }}</div>
-                            </div>
-                        </div>
-
-                        <div class="list">
-                            <div class="item item-divider" style="font-weight:normal;">
-                                Address
-                            </div>
-                            <div class="item" style="font-size: 14px;">
-                                {{ restaurantDetails.location.formattedAddress[0] }} 
-                                <br/>
-                                {{ restaurantDetails.location.formattedAddress[1] }}
-                            </div> 
-                            <div class="item item-image map" ng-click="goToMaps()">
-                                <img src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
-                            </div>
-
-                            <div class="item item-divider" style="font-weight:normal;">
-                                Details
-                            </div>
-
-                            <div class="details-text">
-                                <p> 
-                                    {{ restaurantDetails.contact.formattedPhone }}
-                                    <br/>
-                                    <u ng-if="restaurantDetails.url" 
-                                       ng-click="openWebsite(restaurantDetails.url)">
-                                       {{ restaurantDetails.url }}
-                                    </u>
-                                </p>
-                                <p ng-if="restaurantDetails.description" 
-                                   class="italic">
-                                   "{{ restaurantDetails.description }}"
-                                </p>
-
-                                <button class="button button-block button-assertive" 
-                                        ng-if="restaurantDetails.menu.mobileUrl"
-                                        ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
-                                    <strong>Menu</strong>
-                                </button>
-
-                                <button class="button button-block button-assertive" 
-                                        ng-if="restaurantDetails.reservations.url"
-                                        ng-click="openWebsite(restaurantDetails.reservations.url)">
-                                    <strong>Make a reservation</strong>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </ion-scroll>
-            </ion-slide>
-            <ion-slide class="slide" ion-slide-tab-label="Instagram">
-                <ion-scroll class="scroll-height">
-                <div class="slide-box box">
-                    <div class="list ig-spacing-fix" ng-repeat="pic in instagramImages">
-                        <div class="item item-image">
-                            <img src="{{ pic.images.standard_resolution.url }}"/>
-                        </div>
-                        <div ng-if="pic.caption != null" class="item item-body">
-                            {{ pic.caption.text }}
-                        </div>
-                    </div>
+  <ion-content scroll="false" has-bouncing="false">
+    <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
+      <ion-slide class="slide" dynamic-height ion-slide-tab-label="Info">
+        <ion-scroll class="scroll-height">
+          <div class="slide-box box">
+            <div class="restaurant-bg-img" darken
+                 back-img="{{restaurantDetails.bestPhoto.prefix + '500x500' + restaurantDetails.bestPhoto.suffix || 'img/image_placeholder.gif' }}">
+              <div class="inner-container">
+                <div class="padding-fix">
+                  <div class="title">{{ restaurantDetails.name }}</div>
+                  <a class="button button-icon button-clear icon-white ion-plus favourite-icon"
+                     ng-click="addToList()">
+                  </a>
                 </div>
-                </ion-scroll>
-            </ion-slide>
-            <ion-slide class="slide" ion-slide-tab-label="Reviews">
-                <ion-scroll class="scroll-height">
-                <div class="slide-box box">
-                    <ul class="list">
-                        <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;"> 
-                            <div>
-                                {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
-                            </div>
-                            <br/>
-                            <div>
-                                <strong>{{ tip.likes.count }} Likes</strong>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
+                <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
+                  {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
                 </div>
-                </ion-scroll>
-            </ion-slide>
-        </ion-slide-box>
-    </ion-content>
+                <div class="subtext" ng-if="restaurantDetails.rating != null">Rating: {{ restaurantDetails.rating
+                  }}/10
+                </div>
+
+                <br/>
+
+                <div>{{ restaurantDetails.hours.status }}</div>
+              </div>
+            </div>
+
+            <div class="list">
+              <div class="item item-divider" style="font-weight:normal;">
+                Address
+              </div>
+              <div class="item" style="font-size: 14px;">
+                {{ restaurantDetails.location.formattedAddress[0] }}
+                <br/>
+                {{ restaurantDetails.location.formattedAddress[1] }}
+              </div>
+              <div class="item item-image map" ui-sref="tab.maps({venueId: restaurantDetails.id})">
+                <img
+                  ng-src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
+              </div>
+
+              <div class="item item-divider" style="font-weight:normal;">
+                Details
+              </div>
+
+              <div class="details-text">
+                <p>
+                  {{ restaurantDetails.contact.formattedPhone }}
+                  <br/>
+                  <u ng-if="restaurantDetails.url"
+                     ng-click="openWebsite(restaurantDetails.url)">
+                    {{ restaurantDetails.url }}
+                  </u>
+                </p>
+
+                <p ng-if="restaurantDetails.description"
+                   class="italic">
+                  "{{ restaurantDetails.description }}"
+                </p>
+
+                <button class="button button-block button-assertive"
+                        ng-if="restaurantDetails.menu.mobileUrl"
+                        ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
+                  <strong>Menu</strong>
+                </button>
+
+                <button class="button button-block button-assertive"
+                        ng-if="restaurantDetails.reservations.url"
+                        ng-click="openWebsite(restaurantDetails.reservations.url)">
+                  <strong>Make a reservation</strong>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+      </ion-slide>
+      <ion-slide class="slide" ion-slide-tab-label="Instagram">
+        <ion-scroll class="scroll-height">
+          <div class="slide-box box">
+            <div class="list ig-spacing-fix" ng-repeat="pic in instagramImages">
+              <div class="item item-image">
+                <img ng-src="{{ pic.images.standard_resolution.url }}"/>
+              </div>
+              <div ng-if="pic.caption != null" class="item item-body">
+                {{ pic.caption.text }}
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+      </ion-slide>
+      <ion-slide class="slide" ion-slide-tab-label="Reviews">
+        <ion-scroll class="scroll-height">
+          <div class="slide-box box">
+            <ul class="list">
+              <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;">
+                <div>
+                  {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+                </div>
+                <br/>
+
+                <div>
+                  <strong>{{ tip.likes.count }} Likes</strong>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ion-scroll>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
 </ion-view>

@@ -24,7 +24,7 @@
         <restaurant-micro-card
           ng-if="nearbyRestaurants"
           ng-repeat="restaurant in nearbyRestaurants"
-          ng-click="restaurantDetails(restaurant)"
+          ui-sref="tab.details({venueId: restaurant.foursquareId})"
           restaurant="restaurant">
         </restaurant-micro-card>
       </ion-scroll>
@@ -41,17 +41,17 @@
         <restaurant-micro-card
           ng-if="savedRestaurants"
           ng-repeat="restaurant in savedRestaurants"
-          ng-click="restaurantDetails(restaurant)"
+          ui-sref="tab.details({venueId: restaurant.foursquareId})"
           restaurant="restaurant">
         </restaurant-micro-card>
       </ion-scroll>
 
-      <button class="button button-block button-assertive search-button"
-              ng-click="goToSearch()">
+      <button
+        ui-sref="tab.search"
+        class="button button-block button-assertive search-button"
+        ng-click="goToSearch()">
         <strong>Explore Restaurants</strong>
       </button>
-
-
     </div>
   </ion-content>
 </ion-view>

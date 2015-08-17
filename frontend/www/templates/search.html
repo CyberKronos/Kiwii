@@ -28,7 +28,6 @@
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
-                  ng-change="logCuisine()"
                   class="cuisine-dropdown">
           </select>
         </label>
@@ -98,7 +97,8 @@
 
       <div class="padding-vertical">
         <button class="button button-block button-assertive search-button"
-                ng-class="{'disabled': !criteria['ll']}" ng-click="searchRestaurants()">
+                ng-class="{'disabled': !criteria['ll']}"
+                ui-sref="tab.cards">
           <div ng-if="!criteria['ll']">
             Getting Current Location...
           </div>

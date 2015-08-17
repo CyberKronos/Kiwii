@@ -1,25 +1,11 @@
 (function () {
     var RestaurantDetails = function ($q, FoursquareApi, InstagramApi) {
-        var selectedId = 0;
 
         return {
-            getVenueId: getVenueId,
-            setVenueId: setVenueId,
-            fetchVenue: fetch
+            fetchVenue: fetchVenue
         };
 
-        function setVenueId(venueId) {
-            selectedId = venueId;
-        }
-
-        function getVenueId() {
-            return selectedId;
-        }
-
-        function fetch(venueId) {
-            if (!venueId) {
-                venueId = selectedId;
-            }
+        function fetchVenue(venueId) {
             var detailsQ = FoursquareApi.getRestaurantDetails(venueId);
             var imagesQ = InstagramApi.getLocationImages(venueId);
             var reviewsQ = FoursquareApi.getRestaurantReviews(venueId);

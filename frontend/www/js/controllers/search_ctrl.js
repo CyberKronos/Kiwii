@@ -1,6 +1,7 @@
 (function () {
 
-  var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
+  var SearchCtrl = function ($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup,
+                             RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
 
     if (window.cordova) {
       $cordovaStatusbar.style(0);
@@ -13,17 +14,6 @@
     $scope.isLoadingLocation = true;
 
     fetchCurrentLocation();
-      //.then(function () {
-      //  $scope.isLoadingLocation = false;
-      //  return RestaurantExplorer.findWithKiwii($scope.criteria.ll)
-      //    .then(function (results) {
-      //      console.log(results);
-      //      // Save to cache
-      //      return $localStorage.$default({
-      //        searchRestaurantItems: results
-      //      });
-      //    });
-      //});
 
     $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
 
@@ -76,14 +66,6 @@
       fetchCurrentLocation();
     };
 
-    $scope.logCuisine = function () {
-      console.log($scope.criteria);
-    };
-
-    $scope.searchRestaurants = function () {
-      $state.go('tab.cards');
-    };
-
     $scope.getRestaurants = function (query) {
       if (!query) {
         return {};
@@ -91,7 +73,7 @@
       return RestaurantExplorer.findWithKiwii({
         'query': query,
         'll': $scope.criteria['ll'],
-        'radius': 20000,
+        'radius': 50000,
         'limit': 10
       })
         .then(function (restaurants) {
@@ -101,29 +83,8 @@
         });
     };
 
-    //$scope.getRestaurants = function (query) {
-    //  var searchItems = $localStorage.searchRestaurantItems;
-    //  console.log(searchItems);
-    //  var returnValue = {items: []};
-    //  console.log(query);
-    //  searchItems.forEach(function (item) {
-    //    if (item.name.toLowerCase().indexOf(query) > -1) {
-    //      returnValue.items.push(item);
-    //    }
-    //    else if (item.foursquareId.toLowerCase().indexOf(query) > -1) {
-    //      returnValue.items.push(item);
-    //    }
-    //  });
-    //  console.log(returnValue);
-    //  return returnValue;
-    //};
-
     $scope.restaurantsClicked = function (callback) {
-      console.log(callback.item);
-      // TODO: Pass venue ID through state parameters instead
-      RestaurantDetails.setVenueId(callback.item.foursquareId);
-      // AnalyticsTracking.explorerSelectedVenue(callback.item.foursquareId);
-      $state.go('tab.details');
+      $state.go('tab.details', {venueId: callback.item.foursquareId});
     };
 
     function getDistanceLabel(distance) {

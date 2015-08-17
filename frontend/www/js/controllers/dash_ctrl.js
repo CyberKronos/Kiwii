@@ -1,23 +1,12 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', '$state', '$timeout', '$ionicScrollDelegate', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
-      function ($scope, $state, $timeout, $ionicScrollDelegate, LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
+    controller('DashCtrl', ['$scope', '$timeout', '$ionicScrollDelegate', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
+      function ($scope, $timeout, $ionicScrollDelegate, LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
 
         findRestaurantsNearby();
         findRestaurantsSavedForLater();
         applyHorizontalScrollFix('nearby-restaurants-scroll');
         applyHorizontalScrollFix('saved-restaurants-scroll');
-
-        $scope.restaurantDetails = function (restaurant) {
-          // TODO: Pass venue ID through state parameters instead
-          RestaurantDetails.setVenueId(restaurant.foursquareId);
-          AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
-          $state.go('tab.details');
-        };
-
-        $scope.goToSearch = function () {
-          $state.go('tab.search');
-        };
 
         function findRestaurantsNearby() {
           LocationService.fetchCurrentLocation()
@@ -33,6 +22,10 @@
             .then(function (results) {
               $scope.nearbyRestaurants = results;
             })
+            .catch(function (error) {
+              console.log('TODO: Handle this error gracefully');
+              console.log(error);
+            })
         }
 
         function findRestaurantsSavedForLater() {
@@ -47,6 +40,7 @@
             .relation('savedRestaurants')
             .query().collection().fetch()
             .then(function (restaurantCollection) {
+              console.log(restaurantCollection);
               return restaurantCollection.toJSON();
             });
         }

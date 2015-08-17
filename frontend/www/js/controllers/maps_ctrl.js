@@ -1,10 +1,10 @@
 (function () {
   angular.module('kiwii').
-    controller('MapsCtrl', ['$scope', '$compile', 'RestaurantDetails',
-      function ($scope, $compile, RestaurantDetails) {
+    controller('MapsCtrl', ['$scope', '$compile', '$stateParams', 'RestaurantDetails',
+      function ($scope, $compile, $stateParams, RestaurantDetails) {
 
         $scope.init = function () {
-          RestaurantDetails.fetchVenue()
+          RestaurantDetails.fetchVenue($stateParams.venueId)
             .then(function (restaurant) {
               showOnMap(restaurant.details);
               $scope.latlong = restaurant.details.location;

@@ -1,5 +1,5 @@
 (function () {
-  var CardsCtrl = function ($scope, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     if (window.cordova) { 
       $cordovaStatusbar.style(0);
@@ -33,17 +33,6 @@
 
     $scope.prevRestaurant = function() {
       goNextOnSwipe = false;
-    };
-
-    $scope.restaurantDetails = function (restaurant) {
-      // TODO: Pass venue ID through state parameters instead
-      RestaurantDetails.setVenueId(restaurant.foursquareId);
-      AnalyticsTracking.explorerSelectedVenue(restaurant.foursquareId);
-      $state.go('tab.details');
-    };
-
-    $scope.returnToDash = function () {
-      $state.go('tab.search');
     };
 
     $scope.showSwipeHints = showSwipeHints;
