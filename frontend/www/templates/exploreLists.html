@@ -5,6 +5,31 @@
   <ion-content has-bouncing="false">
 
     <div class="list">
+      <!-- <div class="item item-text-wrap">
+        <p>
+          Your suggestions
+        </p>
+        <p>
+      </div>
+
+      <ion-scroll class="micro-card-list"
+                  direction="x"
+                  scrollbar-x="false"
+                  horizontal-scroll-fix="dash-content"
+                  delegate-handle="nearby-restaurants-scroll">
+        <div class="dash-loading-list" ng-if="!nearbyRestaurants">
+          <ion-spinner></ion-spinner>
+        </div>
+        <restaurant-micro-card
+          ng-if="nearbyRestaurants"
+          ng-repeat="restaurant in nearbyRestaurants"
+          ui-sref="tab.details({venueId: restaurant.foursquareId})"
+          restaurant="restaurant">
+        </restaurant-micro-card>
+      </ion-scroll> 
+
+      <div class="item item-divider"></div> -->
+
       <div>
         <div class="item item-avatar">
           <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
