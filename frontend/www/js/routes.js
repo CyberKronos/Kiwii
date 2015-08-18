@@ -186,8 +186,21 @@
         url: '/exploreLists',
         views: {
           'exploreLists': {
-            templateUrl: 'templates/exploreLists.html'
-            // controller: 'ExploreListsCtrl',
+            templateUrl: 'templates/explore_lists.html',
+            controller: 'ExploreListsCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.discoverPeople', {
+        url: '/discoverPeople',
+        views: {
+          'exploreLists': {
+            templateUrl: 'templates/discover_people.html',
+            controller: 'DiscoverPeopleCtrl'
           }
         },
         data: {

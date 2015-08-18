@@ -2,7 +2,7 @@
   <img ng-src="{{restaurant.imageUrl || 'http://placehold.it/100x100?text=Kiwii'}}">
 
   <div class="micro-card-desc">
-    <div class="name">{{restaurant.name}}</div>
-    <div class="type">{{restaurant.category}}</div>
+    <div class="name">{{restaurant.name || person.name}}</div>
+    <div class="type" ng-if="restaurant.category">{{restaurant.category}}</div>
   </div>
 </div>

@@ -2,68 +2,33 @@
   <ion-nav-bar class="bar-assertive">
   </ion-nav-bar>
 
-  <ion-content has-bouncing="false">
+  <ion-content has-bouncing="false" delegate-handle="dash-content">
 
     <div class="list">
-      <!-- <div class="item item-text-wrap">
-        <p>
-          Your suggestions
-        </p>
-        <p>
+      <div class="row">
+        <div class="col col-70">
+          <p>Your Suggestions</p>
+        </div>
+        <div class="col col-30 text-right">
+          <a href="#/tab/discoverPeople" class="text-orange">View more</a>
+        </div>
       </div>
-
-      <ion-scroll class="micro-card-list"
-                  direction="x"
-                  scrollbar-x="false"
-                  horizontal-scroll-fix="dash-content"
-                  delegate-handle="nearby-restaurants-scroll">
-        <div class="dash-loading-list" ng-if="!nearbyRestaurants">
-          <ion-spinner></ion-spinner>
-        </div>
-        <restaurant-micro-card
-          ng-if="nearbyRestaurants"
-          ng-repeat="restaurant in nearbyRestaurants"
-          ui-sref="tab.details({venueId: restaurant.foursquareId})"
-          restaurant="restaurant">
-        </restaurant-micro-card>
-      </ion-scroll> 
-
-      <div class="item item-divider"></div> -->
-
-      <div>
-        <div class="item item-avatar">
-          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
-          <p>Marty McFly</p>
-          <p>created a new list</p>
-          <p style="position: absolute; right: 12px; top: 24px;">1h</p>
-        </div>
-
-        <div class="item item-body">
-          <p>
-            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-            the content is from a card-body consisting of an image and paragraph text. The footer
-            consists of tabs, icons aligned left, within the card-footer.
-          </p>
-          <p>
-            <a href="#" class="subdued">1 Like</a>
-            <a href="#" class="subdued">5 Comments</a>
-          </p>
-        </div>
-
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" href="#">
-            <i class="icon ion-thumbsup"></i>
-            Like
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-chatbox"></i>
-            Comment
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-share"></i>
-            Share
-          </a>
-        </div>
+      <div class="padding-horizontal">
+        <ion-scroll class="micro-card-list"
+                    direction="x"
+                    scrollbar-x="false"
+                    horizontal-scroll-fix="dash-content"
+                    delegate-handle="people-suggestions-scroll">
+          <div class="dash-loading-list" ng-if="!suggestedPeople">
+            <ion-spinner></ion-spinner>
+          </div>
+          <restaurant-micro-card
+            ng-if="suggestedPeople"
+            ng-repeat="person in suggestedPeople"
+            ui-sref="tab.details({venueId: restaurant.foursquareId})"
+            restaurant="person">
+          </restaurant-micro-card>
+        </ion-scroll>
       </div>
 
       <div class="item item-divider"></div>
@@ -72,16 +37,15 @@
         <div class="item item-avatar">
           <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
           <p>Tina Wong</p>
-          <p>added [place name] to [list name]</p>
-          <p style="position: absolute; right: 12px; top: 24px;">3h</p>
+          <p>added <span class="text-orange">Kirin Seafood Restaurant</span> to <span class="text-orange">Main Chinese</span></p>
+          <p style="position: absolute; right: 12px; top: 16px;">3h</p>
+        </div>
+
+        <div class="item item-image">
+          <img ng-src="{{'http://placehold.it/200x200'}}">
         </div>
 
         <div class="item item-body">
-          <p>
-            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-            the content is from a card-body consisting of an image and paragraph text. The footer
-            consists of tabs, icons aligned left, within the card-footer.
-          </p>
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>
@@ -148,7 +112,7 @@
           <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
           <p>Alexander Nguyen</p>
           <p class="text-orange">Italian Kitchen</p>
-          <p style="position: absolute; right: 12px; top: 24px;">11h</p>
+          <p style="position: absolute; right: 12px; top: 16px;">11h</p>
         </div>
 
         <div class="item item-image">
