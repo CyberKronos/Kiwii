@@ -1,7 +1,9 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', '$timeout', '$ionicScrollDelegate', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
-      function ($scope, $timeout, $ionicScrollDelegate, LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
+    controller('DashCtrl', ['$scope', '$timeout', '$ionicScrollDelegate', '$ionicPopup',
+      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
+      function ($scope, $timeout, $ionicScrollDelegate, $ionicPopup,
+                LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
 
         findRestaurantsNearby();
         findRestaurantsSavedForLater();
@@ -22,10 +24,7 @@
             .then(function (results) {
               $scope.nearbyRestaurants = results;
             })
-            .catch(function (error) {
-              console.log('TODO: Handle this error gracefully');
-              console.log(error);
-            })
+            .catch(showLocationError);
         }
 
         function findRestaurantsSavedForLater() {
@@ -39,10 +38,38 @@
           return Parse.User.current()
             .relation('savedRestaurants')
             .query().collection().fetch()
-            .then(function (restaurantCollection) {
-              console.log(restaurantCollection);
-              return restaurantCollection.toJSON();
+            .then(_.method('toJSON'))
+            .fail(function (error) {
+              console.log(error);
             });
+        }
+
+        function showLocationError(positionError) {
+          var isAndroid = ionic.Platform.isAndroid();
+          var confirmPopup = $ionicPopup.confirm({
+            title: 'Current Location Unavailable',
+            template: positionError.label,
+            buttons: [
+              {
+                text: 'Cancel'
+              },
+              {
+                text: 'Ok',
+                type: 'button-assertive',
+                onTap: function () {
+                  confirmPopup.close();
+                  if (isAndroid) {
+                    cordova.plugins.diagnostic.switchToLocationSettings();
+                    setTimeout(function () {
+                      fetchCurrentLocation().then(function () {
+                        $scope.isLoadingLocation = false;
+                      });
+                    }, 8000);
+                  }
+                }
+              }
+            ]
+          });
         }
 
 
@@ -54,7 +81,7 @@
          * @param ionScrollHandle delegate handle of the ion-scroll content
          */
         function applyHorizontalScrollFix(ionScrollHandle) {
-          $timeout(function(){
+          $timeout(function () {
             //return false; // <--- comment this to "fix" the problem
             var sv = $ionicScrollDelegate.$getByHandle(ionScrollHandle).getScrollView();
 
@@ -71,23 +98,27 @@
             document.removeEventListener('mousemove', sv.mousemove);
 
 
-            sv.touchStart = function(e) {
-              e.preventDefault = function(){};
+            sv.touchStart = function (e) {
+              e.preventDefault = function () {
+              };
               originaltouchStart.apply(sv, [e]);
             };
 
-            sv.touchMove = function(e) {
-              e.preventDefault = function(){};
+            sv.touchMove = function (e) {
+              e.preventDefault = function () {
+              };
               originaltouchMove.apply(sv, [e]);
             };
 
-            sv.mouseDown = function(e) {
-              e.preventDefault = function(){};
+            sv.mouseDown = function (e) {
+              e.preventDefault = function () {
+              };
               originalmouseDown.apply(sv, [e]);
             };
 
-            sv.mouseMove = function(e) {
-              e.preventDefault = function(){};
+            sv.mouseMove = function (e) {
+              e.preventDefault = function () {
+              };
               originalmouseMove.apply(sv, [e]);
             };
 
