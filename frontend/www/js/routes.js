@@ -186,8 +186,8 @@
         url: '/exploreLists',
         views: {
           'exploreLists': {
-            templateUrl: 'templates/exploreLists.html',
-            controller: 'ExploreListsCtrl',
+            templateUrl: 'templates/exploreLists.html'
+            // controller: 'ExploreListsCtrl',
           }
         },
         data: {
