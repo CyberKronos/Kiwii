@@ -2,12 +2,30 @@
     var ExploreListsCtrl = function($scope, $state, $timeout, $ionicScrollDelegate, FacebookApi) {
 
         applyHorizontalScrollFix('people-suggestions-scroll');
+        getNewsFeed();
 
         FacebookApi.getFriendsInApp()
-            .then(function(response) {
-                $scope.suggestedPeople = response.data;
-                console.log($scope.suggestedPeople);
-            });
+          .then(function(response) {
+            $scope.suggestedPeople = response.data;
+            console.log($scope.suggestedPeople);
+          });
+
+        $scope.doRefresh = function() {
+          getNewsFeed();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        };
+
+        // Maybe should move to a service
+        function getNewsFeed() {
+          var currentUser = Parse.User.current();
+          Parse.Cloud.run('feed', {
+            feed : 'flat:' + currentUser.id
+          }).then(function (response) {
+            console.log(response.activities);
+            $scope.newsFeed = response.activities;
+          });
+        }
 
         /**
          * Allows Horizontal Scroll Content area to be used to vertically scroll its parent's container.

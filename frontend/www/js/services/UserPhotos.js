@@ -29,6 +29,13 @@
           var Photos = Parse.Object.extend(USER_PHOTOS_CLASS);
 
           var photo = new Photos();
+          var user = Parse.User.current();
+          // we write to the user feed
+          photo.set('feedSlug', 'user');
+          photo.set('feedUserId', user.id);
+          // the photo's data
+          photo.set('actor', user);
+          photo.set('verb', 'photo');
           photo.set("description", file['description']);
           photo.set("photo", parseFile);
           // photo.set("restaurant", file['restaurantObject']);
@@ -41,17 +48,25 @@
             .then(function(){
               var restaurantPhotoRelation = photo.relation('restaurant');
 
-              return getRestaurant(file['foursquareId'])
-              .then(function (restaurant) {
-                console.log(restaurant);
-                restaurantPhotoRelation.add(restaurant);
-  
+              if (file['foursquareId']) {
+                return getRestaurant(file['foursquareId'])
+                .then(function (restaurant) {
+                  console.log(restaurant);
+                  restaurantPhotoRelation.add(restaurant);
+    
+                  return photo.save()
+                  .then(function() {
+                    var msg = "The photo has been saved to Parse";
+                    return msg;
+                  });
+                });
+              } else {
                 return photo.save()
                 .then(function() {
                   var msg = "The photo has been saved to Parse";
                   return msg;
                 });
-              });
+              }
             });
           }, function() {
             var msg = "Error with saving to UserPhotos Class on Parse";

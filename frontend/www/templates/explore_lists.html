@@ -4,6 +4,8 @@
 
   <ion-content has-bouncing="false" delegate-handle="dash-content">
 
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
     <div class="list">
       <div class="row">
         <div class="col col-70">
@@ -33,19 +35,29 @@
 
       <div class="item item-divider"></div>
 
-      <div>
+      <div ng-repeat="feedItem in newsFeed">
         <div class="item item-avatar">
-          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
-          <p>Tina Wong</p>
-          <p>added <span class="text-orange">Kirin Seafood Restaurant</span> to <span class="text-orange">Main Chinese</span></p>
+          <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}" style="border-radius: 10%;">
+          <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
+          <!-- <p>added <span class="text-orange">Kirin Seafood Restaurant</span> to <span class="text-orange">Main Chinese</span></p> -->
+          <p ng-if="feedItem.verb == 'list'">
+            created a new list: 
+            <span class="text-orange">
+              {{ feedItem.object_parse.attributes.name }}
+            </span>
+          </p>
+          <p ng-if="feedItem.verb == 'photo'" class="text-orange">{{ feedItem.object_parse.attributes.restaurant }}</p>
           <p style="position: absolute; right: 12px; top: 16px;">3h</p>
         </div>
 
-        <div class="item item-image">
-          <img ng-src="{{'http://placehold.it/200x200'}}">
+        <div ng-if="feedItem.verb == 'photo'" class="item item-image">
+          <img ng-src="{{ feedItem.object_parse.attributes.photo._url || 'http://placehold.it/200x200'}}">
         </div>
 
         <div class="item item-body">
+          <p ng-if="feedItem.verb == 'photo'">
+            {{ feedItem.object_parse.attributes.description }}
+          </p>
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>
@@ -66,11 +78,11 @@
             Share
           </a>
         </div>
+
+        <div class="item item-divider"></div>
       </div>
 
-      <div class="item item-divider"></div>
-
-      <div>
+      <!-- <div>
         <div class="item item-avatar">
           <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
           <p>Kiwii</p>
@@ -144,7 +156,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </ion-content>
 </ion-view>

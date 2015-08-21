@@ -45,6 +45,13 @@
         var List = Parse.Object.extend(LISTS_CLASS);
 
         var saveList = new List();
+        var user = Parse.User.current();
+        // we write to the user feed
+        saveList.set('feedSlug', 'user');
+        saveList.set('feedUserId', user.id);
+        // the list's data
+        saveList.set('actor', user);
+        saveList.set('verb', 'list');
         saveList.set('name', listData.name);
         saveList.set('description', listData.description);
         saveList.set('category', listData.category);

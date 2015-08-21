@@ -1,5 +1,7 @@
 (function () {
-  var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, UserPhotos) {
+  var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, $ionicPopup, UserPhotos, RestaurantExplorer, LocationService) {
+
+    fetchCurrentLocation();
 
     $scope.imagePost = {};
 
@@ -42,6 +44,7 @@
         $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
         $scope.openModal();
       });
+      // $scope.openModal();
     };
 
     $scope.postPhoto = function() {
@@ -53,22 +56,39 @@
         $scope.closeModal();
         $state.go('tab.profile');
       }, function(error) {
+        hideLoading();
         console.log(error);
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Posting Error',
+          template: error,
+          buttons: [
+            {
+              text: 'Cancel'
+            },
+            {
+              text: 'Ok',
+              type: 'button-assertive'
+            }
+          ]
+        });
       });
     };
 
-     $scope.getRestaurants = function (query) {
-      var searchItems = $localStorage.searchRestaurantItems;
-      var returnValue = { items: [] };
-      searchItems.forEach(function(item){
-          if (item.name.toLowerCase().indexOf(query) > -1 ){
-              returnValue.items.push(item);
-          }
-          else if (item.foursquareId.toLowerCase().indexOf(query) > -1 ){
-          returnValue.items.push(item);
-          }
-      });
-      return returnValue;
+    $scope.getRestaurants = function (query) {
+      if (!query) {
+        return {};
+      }
+      return RestaurantExplorer.findWithKiwii({
+        'query': query,
+        'll': $scope.latlng,
+        'radius': 50000,
+        'limit': 10
+      })
+        .then(function (restaurants) {
+          return {
+            items: restaurants
+          };
+        });
     };
 
     $scope.restaurantsClicked = function (callback) {
@@ -86,6 +106,28 @@
     function hideLoading() {
       $scope.isLoading = false;
       $ionicLoading.hide();
+    }
+
+    function fetchCurrentLocation() {
+      LocationService.fetchCurrentLocation()
+        .then(function (latLng) {
+          $scope.latlng = latLng.lat + ',' + latLng.lng;
+        }, function (err) {
+          // error
+          var confirmPopup = $ionicPopup.confirm({
+            title: 'Location Error',
+            template: "Error retrieving position. Check your connection and location settings?",
+            buttons: [
+              {
+                text: 'Cancel'
+              },
+              {
+                text: 'Ok',
+                type: 'button-assertive',
+              }
+            ]
+          });
+        });
     }
   };
 
