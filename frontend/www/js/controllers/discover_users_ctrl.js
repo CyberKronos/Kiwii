@@ -6,7 +6,7 @@
         $scope.followUser = function(userObject) {
           	Following.followUser(userObject)
           		.then(function(result) {
-          			console.log(result);
+      				console.log(result);
           		});
         };
 
