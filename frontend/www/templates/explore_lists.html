@@ -12,7 +12,7 @@
           <p>Your Suggestions</p>
         </div>
         <div class="col col-30 text-right">
-          <a href="#/tab/discoverPeople" class="text-orange">View more</a>
+          <a href="#/tab/discoverUsers" class="text-orange">View more</a>
         </div>
       </div>
       <div class="padding-horizontal">
@@ -21,14 +21,14 @@
                     scrollbar-x="false"
                     horizontal-scroll-fix="dash-content"
                     delegate-handle="people-suggestions-scroll">
-          <div class="dash-loading-list" ng-if="!suggestedPeople">
+          <div class="dash-loading-list" ng-if="!suggestedUsers">
             <ion-spinner></ion-spinner>
           </div>
           <restaurant-micro-card
-            ng-if="suggestedPeople"
-            ng-repeat="person in suggestedPeople"
+            ng-if="suggestedUsers"
+            ng-repeat="user in suggestedUsers"
             ui-sref="tab.details({venueId: restaurant.foursquareId})"
-            restaurant="person">
+            restaurant="user">
           </restaurant-micro-card>
         </ion-scroll>
       </div>
@@ -39,19 +39,32 @@
         <div class="item item-avatar">
           <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}" style="border-radius: 10%;">
           <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
-          <!-- <p>added <span class="text-orange">Kirin Seafood Restaurant</span> to <span class="text-orange">Main Chinese</span></p> -->
+          <p ng-if="feedItem.verb == 'listUpdate'">
+            added 
+            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span> 
+            to 
+            <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
+          </p>
           <p ng-if="feedItem.verb == 'list'">
             created a new list: 
             <span class="text-orange">
               {{ feedItem.object_parse.attributes.name }}
             </span>
           </p>
-          <p ng-if="feedItem.verb == 'photo'" class="text-orange">{{ feedItem.object_parse.attributes.restaurant }}</p>
+          <p ng-if="feedItem.verb == 'photo'" 
+             ng-click="restaurantDetails(feedItem.object_parse.attributes.restaurant.foursquareId)" 
+             class="text-orange">
+            {{ feedItem.object_parse.attributes.restaurant.name }}
+          </p>
           <p style="position: absolute; right: 12px; top: 16px;">3h</p>
         </div>
 
         <div ng-if="feedItem.verb == 'photo'" class="item item-image">
           <img ng-src="{{ feedItem.object_parse.attributes.photo._url || 'http://placehold.it/200x200'}}">
+        </div>
+
+        <div ng-if="feedItem.verb == 'listUpdate'" class="item item-image">
+          <img ng-src="{{ feedItem.object_parse.attributes.imageUrl || 'http://placehold.it/200x200'}}">
         </div>
 
         <div class="item item-body">

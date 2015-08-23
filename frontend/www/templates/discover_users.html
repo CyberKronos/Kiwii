@@ -8,10 +8,11 @@
   <ion-content padding="true" scroll="true">
     <div class="list card">
       <a class="item item-avatar item-button-right" href="#"
-         ng-repeat="person in suggestedPeople">
-        <img ng-src="{{'http://placehold.it/95x95?text=Kiwii'}}">
-        <h2 style="margin-top: 10px;">{{person.name}}</h2>
+         ng-repeat="user in suggestedUsers">
+        <img ng-src="{{ user.userObject.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
+        <h2 style="margin-top: 10px;">{{user.name}}</h2>
         <button class="button button-small button-outline button-assertive"
+                ng-click="followUser(user.userObject)"
                 style="margin-top: 10px;">
           Follow
         </button>

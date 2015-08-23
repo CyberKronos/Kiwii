@@ -8,10 +8,13 @@
   </ion-nav-bar>
 
   <ion-content has-bouncing="false" ng-controller="ProfileCtrl">
+
     <ion-tabs class="tabs-light">
 
       <ion-tab title="Lists">
         <ion-content> 
+
+          <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
           <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
@@ -73,13 +76,15 @@
 
       <ion-tab title="Photos">
         <ion-content> 
+
+          <ion-refresher on-refresh="doRefresh()"></ion-refresher>
           
           <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
             <div class="padding-vertical">
               <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
             </div>
-            <p class="title padding-vertical">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+            <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
             <p>
               <a href="#/tab/followers" class="text-white" style="text-decoration: none;">
                 <strong>{{ currentUser.followers || '0' }}</strong> Followers

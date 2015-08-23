@@ -205,6 +205,64 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
 });
 
 /*
+ * Newly added restaurant to a list - add to user feed
+ * Accepts params
+ */
+
+Parse.Cloud.define("addRestaurantToListActivity", function(request, response) {
+  // trigger fanout
+  var feedIdentifier = request.params.feed;
+  var feedParts = feedIdentifier.split(':');
+  var feedSlug = feedParts[0];
+  var userId = feedParts[1];
+
+  var actor = request.params.actor;
+  var object = request.params.object;
+  var foreign_id = request.params.foreign_id;
+  var target = request.params.target;
+
+  var activity = {
+    feed_slug: feedSlug,
+    feed_user_id: userId,
+    actor: actor, 
+    verb: 'listUpdate', 
+    object: object,
+    foreign_id: foreign_id,
+    target: target
+  }
+  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+  feed.addActivity(activity, utils.createHandler());
+  response.success('success!');
+});
+
+/*
+ * Remove a restaurant in a list - remove from user feed
+ * Accepts params
+ */
+
+Parse.Cloud.define("removeRestaurantFromListActivity", function(request, response) {
+  // trigger fanout
+  var feedIdentifier = request.params.feed;
+  var feedParts = feedIdentifier.split(':');
+  var feedSlug = feedParts[0];
+  var userId = feedParts[1];
+
+  var foreign_id = request.params.foreign_id;
+
+  var activity = {
+    feed_slug: feedSlug,
+    feed_user_id: userId,
+    foreign_id: foreign_id
+  }
+  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+  // remove by foreign id
+  feed.removeActivity({
+    foreignId : activity.foreign_id
+  }, utils.createHandler());
+  response.success('success!');
+});
+
+/*
  * View to retrieve the feed, expects feed in the format user:1
  * Accepts params
  *

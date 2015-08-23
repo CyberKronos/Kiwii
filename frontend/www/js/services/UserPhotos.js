@@ -46,13 +46,11 @@
 
             return Parse.User.current().save()
             .then(function(){
-              var restaurantPhotoRelation = photo.relation('restaurant');
-
               if (file['foursquareId']) {
                 return getRestaurant(file['foursquareId'])
                 .then(function (restaurant) {
                   console.log(restaurant);
-                  restaurantPhotoRelation.add(restaurant);
+                  photo.set('restaurant', restaurant);
     
                   return photo.save()
                   .then(function() {

@@ -1,6 +1,9 @@
 (function() {
     var ProfileCtrl = function($scope, $rootScope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, ALL_CUISINE_TYPES) {
 
+        getUserPhotos();
+        getUserLists();
+
         FacebookApi.getFriendsInApp()
             .then(function(response) {
                 $rootScope.friendsInApp = response.data;
@@ -13,21 +16,12 @@
             category: 'All restaurants'
         };
 
-        var uploadedPhotos = Parse.User.current().relation('uploadedPhotos');
-        uploadedPhotos.query().find()
-            .then(function(photos) {
-                $scope.photos = photos;
-                console.log($scope.photos);
-                $scope.$digest();
-            });
-
-        var userLists = Parse.User.current().relation('lists');
-        userLists.query().find()
-            .then(function(lists) {
-                $scope.userLists = lists;
-                console.log($scope.userLists);
-                $scope.$digest();
-            });
+        $scope.doRefresh = function() {
+            getUserPhotos();
+            getUserLists();
+            //Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
+        };
 
         $scope.newList = {};
 
@@ -111,6 +105,24 @@
             $scope.isLoading = false;
             $ionicLoading.hide();
         }   
+
+        function getUserPhotos() {
+            var uploadedPhotos = Parse.User.current().relation('uploadedPhotos');
+            uploadedPhotos.query().find()
+                .then(function(photos) {
+                    $scope.photos = photos;
+                    console.log($scope.photos);
+                });
+        }
+
+        function getUserLists() {
+            var userLists = Parse.User.current().relation('lists');
+            userLists.query().find()
+                .then(function(lists) {
+                    $scope.userLists = lists;
+                    console.log($scope.userLists);
+                });
+        }
     };
 
     angular.module('kiwii')

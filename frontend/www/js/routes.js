@@ -195,12 +195,12 @@
         }
       })
 
-      .state('tab.discoverPeople', {
-        url: '/discoverPeople',
+      .state('tab.discoverUsers', {
+        url: '/discoverUsers',
         views: {
           'exploreLists': {
-            templateUrl: 'templates/discover_people.html',
-            controller: 'DiscoverPeopleCtrl'
+            templateUrl: 'templates/discover_users.html',
+            controller: 'DiscoverUsersCtrl'
           }
         },
         data: {

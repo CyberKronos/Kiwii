@@ -54,6 +54,7 @@
             if (!userObject.existed()) {
               return $cordovaFacebook.api("/me", ["public_profile"])
               .then(function(response) {
+                userObject.set('fbId', response.id);
                 userObject.set('firstname', response.first_name);
                 userObject.set('lastname', response.last_name);
                 userObject.set('email', response.email);
@@ -67,7 +68,8 @@
                   console.log(userObject.attributes); 
                   
                   // Save to cache after successful login.
-                  var profileInfo = {   
+                  var profileInfo = {
+                    fbId: userObject.attributes.fbId, 
                     email: userObject.attributes.email, 
                     fbPicture: userObject.attributes.fbPicture,
                     firstname: userObject.attributes.firstname,

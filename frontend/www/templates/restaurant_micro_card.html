@@ -1,8 +1,8 @@
 <div class="micro-card">
-  <img ng-src="{{restaurant.imageUrl || 'http://placehold.it/100x100?text=Kiwii'}}">
+  <img ng-src="{{restaurant.imageUrl || user.userObject.attributes.fbPicture || 'http://placehold.it/100x100?text=Kiwii'}}">
 
   <div class="micro-card-desc">
-    <div class="name">{{restaurant.name || person.name}}</div>
+    <div class="name">{{restaurant.name || user.name}}</div>
     <div class="type" ng-if="restaurant.category">{{restaurant.category}}</div>
   </div>
 </div>

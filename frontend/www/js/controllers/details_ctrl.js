@@ -20,6 +20,12 @@
           $scope.modal = modal;
         });
 
+        $scope.doRefresh = function() {
+          getRestaurantInfo();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        };
+
         $scope.openModal = function () {
           $scope.modal.show();
         };
@@ -67,6 +73,30 @@
               });
           }
         };
+
+        $scope.quickOrder = [
+          {
+            name: 'Coffee',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }, {
+            name: 'Tea',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }, {
+            name: 'Something very yummy',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }, {
+            name: 'Expresso',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }, {
+            name: 'Shitty chinese food',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }, {
+            name: 'Pasta fetticine',
+            photo: 'http://placehold.it/100x100?text=Kiwii'
+          }
+        ];
+
+        console.log($scope.quickOrder);
 
         function getRestaurantInfo() {
             RestaurantDetails.fetchVenue($stateParams.venueId).then(

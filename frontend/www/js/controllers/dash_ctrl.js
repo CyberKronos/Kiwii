@@ -8,42 +8,11 @@
         applyHorizontalScrollFix('nearby-restaurants-scroll');
         applyHorizontalScrollFix('saved-restaurants-scroll');
 
-        var Activity = Parse.Object.extend("Activity");
-        var Follow = Activity.extend("Follow");
-
-        $scope.getFeed = function() {
-          var currentUser = Parse.User.current();
-          Parse.Cloud.run('feed', {
-            feed : 'flat:' + currentUser.id
-          }).then(function (response) {
-            console.log(response.activities);
-          });
-        };
-
-        $scope.followUser = function() {
-          var query = new Parse.Query(Parse.User);
-          query.find().then(function(result) {
-            console.log(result[3]);
-            var user = result[3];
-            var follow = new Follow();
-            var currentUser = Parse.User.current();
-
-            // configure which feed to write to
-            follow.set('feedSlug', 'user');
-            follow.set('feedUserId', currentUser.id);
-            
-            follow.save(
-              {
-                actor : currentUser,
-                verb : 'follow',
-                object : user
-              }
-            ).then(function(result){
-              console.log(result);
-            }, function(error) {
-              console.log(error);
-            });
-          });
+        $scope.doRefresh = function() {
+          findRestaurantsNearby();
+          findRestaurantsSavedForLater();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
         };
 
         function findRestaurantsNearby() {

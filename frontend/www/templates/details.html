@@ -35,9 +35,34 @@
 
             <div class="list">
               <div class="item item-divider" style="font-weight:normal;">
+                Quick Order
+              </div>
+              <div ng-repeat="item in quickOrder" style="padding:10px 9px 0 9px; float: left;" class="col col-33"> 
+                <div ui-sref="tab.profile">
+                  <div style="background-image:url( {{ item.photo }} );
+                              background-repeat:no-repeat;
+                              background-size:contain; 
+                              background-position:center;
+                              width:100%;
+                              height:0;
+                              padding-top:100%;
+                              border-radius: 6px;"> 
+                  </div>
+                  <p style="overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            padding: 0 4px;
+                            color: #4D4D4D;
+                            font-size: 9pt;">
+                    {{ item.name }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="item item-divider" style="font-weight:normal; width: 100%;">
                 Address
               </div>
-              <div class="item" style="font-size: 14px;">
+              <div class="item" style="font-size: 14px; width: 100%;">
                 {{ restaurantDetails.location.formattedAddress[0] }}
                 <br/>
                 {{ restaurantDetails.location.formattedAddress[1] }}
@@ -96,12 +121,19 @@
       <ion-slide class="slide" ion-slide-tab-label="Instagram">
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
+            <ion-refresher on-refresh="doRefresh()"></ion-refresher>
             <div class="list ig-spacing-fix" ng-repeat="pic in instagramImages">
               <div class="item item-image">
                 <img ng-src="{{ pic.images.standard_resolution.url }}"/>
               </div>
               <div ng-if="pic.caption != null" class="item item-body">
-                {{ pic.caption.text }}
+                <p>
+                  {{ pic.caption.text }}
+                </p>
+                <p>
+                  <a href="" class="subdued">{{ pic.likes.count }} Likes</a>
+                  <a href="" class="subdued">{{ pic.comments.count }} Comments</a>
+                </p>
               </div>
             </div>
           </div>
@@ -110,6 +142,7 @@
       <ion-slide class="slide" ion-slide-tab-label="Reviews">
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
+            <ion-refresher on-refresh="doRefresh()"></ion-refresher>
             <ul class="list">
               <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;">
                 <div>
