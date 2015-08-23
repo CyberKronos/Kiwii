@@ -1,14 +1,10 @@
 (function() {
-    var ProfileCtrl = function($scope, $rootScope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, ALL_CUISINE_TYPES) {
+    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, ALL_CUISINE_TYPES) {
 
         getUserPhotos();
         getUserLists();
-
-        FacebookApi.getFriendsInApp()
-            .then(function(response) {
-                $rootScope.friendsInApp = response.data;
-                console.log($scope.friendsInApp);
-            });
+        getFollowingCount();
+        getFollowerCount();
 
         var saveForLaterList = {
             name: 'Save for Later',
@@ -19,6 +15,8 @@
         $scope.doRefresh = function() {
             getUserPhotos();
             getUserLists();
+            getFollowingCount();
+            getFollowerCount();
             //Stop the ion-refresher from spinning
             $scope.$broadcast('scroll.refreshComplete');
         };
@@ -122,6 +120,20 @@
                     $scope.userLists = lists;
                     console.log($scope.userLists);
                 });
+        }
+
+        function getFollowingCount() {
+            Following.followingList()
+                .then(function(result) {
+                    $scope.followingCount = result.length;
+                });  
+        }
+
+        function getFollowerCount() {
+            Following.followerList()
+                .then(function(result) {
+                    $scope.followerCount = result.length;
+                });  
         }
     };
 

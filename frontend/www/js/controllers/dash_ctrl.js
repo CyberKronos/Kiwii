@@ -15,35 +15,6 @@
           $scope.$broadcast('scroll.refreshComplete');
         };
 
-        var Activity = Parse.Object.extend("Activity");
-        var Follow = Activity.extend("Follow");
-        
-        $scope.followUser = function() {
-          var query = new Parse.Query(Parse.User);
-          query.find().then(function(result) {
-            console.log(result[0]);
-            var user = result[0];
-            var follow = new Follow();
-            var currentUser = Parse.User.current();
-
-            // configure which feed to write to
-            follow.set('feedSlug', 'user');
-            follow.set('feedUserId', currentUser.id);
-            
-            follow.save(
-              {
-                actor : currentUser,
-                verb : 'follow',
-                object : user
-              }
-            ).then(function(result){
-              console.log(result);
-            }, function(error) {
-              console.log(error);
-            });
-          });
-        };
-
         function findRestaurantsNearby() {
           LocationService.fetchCurrentLocation()
             .then(function (latLng) {

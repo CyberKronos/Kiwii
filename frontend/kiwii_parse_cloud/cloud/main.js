@@ -206,68 +206,6 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
   flat.unfollow('user', parseObject.get('object').id, utils.createHandler());
 });
 
-Parse.Cloud.define("follow", function(request, response) {
-  // trigger fanout
-  var feedIdentifier = request.params.feed;
-  var feedParts = feedIdentifier.split(':');
-  var feedSlug = feedParts[0];
-  var userId = feedParts[1];
-
-  var actor = request.params.actor;
-  var actor_id = request.params.actor_id;
-  var object = request.params.object;
-  var object_id = request.params.object_id;
-  var foreign_id = request.params.foreign_id;
-
-  var activity = {
-    feed_slug: feedSlug,
-    feed_user_id: userId,
-    actor: actor,
-    actor_id: actor_id,
-    verb: 'follow', 
-    object: object,
-    object_id: object_id,
-    foreign_id: foreign_id
-  }
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  feed.addActivity(activity, utils.createHandler());
-  // flat feed of user will follow user feed of target
-  var flat = client.feed('flat', actor_id);
-  flat.follow('user', object_id, utils.createHandler());
-
-  response.success('success!');
-});
-
-Parse.Cloud.define("unfollow", function(request, response) {
-  // trigger fanout
-  var feedIdentifier = request.params.feed;
-  var feedParts = feedIdentifier.split(':');
-  var feedSlug = feedParts[0];
-  var userId = feedParts[1];
-
-  var actor_id = request.params.actor_id;
-  var object_id = request.params.object_id;
-  var foreign_id = request.params.foreign_id;
-
-  var activity = {
-    feed_slug: feedSlug,
-    feed_user_id: userId,
-    actor_id: actor_id,
-    object_id: object_id,
-    foreign_id: foreign_id
-  }
-
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  feed.removeActivity({
-    foreignId : activity.foreign_id
-  }, utils.createHandler());
-  // flat feed of user will unfollow user feed of target
-  var flat = client.feed('flat', actor_id);
-  flat.unfollow('user', object_id, utils.createHandler());
-
-  response.success('success!');
-});
-
 /*
  * Newly added restaurant to a list - add to user feed
  * Accepts params

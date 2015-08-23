@@ -7,9 +7,12 @@
 
   <ion-content padding="true" scroll="true">
     <div class="list card">
-      <a class="item item-avatar item-button-right" href="#">
-        <img ng-src="{{'http://placehold.it/95x95?text=Kiwii'}}">
-        <h2 style="margin-top: 10px;">Test Name</h2>
+      <a class="item item-avatar item-button-right" href="#"
+         ng-repeat="user in followers">
+        <img ng-src="{{ user.attributes.actor.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
+        <h2 style="margin-top: 10px;">
+          {{user.attributes.actor.attributes.firstname}} {{user.attributes.actor.attributes.lastname}}
+        </h2>
       </a>
     </div>
   </ion-content>

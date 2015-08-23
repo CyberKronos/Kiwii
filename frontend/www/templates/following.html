@@ -12,12 +12,12 @@
                     <div class="slide-box box">
                         <div class="list card">
 						    <a class="item item-avatar item-button-right" href="#"
-						       ng-repeat="friend in friendsInApp">
-								<img ng-src="{{'http://placehold.it/95x95?text=Kiwii'}}">
-								<h2 style="margin-top: 10px;">{{friend.name}}</h2>
-								<button class="button button-small button-outline button-assertive"
+						       ng-repeat="user in following">
+								<img ng-src="{{ user.attributes.object.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
+								<h2 style="margin-top: 10px;">{{user.attributes.object.attributes.firstname}} {{user.attributes.object.attributes.lastname}}</h2>
+								<button class="button button-small button-assertive"
 										style="margin-top: 10px;">
-									Follow
+									Following
 								</button>
 						    </a>
 						</div>

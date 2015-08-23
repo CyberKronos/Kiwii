@@ -1,38 +1,135 @@
 (function () {
   var Following = function () {
-    var USER_FOLLOWING_ATTRIBUTE = 'following';
+    var FOLLOW_CLASS = 'Follow';
+
+    var Activity = Parse.Object.extend("Activity");
+    var Follow = Activity.extend("Follow");
+
+    var getFollowingList = function() {
+      var Follow = Parse.Object.extend(FOLLOW_CLASS);
+      var followQuery = new Parse.Query(Follow);
+
+      var currentUser = Parse.User.current();
+
+      followQuery.equalTo("actor", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: currentUser.id
+      });
+
+      followQuery.include("actor");
+      followQuery.include("object");
+
+      return followQuery.find()
+        .then(function (result) {
+          return result;
+        }, function (error) {
+          return error;
+        });
+    };
+
+    var getFollowerList = function() {
+      var Follow = Parse.Object.extend(FOLLOW_CLASS);
+      var followQuery = new Parse.Query(Follow);
+
+      var currentUser = Parse.User.current();
+
+      followQuery.equalTo("object", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: currentUser.id
+      });
+
+      followQuery.include("actor");
+      followQuery.include("object");
+
+      return followQuery.find()
+        .then(function (result) {
+          return result;
+        }, function (error) {
+          return error;
+        });
+    };
+
+    var getFollowRelationship = function (userData) {
+      var Follow = Parse.Object.extend(FOLLOW_CLASS);
+      var followQuery = new Parse.Query(Follow);
+
+      var currentUser = Parse.User.current();
+
+      followQuery.equalTo("actor", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: currentUser.id
+      });
+
+      followQuery.equalTo("object", {
+        __type: "Pointer",
+        className: "_User",
+        objectId: userData.id
+      });
+
+      return followQuery.find()
+        .then(function (result) {
+          return result[0];
+        }, function (error) {
+          return error;
+        });
+    };
 
     /* Public Interface */
     return {
       followUser: function(userObject) {
-        var followingRelation = Parse.User.current().relation(USER_FOLLOWING_ATTRIBUTE);
-        followingRelation.add(userObject);
-        var currentUser = Parse.User.current();
-        return Parse.Cloud.run('follow', {
-          feed: 'user:' + currentUser.id,
-          actor: 'ref:' + currentUser.className + ':' + currentUser.id,
-          actor_id: currentUser.id,
-          object: 'ref:' + userObject.className + ':' + userObject.id,
-          object_id: userObject.id,
-          foreign_id: userObject.id + currentUser.id
-        }).then(function (response) {
-          console.log(response);
-          return Parse.User.current().save();
-        });
+        return getFollowRelationship(userObject)
+          .then(function (result){
+            if (result == undefined) {
+              var query = new Parse.Query(Parse.User);
+              var follow = new Follow();
+              var currentUser = Parse.User.current();
+
+              // configure which feed to write to
+              follow.set('feedSlug', 'user');
+              follow.set('feedUserId', currentUser.id);
+              
+              return follow.save(
+                {
+                  actor : currentUser,
+                  verb : 'follow',
+                  object : userObject
+                }
+              ).then(function(result){
+                console.log(result);
+                return result;
+              }, function(error) {
+                console.log(error);
+                return error;
+              });
+            } else {
+              return 'You are already following this user';
+            }
+          }, function (error) {
+            console.log(error);
+          });
       },
       unfollowUser: function(userObject) {
-        var followingRelation = Parse.User.current().relation(USER_FOLLOWING_ATTRIBUTE);
-        followingRelation.remove(userObject);
-        var currentUser = Parse.User.current();
-        return Parse.Cloud.run('unfollow', {
-          feed: 'user:' + currentUser.id,
-          actor_id: currentUser.id,
-          object_id: userObject.id,
-          foreign_id: userObject.id + currentUser.id
-        }).then(function (response) {
-          console.log(response);
-          return Parse.User.current().save();
-        });
+        return getFollowRelationship(userObject)
+          .then(function (result) {
+            return result.destroy();
+          });
+      },
+      followingList: function() {
+        return getFollowingList()
+          .then(function (result){
+            console.log(result);
+            return result;
+          });
+      },
+      followerList: function() {
+        return getFollowerList()
+          .then(function (result){
+            console.log(result);
+            return result;
+          });
       }
     };
   };
