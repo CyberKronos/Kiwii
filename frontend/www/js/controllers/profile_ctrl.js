@@ -109,6 +109,7 @@
             uploadedPhotos.query().find()
                 .then(function(photos) {
                     $scope.photos = photos;
+                    $scope.photoCount = photos.length;
                     console.log($scope.photos);
                 });
         }
@@ -118,6 +119,7 @@
             userLists.query().find()
                 .then(function(lists) {
                     $scope.userLists = lists;
+                    $scope.userListCount = lists.length;
                     console.log($scope.userLists);
                 });
         }

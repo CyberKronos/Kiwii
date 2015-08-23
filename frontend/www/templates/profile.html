@@ -18,19 +18,36 @@
 
           <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
-            <div class="padding-vertical">
-              <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+            <div class="row" style="padding: 0 10px;">
+              <div class="col col-25">
+                <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+              </div>
+              <div class="col col-65">
+                <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+                <p>@alxdrnguyen</p>
+              </div>
+              <div class="col col-10 text-right">
+                <i class="icon ion-social-instagram-outline connect-ig"></i>
+              </div>
             </div>
-            <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
-            <p>
-              <a href="#/tab/followers" class="text-white" style="text-decoration: none;">
-                <strong>{{ followerCount }}</strong> Followers
-              </a> 
-              &nbsp; &nbsp;
-              <a href="#/tab/following" class="text-white" style="text-decoration: none;">
-                <strong>{{ followingCount }}</strong> Following
-              </a>
-            </p>
+            <div class="row" style="padding: 0 12px;">
+              <div class="col col-25">
+                <div class="title"><strong>{{ userListCount || '0'}}</strong></div>
+                <div>Lists</div>
+              </div>
+              <div class="col col-25">
+                <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
+                <div>Photos</div>
+              </div>
+              <div class="col col-25" ui-sref="tab.followers">
+                <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
+                <div>Followers</div>
+              </div>
+              <div class="col col-25" ui-sref="tab.following">
+                <div class="title"><strong>{{ followingCount || '0'}}</strong></div>
+                <div>Following</div>
+              </div>
+            </div>
           </div>
 
           <div class="list list-inset" 
@@ -81,19 +98,36 @@
           
           <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
-            <div class="padding-vertical">
-              <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+            <div class="row" style="padding: 0 10px;">
+              <div class="col col-25">
+                <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+              </div>
+              <div class="col col-65">
+                <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+                <p>@alxdrnguyen</p>
+              </div>
+              <div class="col col-10 text-right">
+                <i class="icon ion-social-instagram-outline connect-ig"></i>
+              </div>
             </div>
-            <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
-            <p>
-              <a href="#/tab/followers" class="text-white" style="text-decoration: none;">
-                <strong>{{ followerCount }}</strong> Followers
-              </a> 
-              &nbsp; &nbsp;
-              <a href="#/tab/following" class="text-white" style="text-decoration: none;">
-                <strong>{{ followingCount }}</strong> Following
-              </a>
-            </p>
+            <div class="row" style="padding: 0 12px;">
+              <div class="col col-25">
+                <div class="title"><strong>{{ userListCount || '0'}}</strong></div>
+                <div>Lists</div>
+              </div>
+              <div class="col col-25">
+                <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
+                <div>Photos</div>
+              </div>
+              <div class="col col-25" ui-sref="tab.followers">
+                <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
+                <div>Followers</div>
+              </div>
+              <div class="col col-25" ui-sref="tab.following">
+                <div class="title"><strong>{{ followingCount || '0'}}</strong></div>
+                <div>Following</div>
+              </div>
+            </div>
           </div>
 
           <div ng-if="!photos.length" class="text-centered">
@@ -103,9 +137,6 @@
             <p>Start uploading photos!</p>
           </div>
 
-           <div class="item item-divider" style="font-size: 14px;">
-            Kiwii
-          </div>
           <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 
             <a ng-click="photoDetails(photo)">
               <div style="background-image:url({{photo.attributes.photo._url}});
@@ -117,9 +148,6 @@
                           padding-top:100%"> 
               </div>
             </a>
-          </div>
-           <div class="item item-divider" style="font-size: 14px;">
-            Instagram
           </div>
 
         </ion-content> 

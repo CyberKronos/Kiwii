@@ -1,12 +1,11 @@
 .profile-top-container {
-  text-align: center; 
   position: absolute; 
   width: 100%; 
   top: 5%; 
   color: #FFFFFF;
 
   .profile-avatar {
-    border-radius: 50%;
+    border-radius: 6%;
     max-height: 75px;
     max-width: 75px;
   }
@@ -23,10 +22,14 @@
 }
 
 .profile-background {
-  height: 44vh;
+  height: 27vh;
   width: 100%;
   postiion: absolute;
   overflow: hidden;
+}
+
+.connect-ig {
+  font-size: 22px;
 }
 
 #restaurant-name {
