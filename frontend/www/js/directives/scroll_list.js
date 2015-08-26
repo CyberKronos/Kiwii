@@ -22,6 +22,7 @@
           callItemsMethod();
 
           scope.$on('scrollList.refresh', function () {
+            scope.errorMessage = '';
             return callItemsMethod();
           });
 
