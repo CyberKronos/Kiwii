@@ -6,7 +6,7 @@ angular.module('kiwii')
       };
 
       function fetchCurrentLocation() {
-        var posOptions = {timeout: 300, enableHighAccuracy: false};
+        var posOptions = {timeout: 50000, enableHighAccuracy: false};
         return $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {

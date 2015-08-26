@@ -1,19 +1,8 @@
-$card-width: 100%;
-$card-height: 100%;
-$card-bottom-height: 30%;
-
 .cards-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-}
-
-.restaurant-card-container {
-  height: $card-height;
-  width: $card-width;
-  overflow: hidden;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 td-cards {
@@ -24,97 +13,20 @@ td-cards {
   margin: 0 auto;
 }
 
-.td-cards {
-  height: 100%;
-}
-
-.swipe-card {
-  height: 100% !important;
-}
-
 td-card {
   position: absolute;
-  width: $card-width;
-  height: $card-height;
+  width: 100%;
+  height: 100%;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0px 2px 5px 2px rgba(222, 222, 222, 0.6);
+  box-shadow: 0 2px 5px 2px rgba(222, 222, 222, 0.6);
+
+  .td-card {
+    height: 100%;
+  }
 
   &:hover {
     cursor: -webkit-grab;
-  }
-}
-
-.restaurant-card-header {
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.restaurant-card-header > .text-minor {
-  font-size: 1.2em;
-}
-
-.restaurant-card-image {
-  background-size: cover;
-  position: absolute;
-  width: $card-width;
-  height: 100%;
-}
-
-.restaurant-card-details {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  min-height: 6em;
-  padding: 10px;
-
-  overflow: hidden;
-  box-shadow: 0px -16px 10px -6px rgba(0, 0, 0, 0.4);
-  background: #fff;
-
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.restaurant-card-details > .description  {
-  min-height: 5em;
-
-  /* Show only a maximum 3 lines in restaurant description: */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  padding: 5px;
-  overflow: hidden;
-}
-
-.restaurant-card-details > .footer {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  font-size: 1.2em;
-
-  .attribution img {
-    width: 1.5em;
-    height: 1.5em;
-  }
-
-  .action {
-    display: flex;
-  }
-
-  .action .icon {
-    font-size: 1.5em;
-    margin-right: 0.3em;
-    align-self: center;
-  }
-
-  .action .label {
-    align-self: center;
   }
 }
 
@@ -135,12 +47,6 @@ td-card {
   width: 20vw;
 }
 
-.messageIcon {
+.message-icon {
   font-size: 10em;
-}
-
-.cuisine-type-title {
-  text-align: center;
-  font-size: 18px;
-  padding: 10px 0;
 }

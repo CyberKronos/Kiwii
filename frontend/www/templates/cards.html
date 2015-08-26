@@ -39,23 +39,13 @@
       </div>
     </div>
 
-    <div class="row row-center" ng-if="!restaurants.length && !isLoading && !apiError">
+    <div class="row row-center" ng-if="backdropMessage">
       <div class="col-80 col-offset-10 text-centered">
-        <i class="icon ion-android-search calm messageIcon"></i>
+        <i ng-class="backdropIcon" class="icon message-icon"></i>
 
-        <p>We can't find any restaurants within the criteria you specified!</p>
+        <p>{{backdropMessage}}</p>
         <br>
-        <button class="button button-assertive" ui-sref="tab.search">Update Criteria</button>
-      </div>
-    </div>
-
-    <div class="row row-center" ng-if="apiError">
-      <div class="col-80 col-offset-10 text-centered">
-        <i class="icon ion-sad-outline messageIcon"></i>
-
-        <p>Sorry, something went wrong! Try making a search again.</p>
-        <br>
-        <button class="button button-assertive" ui-sref="tab.search">Try Again</button>
+        <button class="button button-assertive" ui-sref="tab.search">Back to Search</button>
       </div>
     </div>
 
