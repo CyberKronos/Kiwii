@@ -1,0 +1,11 @@
+<div class="scroll-list-curtain" ng-if="showLoading || errorMessage">
+  {{errorMessage}}
+  <ion-spinner ng-show="showLoading"></ion-spinner>
+</div>
+<ion-scroll direction="x"
+            scrollbar-x="false"
+            horizontal-scroll-fix="{{parentScrollDelegate}}"
+            delegate-handle="{{scrollDelegate || 'scroll-list'}}"
+            ng-show="!showLoading">
+  <ng-transclude class="scroll-list-content"></ng-transclude>
+</ion-scroll>
