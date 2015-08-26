@@ -1,0 +1,175 @@
+<ion-view view-title="Newsfeed">
+  <ion-nav-bar class="bar-assertive">
+  </ion-nav-bar>
+
+  <ion-content has-bouncing="false" delegate-handle="dash-content">
+
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+    <div class="list">
+      <div class="row">
+        <div class="col col-70">
+          <p>Your Suggestions</p>
+        </div>
+        <div class="col col-30 text-right">
+          <a href="#/tab/discoverUsers" class="text-orange">View more</a>
+        </div>
+      </div>
+      <div class="padding-horizontal">
+        <ion-scroll class="micro-card-list"
+                    direction="x"
+                    scrollbar-x="false"
+                    horizontal-scroll-fix="dash-content"
+                    delegate-handle="people-suggestions-scroll">
+          <div class="dash-loading-list" ng-if="!suggestedUsers">
+            <ion-spinner></ion-spinner>
+          </div>
+          <restaurant-micro-card
+            ng-if="suggestedUsers"
+            ng-repeat="user in suggestedUsers"
+            ui-sref="tab.details({venueId: restaurant.foursquareId})"
+            restaurant="user">
+          </restaurant-micro-card>
+        </ion-scroll>
+      </div>
+
+      <div class="item item-divider"></div>
+
+      <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow'">
+        <div class="item item-avatar">
+          <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}" style="border-radius: 10%;">
+          <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
+          <p ng-if="feedItem.verb == 'listUpdate'">
+            added 
+            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span> 
+            to 
+            <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
+          </p>
+          <p ng-if="feedItem.verb == 'list'">
+            created a new list: 
+            <span class="text-orange">
+              {{ feedItem.object_parse.attributes.name }}
+            </span>
+          </p>
+          <p ng-if="feedItem.verb == 'photo'" 
+             ng-click="restaurantDetails(feedItem.object_parse.attributes.restaurant.foursquareId)" 
+             class="text-orange">
+            {{ feedItem.object_parse.attributes.restaurant.name }}
+          </p>
+          <p style="position: absolute; right: 12px; top: 16px;">3h</p>
+        </div>
+
+        <div ng-if="feedItem.verb == 'photo'" class="item item-image">
+          <img ng-src="{{ feedItem.object_parse.attributes.photo._url || 'http://placehold.it/200x200'}}">
+        </div>
+
+        <div ng-if="feedItem.verb == 'listUpdate'" class="item item-image">
+          <img ng-src="{{ feedItem.object_parse.attributes.imageUrl || 'http://placehold.it/200x200'}}">
+        </div>
+
+        <div class="item item-body">
+          <p ng-if="feedItem.verb == 'photo'">
+            {{ feedItem.object_parse.attributes.description }}
+          </p>
+          <p>
+            <a href="#" class="subdued">1 Like</a>
+            <a href="#" class="subdued">5 Comments</a>
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#">
+            <i class="icon ion-thumbsup"></i>
+            Like
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-chatbox"></i>
+            Comment
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-share"></i>
+            Share
+          </a>
+        </div>
+
+        <div class="item item-divider"></div>
+      </div>
+
+      <!-- <div>
+        <div class="item item-avatar">
+          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
+          <p>Kiwii</p>
+          <p class="text-orange">Promoted</p>
+        </div>
+
+        <div class="item item-body">
+          <p>
+            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+            the content is from a card-body consisting of an image and paragraph text. The footer
+            consists of tabs, icons aligned left, within the card-footer.
+          </p>
+          <p>
+            <a href="#" class="subdued">1 Like</a>
+            <a href="#" class="subdued">5 Comments</a>
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#">
+            <i class="icon ion-thumbsup"></i>
+            Like
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-chatbox"></i>
+            Comment
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-share"></i>
+            Share
+          </a>
+        </div>
+      </div>
+
+      <div class="item item-divider"></div>
+
+      <div>
+        <div class="item item-avatar">
+          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
+          <p>Alexander Nguyen</p>
+          <p class="text-orange">Italian Kitchen</p>
+          <p style="position: absolute; right: 12px; top: 16px;">11h</p>
+        </div>
+
+        <div class="item item-image">
+          <img ng-src="{{'http://placehold.it/200x200'}}">
+        </div>
+
+        <div class="item item-body">
+          <p>
+            This is the user description.
+          </p>
+          <p>
+            <a href="#" class="subdued">1 Like</a>
+            <a href="#" class="subdued">5 Comments</a>
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#">
+            <i class="icon ion-thumbsup"></i>
+            Like
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-chatbox"></i>
+            Comment
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-share"></i>
+            Share
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </ion-content>
+</ion-view>

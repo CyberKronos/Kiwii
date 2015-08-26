@@ -9,6 +9,12 @@
             $scope.modal = modal;
         });  
 
+        $scope.doRefresh = function() {
+          loadListData();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        };
+
         $scope.openModal = function() {
             $scope.modal.show();
         };
@@ -90,7 +96,7 @@
                 Lists.removeRestaurantListRelation($scope.listData, restaurant.foursquareId)
                     .then(function() {
                         console.log('Removed');
-                    })
+                    });
             }     
         };
 

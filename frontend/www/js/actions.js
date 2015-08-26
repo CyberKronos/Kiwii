@@ -1,30 +1,18 @@
 (function() {
-  var Actions = function($rootScope, $localStorage, $cordovaFacebook) {
-    return {
-      // login: function(username, password) {
-      //   return Parse.User.logIn(username, password)
-      //   .then(
-      //     function(user) {
-      //       // Save to cache after successful login.
-      //       var profileInfo = {    
-      //         username: user.attributes.username,
-      //         firstname: user.attributes.firstname,
-      //         lastname: user.attributes.lastname,
-      //         email: user.attributes.email
-      //       };
-      //       // move to store.js
-      //       $localStorage.$default({
-      //         profileInfo: profileInfo
-      //       });
-      //       return; 
-      //     }, function(error) {
-      //       // The login failed. Check error to see why.
-      //       // var message = 'Incorrect username and password combination';
-      //       return error.message;
-      //     }
-      //   );
-      // },
+  var Actions = function($rootScope, $localStorage, $cordovaFacebook) { 
 
+    var handleLookup = function(handle) {
+      var query = new Parse.Query(Parse.User);
+      query.equalTo("handle", handle);
+      return query.find()
+        .then(function(result) {
+          return result;
+        }, function(error) {
+          return error;
+        });
+    };
+
+    return {
       facebookLogin: function() {
         return $cordovaFacebook.login(["public_profile", "email", "user_friends"])
         .then(
@@ -54,6 +42,7 @@
             if (!userObject.existed()) {
               return $cordovaFacebook.api("/me", ["public_profile"])
               .then(function(response) {
+                userObject.set('fbId', response.id);
                 userObject.set('firstname', response.first_name);
                 userObject.set('lastname', response.last_name);
                 userObject.set('email', response.email);
@@ -67,7 +56,8 @@
                   console.log(userObject.attributes); 
                   
                   // Save to cache after successful login.
-                  var profileInfo = {   
+                  var profileInfo = {
+                    fbId: userObject.attributes.fbId, 
                     email: userObject.attributes.email, 
                     fbPicture: userObject.attributes.fbPicture,
                     firstname: userObject.attributes.firstname,
@@ -101,6 +91,47 @@
         );
       },
 
+      createHandle: function(userHandle, userObject) {
+        return handleLookup(userHandle.handle)
+          .then(function(result) {
+            if (result[0]) {
+              return 'Handle is taken';
+            } else {
+              userObject.set('handle', userHandle.handle);
+              return userObject.save();
+            }
+          });
+      },
+
+      logout: function() {
+        delete $localStorage.profileInfo;
+        return Parse.User.logOut();
+      }
+
+      // login: function(username, password) {
+      //   return Parse.User.logIn(username, password)
+      //   .then(
+      //     function(user) {
+      //       // Save to cache after successful login.
+      //       var profileInfo = {    
+      //         username: user.attributes.username,
+      //         firstname: user.attributes.firstname,
+      //         lastname: user.attributes.lastname,
+      //         email: user.attributes.email
+      //       };
+      //       // move to store.js
+      //       $localStorage.$default({
+      //         profileInfo: profileInfo
+      //       });
+      //       return; 
+      //     }, function(error) {
+      //       // The login failed. Check error to see why.
+      //       // var message = 'Incorrect username and password combination';
+      //       return error.message;
+      //     }
+      //   );
+      // },
+
       // register: function(username, firstname, lastname, email, password) {
       //   var user = new Parse.User();
       //   user.set("username", username);
@@ -130,11 +161,6 @@
       //     }
       //   );
       // },
-
-      logout: function() {
-        delete $localStorage.profileInfo;
-        return Parse.User.logOut();
-      }
     }
   };
 

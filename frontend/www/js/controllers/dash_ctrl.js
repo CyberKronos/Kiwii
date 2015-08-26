@@ -1,14 +1,21 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', '$timeout', '$ionicScrollDelegate', '$ionicPopup',
+    controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate',
       'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
-      function ($scope, $timeout, $ionicScrollDelegate, $ionicPopup,
+      function ($scope, $rootScope, $timeout, $ionicScrollDelegate,
                 LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
 
         findRestaurantsNearby();
         findRestaurantsSavedForLater();
         applyHorizontalScrollFix('nearby-restaurants-scroll');
         applyHorizontalScrollFix('saved-restaurants-scroll');
+
+        $scope.doRefresh = function() {
+          findRestaurantsNearby();
+          findRestaurantsSavedForLater();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        };
 
         function findRestaurantsNearby() {
           LocationService.fetchCurrentLocation()

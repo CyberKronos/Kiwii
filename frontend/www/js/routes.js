@@ -21,6 +21,15 @@
         }
       })
 
+      .state('handle', {
+        url: '/handle',
+        templateUrl: 'templates/handle.html',
+        controller: 'HandleCtrl',
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('intro', {
         url: '/intro',
         templateUrl: 'templates/intro.html',
@@ -186,8 +195,21 @@
         url: '/exploreLists',
         views: {
           'exploreLists': {
-            templateUrl: 'templates/exploreLists.html',
-            controller: 'ExploreListsCtrl',
+            templateUrl: 'templates/explore_lists.html',
+            controller: 'ExploreListsCtrl'
+          }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.discoverUsers', {
+        url: '/discoverUsers',
+        views: {
+          'exploreLists': {
+            templateUrl: 'templates/discover_users.html',
+            controller: 'DiscoverUsersCtrl'
           }
         },
         data: {

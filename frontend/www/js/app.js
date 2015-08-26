@@ -1,6 +1,4 @@
 (function () {
-  Parse.initialize("g3pJuFTV11d3QNG1zSGsn0Ea6b8OiYEve5gCXQWp", "RvkvXdhs719ZLD81BQGFCAhCq1kQf1yF3DqwBlZD");
-
   var kiwii = angular.module('kiwii',
     [ 'ionic',
       'ion-google-place',
@@ -15,6 +13,24 @@
       'ionic.service.deploy',
       // 'ionic.service.analytics'
       ]);
+
+  // the configs
+  var config = {
+    parse: {
+      applicationId: 'g3pJuFTV11d3QNG1zSGsn0Ea6b8OiYEve5gCXQWp',
+      javascriptId: 'RvkvXdhs719ZLD81BQGFCAhCq1kQf1yF3DqwBlZD'
+    },
+    stream: {
+      key: 'xwqcm8d4w27c',
+      site: '5290'
+    }
+  }
+
+  // initialize parse
+  Parse.initialize(config.parse.applicationId, config.parse.javascriptId);
+  
+  // initialize stream
+  // StreamClient = stream.connect(config.stream.key, null, config.stream.site);
 
   kiwii.config(function ($ionicAppProvider) {
     $ionicAppProvider.identify({

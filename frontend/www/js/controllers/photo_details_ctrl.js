@@ -9,15 +9,17 @@
 		};
 
         function loadPhotoData() {
-            $scope.photoData = PhotoDetails.getPhotoDetails();
-
-            var taggedRestaurant = $scope.photoData.relation('restaurant');
-	        return taggedRestaurant.query().collection().fetch()
-	            .then(function(restaurant) {
-	                $scope.taggedRestaurant = restaurant.toJSON();
-	                console.log($scope.taggedRestaurant[0]);
-	                $scope.$digest();
-	            });
+            var photo = PhotoDetails.getPhotoDetails();
+            var Restaurants = Parse.Object.extend('Restaurants');
+            var restaurant = new Parse.Query(Restaurants);
+            restaurant.get(photo.attributes.restaurant.id)
+                .then(function (result) {
+                    $scope.photoData = photo;
+                    $scope.photoData['attributes']['restaurant']['attributes'] = result.attributes;
+                    console.log($scope.photoData);
+                }, function (error) {
+                    console.log(error);
+                });
         }
     };
 
