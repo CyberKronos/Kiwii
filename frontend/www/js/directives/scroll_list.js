@@ -16,7 +16,9 @@
 
           if (!ngModel) return; // do nothing if ngModel is missing
 
-          applyHorizontalScrollFix(scope.scrollDelegate || 'scroll-list');
+          if (scope.parentScrollDelegate) {
+            applyHorizontalScrollFix(scope.scrollDelegate || 'scroll-list');
+          }
           callItemsMethod();
 
           scope.$on('scrollList.refresh', function () {

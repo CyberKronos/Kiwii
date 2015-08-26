@@ -22,7 +22,6 @@
         scroll-delegate="nearby-restaurants-scroll"
         parent-scroll-delegate="dash-content">
         <micro-card
-          ng-if="nearbyRestaurants"
           ng-repeat="restaurant in nearbyRestaurants"
           ui-sref="tab.details({venueId: restaurant.foursquareId})"
           title="{{restaurant.name}}"
@@ -39,7 +38,6 @@
         scroll-delegate="saved-restaurants-scroll"
         parent-scroll-delegate="dash-content">
         <micro-card
-          ng-if="savedRestaurants"
           ng-repeat="restaurant in savedRestaurants"
           ui-sref="tab.details({venueId: restaurant.foursquareId})"
           title="{{restaurant.name}}"
