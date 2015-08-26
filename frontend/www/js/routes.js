@@ -21,6 +21,15 @@
         }
       })
 
+      .state('handle', {
+        url: '/handle',
+        templateUrl: 'templates/handle.html',
+        controller: 'HandleCtrl',
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('intro', {
         url: '/intro',
         templateUrl: 'templates/intro.html',

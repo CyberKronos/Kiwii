@@ -24,11 +24,11 @@
               </div>
               <div class="col col-65">
                 <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
-                <p>@alxdrnguyen</p>
+                <p ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
               </div>
-              <div class="col col-10 text-right">
+              <!-- <div class="col col-10 text-right">
                 <i class="icon ion-social-instagram-outline connect-ig"></i>
-              </div>
+              </div> -->
             </div>
             <div class="row" style="padding: 0 12px;">
               <div class="col col-25">
@@ -106,9 +106,9 @@
                 <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
                 <p>@alxdrnguyen</p>
               </div>
-              <div class="col col-10 text-right">
+              <!-- <div class="col col-10 text-right">
                 <i class="icon ion-social-instagram-outline connect-ig"></i>
-              </div>
+              </div> -->
             </div>
             <div class="row" style="padding: 0 12px;">
               <div class="col col-25">

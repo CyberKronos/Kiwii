@@ -41,7 +41,7 @@
         if (response == 'existing user') {
           $state.go('tab.dash');
         } else {
-          $state.go('intro');
+          $state.go('handle');
         }
       });
     };
