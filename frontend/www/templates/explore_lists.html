@@ -24,12 +24,14 @@
           <div class="dash-loading-list" ng-if="!suggestedUsers">
             <ion-spinner></ion-spinner>
           </div>
-          <restaurant-micro-card
+          <micro-card
             ng-if="suggestedUsers"
             ng-repeat="user in suggestedUsers"
-            ui-sref="tab.details({venueId: restaurant.foursquareId})"
-            restaurant="user">
-          </restaurant-micro-card>
+            title="{{user.name}}"
+            subtitle="{{user.category}}"
+            image-url="{{user.userObject.attributes.fbPicture}}"
+            fallback-image-url="http://placehold.it/100x100?text=Kiwii">
+          </micro-card>
         </ion-scroll>
       </div>
 
@@ -40,9 +42,9 @@
           <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}" style="border-radius: 10%;">
           <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
           <p ng-if="feedItem.verb == 'listUpdate'">
-            added 
-            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span> 
-            to 
+            added
+            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span>
+            to
             <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
           </p>
           <p ng-if="feedItem.verb == 'list'">
@@ -51,8 +53,8 @@
               {{ feedItem.object_parse.attributes.name }}
             </span>
           </p>
-          <p ng-if="feedItem.verb == 'photo'" 
-             ng-click="restaurantDetails(feedItem.object_parse.attributes.restaurant.foursquareId)" 
+          <p ng-if="feedItem.verb == 'photo'"
+             ng-click="restaurantDetails(feedItem.object_parse.attributes.restaurant.foursquareId)"
              class="text-orange">
             {{ feedItem.object_parse.attributes.restaurant.name }}
           </p>

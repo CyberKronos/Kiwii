@@ -24,12 +24,15 @@
         <div class="dash-loading-list" ng-if="!nearbyRestaurants">
           <ion-spinner></ion-spinner>
         </div>
-        <restaurant-micro-card
+        <micro-card
           ng-if="nearbyRestaurants"
           ng-repeat="restaurant in nearbyRestaurants"
           ui-sref="tab.details({venueId: restaurant.foursquareId})"
-          restaurant="restaurant">
-        </restaurant-micro-card>
+          title="{{restaurant.name}}"
+          subtitle="{{restaurant.category}}"
+          image-url="{{restaurant.imageUrl}}"
+          fallback-image-url="http://placehold.it/100x100?text=Kiwii">
+        </micro-card>
       </ion-scroll>
 
       <h4 class="text-orange">From Your List</h4>
@@ -41,12 +44,15 @@
         <div class="dash-loading-list" ng-if="!savedRestaurants">
           <ion-spinner></ion-spinner>
         </div>
-        <restaurant-micro-card
+        <micro-card
           ng-if="savedRestaurants"
           ng-repeat="restaurant in savedRestaurants"
           ui-sref="tab.details({venueId: restaurant.foursquareId})"
-          restaurant="restaurant">
-        </restaurant-micro-card>
+          title="{{restaurant.name}}"
+          subtitle="{{restaurant.category}}"
+          image-url="{{restaurant.imageUrl}}"
+          fallback-image-url="http://placehold.it/100x100?text=Kiwii">
+        </micro-card>
       </ion-scroll>
 
       <button

@@ -1,5 +1,5 @@
 (function () {
-    var FacebookApi = function ($cordovaFacebook) {
+    var FacebookApi = function ($q, $cordovaFacebook) {
         /* Private Methods */
 
         /* Public Interface */
@@ -10,22 +10,18 @@
                     facebookConnectPlugin.browserInit(appId);
                 }
                 return $cordovaFacebook.getLoginStatus()
-                .then(function(success) {
-                    console.log(success);
-                    return $cordovaFacebook.api("/me/friends", ["public_profile", "user_friends"])
-                    .then(function(response){
-                        console.log(response);
-                        return response;
-                    }, function(error) {
-                        console.log(error);
-                    });
-                }, function (error) {
-                    console.log(error);
-                });
+                  .then(function (success) {
+                      console.log(success);
+                      return $cordovaFacebook.api("/me/friends", ["public_profile", "user_friends"])
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                      return $q.reject(error);
+                  })
             }
         }
     };
 
     angular.module('kiwii')
-        .factory('FacebookApi', ['$cordovaFacebook', FacebookApi]);
+        .factory('FacebookApi', ['$q', '$cordovaFacebook', FacebookApi]);
 })();

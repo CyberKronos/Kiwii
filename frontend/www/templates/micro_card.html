@@ -1,0 +1,8 @@
+<div class="micro-card">
+  <img ng-src="{{imageUrl || fallbackImageUrl || item.imageUrl || item.fallbackImageUrl}}">
+
+  <div class="micro-card-desc">
+    <div class="name">{{title || item.title}}</div>
+    <div class="type" ng-if="subtitle || item.subtitle">{{subtitle || item.subtitle}}</div>
+  </div>
+</div>
