@@ -6,34 +6,12 @@
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-    <div class="list">
-      <div class="row">
-        <div class="col col-70">
-          <p>Your Suggestions</p>
-        </div>
-        <div class="col col-30 text-right">
-          <a href="#/tab/discoverUsers" class="text-orange">View more</a>
-        </div>
-      </div>
-      <div class="padding-horizontal">
-        <ion-scroll class="micro-card-list"
-                    direction="x"
-                    scrollbar-x="false"
-                    horizontal-scroll-fix="dash-content"
-                    delegate-handle="people-suggestions-scroll">
-          <div class="dash-loading-list" ng-if="!suggestedUsers">
-            <ion-spinner></ion-spinner>
-          </div>
-          <restaurant-micro-card
-            ng-if="suggestedUsers"
-            ng-repeat="user in suggestedUsers"
-            ui-sref="tab.details({venueId: restaurant.foursquareId})"
-            restaurant="user">
-          </restaurant-micro-card>
-        </ion-scroll>
-      </div>
-
-      <div class="item item-divider"></div>
+    <div class="list">     
+      <a class="item item-icon-left item-icon-right text-minor" href="#/tab/discoverUsers">
+        <i class="icon ion-person-stalker"></i>
+        Discover new users
+        <i class="icon ion-arrow-right-c"></i>
+      </a>
 
       <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow'">
         <div class="item item-avatar">
@@ -41,7 +19,9 @@
           <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
           <p ng-if="feedItem.verb == 'listUpdate'">
             added 
-            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span> 
+            <span class="text-orange" ui-sref="tab.details({venueId: feedItem.object_parse.attributes.foursquareId})">
+              {{ feedItem.object_parse.attributes.name }}
+            </span> 
             to 
             <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
           </p>

@@ -7,8 +7,20 @@
 
   <ion-content padding="true" scroll="true">
     <div class="list card">
-      <a class="item item-avatar item-button-right" href="#"
-         ng-repeat="user in suggestedUsers">
+      <div ng-repeat="user in kiwiiEndorsedUsers">
+        <a ng-if="user.userObject" class="item item-avatar item-button-right" href="#">
+          <img ng-src="{{ user.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
+          <h2 style="margin-top: 10px;">{{user.name}}</h2>
+          <button class="button button-small button-outline button-assertive"
+                  ng-click="followUser(user.userObject)"
+                  style="margin-top: 10px;">
+            Follow
+          </button>
+        </a>
+      </div>
+
+      <!-- <a class="item item-avatar item-button-right" href="#"
+         ng-repeat="user in suggestedFbFriends">
         <img ng-src="{{ user.userObject.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
         <h2 style="margin-top: 10px;">{{user.name}}</h2>
         <button class="button button-small button-outline button-assertive"
@@ -16,7 +28,7 @@
                 style="margin-top: 10px;">
           Follow
         </button>
-      </a>
+      </a> -->
     </div>
   </ion-content>
 </ion-view>
