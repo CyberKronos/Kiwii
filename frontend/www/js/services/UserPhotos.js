@@ -1,79 +1,86 @@
 (function () {
-  var UserPhotos = function () {
-
-    var RESTAURANTS_CLASS = 'Restaurants';
-    var RESTAURANT_ID_COLUMN = 'foursquareId';
+  var UserPhotos = function ($q, FoursquareApi) {
 
     var USER_PHOTOS_CLASS = 'UserPhotos';
     var UPLOADED_PHOTOS_ATTRIBUTE = 'uploadedPhotos';
 
-    var getRestaurant = function (foursquareId) {
-      var Restaurants = Parse.Object.extend(RESTAURANTS_CLASS);
-      var restaurantQuery = new Parse.Query(Restaurants)
-        .equalTo(RESTAURANT_ID_COLUMN, foursquareId);
-
-      return restaurantQuery.find()
-        .then(function (results) {
-          console.log(results);
-          return results[0];
+    function saveImage(file) {
+      var base64pic = file['imageData'];
+      var parseFile = new Parse.File("photo.jpg", {base64: base64pic});
+      return parseFile.save()
+        .then(function (parseFileImage) {
+          file['photo'] = parseFileImage;
+          return file;
+        })
+        .fail(function () {
+          return $q.reject('Error with saving image data.');
         });
-    };
+    }
+
+    function saveUserPhoto(userPhotoData) {
+      var userPhotoPromise = $q.when(function () {
+        var Photos = Parse.Object.extend(USER_PHOTOS_CLASS);
+        var userPhoto = new Photos();
+        var user = Parse.User.current();
+
+        // we write to the user feed
+        userPhoto.set('feedSlug', 'user');
+        userPhoto.set('feedUserId', user.id);
+        // the photo's data
+        userPhoto.set('actor', user);
+        userPhoto.set('verb', 'photo');
+        userPhoto.set('description', userPhotoData['description']);
+        userPhoto.set('photo', userPhotoData['photo']);
+
+        if (userPhotoData['foursquareId']) {
+          return FoursquareApi.getRestaurantById(userPhotoData['foursquareId'])
+            .then(function (restaurant) {
+              userPhoto.set('restaurant', restaurant);
+              return userPhoto;
+            });
+        } else {
+          return userPhoto;
+        }
+      }());
+      return userPhotoPromise
+        .then(function (userPhoto) {
+          return userPhoto.save();
+        })
+        .catch(function () {
+          return $q.reject('Error with saving to UserPhotos Class on Parse');
+        });
+    }
+
+    function linkPhotoToCurrentUser(userPhoto) {
+      var saveUploadedPhotosRelation = Parse.User.current().relation(UPLOADED_PHOTOS_ATTRIBUTE);
+      saveUploadedPhotosRelation.add(userPhoto);
+      return Parse.User.current().save()
+        .then(function () {
+          return userPhoto;
+        })
+        .fail(function () {
+          return $q.reject('Error adding photo to user profile.');
+        })
+    }
 
     /* Public Interface */
     return {
+      /**
+       * Saves a user photo
+       * @param file {Object} with the following attributes:
+       * imageData - the image file
+       * description - description of the photo
+       * foursquareId - the Foursquare ID of the tagged restaurant.
+       * @returns {Promise} - the promise of a created UserPhoto object.
+       */
       savePhoto: function (file) {
-        var base64pic = file['imageData'];
-        var parseFile = new Parse.File("photo.jpg", { base64: base64pic });
-
-        return parseFile.save().then(function() {
-          var Photos = Parse.Object.extend(USER_PHOTOS_CLASS);
-
-          var photo = new Photos();
-          var user = Parse.User.current();
-          // we write to the user feed
-          photo.set('feedSlug', 'user');
-          photo.set('feedUserId', user.id);
-          // the photo's data
-          photo.set('actor', user);
-          photo.set('verb', 'photo');
-          photo.set("description", file['description']);
-          photo.set("photo", parseFile);
-          // photo.set("restaurant", file['restaurantObject']);
-
-          return photo.save().then(function() {
-            var saveUploadedPhotosRelation = Parse.User.current().relation(UPLOADED_PHOTOS_ATTRIBUTE);
-            saveUploadedPhotosRelation.add(photo);
-
-            return Parse.User.current().save()
-            .then(function(){
-              if (file['foursquareId']) {
-                return getRestaurant(file['foursquareId'])
-                .then(function (restaurant) {
-                  console.log(restaurant);
-                  photo.set('restaurant', restaurant);
-    
-                  return photo.save()
-                  .then(function() {
-                    var msg = "The photo has been saved to Parse";
-                    return msg;
-                  });
-                });
-              } else {
-                return photo.save()
-                .then(function() {
-                  var msg = "The photo has been saved to Parse";
-                  return msg;
-                });
-              }
-            });
-          }, function() {
-            var msg = "Error with saving to UserPhotos Class on Parse";
-            return msg;
+        return saveImage(file)
+          .then(saveUserPhoto)
+          .then(linkPhotoToCurrentUser)
+          .then(function (userPhoto) {
+            console.log('The photo has been saved to Parse');
+            return userPhoto;
           });
-        }, function() {
-          var msg = "There has been an error. Try again.";
-          return msg;
-        });
       }
     };
   };

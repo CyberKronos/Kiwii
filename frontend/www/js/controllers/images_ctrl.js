@@ -25,6 +25,13 @@
     });
 
     $scope.uploadImage = function(source) {
+      if (!Camera) {
+        $scope.imgURI = "data:image/jpeg;base64";
+        $scope.imagePost['imageData'] = "data:image/jpeg;base64";
+        $scope.openModal();
+        return;
+      }
+
       $scope.imagePost = {};
       var options = { 
         quality : 100, 
@@ -123,7 +130,7 @@
               },
               {
                 text: 'Ok',
-                type: 'button-assertive',
+                type: 'button-assertive'
               }
             ]
           });
