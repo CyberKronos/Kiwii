@@ -42,7 +42,7 @@
             {{ feedItem.object_parse.attributes.restaurant.name }}
           </p>
 
-          <p style="position: absolute; right: 12px; top: 16px;">3h</p>
+          <p style="position: absolute; right: 12px; top: 16px;">{{ feedItem.convertedTime }}</p>
         </div>
 
         <div ng-if="feedItem.verb == 'photo'" class="item item-image">

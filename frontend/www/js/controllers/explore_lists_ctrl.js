@@ -63,6 +63,9 @@
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
         angular.forEach(response.activities, function (value, key) {
+          var timestamp = value.time;
+          var convertedTime = moment.utc(timestamp).fromNow(true);
+          value.convertedTime = convertedTime;
           if (value.verb == 'photo') {
             var parseObject = value.object_parse.attributes;
             if (parseObject.restaurant) {
@@ -76,6 +79,10 @@
         $scope.newsFeed = response.activities;
         console.log($scope.newsFeed);
       });
+    }
+
+    function convertTime(utc) {
+
     }
 
     function getRestaurantName(foursquareId) {
