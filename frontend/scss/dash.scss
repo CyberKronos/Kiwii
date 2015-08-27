@@ -2,18 +2,6 @@
   height: 30vh;
 }
 
-.dash-loading-list {
-  display: flex;
-  margin: auto;
-  align-items: center;
-  height: 160px;
-}
-
-.micro-card-list {
-  overflow: scroll;
-  white-space: nowrap;
-}
-
 .micro-card-list > .scroll {
   display: flex;
   flex-direction: row;

@@ -99,15 +99,18 @@
     }
 
     function fetchCurrentLocation() {
-      var isAndroid = ionic.Platform.isAndroid();
       return LocationService.fetchCurrentLocation()
         .then(function (latLng) {
           $scope.criteria['ll'] = latLng.lat + ',' + latLng.lng;
-        }, function (err) {
-          // error
-          var confirmPopup = $ionicPopup.confirm({
-            title: 'Location Error',
-            template: "Error retrieving position. Check your connection and location settings?",
+        })
+        .catch(showLocationError);
+    }
+
+      function showLocationError (positionError) {
+        var isAndroid = ionic.Platform.isAndroid();
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Current Location Unavailable',
+            template: positionError.label,
             buttons: [
               {
                 text: 'Cancel'
@@ -129,9 +132,8 @@
               }
             ]
           });
-        });
-    }
-  };
+        }
+    };
 
   angular.module('kiwii').
     controller('SearchCtrl', SearchCtrl);

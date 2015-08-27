@@ -6,36 +6,42 @@
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-    <div class="list">     
+    <div class="list">
       <a class="item item-icon-left item-icon-right text-minor" href="#/tab/discoverUsers">
         <i class="icon ion-person-stalker"></i>
         Discover new users
         <i class="icon ion-arrow-right-c"></i>
       </a>
 
+      <div class="item item-divider"></div>
+
       <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow'">
         <div class="item item-avatar">
-          <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}" style="border-radius: 10%;">
+          <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}"
+               style="border-radius: 10%;">
+
           <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
+
           <p ng-if="feedItem.verb == 'listUpdate'">
-            added 
-            <span class="text-orange" ui-sref="tab.details({venueId: feedItem.object_parse.attributes.foursquareId})">
-              {{ feedItem.object_parse.attributes.name }}
-            </span> 
-            to 
+            added
+            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span>
+            to
             <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
           </p>
+
           <p ng-if="feedItem.verb == 'list'">
             created a new list: 
             <span class="text-orange">
               {{ feedItem.object_parse.attributes.name }}
             </span>
           </p>
-          <p ng-if="feedItem.verb == 'photo'" 
-             ng-click="restaurantDetails(feedItem.object_parse.attributes.restaurant.foursquareId)" 
+
+          <p ng-if="feedItem.verb == 'photo'"
+             ui-sref="tab.details({venueId: feedItem.object_parse.attributes.restaurant.foursquareId})"
              class="text-orange">
             {{ feedItem.object_parse.attributes.restaurant.name }}
           </p>
+
           <p style="position: absolute; right: 12px; top: 16px;">3h</p>
         </div>
 
@@ -51,6 +57,7 @@
           <p ng-if="feedItem.verb == 'photo'">
             {{ feedItem.object_parse.attributes.description }}
           </p>
+
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>

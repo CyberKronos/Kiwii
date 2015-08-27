@@ -27,7 +27,6 @@
          searching through the Foursquare API.
          **/
         function findWithKiwii(criteria) {
-          console.log(criteria);
           // Create a query for places
           var query = new Parse.Query('Restaurants');
           // Keyword(s) provided by the user
@@ -41,7 +40,6 @@
           // Limit what could be a lot of points.
           query.limit(criteria.limit);
           // Final list of objects
-          console.log(query);
           return query.find()
             .then(function (results) {
               results = new Parse.Collection(results);
