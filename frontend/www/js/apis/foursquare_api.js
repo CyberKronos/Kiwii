@@ -49,10 +49,10 @@
         .then(function (restaurant) {
           console.log(restaurant);
           return restaurant ? $q.when(restaurant)
-            : $q.reject('Restaurant not Found');
+            : $q.reject({message: 'Restaurant not Found'});
         })
         .fail(function (error) {
-          return $q.reject(error.message);
+          return $q.reject(error);
         });
     }
   };

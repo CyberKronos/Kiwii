@@ -8,23 +8,23 @@
     $ionicModal.fromTemplateUrl('templates/edit_image_popup.html', {
       scope: $scope,
       animation: 'slide-in-up'
-    }).then(function(modal) {
+    }).then(function (modal) {
       $scope.modal = modal;
-    });  
+    });
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
       $scope.modal.show();
     };
 
-    $scope.closeModal = function() {
+    $scope.closeModal = function () {
       $scope.modal.hide();
     };
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
       $scope.modal.remove();
     });
 
-    $scope.uploadImage = function(source) {
+    $scope.uploadImage = function (source) {
       if (!Camera) {
         $scope.imgURI = "data:image/jpeg;base64";
         $scope.imagePost['imageData'] = "data:image/jpeg;base64";
@@ -33,11 +33,11 @@
       }
 
       $scope.imagePost = {};
-      var options = { 
-        quality : 100, 
-        destinationType : Camera.DestinationType.DATA_URL, 
-        sourceType : (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
-        allowEdit : true,
+      var options = {
+        quality: 100,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: (source == 'CAMERA') ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit: true,
         encodingType: Camera.EncodingType.JPEG,
         targetWidth: 600,
         targetHeight: 600,
@@ -46,39 +46,39 @@
       };
 
       $cordovaCamera.getPicture(options)
-      .then(function(imageData) {
-        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
-        $scope.openModal();
-      });
+        .then(function (imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+          $scope.imagePost['imageData'] = "data:image/jpeg;base64," + imageData;
+          $scope.openModal();
+        });
       // $scope.openModal();
     };
 
-    $scope.postPhoto = function() {
+    $scope.postPhoto = function () {
       showLoading();
       UserPhotos.savePhoto($scope.imagePost)
-      .then(function(success){
-        console.log(success);
-        hideLoading();
-        $scope.closeModal();
-        $state.go('tab.profile');
-      }, function(error) {
-        hideLoading();
-        console.log(error);
-        var confirmPopup = $ionicPopup.confirm({
-          title: 'Posting Error',
-          template: error,
-          buttons: [
-            {
-              text: 'Cancel'
-            },
-            {
-              text: 'Ok',
-              type: 'button-assertive'
-            }
-          ]
+        .then(function (success) {
+          console.log(success);
+          hideLoading();
+          $scope.closeModal();
+          $state.go('tab.profile');
+        }, function (error) {
+          hideLoading();
+          console.log(error);
+          var confirmPopup = $ionicPopup.confirm({
+            title: 'Posting Error',
+            template: error,
+            buttons: [
+              {
+                text: 'Cancel'
+              },
+              {
+                text: 'Ok',
+                type: 'button-assertive'
+              }
+            ]
+          });
         });
-      });
     };
 
     $scope.getRestaurants = function (query) {

@@ -12,8 +12,8 @@
           file['photo'] = parseFileImage;
           return file;
         })
-        .fail(function () {
-          return $q.reject('Error with saving image data.');
+        .fail(function (error) {
+          return $q.reject('Error with saving image data: ' + error.message);
         });
     }
 
@@ -46,20 +46,21 @@
         .then(function (userPhoto) {
           return userPhoto.save();
         })
-        .catch(function () {
-          return $q.reject('Error with saving to UserPhotos Class on Parse');
+        .catch(function (error) {
+          return $q.reject('Error with saving to UserPhotos Class on Parse: ' + error.message);
         });
     }
 
     function linkPhotoToCurrentUser(userPhoto) {
-      var saveUploadedPhotosRelation = Parse.User.current().relation(UPLOADED_PHOTOS_ATTRIBUTE);
+      var photoAuthor = userPhoto.get('actor');
+      var saveUploadedPhotosRelation = photoAuthor.relation(UPLOADED_PHOTOS_ATTRIBUTE);
       saveUploadedPhotosRelation.add(userPhoto);
-      return Parse.User.current().save()
+      return photoAuthor.save()
         .then(function () {
           return userPhoto;
         })
-        .fail(function () {
-          return $q.reject('Error adding photo to user profile.');
+        .fail(function (error) {
+          return $q.reject('Error adding photo to user profile: ' + error.message);
         })
     }
 
@@ -68,9 +69,9 @@
       /**
        * Saves a user photo
        * @param file {Object} with the following attributes:
-       * imageData - the image file
-       * description - description of the photo
-       * foursquareId - the Foursquare ID of the tagged restaurant.
+       *  imageData - the image file
+       *  description - description of the photo
+       *  foursquareId - the Foursquare ID of the tagged restaurant.
        * @returns {Promise} - the promise of a created UserPhoto object.
        */
       savePhoto: function (file) {
