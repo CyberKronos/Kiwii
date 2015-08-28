@@ -25,20 +25,26 @@ module.exports = function(config) {
       'lib/ionic/js/ionic-angular.js',
 
       'lib/parse-js-sdk/lib/parse.js',
-
-      'lib/ion-google-place/ion-google-place.js',
+      'lib/lodash/lodash.js',
+      'lib/ionic-service-core/ionic-core.js',
+      'lib/ionic-service-deploy/ionic-deploy.js',
+      'lib/ionic-contrib-tinder-cards/ionic.tdcards.js',
+      'lib/collide/collide.js',
       'lib/ngCordova/dist/ng-cordova.js',
+      'lib/angular-jwt/dist/angular-jwt.js',
       'lib/ngstorage/ngStorage.js',
       'lib/angular-flux-helpers/angular-flux.js',
-      'lib/ionic-contrib-tinder-cards/ionic.tdcards.js',
+      'lib/ion-autocomplete/dist/ion-autocomplete.js',
       'lib/parse-angular-patch/src/parse-angular.js',
+      'lib/ion-slide-box-tabs/src/js/slidingTabsDirective.js',
+      'lib/cordova-exif/cordova-exif.js',
+      'lib/exif-js/exif.js',
 
       'js/app.js',
       'js/*.js',
       'js/**/*.js',
       'test/spec/**/*.js'
     ],
-
 
     // list of files to exclude
     exclude: [

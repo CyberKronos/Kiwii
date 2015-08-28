@@ -7,3 +7,4 @@ engine
 www/lib
 www/dist
 www/test/coverage
+www/coverage
