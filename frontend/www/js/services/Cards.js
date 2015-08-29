@@ -23,7 +23,7 @@
     /**
      * Creates card and returns a JSON representation of the created Parse Object.
      * @param cardData {Object} attributes are:
-     *  userPhotos {Object} - list of user photo objects to be created
+     *  userPhotos {Array<Object>} - list of user photo objects to be created
      *  author {Parse.User} - the user who is creating this card
      *  taggedRestaurant {String} - foursquare id of the associated restaurant of the card
      * @returns {*}
@@ -42,14 +42,15 @@
         .then(createUserPhotos)
         .then(function (cardData) {
           var userPhotosRelation = card.relation('userPhotos');
-          userPhotosRelation.add(cardData['userPhotos']);
+          //userPhotosRelation.add(cardData['userPhotos']);
+          userPhotosRelation.add('cadsfa');
           return card.save();
         })
         .then(function (card) {
           return deferred.resolve(card);
         })
         .fail(function (error) {
-          return deferred.reject(error);
+          return deferred.reject('Unable to create a new card: ' + error.message);
         });
       return deferred.promise;
     }

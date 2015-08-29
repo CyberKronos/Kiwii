@@ -1,5 +1,6 @@
 (function () {
-  var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, $ionicPopup, UserPhotos, RestaurantExplorer, LocationService) {
+  var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, $ionicPopup,
+                             UserPhotos, Cards, RestaurantExplorer, LocationService) {
 
     fetchCurrentLocation();
 
@@ -56,29 +57,32 @@
 
     $scope.postPhoto = function () {
       showLoading();
-      UserPhotos.savePhoto($scope.imagePost)
-        .then(function (success) {
-          console.log(success);
+
+      Cards.createCard({
+          userPhotos: [$scope.imagePost],
+          author: Parse.User.current(),
+          taggedRestaurant: $scope.imagePost.foursquareId
+        }
+      )
+        .then(function () {
           hideLoading();
           $scope.closeModal();
           $state.go('tab.profile');
-        }, function (error) {
+        })
+        .catch(function (error) {
           hideLoading();
-          console.log(error);
-          var confirmPopup = $ionicPopup.confirm({
+          $ionicPopup.alert({
             title: 'Posting Error',
             template: error,
             buttons: [
-              {
-                text: 'Cancel'
-              },
               {
                 text: 'Ok',
                 type: 'button-assertive'
               }
             ]
           });
-        });
+        })
+        .finally(hideLoading);
     };
 
     $scope.getRestaurants = function (query) {
