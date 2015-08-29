@@ -42,8 +42,7 @@
         .then(createUserPhotos)
         .then(function (cardData) {
           var userPhotosRelation = card.relation('userPhotos');
-          //userPhotosRelation.add(cardData['userPhotos']);
-          userPhotosRelation.add('cadsfa');
+          userPhotosRelation.add(cardData['userPhotos']);
           return card.save();
         })
         .then(function (card) {

@@ -7,15 +7,15 @@
   <ion-content scroll="false">
   	<div class="list">
   		<a class="item item-thumbnail-left" style="padding: 4px 4px 4px 102px;">
-	      <!-- <img src="cover.jpg"> -->
-	      <img src="{{ imgURI || 'http://placehold.it/95x95?text=Kiwii' }}">
+        <img ng-if="imagePost[0].imageData" data-ng-src="{{imagePost[0].imageData}}">
+	      <img ng-if="!imagePost[0].imageData" ng-src="http://placehold.it/95x95?text=Kiwii">
 	      <textarea placeholder="Write a description..." 
                   style="width: 100%; height: 92px; resize: none;" 
-                  ng-model="imagePost.description"></textarea>
+                  ng-model="imagePost[0].description"></textarea>
 	    </a>
     	<label class="item item-input">
       	<i class="icon ion-pricetag placeholder-icon"></i>
-      	<ion-autocomplete ng-model="imagePost.restaurantName"
+      	<ion-autocomplete ng-model="imagePost[0].restaurantName"
                           template-url="templates/search_restaurants_popup.html"
                           item-value-key="name"
                           item-view-value-key="name"
