@@ -7,27 +7,11 @@
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
     <div class="list">
-      <div class="row">
-        <div class="col col-70">
-          <p>Your Suggestions</p>
-        </div>
-        <div class="col col-30 text-right">
-          <a href="#/tab/discoverUsers" class="text-orange">View more</a>
-        </div>
-      </div>
-      <div class="padding-horizontal">
-        <scroll-list
-          ng-model="suggestedUsers"
-          items-method="getNewUsers">
-          <micro-card
-            ng-repeat="user in suggestedUsers"
-            title="{{user.name}}"
-            subtitle="{{user.category}}"
-            image-url="{{user.userObject.attributes.fbPicture}}"
-            fallback-image-url="http://placehold.it/100x100?text=Kiwii">
-          </micro-card>
-        </scroll-list>
-      </div>
+      <a class="item item-icon-left item-icon-right text-minor" href="#/tab/discoverUsers">
+        <i class="icon ion-person-stalker"></i>
+        Discover new users
+        <i class="icon ion-arrow-right-c"></i>
+      </a>
 
       <div class="item item-divider"></div>
 
@@ -40,9 +24,12 @@
 
           <p ng-if="feedItem.verb == 'listUpdate'">
             added
-            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span>
+            <span ui-sref="tab.details({venueId: feedItem.object_parse.attributes.foursquareId})"
+                  class="text-orange">
+              {{ feedItem.object_parse.attributes.name }}
+            </span>
             to
-            <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
+            <span class="text-orange" ng-click="goToList(feedItem.target_parse)">{{ feedItem.target_parse.attributes.name }}</span>
           </p>
 
           <p ng-if="feedItem.verb == 'list'">
@@ -58,7 +45,7 @@
             {{ feedItem.object_parse.attributes.restaurant.name }}
           </p>
 
-          <p style="position: absolute; right: 12px; top: 16px;">3h</p>
+          <p style="position: absolute; right: 12px; top: 16px;">{{ feedItem.convertedTime }}</p>
         </div>
 
         <div ng-if="feedItem.verb == 'photo'" class="item item-image">

@@ -37,7 +37,7 @@
               </div>
               <div class="col col-25">
                 <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
-                <div>Photos</div>
+                <div>Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
                 <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
@@ -91,7 +91,7 @@
         </ion-content> 
       </ion-tab>
 
-      <ion-tab title="Photos">
+      <ion-tab title="Cards">
         <ion-content> 
 
           <ion-refresher on-refresh="doRefresh()"></ion-refresher>
@@ -117,7 +117,7 @@
               </div>
               <div class="col col-25">
                 <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
-                <div>Photos</div>
+                <div>Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
                 <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
@@ -134,7 +134,7 @@
             <div class="save-later-placeholder">
               <img src="img/restaurant_placeholder.gif">
             </div>
-            <p>Start uploading photos!</p>
+            <p>Start uploading cards!</p>
           </div>
 
           <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 

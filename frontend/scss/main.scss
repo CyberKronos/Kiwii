@@ -20,7 +20,7 @@
 }
 
 .text-minor {
-  color: #444;
+  color: #444 !important;
 }
 
 .icon-white {
@@ -33,6 +33,10 @@
 
 .no-padding {
   padding: 0 !important;
+}
+
+.no-border {
+  border: none;
 }
 
 /*Maps*/

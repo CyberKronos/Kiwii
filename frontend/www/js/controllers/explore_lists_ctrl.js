@@ -1,5 +1,5 @@
 (function () {
-  var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi) {
+  var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
 
     getNewsFeed();
 
@@ -9,17 +9,7 @@
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    // $scope.getSelfFeed = function() {
-    //   var currentUser = Parse.User.current();
-    //   Parse.Cloud.run('feed', {
-    //     feed : 'user:' + currentUser.id
-    //   }).then(function (response) {
-    //     console.log(response.activities);
-    //     // $scope.newsFeed = response.activities;
-    //   });
-    // };
-
-    $scope.getNewUsers = getNewUsers;
+    // $scope.getNewUsers = getNewUsers;
 
     $scope.getRestaurantName = function (foursquareId) {
       var Restaurants = Parse.Object.extend('Restaurants');
@@ -32,24 +22,30 @@
         });
     };
 
+    $scope.goToList = function(listData) {
+      console.log(listData);
+      ListDetails.setListDetails(listData);
+      $state.go('tab.lists');
+    };
+
     // Maybe should move to a service
-    function getNewUsers() {
-      return FacebookApi.getFriendsInApp()
-        .then(function (response) {
-          var userInfoPromises = _.map(response.data, function (value) {
-            var fbId = value.id;
-            return getParseUserInfo(fbId)
-              .then(function (result) {
-                if (result != 'no results') {
-                  value['userObject'] = result;
-                }
-                return value;
-              });
-          });
-          console.log(userInfoPromises);
-          return $q.all(userInfoPromises);
-        });
-    }
+    // function getNewUsers() {
+    //   return FacebookApi.getFriendsInApp()
+    //     .then(function (response) {
+    //       var userInfoPromises = _.map(response.data, function (value) {
+    //         var fbId = value.id;
+    //         return getParseUserInfo(fbId)
+    //           .then(function (result) {
+    //             if (result != 'no results') {
+    //               value['userObject'] = result;
+    //             }
+    //             return value;
+    //           });
+    //       });
+    //       console.log(userInfoPromises);
+    //       return $q.all(userInfoPromises);
+    //     });
+    // }
 
     function getParseUserInfo(fbId) {
       var query = new Parse.Query(Parse.User);
@@ -73,11 +69,17 @@
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
         angular.forEach(response.activities, function (value, key) {
+          var timestamp = value.time;
+          var convertedTime = moment.utc(timestamp).fromNow(true);
+          value.convertedTime = convertedTime;
           if (value.verb == 'photo') {
-            getRestaurantName(value.object_parse.attributes.restaurant.id)
-              .then(function (result) {
-                value.object_parse.attributes.restaurant = result;
-              });
+            var parseObject = value.object_parse.attributes;
+            if (parseObject.restaurant) {
+              getRestaurantName(value.object_parse.attributes.restaurant.id)
+                .then(function (result) {
+                  value.object_parse.attributes.restaurant = result;
+                });
+            }
           }
         });
         $scope.newsFeed = response.activities;
