@@ -81,10 +81,6 @@
       });
     }
 
-    function convertTime(utc) {
-
-    }
-
     function getRestaurantName(foursquareId) {
       var Restaurants = Parse.Object.extend('Restaurants');
       var restaurant = new Parse.Query(Restaurants);
