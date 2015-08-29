@@ -24,9 +24,12 @@
 
           <p ng-if="feedItem.verb == 'listUpdate'">
             added
-            <span class="text-orange">{{ feedItem.object_parse.attributes.name }}</span>
+            <span ui-sref="tab.details({venueId: feedItem.object_parse.attributes.foursquareId})"
+                  class="text-orange">
+              {{ feedItem.object_parse.attributes.name }}
+            </span>
             to
-            <span class="text-orange">{{ feedItem.target_parse.attributes.name }}</span>
+            <span class="text-orange" ng-click="goToList(feedItem.target_parse)">{{ feedItem.target_parse.attributes.name }}</span>
           </p>
 
           <p ng-if="feedItem.verb == 'list'">

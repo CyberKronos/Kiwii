@@ -1,5 +1,5 @@
 (function () {
-  var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi) {
+  var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
 
     getNewsFeed();
 
@@ -20,6 +20,12 @@
         }, function (error) {
           console.log(error);
         });
+    };
+
+    $scope.goToList = function(listData) {
+      console.log(listData);
+      ListDetails.setListDetails(listData);
+      $state.go('tab.lists');
     };
 
     // Maybe should move to a service
