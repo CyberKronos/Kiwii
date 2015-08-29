@@ -34,7 +34,7 @@
 
           <p ng-if="feedItem.verb == 'list'">
             created a new list: 
-            <span class="text-orange">
+            <span class="text-orange" ng-click="goToList(feedItem.object_parse)">
               {{ feedItem.object_parse.attributes.name }}
             </span>
           </p>
