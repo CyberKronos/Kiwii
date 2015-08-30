@@ -15,7 +15,11 @@
 
       <div class="item item-divider" style="min-height: 0;"></div>
 
-      <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow'">
+      <div class="scroll-list-curtain" ng-if="showLoading">
+        <ion-spinner></ion-spinner>
+      </div>
+
+      <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow' && !showLoading">
         <div class="item item-avatar">
           <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}"
                style="border-radius: 10%;">

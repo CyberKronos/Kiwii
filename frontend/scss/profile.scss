@@ -1,14 +1,12 @@
 .profile-top-container {
-  position: absolute; 
-  width: 100%; 
-  top: 5%; 
-  color: #FFFFFF;
+  width: 100%;
+  top: 0;
 }
 
 .profile-avatar {
   border-radius: 6%;
-  max-height: 75px;
-  max-width: 75px;
+  max-height: 78px;
+  max-width: 78px;
 }
 
 .save-later-placeholder {
@@ -19,13 +17,6 @@
     width: 120px;
     height: auto;
   }
-}
-
-.profile-background {
-  height: 27vh;
-  width: 100%;
-  postiion: absolute;
-  overflow: hidden;
 }
 
 .connect-ig {
