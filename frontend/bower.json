@@ -24,9 +24,13 @@
     "ionic-service-deploy": "https://github.com/driftyco/ionic-service-deploy.git",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
+    "ng-material-floating-button": "ng-mfb#~0.6.2",
     "ngCordova": "^0.1.17-alpha",
     "ngstorage": "~0.3.4",
     "parse-angular-patch": "~0.1.2",
     "parse-js-sdk": "~1.4.2"
+  },
+  "resolutions": {
+    "angular": "1.4.5"
   }
 }

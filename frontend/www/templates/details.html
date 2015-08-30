@@ -6,6 +6,16 @@
   </ion-nav-bar>
 
   <ion-content scroll="false" has-bouncing="false">
+
+    <nav mfb-menu position="br" effect="zoomin" label="Actions"
+         active-icon="ion-plus-round" resting-icon="ion-plus-round"
+         toggling-method="click">
+      <button mfb-button icon="ion-ios-list" label="Add Card"
+              ng-click="openAddCardModal()"></button>
+      <button mfb-button icon="ion-star" label="Rate"
+              ng-click="openRatingModal()"></button>
+    </nav>
+
     <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
       <ion-slide class="slide" dynamic-height ion-slide-tab-label="Info">
         <ion-scroll class="scroll-height">
@@ -37,7 +47,7 @@
               <div class="item item-divider" style="font-weight:normal;">
                 Quick Order
               </div>
-              <div ng-repeat="item in quickOrder" style="padding:10px 9px 0 9px; float: left;" class="col col-33"> 
+              <div ng-repeat="item in quickOrder" style="padding:10px 9px 0 9px; float: left;" class="col col-33">
                 <div ui-sref="tab.profile">
                   <div style="background-image:url( {{ item.photo }} );
                               background-repeat:no-repeat;
@@ -46,7 +56,7 @@
                               width:100%;
                               height:0;
                               padding-top:100%;
-                              border-radius: 6px;"> 
+                              border-radius: 6px;">
                   </div>
                   <p style="overflow: hidden;
                             text-overflow: ellipsis;
@@ -78,7 +88,7 @@
 
               <div ng-if="restaurantDetails.contact.formattedPhone" class="details-text">
                 <p>
-                  <strong>Phone</strong> 
+                  <strong>Phone</strong>
                   {{ restaurantDetails.contact.formattedPhone }}
                 </p>
 
@@ -86,7 +96,7 @@
                   <strong>Website</strong>
                   <u ng-if="restaurantDetails.url"
                      ng-click="openWebsite(restaurantDetails.url)">
-                     {{ restaurantDetails.url }}
+                    {{ restaurantDetails.url }}
                   </u>
                 </p>
 
@@ -97,8 +107,8 @@
                 </p>
 
                 <p ng-if="restaurantDetails.description">
-                   <strong>Description</strong>
-                   <br/>
+                  <strong>Description</strong>
+                  <br/>
                   {{ restaurantDetails.description }}
                 </p>
 
@@ -130,6 +140,7 @@
                 <p>
                   {{ pic.caption.text }}
                 </p>
+
                 <p>
                   <a href="" class="subdued">{{ pic.likes.count }} Likes</a>
                   <a href="" class="subdued">{{ pic.comments.count }} Comments</a>
