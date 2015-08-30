@@ -14,8 +14,8 @@
 
       <div class="item item-avatar">
         <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}" />
-        <h2>Alexander Nguyen</h2>
-        <p ng-click="restaurantDetails(photoData.attributes.restaurant.attributes.foursquareId)" 
+        <h2>{{ currentUser.firstname }} {{ currentUser.lastname }}</h2>
+        <p ui-sref="tab.details({venueId: photoData.attributes.restaurant.attributes.foursquareId})"
            class="text-orange">
           {{ photoData.attributes.restaurant.attributes.name }}
         </p>

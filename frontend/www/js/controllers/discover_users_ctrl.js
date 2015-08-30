@@ -4,18 +4,12 @@
       getKiwiiEndorsedUsers();
     	// getFacebookUsers();
 
-      $scope.followUser = function(userObject) {
-        	Following.followUser(userObject)
-        		.then(function(result) {
-    				console.log(result);
-        		});
-      };
-
-      $scope.unfollowUser = function(userObject) {
-        	Following.unfollowUser(userObject)
-        		.then(function(result) {
-        			console.log(result);
-        		});
+      $scope.followUser = function(userObject, index) {
+        $scope.kiwiiEndorsedUsers.splice(index, 1);
+      	Following.followUser(userObject)
+      		.then(function(result) {
+  				  console.log(result);
+      		});
       };
 
       function getKiwiiEndorsedUsers() {
@@ -26,12 +20,12 @@
             .then(function (result) {
               if (result != 'no results') {
                 var currentUserFbId = Parse.User.current().attributes.fbId;
-                if (currentUserFbId == fbId) {
-                  console.log(value);
-                } else {
-                  value['userObject'] = result;
-                  console.log(value);
-                }
+                Following.followRelationship(result)
+                  .then(function (data){
+                    if (!(data || currentUserFbId == fbId)) {
+                      value['userObject'] = result;
+                    }
+                  });
               }
             });
         });
