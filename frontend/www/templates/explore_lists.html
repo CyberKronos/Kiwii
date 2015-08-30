@@ -13,7 +13,7 @@
         <i class="icon ion-arrow-right-c"></i>
       </a>
 
-      <div class="item item-divider"></div>
+      <div class="item item-divider" style="min-height: 0;"></div>
 
       <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow'">
         <div class="item item-avatar">
@@ -34,7 +34,7 @@
 
           <p ng-if="feedItem.verb == 'list'">
             created a new list: 
-            <span class="text-orange">
+            <span class="text-orange" ng-click="goToList(feedItem.object_parse)">
               {{ feedItem.object_parse.attributes.name }}
             </span>
           </p>
@@ -56,110 +56,14 @@
           <img ng-src="{{ feedItem.object_parse.attributes.imageUrl || 'http://placehold.it/200x200'}}">
         </div>
 
-        <div class="item item-body">
-          <p ng-if="feedItem.verb == 'photo'">
+        <div class="item item-body" ng-if="feedItem.verb == 'photo'">
+          <p>
             {{ feedItem.object_parse.attributes.description }}
           </p>
-
-          <p>
-            <a href="#" class="subdued">1 Like</a>
-            <a href="#" class="subdued">5 Comments</a>
-          </p>
         </div>
 
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" href="#">
-            <i class="icon ion-thumbsup"></i>
-            Like
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-chatbox"></i>
-            Comment
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-share"></i>
-            Share
-          </a>
-        </div>
-
-        <div class="item item-divider"></div>
+        <div class="item item-divider" style="min-height: 0;"></div>
       </div>
-
-      <!-- <div>
-        <div class="item item-avatar">
-          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
-          <p>Kiwii</p>
-          <p class="text-orange">Promoted</p>
-        </div>
-
-        <div class="item item-body">
-          <p>
-            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-            the content is from a card-body consisting of an image and paragraph text. The footer
-            consists of tabs, icons aligned left, within the card-footer.
-          </p>
-          <p>
-            <a href="#" class="subdued">1 Like</a>
-            <a href="#" class="subdued">5 Comments</a>
-          </p>
-        </div>
-
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" href="#">
-            <i class="icon ion-thumbsup"></i>
-            Like
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-chatbox"></i>
-            Comment
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-share"></i>
-            Share
-          </a>
-        </div>
-      </div>
-
-      <div class="item item-divider"></div>
-
-      <div>
-        <div class="item item-avatar">
-          <img ng-src="{{'http://placehold.it/95x95'}}" style="border-radius: 10%;">
-          <p>Alexander Nguyen</p>
-          <p class="text-orange">Italian Kitchen</p>
-          <p style="position: absolute; right: 12px; top: 16px;">11h</p>
-        </div>
-
-        <div class="item item-image">
-          <img ng-src="{{'http://placehold.it/200x200'}}">
-        </div>
-
-        <div class="item item-body">
-          <p>
-            This is the user description.
-          </p>
-          <p>
-            <a href="#" class="subdued">1 Like</a>
-            <a href="#" class="subdued">5 Comments</a>
-          </p>
-        </div>
-
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" href="#">
-            <i class="icon ion-thumbsup"></i>
-            Like
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-chatbox"></i>
-            Comment
-          </a>
-          <a class="tab-item" href="#">
-            <i class="icon ion-share"></i>
-            Share
-          </a>
-        </div>
-      </div>
-    </div> -->
 
   </ion-content>
 </ion-view>

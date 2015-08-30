@@ -79,6 +79,12 @@
 
     /* Public Interface */
     return {
+      followRelationship: function(userData) {
+        return getFollowRelationship(userData)
+          .then(function (result) {
+            return result;
+          });
+      },
       followUser: function(userObject) {
         return getFollowRelationship(userObject)
           .then(function (result){

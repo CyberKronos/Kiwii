@@ -16,6 +16,7 @@
 								<img ng-src="{{ user.attributes.object.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
 								<h2 style="margin-top: 10px;">{{user.attributes.object.attributes.firstname}} {{user.attributes.object.attributes.lastname}}</h2>
 								<button class="button button-small button-assertive"
+										ng-click="unfollowUser(user.attributes.object, $index)"
 										style="margin-top: 10px;">
 									Following
 								</button>
