@@ -1,6 +1,6 @@
 (function () {
   var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantPreference, RestaurantDetails, Lists, AppModalService) {
+                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService) {
 
     var restaurantPreference = null;
 
@@ -29,7 +29,7 @@
     };
 
     $scope.openRatingModal = function () {
-      console.log(':p');
+      RestaurantRatingPopup.askForRating($scope.restaurantDetails.id, Parse.User.current().get('fbId'));
     };
 
     $scope.openWebsite = function (link) {
