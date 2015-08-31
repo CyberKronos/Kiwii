@@ -132,18 +132,18 @@
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-            <div class="list ig-spacing-fix" ng-repeat="pic in instagramImages">
+            <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">
               <div class="item item-image">
-                <img ng-src="{{ pic.images.standard_resolution.url }}"/>
+                <img ng-src="{{ image.photo.url }}"/>
               </div>
-              <div ng-if="pic.caption != null" class="item item-body">
+              <div ng-if="image.description" class="item item-body">
                 <p>
-                  {{ pic.caption.text }}
+                  {{ image.description }}
                 </p>
 
                 <p>
-                  <a href="" class="subdued">{{ pic.likes.count }} Likes</a>
-                  <a href="" class="subdued">{{ pic.comments.count }} Comments</a>
+                  <a href="" class="subdued">{{ image.likes }} Likes</a>
+                  <a href="" class="subdued">{{ image.commentsCount }} Comments</a>
                 </p>
               </div>
             </div>

@@ -39,9 +39,9 @@
           }
         ]
       })
-
     }
   };
+
   angular.module('kiwii')
     .factory('RestaurantRatingPopup', ['$ionicPopup', '$rootScope', '$q', 'Ratings', RestaurantRatingPopup]);
 

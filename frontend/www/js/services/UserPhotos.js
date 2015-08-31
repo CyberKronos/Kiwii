@@ -61,7 +61,7 @@
         })
         .fail(function (error) {
           return $q.reject('Error adding photo to user profile: ' + error.message);
-        })
+        });
     }
 
     /* Public Interface */
@@ -77,11 +77,10 @@
       savePhoto: function (file) {
         return saveImage(file)
           .then(saveUserPhoto)
-          .then(linkPhotoToCurrentUser)
-          .then(function (userPhoto) {
-            console.log('The photo has been saved to Parse');
-            return userPhoto;
-          });
+          .then(linkPhotoToCurrentUser);
+      },
+      getPhotos: function (filters) {
+        var query
       }
     };
   };
