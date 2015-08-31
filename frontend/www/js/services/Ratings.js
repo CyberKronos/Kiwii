@@ -1,5 +1,5 @@
 (function () {
-  var Ratings = function ($q, ParseObject, FoursquareApi) {
+  var Ratings = function ($q, ParseObject, FoursquareApi, FacebookApi) {
 
     var RATINGS_KEYS = ['restaurant', 'user', 'score'];
 
@@ -23,7 +23,7 @@
     function getRating(restaurantId, userId) {
       return $q.all({
         restaurant: FoursquareApi.getRestaurantById(restaurantId),
-        user: getUserByFbId(userId)
+        user: FacebookApi.getUserByFbId(userId)
       })
         .then(function (fetched) {
           return getRatingByParseObject(fetched.restaurant, fetched.user);
@@ -43,16 +43,16 @@
         .fail($q.reject);
     }
 
-    function getUserByFbId(fbId) {
-      var query = new Parse.Query(Parse.User);
-      return query.equalTo('fbId', fbId).first()
-        .then(function (user) {
-          return user ? $q.when(user) : $q.reject({message: 'User not found'});
-        })
-        .fail($q.reject);
-    }
+    //function getUserByFbId(fbId) {
+    //  var query = new Parse.Query(Parse.User);
+    //  return query.equalTo('fbId', fbId).first()
+    //    .then(function (user) {
+    //      return user ? $q.when(user) : $q.reject({message: 'User not found'});
+    //    })
+    //    .fail($q.reject);
+    //}
   };
 
   angular.module('kiwii')
-    .factory('Ratings', ['$q', 'ParseObject', 'FoursquareApi', Ratings]);
+    .factory('Ratings', ['$q', 'ParseObject', 'FoursquareApi', 'FacebookApi', Ratings]);
 })();

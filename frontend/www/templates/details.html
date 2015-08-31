@@ -134,7 +134,7 @@
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
             <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">
               <div class="item item-image">
-                <img ng-src="{{ image.photo.url }}"/>
+                <img ng-src="{{ image.photo._url || image.photo.url }}"/>
               </div>
               <div ng-if="image.description" class="item item-body">
                 <p>
@@ -142,8 +142,8 @@
                 </p>
 
                 <p>
-                  <a href="" class="subdued">{{ image.likes }} Likes</a>
-                  <a href="" class="subdued">{{ image.commentsCount }} Comments</a>
+                  <a href="" class="subdued">{{ image.likes || 0 }} Likes</a>
+                  <a href="" class="subdued">{{ image.commentsCount || 0}} Comments</a>
                 </p>
               </div>
             </div>
