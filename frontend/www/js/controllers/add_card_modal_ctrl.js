@@ -5,16 +5,21 @@
     fetchCurrentLocation();
     $scope.userPhotos = [];
     if (parameters) {
-      $scope.userPhotos = parameters.images;
+      $scope.userPhotos = parameters.images || [];
+      $scope.taggedRestaurant = parameters.taggedRestaurant;
     }
 
     $scope.postPhoto = function () {
       showLoading();
 
+      _.forEach($scope.userPhotos, function (userPhoto) {
+        userPhoto['foursquareId'] = $scope.taggedRestaurant.foursquareId;
+      });
+
       Cards.createCard({
           userPhotos: $scope.userPhotos,
           author: Parse.User.current(),
-          taggedRestaurant: $scope.userPhotos[0].foursquareId
+          taggedRestaurant: $scope.taggedRestaurant.foursquareId
         }
       )
         .then(function () {
@@ -77,8 +82,7 @@
     };
 
     $scope.restaurantsClicked = function (callback) {
-      $scope.userPhotos[0]['foursquareId'] = callback.item.foursquareId;
-      console.log($scope.userPhotos);
+      $scope.taggedRestaurant = callback.item;
     };
 
     function showLoading() {
