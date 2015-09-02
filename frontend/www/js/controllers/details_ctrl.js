@@ -1,140 +1,158 @@
 (function () {
-    var DetailsCtrl = function($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, RestaurantPreference, RestaurantDetails, Lists) {
+  var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
+                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService) {
 
-        var restaurantPreference = null;
-        
-        getRestaurantInfo();
+    var restaurantPreference = null;
 
-        var userLists = Parse.User.current().relation('lists');
-        userLists.query().find()
-          .then(function (lists) {
-            $scope.userLists = lists;
-            console.log($scope.userLists);
-            $scope.$digest();
-          });
+    getRestaurantInfo();
 
-        $ionicModal.fromTemplateUrl('templates/add_to_list_popup.html', {
-          scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function (modal) {
-          $scope.modal = modal;
-        });
+    var userLists = Parse.User.current().relation('lists');
+    userLists.query().find()
+      .then(function (lists) {
+        $scope.userLists = lists;
+        console.log($scope.userLists);
+        $scope.$digest();
+      });
 
-        $scope.doRefresh = function() {
-          getRestaurantInfo();
-          //Stop the ion-refresher from spinning
-          $scope.$broadcast('scroll.refreshComplete');
-        };
-
-        $scope.openModal = function () {
-          $scope.modal.show();
-        };
-
-        $scope.closeModal = function () {
-          $scope.modal.hide();
-        };
-
-        $scope.$on('$destroy', function () {
-          $scope.modal.remove();
-        });
-
-        $scope.openWebsite = function (link) {
-          var options = {
-            location: 'yes',
-            clearcache: 'yes',
-            toolbar: 'yes'
-            // toolbarposition: 'top'
-          };
-
-          // to change window to $cordovaInAppBrowser to get options
-          // but it will break
-          $cordovaInAppBrowser.open(link, '_blank', options);
-        };
-
-        $scope.addToList = function () {
-          $scope.openModal();
-        };
-
-        $scope.saveToList = function (list) {
-          if (list == 'saveForLater') {
-            restaurantPreference.set(!$scope.isFavourite)
-              .then(function () {
-                $scope.isFavourite = !$scope.isFavourite;
-                if ($scope.isFavourite) {
-                  $scope.closeModal();
-                  createPopover();
-                }
-              });
-          } else {
-            Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-              .then(function () {
-                $scope.closeModal();
-                createPopover();
-              });
-          }
-        };
-
-        $scope.quickOrder = [
-          {
-            name: 'Coffee',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }, {
-            name: 'Tea',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }, {
-            name: 'Something very yummy',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }, {
-            name: 'Expresso',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }, {
-            name: 'Shitty chinese food',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }, {
-            name: 'Pasta fetticine',
-            photo: 'http://placehold.it/100x100?text=Kiwii'
-          }
-        ];
-
-        console.log($scope.quickOrder);
-
-        function getRestaurantInfo() {
-            RestaurantDetails.fetchVenue($stateParams.venueId).then(
-                function (result) {
-                    $scope.detailsAttributes = [];
-                    var detailsAttributes = result.details.attributes.groups;
-                    angular.forEach(detailsAttributes, function (attribute, key) {
-                        angular.forEach(attribute.items, function (value, key) {
-                            $scope.detailsAttributes.push({
-                                'name': value.displayName,
-                                'value': value.displayValue
-                            });
-                        });
-                    });
-
-                    $scope.restaurantDetails = result.details;
-                    $scope.instagramImages = result.images;
-                    $scope.restaurantReviews = result.reviews;
-                }
-            ).then(function () {
-                    restaurantPreference = new RestaurantPreference(Parse.User.current(), $stateParams.venueId);
-                    return restaurantPreference.isFavourite();
-                }
-            ).then(function (isFavouriteRestaurant) {
-                    $scope.isFavourite = isFavouriteRestaurant;
-                });
-        }
-
-        function createPopover() {
-          $ionicLoading.show({
-            templateUrl: 'templates/favourites_popup.html',
-            hideOnStateChange: true,
-            noBackdrop: true,
-            duration: 2500
-          });
-        }
+    $scope.doRefresh = function () {
+      getRestaurantInfo();
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     };
 
-    angular.module('kiwii').
-        controller('DetailsCtrl', DetailsCtrl);
+    $scope.$on('$destroy', function () {
+      $scope.modal.remove();
+    });
+
+    $scope.openAddCardModal = function () {
+      AppModalService.show('templates/edit_image_popup.html', 'AddCardModalCtrl', {
+        // TODO: Pass in a Parse.Object('Restaurant') instead after RestaurantDetails becomes a Parse object
+        taggedRestaurant : {
+          foursquareId : $scope.restaurantDetails.id,
+          name: $scope.restaurantDetails.name
+        }
+      });
+    };
+
+    $scope.openRatingModal = function () {
+      RestaurantRatingPopup.askForRating($scope.restaurantDetails.id, Parse.User.current().get('fbId'));
+    };
+
+    $scope.openWebsite = function (link) {
+      var options = {
+        location: 'yes',
+        clearcache: 'yes',
+        toolbar: 'yes'
+        // toolbarposition: 'top'
+      };
+
+      // to change window to $cordovaInAppBrowser to get options
+      // but it will break
+      $cordovaInAppBrowser.open(link, '_blank', options);
+    };
+
+    $scope.addToList = function () {
+      openAddToListModal()
+        .then(function (modal) {
+          modal.show();
+        })
+    };
+
+    $scope.saveToList = function (list) {
+      if (list == 'saveForLater') {
+        restaurantPreference.set(!$scope.isFavourite)
+          .then(function () {
+            $scope.isFavourite = !$scope.isFavourite;
+            if ($scope.isFavourite) {
+              $scope.modal.hide();
+              createPopover();
+            }
+          });
+      } else {
+        Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
+          .then(function () {
+            $scope.modal.hide();
+            createPopover();
+          });
+      }
+    };
+
+    //$scope.quickOrder = [
+    //  {
+    //    name: 'Coffee',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }, {
+    //    name: 'Tea',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }, {
+    //    name: 'Something very yummy',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }, {
+    //    name: 'Expresso',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }, {
+    //    name: 'Shitty chinese food',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }, {
+    //    name: 'Pasta fetticine',
+    //    photo: 'http://placehold.it/100x100?text=Kiwii'
+    //  }
+    //];
+    //
+    //console.log($scope.quickOrder);
+
+    function getRestaurantInfo() {
+      RestaurantDetails.fetchVenue($stateParams.venueId).then(
+        function (result) {
+          $scope.detailsAttributes = [];
+          var detailsAttributes = result.details.attributes.groups;
+          angular.forEach(detailsAttributes, function (attribute, key) {
+            angular.forEach(attribute.items, function (value, key) {
+              $scope.detailsAttributes.push({
+                'name': value.displayName,
+                'value': value.displayValue
+              });
+            });
+          });
+
+          $scope.restaurantDetails = result.details;
+          $scope.instagramImages = result.images;
+          $scope.restaurantReviews = result.reviews;
+        }
+      ).then(function () {
+          restaurantPreference = new RestaurantPreference(Parse.User.current(), $stateParams.venueId);
+          return restaurantPreference.isFavourite();
+        }
+      ).then(function (isFavouriteRestaurant) {
+          $scope.isFavourite = isFavouriteRestaurant;
+        });
+    }
+
+    function openAddToListModal() {
+      if ($scope.modal) {
+        return $q.when($scope.modal);
+      } else {
+        return $ionicModal.fromTemplateUrl('templates/add_to_list_popup.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        })
+          .then(function (modal) {
+            $scope.modal = modal;
+            return modal;
+          });
+      }
+    }
+
+    function createPopover() {
+      $ionicLoading.show({
+        templateUrl: 'templates/favourites_popup.html',
+        hideOnStateChange: true,
+        noBackdrop: true,
+        duration: 2500
+      });
+    }
+  };
+
+  angular.module('kiwii').
+    controller('DetailsCtrl', DetailsCtrl);
 })();

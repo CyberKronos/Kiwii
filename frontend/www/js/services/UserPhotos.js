@@ -1,8 +1,9 @@
 (function () {
-  var UserPhotos = function ($q, FoursquareApi) {
+  var UserPhotos = function ($q, ParseObject, FoursquareApi, FacebookApi, InstagramApi) {
 
     var USER_PHOTOS_CLASS = 'UserPhotos';
     var UPLOADED_PHOTOS_ATTRIBUTE = 'uploadedPhotos';
+    var USER_PHOTOS_KEYS = ['actor', 'description', 'photo', 'restaurant'];
 
     function saveImage(file) {
       var base64pic = file['imageData'];
@@ -61,11 +62,23 @@
         })
         .fail(function (error) {
           return $q.reject('Error adding photo to user profile: ' + error.message);
-        })
+        });
     }
 
-    /* Public Interface */
-    return {
+    function getUserPhotosByParseObject(filter) {
+      var query = new Parse.Query(USER_PHOTOS_CLASS);
+      if (filter.restaurant) {
+        query.equalTo('restaurant', filter.restaurant);
+      }
+      if (filter.user) {
+        query.equalTo('actor', filter.user);
+      }
+      return query
+        .descending('createdAt')
+        .find();
+    }
+
+    var UserPhotos = ParseObject.extend(USER_PHOTOS_CLASS, USER_PHOTOS_KEYS, {}, {
       /**
        * Saves a user photo
        * @param file {Object} with the following attributes:
@@ -77,13 +90,39 @@
       savePhoto: function (file) {
         return saveImage(file)
           .then(saveUserPhoto)
-          .then(linkPhotoToCurrentUser)
-          .then(function (userPhoto) {
-            console.log('The photo has been saved to Parse');
-            return userPhoto;
+          .then(linkPhotoToCurrentUser);
+      },
+      /**
+       * Gets user photos based on a query.
+       * @param options {Object} may have the following attributes:
+       *  restaurantId - foursquareId of a restaurant
+       *  userId - the Facebook ID of a user
+       *  withExternalSource - currently only allows 'instagram', restaurantId
+       *    should be included if this is used
+       * @returns {Promise} - the promise that returns an array of UserPhotos
+       */
+      getPhotos: function (options) {
+        var filterQ = {
+          restaurant: !_.has(options, 'restaurantId') ? $q.when()
+            : FoursquareApi.getRestaurantById(options['restaurantId']),
+          user: !_.has(options, 'userId') ? $q.when()
+            : FacebookApi.getUserByFbId(options['userId'])
+        };
+        var photosQ = $q.all(filterQ)
+          .then(getUserPhotosByParseObject);
+
+        if (options['withExternalSource'] === 'instagram' && options['restaurantId']) {
+          photosQ = $q.all([photosQ, InstagramApi.getLocationImages(options['restaurantId'])])
+            .then(_.flatten);
+        }
+        return photosQ.
+          catch(function () {
+            return {message: 'Unable to fetch photos.'};
           });
       }
-    };
+    });
+
+    return UserPhotos;
   };
 
   angular.module('kiwii')

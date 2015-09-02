@@ -1,7 +1,6 @@
 'use strict';
 
 var ASYNC_TIMEOUT = 10000;
-var SCOPE_DIGEST_CYCLE_RATE = 100;
 
 describe('Service: Cards', function () {
 
@@ -70,7 +69,7 @@ describe('Service: Cards', function () {
       .then(done);
 
     // force Angular to update scope to get promises resolved
-    setInterval(rootScope.$digest, SCOPE_DIGEST_CYCLE_RATE);
+    kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
 
   afterEach(function (done) {
@@ -92,7 +91,7 @@ describe('Service: Cards', function () {
       .then(done);
 
     // force Angular to update scope to get promises resolved
-    setInterval(rootScope.$digest, SCOPE_DIGEST_CYCLE_RATE);
+    kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
 
   it('createCard() returns the card created with an objectId', function (done) {
@@ -111,8 +110,12 @@ describe('Service: Cards', function () {
       .finally(done);
 
     // force Angular to update scope to get promises resolved
-    setInterval(rootScope.$digest, SCOPE_DIGEST_CYCLE_RATE);
+    kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
+
+  it('should exist', function () {
+    expect(Cards).toBeDefined();
+  });
 
   it('getCardById() can get an existing card', function (done) {
     var createdCard;
@@ -137,7 +140,7 @@ describe('Service: Cards', function () {
       .finally(done);
 
     // force Angular to update scope to get promises resolved
-    setInterval(rootScope.$digest, SCOPE_DIGEST_CYCLE_RATE);
+    kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
 
   function failTest(error) {

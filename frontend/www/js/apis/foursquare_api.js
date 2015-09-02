@@ -42,12 +42,8 @@
       var restaurantQuery = new Parse.Query(Restaurants)
         .equalTo(RESTAURANT_ID_COLUMN, restaurantId);
 
-      console.log('getRestaurantById');
-      console.log(restaurantId);
-
       return restaurantQuery.first()
         .then(function (restaurant) {
-          console.log(restaurant);
           return restaurant ? $q.when(restaurant)
             : $q.reject({message: 'Restaurant not Found'});
         })

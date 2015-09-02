@@ -1,18 +1,25 @@
 (function () {
-  var AddCardModalCtrl = function ($scope, $state, $ionicLoading, $ionicPopup,
-                                   parameters, Cards, RestaurantExplorer, LocationService) {
+  var AddCardModalCtrl = function ($scope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet,
+                                   parameters, Cards, CameraService, RestaurantExplorer, LocationService) {
 
     fetchCurrentLocation();
-
-    $scope.imagePost = parameters.images;
+    $scope.userPhotos = [];
+    if (parameters) {
+      $scope.userPhotos = parameters.images || [];
+      $scope.taggedRestaurant = parameters.taggedRestaurant;
+    }
 
     $scope.postPhoto = function () {
       showLoading();
 
+      _.forEach($scope.userPhotos, function (userPhoto) {
+        userPhoto['foursquareId'] = $scope.taggedRestaurant.foursquareId;
+      });
+
       Cards.createCard({
-          userPhotos: parameters.images,
+          userPhotos: $scope.userPhotos,
           author: Parse.User.current(),
-          taggedRestaurant: parameters.images[0].foursquareId
+          taggedRestaurant: $scope.taggedRestaurant.foursquareId
         }
       )
         .then(function () {
@@ -36,6 +43,27 @@
         .finally(hideLoading);
     };
 
+    $scope.openAddPhotoActionSheet = function () {
+      // Show the action sheet
+      $ionicActionSheet.show({
+        buttons: [
+          {text: 'Photo Library', actionType: CameraService.PictureSourceType.PHOTOLIBRARY},
+          {text: 'Take Photo', actionType: CameraService.PictureSourceType.CAMERA}
+        ],
+        titleText: 'Add a photo',
+        cancelText: 'Cancel',
+        buttonClicked: function (index, button) {
+          CameraService.getPicture(button.actionType)
+            .then(function (imageData) {
+              $scope.userPhotos.push({
+                imageData : 'data:image/jpeg;base64,' + imageData
+              })
+            });
+          return true;
+        }
+      });
+    };
+
     $scope.getRestaurants = function (query) {
       if (!query) {
         return {};
@@ -54,8 +82,7 @@
     };
 
     $scope.restaurantsClicked = function (callback) {
-      $scope.imagePost[0]['foursquareId'] = callback.item.foursquareId;
-      console.log($scope.imagePost);
+      $scope.taggedRestaurant = callback.item;
     };
 
     function showLoading() {

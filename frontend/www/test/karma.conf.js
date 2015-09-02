@@ -39,11 +39,13 @@ module.exports = function(config) {
       'lib/ion-slide-box-tabs/src/js/slidingTabsDirective.js',
       'lib/cordova-exif/cordova-exif.js',
       'lib/exif-js/exif.js',
+      'lib/ng-material-floating-button/src/mfb-directive.js',
 
       'js/app.js',
       'js/*.js',
       'js/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      'test/*.js'
     ],
 
     // list of files to exclude
