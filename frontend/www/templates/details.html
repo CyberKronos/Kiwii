@@ -10,7 +10,9 @@
     <nav mfb-menu position="br" effect="zoomin" label="Actions"
          active-icon="ion-plus-round" resting-icon="ion-plus-round"
          toggling-method="click">
-      <button mfb-button icon="ion-ios-list" label="Add Card"
+      <button mfb-button icon="ion-ios-list" label="Add to List"
+              ng-click="addToList()"></button>
+      <button mfb-button icon="ion-android-list" label="Add Card"
               ng-click="openAddCardModal()"></button>
       <button mfb-button icon="ion-star" label="Rate"
               ng-click="openRatingModal()"></button>
@@ -25,9 +27,6 @@
               <div class="inner-container">
                 <div class="padding-fix">
                   <div class="title">{{ restaurantDetails.name }}</div>
-                  <a class="button button-icon button-clear icon-white ion-plus favourite-icon"
-                     ng-click="addToList()">
-                  </a>
                 </div>
                 <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
                 <div class="subtext" ng-if="restaurantDetails.price.tier">Price:

@@ -1,8 +1,5 @@
 <ion-view view-title="{{ currentUser.handle || 'Profile' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
-    <ion-nav-buttons side="left" style="top:none; bottom: none;">
-      <button class="button button-clear icon-white ion-plus-round" ng-click="createList()" style="font-size: 28px;"></button>
-    </ion-nav-buttons>
     <ion-nav-buttons side="right" style="top:none; bottom: none;">
       <button class="button button-clear icon-white" ng-click="logOut()">
         Sign out
@@ -11,6 +8,13 @@
   </ion-nav-bar>
 
   <ion-content has-bouncing="false" ng-controller="ProfileCtrl">
+
+    <nav mfb-menu position="br" effect="zoomin" label="Actions"
+         active-icon="ion-plus-round" resting-icon="ion-plus-round"
+         toggling-method="click">
+      <button mfb-button icon="ion-ios-list" label="Add to List"
+              ng-click="createList()"></button>
+    </nav>
 
     <ion-tabs class="tabs-light">
 
@@ -32,9 +36,6 @@
                 <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
                 <p class="text-light-grey">www.website.com</p>
               </div>
-              <!-- <div class="col col-10 text-right">
-                <i class="icon ion-social-instagram-outline connect-ig"></i>
-              </div> -->
             </div>
             <div class="row" style="padding: 0 10px 10px 10px;">
               <div class="col col-100 text-light-grey">
