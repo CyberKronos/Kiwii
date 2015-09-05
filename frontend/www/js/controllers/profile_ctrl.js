@@ -1,5 +1,5 @@
 (function() {
-    var ProfileCtrl = function($scope, $rootScope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, ALL_CUISINE_TYPES) {
+    var ProfileCtrl = function($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading, RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, ALL_CUISINE_TYPES) {
 
         getUserPhotos();
         getUserLists();

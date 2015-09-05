@@ -25,7 +25,13 @@
     });
 
     $scope.openAddCardModal = function () {
-      AppModalService.show('templates/edit_image_popup.html', 'AddCardModalCtrl');
+      AppModalService.show('templates/edit_image_popup.html', 'AddCardModalCtrl', {
+        // TODO: Pass in a Parse.Object('Restaurant') instead after RestaurantDetails becomes a Parse object
+        taggedRestaurant : {
+          foursquareId : $scope.restaurantDetails.id,
+          name: $scope.restaurantDetails.name
+        }
+      });
     };
 
     $scope.openRatingModal = function () {

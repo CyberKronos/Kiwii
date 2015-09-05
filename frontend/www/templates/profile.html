@@ -9,6 +9,13 @@
 
   <ion-content has-bouncing="false" ng-controller="ProfileCtrl">
 
+    <nav mfb-menu position="br" effect="zoomin" label="Actions"
+         active-icon="ion-plus-round" resting-icon="ion-plus-round"
+         toggling-method="click">
+      <button mfb-button icon="ion-ios-list" label="Add to List"
+              ng-click="createList()"></button>
+    </nav>
+
     <ion-tabs class="tabs-light">
 
       <ion-tab title="Lists">
@@ -16,49 +23,54 @@
 
           <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-          <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
-            <div class="row" style="padding: 0 10px;">
+            <div class="row" style="padding: 10px 10px 0 10px;">
               <div class="col col-25">
                 <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
               </div>
               <div class="col col-65">
-                <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
-                <p ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
+                <p class="title text-strong-grey">
+                  <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
+                  <i class="icon ion-checkmark-circled positive"></i>
+                </p>
+                <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
+                <p class="text-light-grey">www.website.com</p>
               </div>
-              <!-- <div class="col col-10 text-right">
-                <i class="icon ion-social-instagram-outline connect-ig"></i>
-              </div> -->
             </div>
-            <div class="row" style="padding: 0 12px;">
+            <div class="row" style="padding: 0 10px 10px 10px;">
+              <div class="col col-100 text-light-grey">
+                 Kiwii Co-founder
+              </div>
+            </div>
+            <div class="row" style="padding: 0 12px; border-bottom: #CCCCCC 2px solid; border-top: #CCCCCC 2px solid;">
               <div class="col col-25">
-                <div class="title"><strong>{{ userListCount || '0'}}</strong></div>
-                <div>Lists</div>
+                <div class="title text-strong-grey"><strong>{{ userListCount || '0'}}</strong></div>
+                <div class="text-light-grey">Lists</div>
               </div>
               <div class="col col-25">
-                <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
-                <div>Cards</div>
+                <div class="title text-strong-grey"><strong>{{ photoCount || '0'}}</strong></div>
+                <div class="text-light-grey">Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
-                <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
-                <div>Followers</div>
+                <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
+                <div class="text-light-grey">Followers</div>
               </div>
               <div class="col col-25" ui-sref="tab.following">
-                <div class="title"><strong>{{ followingCount || '0'}}</strong></div>
-                <div>Following</div>
+                <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
+                <div class="text-light-grey">Following</div>
               </div>
             </div>
           </div>
 
           <div class="list list-inset" 
                style="margin-top: 0px;">
-            <div class="list card" 
+            <!-- <div class="list card" 
                  style="margin-left: 2px; margin-right: 2px;">
               <a class="item item-icon-right" ng-click="createList()">
                 <i class="icon ion-plus-circled text-orange"></i>
                 <p id="restaurant-name"><strong>Create a list</strong></p>
               </a>
-            </div>
+            </div> -->
             <!-- Keep save for later list static -->
             <div class="list card"
                  style="margin-left: 2px; margin-right: 2px;">
@@ -96,36 +108,44 @@
 
           <ion-refresher on-refresh="doRefresh()"></ion-refresher>
           
-          <div class="profile-background blur-image" darken back-img="{{currentUser.fbPicture || 'img/userBackground_placeholder.jpg'}}"> </div>
           <div class="profile-top-container">
-            <div class="row" style="padding: 0 10px;">
+            <div class="row" style="padding: 10px 10px 0 10px;">
               <div class="col col-25">
                 <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
               </div>
               <div class="col col-65">
-                <p class="title">{{ currentUser.firstname }} {{ currentUser.lastname }}</p>
-                <p>@alxdrnguyen</p>
+                <p class="title text-strong-grey">
+                  <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
+                  <i class="icon ion-checkmark-circled positive"></i>
+                </p>
+                <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
+                <p class="text-light-grey">www.website.com</p>
               </div>
               <!-- <div class="col col-10 text-right">
                 <i class="icon ion-social-instagram-outline connect-ig"></i>
               </div> -->
             </div>
-            <div class="row" style="padding: 0 12px;">
+            <div class="row" style="padding: 0 10px 10px 10px;">
+              <div class="col col-100 text-light-grey">
+                 Kiwii Co-founder
+              </div>
+            </div>
+            <div class="row" style="padding: 0 12px; border-bottom: #CCCCCC 2px solid; border-top: #CCCCCC 2px solid;">
               <div class="col col-25">
-                <div class="title"><strong>{{ userListCount || '0'}}</strong></div>
-                <div>Lists</div>
+                <div class="title text-strong-grey"><strong>{{ userListCount || '0'}}</strong></div>
+                <div class="text-light-grey">Lists</div>
               </div>
               <div class="col col-25">
-                <div class="title"><strong>{{ photoCount || '0'}}</strong></div>
-                <div>Cards</div>
+                <div class="title text-strong-grey"><strong>{{ photoCount || '0'}}</strong></div>
+                <div class="text-light-grey">Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
-                <div class="title"><strong>{{ followerCount || '0'}}</strong></div>
-                <div>Followers</div>
+                <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
+                <div class="text-light-grey">Followers</div>
               </div>
               <div class="col col-25" ui-sref="tab.following">
-                <div class="title"><strong>{{ followingCount || '0'}}</strong></div>
-                <div>Following</div>
+                <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
+                <div class="text-light-grey">Following</div>
               </div>
             </div>
           </div>

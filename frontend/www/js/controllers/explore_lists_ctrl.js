@@ -1,6 +1,8 @@
 (function () {
   var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
 
+    $scope.showLoading = true;
+
     getNewsFeed();
 
     $scope.doRefresh = function () {
@@ -84,6 +86,7 @@
         });
         $scope.newsFeed = response.activities;
         console.log($scope.newsFeed);
+        $scope.showLoading = false;
       });
     }
 

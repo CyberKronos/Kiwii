@@ -19,7 +19,7 @@
       Cards.createCard({
           userPhotos: $scope.userPhotos,
           author: Parse.User.current(),
-          taggedRestaurant: $scope.userPhotos[0].foursquareId
+          taggedRestaurant: $scope.taggedRestaurant.foursquareId
         }
       )
         .then(function () {
@@ -83,7 +83,6 @@
 
     $scope.restaurantsClicked = function (callback) {
       $scope.taggedRestaurant = callback.item;
-      console.log($scope.taggedRestaurant);
     };
 
     function showLoading() {
