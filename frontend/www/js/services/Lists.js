@@ -1,22 +1,7 @@
 (function () {
-  var Lists = function () {
-    var RESTAURANTS_CLASS = 'Restaurants';
-    var RESTAURANT_ID_COLUMN = 'foursquareId';
-
+  var Lists = function (FoursquareApi) {
     var LISTS_CLASS = 'Lists';
     var LISTS_ATTRIBUTE = 'lists';
-
-    var getRestaurant = function (foursquareId) {
-      var Restaurants = Parse.Object.extend(RESTAURANTS_CLASS);
-      var restaurantQuery = new Parse.Query(Restaurants)
-        .equalTo(RESTAURANT_ID_COLUMN, foursquareId);
-
-      return restaurantQuery.find()
-        .then(function (results) {
-          console.log(results);
-          return results[0];
-        });
-    };
 
     var getList = function (listData) {
       var List = Parse.Object.extend(LISTS_CLASS);
@@ -29,15 +14,24 @@
         });
     };
 
-    var getRestaurantsInList = function(list) {
-      var relation = list.relation("restaurants");
+    var getRestaurantsInList = function (list) {
+      var relation = list.relation('restaurants');
       var query = relation.query();
-      return query.find()
-        .then(function (results) {
-          console.log(results[0]);
-          return results[0];
+      return query.find();
+    };
+
+    var updateThumbnailUrl = function (list) {
+      return getRestaurantsInList(list)
+        .then(function (restaurants) {
+          if (restaurants.length > 0) {
+            var firstRestaurantImage = restaurants[0].get('imageUrl');
+            list.set('thumbnailUrl', firstRestaurantImage);
+          } else {
+            list.set('thumbnailUrl', undefined);
+          }
+          return list;
         });
-    };  
+    };
 
     /* Public Interface */
     return {
@@ -61,29 +55,29 @@
           .then(function () {
             var saveListRelation = Parse.User.current().relation(LISTS_ATTRIBUTE);
             saveListRelation.add(saveList);
-            
+
             return Parse.User.current().save();
           });
       },
-      editList: function(listData) {
+      editList: function (listData) {
         return getList(listData)
           .then(function (list) {
             list.set("name", listData.name);
             list.set("description", listData.description);
             list.set("category", listData.category);
-            
+
             return list.save();
           });
       },
-      removeList: function(listData) {
+      removeList: function (listData) {
         return getList(listData)
           .then(function (list) {
             return list.destroy();
           });
       },
-      saveRestaurantListRelation: function(list, foursquarePlaceId) {
+      saveRestaurantListRelation: function (list, foursquarePlaceId) {
         var restaurantListRelation = list.relation('restaurants');
-        return getRestaurant(foursquarePlaceId)
+        return FoursquareApi.getRestaurantById(foursquarePlaceId)
           .then(function (restaurant) {
             console.log(restaurant);
             restaurantListRelation.add(restaurant);
@@ -98,18 +92,15 @@
             }).then(function (response) {
               console.log(response);
             });
-
-            return list.save().then(function() {
-              // Save latest saved restaurant thumbnail to list
-              list.set("thumbnailUrl", restaurant.attributes.imageUrl);
-
-              return list.save();
-            });
-          });
+            return list;
+          })
+          .then(_.method('save'))
+          .then(updateThumbnailUrl)
+          .then(_.method('save'));
       },
-      removeRestaurantListRelation: function(list, foursquarePlaceId) {
+      removeRestaurantListRelation: function (list, foursquarePlaceId) {
         var restaurantListRelation = list.relation('restaurants');
-        return getRestaurant(foursquarePlaceId)
+        return FoursquareApi.getRestaurantById(foursquarePlaceId)
           .then(function (restaurant) {
             console.log(restaurant);
             restaurantListRelation.remove(restaurant);
@@ -121,22 +112,12 @@
             }).then(function (response) {
               console.log(response);
             });
-              
-            return list.save()
-              .then(function(){
-                // update restaurant thumbnail on list
-                getRestaurantsInList(list)
-                  .then(function(data) {
-                    if (data == undefined) {
-                      list.unset("thumbnailUrl");
-                    } else {
-                      list.set("thumbnailUrl", data.attributes.imageUrl); 
-                    }
 
-                    return list.save();
-                  });
-              });
-          });
+            return list;
+          })
+          .then(_.method('save'))
+          .then(updateThumbnailUrl)
+          .then(_.method('save'));
       }
     };
   };
