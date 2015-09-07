@@ -12,7 +12,7 @@
     <nav mfb-menu position="br" effect="zoomin" label="Actions"
          active-icon="ion-plus-round" resting-icon="ion-plus-round"
          toggling-method="click">
-      <button mfb-button icon="ion-ios-list" label="Add to List"
+      <button mfb-button icon="ion-ios-list" label="Create List"
               ng-click="createList()"></button>
     </nav>
 
@@ -31,7 +31,7 @@
               <div class="col col-65">
                 <p class="title text-strong-grey">
                   <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
-                  <i class="icon ion-checkmark-circled positive"></i>
+                  <i ng-if="currentUser.verified" class="icon ion-checkmark-circled positive"></i>
                 </p>
                 <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
                 <!-- <p class="text-light-grey">www.website.com</p> -->
@@ -116,7 +116,7 @@
               <div class="col col-65">
                 <p class="title text-strong-grey">
                   <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
-                  <i class="icon ion-checkmark-circled positive"></i>
+                  <i ng-if="currentUser.verified" class="icon ion-checkmark-circled positive"></i>
                 </p>
                 <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
                 <!-- <p class="text-light-grey">www.website.com</p> -->

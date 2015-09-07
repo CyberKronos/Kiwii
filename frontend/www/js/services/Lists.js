@@ -37,7 +37,21 @@
           console.log(results[0]);
           return results[0];
         });
-    };  
+    }; 
+
+    var checkIfRestaurantInList = function(list, foursquareId) {
+      var relation = list.relation("restaurants");
+      var query = relation.query();
+      query.equalTo("foursquareId", foursquareId);
+      return query.find()
+        .then(function (results) {
+          console.log(results[0]);
+          return results[0];
+        }, function(error) {
+          console.log(error);
+          return error;
+        });
+    };
 
     /* Public Interface */
     return {
@@ -83,28 +97,35 @@
       },
       saveRestaurantListRelation: function(list, foursquarePlaceId) {
         var restaurantListRelation = list.relation('restaurants');
-        return getRestaurant(foursquarePlaceId)
-          .then(function (restaurant) {
-            console.log(restaurant);
-            restaurantListRelation.add(restaurant);
+        return checkIfRestaurantInList(list, foursquarePlaceId)
+          .then(function (result) {
+            if (result == undefined) {
+              return getRestaurant(foursquarePlaceId)
+                .then(function (restaurant) {
+                  console.log(restaurant);
+                  restaurantListRelation.add(restaurant);
 
-            var currentUser = Parse.User.current();
-            Parse.Cloud.run('addRestaurantToListActivity', {
-              feed: 'user:' + currentUser.id,
-              actor: 'ref:' + currentUser.className + ':' + currentUser.id,
-              object: 'ref:' + restaurant.className + ':' + restaurant.id,
-              foreign_id: restaurant.id + list.id,
-              target: 'ref:' + list.className + ':' + list.id
-            }).then(function (response) {
-              console.log(response);
-            });
+                  var currentUser = Parse.User.current();
+                  Parse.Cloud.run('addRestaurantToListActivity', {
+                    feed: 'user:' + currentUser.id,
+                    actor: 'ref:' + currentUser.className + ':' + currentUser.id,
+                    object: 'ref:' + restaurant.className + ':' + restaurant.id,
+                    foreign_id: restaurant.id + list.id,
+                    target: 'ref:' + list.className + ':' + list.id
+                  }).then(function (response) {
+                    console.log(response);
+                  });
 
-            return list.save().then(function() {
-              // Save latest saved restaurant thumbnail to list
-              list.set("thumbnailUrl", restaurant.attributes.imageUrl);
+                  return list.save().then(function() {
+                    // Save latest saved restaurant thumbnail to list
+                    list.set("thumbnailUrl", restaurant.attributes.imageUrl);
 
-              return list.save();
-            });
+                    return list.save();
+                  });
+                });
+            } else {
+              return 'Restaurant is already in list';
+            }
           });
       },
       removeRestaurantListRelation: function(list, foursquarePlaceId) {

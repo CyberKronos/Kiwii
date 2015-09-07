@@ -20,14 +20,14 @@
         </div>
         <a class="item item-thumbnail-left"
            ng-click="saveToList('saveForLater')">
-          <!-- <img src="cover.jpg"> -->
+          <img ng-src="{{ 'http://placehold.it/95x95?text=Kiwii' }}">
           <p id="restaurant-name"><strong>Save for Later</strong></p>
           <p id="restaurant-category">All cuisines</p>
         </a>
         <a class="item item-thumbnail-left" 
            ng-repeat="userList in userLists"
            ng-click="saveToList(userList)">
-          <!-- <img src="cover.jpg"> -->
+          <img ng-src="{{ userList.attributes.thumbnailUrl || 'http://placehold.it/95x95?text=Kiwii' }}">
           <p id="restaurant-name"><strong>{{userList.attributes.name}}</strong></p>
           <p id="restaurant-category">{{userList.attributes.category}}</p>
         </a>

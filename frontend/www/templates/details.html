@@ -12,7 +12,7 @@
          toggling-method="click">
       <button mfb-button icon="ion-ios-list" label="Add to List"
               ng-click="addToList()"></button>
-      <button mfb-button icon="ion-android-list" label="Add Card"
+      <button mfb-button icon="ion-android-list" label="Create Card"
               ng-click="openAddCardModal()"></button>
       <button mfb-button icon="ion-star" label="Rate"
               ng-click="openRatingModal()"></button>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="list">
-              <div class="item item-divider" style="font-weight:normal;">
+              <!-- <div class="item item-divider" style="font-weight:normal;">
                 Quick Order
               </div>
               <div ng-repeat="item in quickOrder" style="padding:10px 9px 0 9px; float: left;" class="col col-33">
@@ -66,7 +66,7 @@
                     {{ item.name }}
                   </p>
                 </div>
-              </div>
+              </div> -->
 
               <div class="item item-divider" style="font-weight:normal; width: 100%;">
                 Address
@@ -127,7 +127,7 @@
           </div>
         </ion-scroll>
       </ion-slide>
-      <ion-slide class="slide" ion-slide-tab-label="Instagram">
+      <ion-slide class="slide" ion-slide-tab-label="IG &amp; Cards">
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
