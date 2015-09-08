@@ -5,7 +5,22 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  	<ion-content scroll="false" has-bouncing="false"> 
+  	<ion-content padding="true" scroll="true">
+		<div class="list card">
+		    <a class="item item-avatar item-button-right" href="#"
+		       ng-repeat="user in following">
+				<img ng-src="{{ user.attributes.object.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
+				<h2 style="margin-top: 10px;">{{user.attributes.object.attributes.firstname}} {{user.attributes.object.attributes.lastname}}</h2>
+				<button class="button button-small button-assertive"
+						ng-click="unfollowUser(user.attributes.object, $index)"
+						style="margin-top: 10px;">
+					Following
+				</button>
+		    </a>
+		</div>
+	</ion-content>
+
+  	<!-- <ion-content scroll="false" has-bouncing="false"> 
         <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
             <ion-slide class="slide" dynamic-height ion-slide-tab-label="People">
                 <ion-scroll class="scroll-height">
@@ -49,5 +64,5 @@
                 </ion-scroll>
             </ion-slide>
         </ion-slide-box>
-    </ion-content>
+    </ion-content> -->
 </ion-view>
