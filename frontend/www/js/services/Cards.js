@@ -1,5 +1,8 @@
 (function () {
-  var Cards = function ($q, FoursquareApi, UserPhotos) {
+  var Cards = function ($q, ParseObject, FoursquareApi, UserPhotos) {
+
+    var CARDS_CLASS = 'Cards';
+    var CARDS_KEYS = ['author', 'taggedRestaurant', 'photos'];
 
     // Private Methods
     function createUserPhotos(cardData) {
@@ -15,12 +18,14 @@
         });
     }
 
-    return {
-      // Public Methods
+    var Cards = ParseObject.extend(CARDS_CLASS, CARDS_KEYS, {
+
+    }, {
+      // Static Methods
       createCard: createCard,
       getCardById: getCardById,
       getUserCards: getUserCards
-    };
+    });
 
     /**
      * Creates card and returns a JSON representation of the created Parse Object.
@@ -44,8 +49,7 @@
         })
         .then(createUserPhotos)
         .then(function (cardData) {
-          var userPhotosRelation = card.relation('userPhotos');
-          userPhotosRelation.add(cardData['userPhotos']);
+          card['photos'] = cardData['userPhotos'];
           return card.save();
         })
         .then(function (card) {
@@ -66,7 +70,11 @@
     function getCardById(cardId) {
       var query = new Parse.Query('Cards');
       var deferred = $q.defer();
-      query.get(cardId)
+      query
+        .include('photos')
+        .include('author')
+        .include('taggedRestaurant')
+        .get(cardId)
         .then(function (card) {
           return deferred.resolve(card);
         })
@@ -86,13 +94,18 @@
       var deferred = $q.defer();
       var query = new Parse.Query('Cards');
       query.equalTo('author', Parse.User.createWithoutData(userId))
+        .include('photos')
+        .include('author')
+        .include('taggedRestaurant')
         .find()
         .then(deferred.resolve)
         .fail(deferred.reject);
       return deferred.promise;
     }
+
+    return Cards;
   };
 
   angular.module('kiwii')
-    .factory('Cards', ['$q', 'FoursquareApi', 'UserPhotos', Cards]);
+    .factory('Cards', ['$q', 'ParseObject', 'FoursquareApi', 'UserPhotos', Cards]);
 })();

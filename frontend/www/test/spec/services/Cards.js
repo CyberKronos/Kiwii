@@ -74,10 +74,7 @@ describe('Service: Cards', function () {
 
   afterEach(function (done) {
     var deleteUserPhotos = _.map(createdTestCards, function (card) {
-      return card.relation('userPhotos').query().find()
-        .then(function (cards) {
-          return Parse.Object.destroyAll(cards);
-        })
+      return Parse.Object.destroyAll(card['photos']);
     });
 
     Parse.Promise.when(deleteUserPhotos)
