@@ -94,6 +94,10 @@ describe('Service: Cards', function () {
     kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
 
+  it('should exist', function () {
+    expect(Cards).toBeDefined();
+  });
+
   it('createCard() returns the card created with an objectId', function (done) {
     var testCardCreation = function (cardObject) {
       createdTestCards.push(cardObject);
@@ -113,10 +117,6 @@ describe('Service: Cards', function () {
     kiwiiTest.simulateDigestCycle(rootScope);
   }, ASYNC_TIMEOUT);
 
-  it('should exist', function () {
-    expect(Cards).toBeDefined();
-  });
-
   it('getCardById() can get an existing card', function (done) {
     var createdCard;
     var testCardCreation = function (cardObject) {
@@ -135,6 +135,38 @@ describe('Service: Cards', function () {
     Cards.createCard(mockCard)
       .then(testCardCreation)
       .then(Cards.getCardById)
+      .then(testCardRetrieval)
+      .catch(failTest)
+      .finally(done);
+
+    // force Angular to update scope to get promises resolved
+    kiwiiTest.simulateDigestCycle(rootScope);
+  }, ASYNC_TIMEOUT);
+
+
+  fit('getUserCards() can get a card created by the user', function (done) {
+    var createdCard;
+
+    var testCardCreation = function (cardObject) {
+      createdTestCards.push(cardObject);
+      expect(cardObject.id).toBeDefined();
+      createdCard = cardObject;
+      return cardObject.id;
+    };
+
+    var testCardRetrieval = function (cardObjects) {
+      console.log(cardObjects);
+      expect(cardObjects[0].id).toEqual(createdCard.id);
+      return cardObjects[0];
+    };
+
+    var testFunction = function () {
+      return Cards.getUserCards(createdTestUsers[0].id);
+    };
+
+    Cards.createCard(mockCard)
+      .then(testCardCreation)
+      .then(testFunction)
       .then(testCardRetrieval)
       .catch(failTest)
       .finally(done);
