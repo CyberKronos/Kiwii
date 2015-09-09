@@ -34,10 +34,20 @@
             return details;
           });
       },
-      getRestaurantById: getRestaurantById
+      getRestaurantById: memoizedGetRestaurantById()
     };
 
-    function getRestaurantById (restaurantId) {
+    function memoizedGetRestaurantById() {
+      var memoized = _.memoize(getRestaurantById);
+      return function (restaurantId, options) {
+        if (options && options['refresh']) {
+          memoized.cache.set(restaurantId, undefined);
+        }
+        return memoized(restaurantId);
+      }
+    }
+
+    function getRestaurantById(restaurantId) {
       var Restaurants = Parse.Object.extend(RESTAURANTS_CLASS);
       var restaurantQuery = new Parse.Query(Restaurants)
         .equalTo(RESTAURANT_ID_COLUMN, restaurantId);

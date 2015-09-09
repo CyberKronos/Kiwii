@@ -1,5 +1,8 @@
 (function () {
-  var Cards = function ($q, FoursquareApi, UserPhotos) {
+  var Cards = function ($q, ParseObject, FoursquareApi, UserPhotos) {
+
+    var CARDS_CLASS = 'Cards';
+    var CARDS_KEYS = ['author', 'taggedRestaurant', 'photos'];
 
     // Private Methods
     function createUserPhotos(cardData) {
@@ -14,11 +17,15 @@
           return Parse.Promise.error(errors);
         });
     }
-    return {
-      // Public Methods
+
+    var Cards = ParseObject.extend(CARDS_CLASS, CARDS_KEYS, {
+
+    }, {
+      // Static Methods
       createCard: createCard,
-      getCardById: getCardById
-    };
+      getCardById: getCardById,
+      getUserCards: getUserCards
+    });
 
     /**
      * Creates card and returns a JSON representation of the created Parse Object.
@@ -26,7 +33,8 @@
      *  userPhotos {Array<Object>} - list of user photo objects to be created
      *  author {Parse.User} - the user who is creating this card
      *  taggedRestaurant {String} - foursquare id of the associated restaurant of the card
-     * @returns {*}
+     * @returns {Promise} Angular promise that resolves to a new Card,
+     *  rejects with a Parse.Error object.
      */
     function createCard(cardData) {
       var deferred = $q.defer();
@@ -41,8 +49,7 @@
         })
         .then(createUserPhotos)
         .then(function (cardData) {
-          var userPhotosRelation = card.relation('userPhotos');
-          userPhotosRelation.add(cardData['userPhotos']);
+          card['photos'] = cardData['userPhotos'];
           return card.save();
         })
         .then(function (card) {
@@ -54,10 +61,20 @@
       return deferred.promise;
     }
 
+    /**
+     * Gets the a cards created by its id.
+     * @param cardId {String} the object id of the card.
+     * @returns {Promise} Angular promise that resolves to a Card,
+     *  rejects with a Parse.Error object.
+     */
     function getCardById(cardId) {
-      var CardQuery = new Parse.Query('Cards');
+      var query = new Parse.Query('Cards');
       var deferred = $q.defer();
-      CardQuery.get(cardId)
+      query
+        .include('photos')
+        .include('author')
+        .include('taggedRestaurant')
+        .get(cardId)
         .then(function (card) {
           return deferred.resolve(card);
         })
@@ -66,8 +83,29 @@
         });
       return deferred.promise;
     }
+
+    /**
+     * Gets the list of cards created by the user.
+     * @param userId {String} usually the Facebook ID of the user
+     * @returns {Promise} Angular promise that resolves to a list of Cards,
+     *  rejects with a Parse.Error object.
+     */
+    function getUserCards(userId) {
+      var deferred = $q.defer();
+      var query = new Parse.Query('Cards');
+      query.equalTo('author', Parse.User.createWithoutData(userId))
+        .include('photos')
+        .include('author')
+        .include('taggedRestaurant')
+        .find()
+        .then(deferred.resolve)
+        .fail(deferred.reject);
+      return deferred.promise;
+    }
+
+    return Cards;
   };
 
   angular.module('kiwii')
-    .factory('Cards', ['$q', 'FoursquareApi', 'UserPhotos', Cards]);
+    .factory('Cards', ['$q', 'ParseObject', 'FoursquareApi', 'UserPhotos', Cards]);
 })();

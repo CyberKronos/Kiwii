@@ -160,6 +160,9 @@
             controller: 'DetailsCtrl'
           }
         },
+        params: {
+          card: null
+        },
         data: {
           authenticate: true
         }
@@ -170,7 +173,7 @@
         views: {
           'details': {
             templateUrl: 'templates/maps.html',
-            controller: 'MapsCtrl',
+            controller: 'MapsCtrl'
           }
         },
         data: {
@@ -183,7 +186,7 @@
         views: {
           'images': {
             templateUrl: 'templates/images.html',
-            controller: 'ImagesCtrl',
+            controller: 'ImagesCtrl'
           }
         },
         data: {

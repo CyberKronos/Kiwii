@@ -7,11 +7,12 @@
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
     <ion-slide-box show-pager="false" class="dash-feature">
-      <ion-slide back-img="http://placehold.it/300x150/FA4D54/000000?text=Feature1">
+      <ion-slide back-img="http://placehold.it/300x150/FAFAFA/000000?text=Kiwii+Guides"
+                 onclick="window.open('http://www.kiwiiguides.com', '_system', 'location=yes'); return false;">
       </ion-slide>
-      <ion-slide back-img="http://placehold.it/300x150/4465F8/000000?text=Feature2">
+      <ion-slide back-img="http://placehold.it/300x150/4465F8/000000?text=Feature+2">
       </ion-slide>
-      <ion-slide back-img="http://placehold.it/300x150/33F25A/000000?text=Feature3">
+      <ion-slide back-img="http://placehold.it/300x150/33F25A/000000?text=Feature+3">
       </ion-slide>
     </ion-slide-box>
     <div class="padding-horizontal">
@@ -47,48 +48,21 @@
         </micro-card>
       </scroll-list>
 
-      <!--<h4 class="text-orange">Near You</h4>-->
-      <!--<ion-scroll class="micro-card-list"-->
-      <!--direction="x"-->
-      <!--scrollbar-x="false"-->
-      <!--horizontal-scroll-fix="dash-content"-->
-      <!--delegate-handle="nearby-restaurants-scroll">-->
-      <!--<ion-spinner class="dash-loading-list"-->
-      <!--ng-if="!nearbyRestaurants">-->
-      <!--</ion-spinner>-->
-      <!--<micro-card-->
-      <!--ng-if="nearbyRestaurants"-->
-      <!--ng-repeat="restaurant in nearbyRestaurants"-->
-      <!--ui-sref="tab.details({venueId: restaurant.foursquareId})"-->
-      <!--title="{{restaurant.name}}"-->
-      <!--subtitle="{{restaurant.category}}"-->
-      <!--image-url="{{restaurant.imageUrl}}"-->
-      <!--fallback-image-url="http://placehold.it/100x100?text=Kiwii">-->
-      <!--</micro-card>-->
-      <!--</ion-scroll>-->
-
-      <!--<h4 class="text-orange">From Your List</h4>-->
-      <!--<ion-spinner class="dash-loading-list"-->
-      <!--ng-if="!savedRestaurants">-->
-      <!--</ion-spinner>-->
-      <!--<div class="dash-list-curtain" ng-if="savedRestaurants.length <= 0">-->
-      <!--No Restaurants Found-->
-      <!--</div>-->
-      <!--<ion-scroll class="micro-card-list"-->
-      <!--direction="x"-->
-      <!--scrollbar-x="false"-->
-      <!--horizontal-scroll-fix="dash-content"-->
-      <!--delegate-handle="saved-restaurants-scroll">-->
-      <!--<micro-card-->
-      <!--ng-if="savedRestaurants"-->
-      <!--ng-repeat="restaurant in savedRestaurants"-->
-      <!--ui-sref="tab.details({venueId: restaurant.foursquareId})"-->
-      <!--title="{{restaurant.name}}"-->
-      <!--subtitle="{{restaurant.category}}"-->
-      <!--image-url="{{restaurant.imageUrl}}"-->
-      <!--fallback-image-url="http://placehold.it/100x100?text=Kiwii">-->
-      <!--</micro-card>-->
-      <!--</ion-scroll>-->
+      <h4 class="text-orange">Your Cards</h4>
+      <scroll-list
+        ng-model="userCards"
+        items-method="getUserCards"
+        scroll-delegate="user-cards-scroll"
+        parent-scroll-delegate="dash-content">
+        <micro-card
+          ng-repeat="card in userCards"
+          ui-sref="tab.details({venueId: restaurant.foursquareId, cardId: card.id})"
+          title="{{card.description}}"
+          subtitle="{{card.category}}"
+          image-url="{{card.thumbnailUrl}}"
+          fallback-image-url="http://placehold.it/100x100?text=Kiwii">
+        </micro-card>
+      </scroll-list>
 
       <button
         ui-sref="tab.search"

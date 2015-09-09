@@ -49,7 +49,7 @@
             {{ feedItem.object_parse.attributes.restaurant.name }}
           </p>
 
-          <p style="position: absolute; right: 12px; top: 16px;">{{ feedItem.convertedTime }}</p>
+          <p style="position: absolute; right: 12px; top: 16px;" am-time-ago="feedItem.time"></p>
         </div>
 
         <div ng-if="feedItem.verb == 'photo'" class="item item-image">
