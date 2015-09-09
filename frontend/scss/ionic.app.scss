@@ -15,9 +15,6 @@ $assertive:                       #ffa300 !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 
-/* ng-floating-button */
-$main-color: 					  #ffa300 !default;
-
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
@@ -37,6 +34,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // ng-material-floating-button properties
 $border-distance: 10px;
+$main-color: $assertive;
 @import "../www/lib/ng-material-floating-button/mfb/src/mfb";
 
 // Override floating button to use absolute positioning rather than fixed (viewport-based) positioning
