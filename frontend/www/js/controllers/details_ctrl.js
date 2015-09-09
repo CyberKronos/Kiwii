@@ -71,9 +71,13 @@
           });
       } else {
         Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-          .then(function () {
-            $scope.modal.hide();
-            createPopover();
+          .then(function (result) {
+            if (result == 'Restaurant is already in list') {
+              errorMsgPopover();
+            } else {
+              $scope.modal.hide();
+              createPopover();
+            }
           });
       }
     };
@@ -142,6 +146,15 @@
     function createPopover() {
       $ionicLoading.show({
         templateUrl: 'templates/favourites_popup.html',
+        hideOnStateChange: true,
+        noBackdrop: true,
+        duration: 2500
+      });
+    }
+
+    function errorMsgPopover() {
+      $ionicLoading.show({
+        templateUrl: 'templates/error_msg_list_popup.html',
         hideOnStateChange: true,
         noBackdrop: true,
         duration: 2500
