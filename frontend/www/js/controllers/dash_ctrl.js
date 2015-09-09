@@ -7,6 +7,7 @@
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         $scope.getSavedForLater = getSavedForLater;
+        $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
 
         $scope.doRefresh = function () {
           $scope.$broadcast('scrollList.refresh');
@@ -32,6 +33,17 @@
         function getSavedForLater() {
           return Parse.User.current()
             .relation('savedRestaurants')
+            .query().collection().fetch()
+            .then(_.method('toJSON'))
+            .fail(function (error) {
+              console.log(error);
+              return $q.reject($q);
+            });
+        }
+
+        function getRecentlyViewedRestaurants() {
+          return Parse.User.current()
+            .relation('selectedVenueHistory')
             .query().collection().fetch()
             .then(_.method('toJSON'))
             .fail(function (error) {
