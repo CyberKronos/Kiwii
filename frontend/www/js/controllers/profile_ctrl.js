@@ -119,6 +119,7 @@
         .then(function (userCards) {
           console.log(userCards);
           $scope.userCards = userCards;
+          $scope.userCardsCount = userCards.length;
           $scope.photos = _(userCards).pluck('photos').flatten().value();
         });
     }

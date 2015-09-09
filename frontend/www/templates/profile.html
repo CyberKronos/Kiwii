@@ -48,7 +48,7 @@
                 <div class="text-light-grey">Lists</div>
               </div>
               <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ photoCount || '0'}}</strong></div>
+                <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
                 <div class="text-light-grey">Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
@@ -136,7 +136,7 @@
                 <div class="text-light-grey">Lists</div>
               </div>
               <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ photoCount || '0'}}</strong></div>
+                <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
                 <div class="text-light-grey">Cards</div>
               </div>
               <div class="col col-25" ui-sref="tab.followers">
@@ -157,9 +157,9 @@
             <p>Start uploading cards!</p>
           </div>
 
-          <div collection-repeat="card in userCards" style="padding:2px 1px;" class="col col-25">
-            <a ng-click="openCardDetails(card)">
-              <div style="background-image:url({{card.photos[0].photo._url}});
+          <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 
+            <a ng-click="photoDetails(photo)">
+              <div style="background-image:url({{photo.attributes.photo._url}});
                           background-repeat:no-repeat;
                           background-size:contain; 
                           background-position:center;

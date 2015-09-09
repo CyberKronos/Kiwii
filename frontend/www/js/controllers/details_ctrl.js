@@ -1,12 +1,16 @@
 (function () {
-  var DetailsCtrl = function ($scope, $state, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate,
-                              $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService) {
+  var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
+                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, AnalyticsTracking) {
 
     var PHOTO_SIZE = '500x500';
     var restaurantPreference = null;
 
     getRestaurantInfo();
+
+    AnalyticsTracking.explorerSelectedVenue($stateParams.venueId)
+      .then(function (result) {
+        console.log(result);
+      });
 
     var userLists = Parse.User.current().relation('lists');
     userLists.query().find()
