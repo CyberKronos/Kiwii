@@ -2,6 +2,7 @@
   var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
                               RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService) {
 
+    var PHOTO_SIZE = '500x500';
     var restaurantPreference = null;
 
     getRestaurantInfo();
@@ -27,8 +28,8 @@
     $scope.openAddCardModal = function () {
       AppModalService.show('templates/edit_image_popup.html', 'AddCardModalCtrl', {
         // TODO: Pass in a Parse.Object('Restaurant') instead after RestaurantDetails becomes a Parse object
-        taggedRestaurant : {
-          foursquareId : $scope.restaurantDetails.id,
+        taggedRestaurant: {
+          foursquareId: $scope.restaurantDetails.id,
           name: $scope.restaurantDetails.name
         }
       });
@@ -77,7 +78,26 @@
       }
     };
 
+    $scope.getFeaturePhotoUrl = function (restaurantDetails) {
+      if (restaurantDetails && restaurantDetails.bestPhoto) {
+        return restaurantDetails.bestPhoto.prefix + PHOTO_SIZE + restaurantDetails.bestPhoto.suffix;
+      } else {
+        return null;
+      }
+    };
+
     function getRestaurantInfo() {
+      // TODO: Update cards schema so this 'conversion' is not needed
+    var card = $stateParams.card;
+      if (card) {
+        $scope.card = card;
+        _.merge(card, {
+          coverPhoto: card.photos[0],
+          description: card.photos[0].description,
+          author: card.author.toJSON()
+        });
+      }
+
       RestaurantDetails.fetchVenue($stateParams.venueId).then(
         function (result) {
           $scope.detailsAttributes = [];
