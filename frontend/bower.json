@@ -9,6 +9,7 @@
   "dependencies": {
     "angular-flux-helpers": "~0.1.2",
     "angular-jwt": "~0.0.6",
+    "angular-moment": "~0.10.3",
     "angular-storage": "~0.5.0",
     "collide": "1.0.0-beta.3",
     "cordova-exif": "https://github.com/guilhermefarias/cordova-exif.git",

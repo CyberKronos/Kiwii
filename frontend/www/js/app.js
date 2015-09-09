@@ -11,7 +11,8 @@
       'image-preloader',
       'ionic.service.core',
       'ionic.service.deploy',
-      'ng-mfb'
+      'ng-mfb',
+      'angularMoment'
       // 'ionic.service.analytics'
       ]);
 
@@ -38,7 +39,7 @@
       // The App ID (from apps.ionic.io) for the server
       app_id: 'a0a3c396',
       // The public API key all services will use for this app
-      api_key: 'c7f035d6607c60248b88b24af508da3635f205859fd1af52',
+      api_key: 'c7f035d6607c60248b88b24af508da3635f205859fd1af52'
       // The GCM project ID (project number) from your Google Developer Console (un-comment if used)
       // gcm_id: 'YOUR_GCM_ID'
     });
