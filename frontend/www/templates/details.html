@@ -23,7 +23,8 @@
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
             <div class="restaurant-bg-img" darken
-                 back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || 'img/image_placeholder.gif'}}">
+                 back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || 'img/image_placeholder.gif'}}"
+                 ng-click="openPhotoDetails(card.coverPhoto)">
               <div class="inner-container">
                 <div class="padding-fix">
                   <div class="title">{{ restaurantDetails.name }}</div>

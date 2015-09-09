@@ -1,5 +1,6 @@
 (function () {
-  var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
+  var DetailsCtrl = function ($scope, $state, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate,
+                              $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
                               RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService) {
 
     var PHOTO_SIZE = '500x500';
@@ -22,7 +23,9 @@
     };
 
     $scope.$on('$destroy', function () {
-      $scope.modal.remove();
+      if ($scope.modal) {
+        $scope.modal.remove();
+      }
     });
 
     $scope.openAddCardModal = function () {
@@ -82,6 +85,14 @@
       }
     };
 
+    $scope.openPhotoDetails = function (photo) {
+      if (photo && !photo.has('externalSource')) {
+        $state.go('tab.photoDetails', {
+          photo: photo
+        });
+      }
+    };
+
     $scope.getFeaturePhotoUrl = function (restaurantDetails) {
       if (restaurantDetails && restaurantDetails.bestPhoto) {
         return restaurantDetails.bestPhoto.prefix + PHOTO_SIZE + restaurantDetails.bestPhoto.suffix;
@@ -92,14 +103,17 @@
 
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
-    var card = $stateParams.card;
+      var card = $stateParams.card;
       if (card) {
         $scope.card = card;
         _.merge(card, {
           coverPhoto: card.photos[0],
           description: card.photos[0].description,
-          author: card.author.toJSON()
+          author: card.author
         });
+        if (card.author.toJSON) {
+          card.author = card.author.toJSON();
+        }
       }
 
       RestaurantDetails.fetchVenue($stateParams.venueId).then(

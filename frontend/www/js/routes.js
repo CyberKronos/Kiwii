@@ -96,6 +96,9 @@
             controller: 'PhotoDetailsCtrl'
           }
         },
+        params: {
+          photo : null
+        },
         data: {
           authenticate: true
         }

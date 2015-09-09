@@ -55,7 +55,7 @@
       return restaurantQuery.first()
         .then(function (restaurant) {
           return restaurant ? $q.when(restaurant)
-            : $q.reject({message: 'Restaurant not Found'});
+            : $q.reject({message: 'Restaurant Foursquare ID "' + restaurantId + '" Not Found'});
         })
         .fail(function (error) {
           return $q.reject(error);
