@@ -1,10 +1,11 @@
 (function () {
-  var DetailsCtrl = function ($scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, AnalyticsTracking) {
+  var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
+                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, AnalyticsTracking, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
     var restaurantPreference = null;
 
+    recordHistory($stateParams);
     getRestaurantInfo();
 
     AnalyticsTracking.explorerSelectedVenue($stateParams.venueId)
@@ -119,7 +120,6 @@
           card.author = card.author.toJSON();
         }
       }
-
       RestaurantDetails.fetchVenue($stateParams.venueId).then(
         function (result) {
           $scope.detailsAttributes = [];
@@ -176,6 +176,13 @@
         hideOnStateChange: true,
         noBackdrop: true,
         duration: 2500
+      });
+    }
+
+    function recordHistory(params) {
+      ViewedHistory.record(Parse.User.current().id, {
+        foursquareId : params.venueId,
+        cardId : params.card ? card.id : undefined
       });
     }
   };

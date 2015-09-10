@@ -1,9 +1,9 @@
 (function () {
   angular.module('kiwii').
     controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$q',
-      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'CRITERIA_OPTIONS',
+      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'ViewedHistory', 'CRITERIA_OPTIONS',
       function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q,
-                LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, CRITERIA_OPTIONS) {
+                LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, ViewedHistory, CRITERIA_OPTIONS) {
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         $scope.getSavedForLater = getSavedForLater;
@@ -42,14 +42,11 @@
         }
 
         function getRecentlyViewedRestaurants() {
-          return Parse.User.current()
-            .relation('selectedVenueHistory')
-            .query().collection().fetch()
-            .then(_.method('toJSON'))
-            .fail(function (error) {
-              console.log(error);
-              return $q.reject($q);
-            });
+          return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id)
+            // TODO: Get Parse Restuarants class to use ParseObject
+            .then(function (result) {
+              return _.map(result, _.method('toJSON'));
+            })
         }
 
         function showLocationError(positionError) {
