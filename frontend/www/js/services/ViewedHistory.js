@@ -5,6 +5,8 @@
       var VIEWED_HISTORY_KEYS = ['user', 'restaurant', 'card'];
       var VIEWED_HISTORY_CLASS = 'ViewedHistory';
 
+      var RECORD_RETRIEVAL_LIMIT = 10;
+
       function resolveRestaurant(params) {
         if (params['restaurantId']) {
           var Restaurant = Parse.Object.extend('Restaurant');
@@ -67,6 +69,7 @@
           .equalTo('user', user)
           .addDescending('updatedAt')
           .include('restaurant')
+          .limit(RECORD_RETRIEVAL_LIMIT)
           .find()
           .then(function (result) {
             return _.pluck(result, 'restaurant');

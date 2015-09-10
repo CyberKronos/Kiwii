@@ -1,17 +1,12 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, AnalyticsTracking, ViewedHistory) {
+                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
     var restaurantPreference = null;
 
     recordHistory($stateParams);
     getRestaurantInfo();
-
-    AnalyticsTracking.explorerSelectedVenue($stateParams.venueId)
-      .then(function (result) {
-        console.log(result);
-      });
 
     var userLists = Parse.User.current().relation('lists');
     userLists.query().find()

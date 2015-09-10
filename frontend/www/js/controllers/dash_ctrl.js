@@ -1,9 +1,9 @@
 (function () {
   angular.module('kiwii').
     controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$q',
-      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'AnalyticsTracking', 'ViewedHistory', 'CRITERIA_OPTIONS',
+      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'ViewedHistory', 'CRITERIA_OPTIONS',
       function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q,
-                LocationService, RestaurantExplorer, RestaurantDetails, AnalyticsTracking, ViewedHistory, CRITERIA_OPTIONS) {
+                LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         $scope.getSavedForLater = getSavedForLater;
