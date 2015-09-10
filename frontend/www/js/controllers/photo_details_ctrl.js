@@ -4,19 +4,16 @@
     loadPhotoData();
 
     $scope.restaurantDetails = function (foursquareId) {
-      $state.go('tab.details', {venueId: foursquareId});
+        $state.go('tab.details', {
+            venueId: foursquareId,
+            card: $stateParams.card
+        });
     };
 
     function loadPhotoData() {
-      var photo = $stateParams.photo;
-      photo['restaurant'].fetch()
-        .then(function (restaurant) {
-          $scope.photoData = photo;
-          $scope.photoData['restaurant'] = restaurant.toJSON();
-          console.log($scope.photoData);
-        }, function (error) {
-          console.log(error);
-        });
+      $scope.photoData = $stateParams.card.attributes.photos[0].attributes;
+      $scope.restaurantData = $stateParams.card.attributes.taggedRestaurant.attributes;
+      console.log($scope.restaurantData);
     }
   };
 

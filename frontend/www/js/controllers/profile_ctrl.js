@@ -39,18 +39,9 @@
       $scope.modal.hide();
     };
 
-    $scope.openCardDetails = function (card) {
-      var venueId = card['taggedRestaurant'].attributes['foursquareId'];
-      $state.go('tab.details', {
-        venueId : venueId,
-        card : card
-      });
-    };
-
-
-    $scope.photoDetails = function (photo) {
+    $scope.photoDetails = function (card) {
       $state.go('tab.photoDetails', {
-        photo: photo
+        card: card
       });
     };
 

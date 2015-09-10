@@ -108,6 +108,7 @@
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
       var card = $stateParams.card;
+      console.log(card);
       if (card) {
         $scope.card = card;
         _.merge(card, {
