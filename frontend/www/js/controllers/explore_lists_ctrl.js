@@ -30,6 +30,13 @@
       $state.go('tab.lists');
     };
 
+    $scope.viewProfile = function (userObject) {
+        $state.go('tab.publicProfile', {
+            userId: userObject.id,
+            user: userObject
+        });
+    };
+
     // Maybe should move to a service
     // function getNewUsers() {
     //   return FacebookApi.getFriendsInApp()

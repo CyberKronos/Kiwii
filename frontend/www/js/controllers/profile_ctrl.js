@@ -1,7 +1,8 @@
 (function () {
-  var ProfileCtrl = function ($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading,
+  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
                               RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
+    loadUserData();
     getUserCards();
     getUserLists();
     getFollowingCount();
@@ -21,6 +22,8 @@
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
+
+    $scope.showBackButton = $state.current.name === 'tab.publicProfile';
 
     $scope.newList = {};
 
@@ -104,6 +107,14 @@
     function hideLoading() {
       $scope.isLoading = false;
       $ionicLoading.hide();
+    }
+
+    function loadUserData() {
+      if ($stateParams.user) {
+        $scope.userData = $stateParams.user.attributes;
+      } else {
+        $scope.userData = Parse.User.current().attributes;
+      }
     }
 
     function getUserCards() {

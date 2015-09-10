@@ -21,6 +21,11 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="lists"></ion-nav-view>
   </ion-tab>
 
+  <!-- Hidden tab to render public profile and home -->
+  <ion-tab title="Public Profile" href="#/tab/publicProfile" hidden="true">
+    <ion-nav-view name="publicProfile"></ion-nav-view>
+  </ion-tab>
+
   <!-- Explore Lists Tab -->
   <ion-tab title="Explore Lists" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/exploreLists">
     <ion-nav-view name="exploreLists"></ion-nav-view>

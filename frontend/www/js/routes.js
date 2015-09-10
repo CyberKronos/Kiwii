@@ -83,6 +83,25 @@
             controller: 'ProfileCtrl'
           }
         },
+        params: {
+          user: null
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.publicProfile', {
+        url: '/publicProfile',
+        views: {
+          'publicProfile': {
+            templateUrl: 'templates/profile.html',
+            controller: 'ProfileCtrl'
+          }
+        },
+        params: {
+          user: null
+        },
         data: {
           authenticate: true
         }
