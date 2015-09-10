@@ -24,7 +24,8 @@
       // Static Methods
       createCard: createCard,
       getCardById: getCardById,
-      getUserCards: getUserCards
+      getUserCards: getUserCards,
+      deleteUserCard: deleteUserCard
     });
 
     /**
@@ -101,6 +102,15 @@
         .then(deferred.resolve)
         .fail(deferred.reject);
       return deferred.promise;
+    }
+
+    function deleteUserCard(cardObject) {
+      var photo = cardObject.attributes.photos[0];
+      return photo.destroy()
+        .then(function () {
+          console.log('Photo deleted');
+          return cardObject.destroy();
+        });
     }
 
     return Cards;
