@@ -49,8 +49,9 @@
 
 
     $scope.photoDetails = function (photo) {
-      PhotoDetails.setPhotoDetails(photo);
-      $state.go('tab.photoDetails');
+      $state.go('tab.photoDetails', {
+        photo: photo
+      });
     };
 
     $scope.createList = function () {
