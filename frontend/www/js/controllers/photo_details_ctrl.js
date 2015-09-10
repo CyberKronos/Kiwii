@@ -1,22 +1,47 @@
 (function () {
-  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, FoursquareApi) {
+  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, $ionicActionSheet, FoursquareApi, Cards) {
 
     loadPhotoData();
 
+    var card = $stateParams.card
+
     $scope.restaurantDetails = function (foursquareId) {
-      $state.go('tab.details', {venueId: foursquareId});
+        $state.go('tab.details', {
+            venueId: foursquareId,
+            card: card
+        });
+    };
+
+    $scope.cardSettings = function() {
+        // Show the action sheet
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
+                { text: 'Edit' }
+            ],
+            destructiveText: 'Delete',
+            titleText: 'Card Settings',
+            cancelText: 'Cancel',
+            cancel: function() {
+                return true;
+            },
+            buttonClicked: function(index) {
+                return true;
+            },
+            destructiveButtonClicked: function() {
+                Cards.deleteUserCard(card)
+                    .then(function () {
+                        console.log('Card deleted');
+                        hideSheet();
+                        $state.go('tab.profile');
+                    });
+            }
+        });
     };
 
     function loadPhotoData() {
-      var photo = $stateParams.photo;
-      photo['restaurant'].fetch()
-        .then(function (restaurant) {
-          $scope.photoData = photo;
-          $scope.photoData['restaurant'] = restaurant.toJSON();
-          console.log($scope.photoData);
-        }, function (error) {
-          console.log(error);
-        });
+      $scope.photoData = $stateParams.card.attributes.photos[0].attributes;
+      $scope.restaurantData = $stateParams.card.attributes.taggedRestaurant.attributes;
+      console.log($scope.restaurantData);
     }
   };
 

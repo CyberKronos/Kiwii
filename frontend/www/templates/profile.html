@@ -157,9 +157,9 @@
             <p>Start uploading cards!</p>
           </div>
 
-          <div collection-repeat="photo in photos" style="padding:2px 1px;" class="col col-25"> 
-            <a ng-click="photoDetails(photo)">
-              <div style="background-image:url({{photo.attributes.photo._url}});
+          <div collection-repeat="card in userCards" style="padding:2px 1px;" class="col col-25">
+            <a ng-click="photoDetails(card)">
+              <div style="background-image:url({{card.photos[0].photo._url}});
                           background-repeat:no-repeat;
                           background-size:contain; 
                           background-position:center;

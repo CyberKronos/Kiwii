@@ -97,7 +97,7 @@
           }
         },
         params: {
-          photo : null
+          card : null
         },
         data: {
           authenticate: true

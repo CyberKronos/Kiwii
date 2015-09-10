@@ -3,25 +3,28 @@
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
     </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a class="button button-icon button-clear ion-gear-a" ng-click="cardSettings()"></a>
+    </ion-nav-buttons>
   </ion-nav-bar>
 
   <ion-content class="cards-container" padding="true">
 
     <div class="restaurant-card-container">
       <div class="restaurant-card-header">
-        <div class="text-minor">{{photoData.restaurant.category}}</div>
+        <div class="text-minor">{{restaurantData.category}}</div>
         <div class="text-minor"
-             ng-if="photoData.restaurant.rating">
+             ng-if="restaurantData.rating">
           <i class="icon ion-star text-orange"></i>
-          {{photoData.restaurant.rating}}/10
+          {{restaurantData.rating}}/10
         </div>
       </div>
       <div class="restaurant-card-image" back-img="{{ photoData.photo._url }}"></div>
       <div class="restaurant-card-details">
         <div class="row">
           <div id="restaurant-name" 
-               ng-bind-html="photoData.restaurant.name | unsafe" 
-               ui-sref="tab.details({venueId: photoData.restaurant.foursquareId})"
+               ng-bind-html="restaurantData.name | unsafe" 
+               ng-click="restaurantDetails(restaurantData.foursquareId)"
                class="text-orange" 
                style="font-weight: bold;"></div>
           <!-- <span class="text-minor" ng-if="!restaurant.hours.isOpen" style="margin-left: 4px;">Closed</span> -->
@@ -34,8 +37,8 @@
             <img ng-src="{{ currentUser.fbPicture || './img/foursquare-logomark.png' }}" style="border-radius: 6%;"/>
           </div>
           <div class="action text-minor"
-               ng-if="photoData.restaurant.reservations && photoData.restaurant.reservations.url"
-               ng-click="$event.stopPropagation(); openWebsite(photoData.restaurant.reservations.url);">
+               ng-if="restaurantData.reservations && restaurantData.reservations.url"
+               ng-click="$event.stopPropagation(); openWebsite(restaurantData.reservations.url);">
             <i class="icon ion-calendar assertive"></i>
             <div class="label">
               Reserve
