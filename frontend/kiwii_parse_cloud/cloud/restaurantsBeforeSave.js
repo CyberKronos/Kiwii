@@ -5,7 +5,10 @@ var _ = require('underscore');
 Parse.Cloud.afterSave('Restaurants', function (request, response) {
   updateGeoPoint(request.object);
   indexName(request.object);
-  response.success();
+  request.object.save()
+    .fail(function (error) {
+      console.log(error);
+    })
 });
 
 function updateGeoPoint(restaurant) {
