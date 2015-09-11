@@ -1,5 +1,5 @@
 require('cloud/foursquareApi.js');
-require('cloud/restaurantsBeforeSave.js');
+require('cloud/restaurantsAfterSave.js');
 
 // Instagram Api
 var ig = require('cloud/instagram-v1-1.0.js');

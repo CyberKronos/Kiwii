@@ -1,7 +1,7 @@
 (function () {
   angular.module('kiwii')
-    .factory('RestaurantExplorer', ['FoursquareApi', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
-      function (FoursquareApi, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
+    .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
+      function ($q, FoursquareApi, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
         var prevRestaurants = [];
         var criteria = {
           radius: CRITERIA_DEFAULTS.DISTANCE,
@@ -11,10 +11,11 @@
         };
 
         var service = {
-          fetch: fetch,
+          fetch: exploreWithExternal,
           criteria: criteria,
           results: [],
           findWithKiwii: findWithKiwii,
+          findWithExternal: findWithExternal,
           nextRestaurant: nextRestaurant,
           prevRestaurant: prevRestaurant
         };
@@ -24,7 +25,7 @@
         /**
          Finds Restaurants with Kiwii's Database (in Parse).
          @param {Object} criteria The search criteria parameter is expected to be in the same format as the one used for
-         searching through the Foursquare API.
+         searching through the Foursquare /venues/search API.
          **/
         function findWithKiwii(criteria) {
           // Create a query for places
@@ -47,7 +48,25 @@
             });
         }
 
-        function fetch(givenCritiera) {
+        /**
+         * Finds restaurants with an External Database (e.g. Foursquare).
+         @param {Object} criteria The search criteria parameter is expected to be in the same format as the one used for
+         searching through the Foursquare /venues/search API.
+         * @returns {Promise} promise that resolves to a list of Parse Restaurant Objects.
+         */
+        function findWithExternal(criteria) {
+          var deferred = $q.defer();
+
+          Parse.Cloud.run('foursquareSearch', {queryParams: criteria})
+            .then(function (response) {
+              var results = _.map(response, _.method('toJSON'));
+              return deferred.resolve(results);
+            })
+            .fail(deferred.reject);
+          return deferred.promise;
+        }
+
+        function exploreWithExternal(givenCritiera) {
           var queryCriteria = criteria;
           if (givenCritiera) {
             queryCriteria = givenCritiera;

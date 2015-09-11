@@ -38,9 +38,6 @@ Parse.Cloud.define('foursquareSearch', function (request, response) {
     url: BASE_URL_VENUE + 'search',
     params: request.params.queryParams
   })
-    .fail(function (httpResponse) {
-      response.error('Request failed with response code:' + httpResponse.status + ' Message: ' + httpResponse.text);
-    })
     .then(function (httpResponse) {
       var venuesResponse = JSON.parse(httpResponse.text).response.venues;
       return Parse.Promise.when(_.map(venuesResponse, function (venue) {
@@ -48,10 +45,14 @@ Parse.Cloud.define('foursquareSearch', function (request, response) {
       }))
     })
     .then(function () {
-      return response.success(_.toArray(arguments));
+      response.success(_.toArray(arguments));
     })
-    .fail(function () {
-      return response.error(_.toArray(arguments));
+    .fail(function (error) {
+      if (arguments.length > 1) {
+        response.error(_.toArray(arguments));
+      } else {
+        response.error(error);
+      }
     })
 
 });

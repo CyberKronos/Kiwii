@@ -1,5 +1,5 @@
 (function () {
-  var InstagramApi = function () {
+  var InstagramApi = function ($q) {
     /* Private Methods */
     function convertToKiwiiFormat(instagramObject) {
       var description = '';
@@ -21,17 +21,23 @@
     /* Public Interface */
     return {
       getLocationImages: function (foursquareId) {
-        return Parse.Cloud.run('searchLocation', {foursquareId: foursquareId})
+        var deferred = $q.defer();
+        Parse.Cloud.run('searchLocation', {foursquareId: foursquareId})
           .then(function (response) {
-            var id = response.data[0].id;
-            return Parse.Cloud.run('getRecentMediaByLocation', {locationId: id});
+            if (response.data && response.data.length) {
+              var id = response.data[0].id;
+              return Parse.Cloud.run('getRecentMediaByLocation', {locationId: id});
+            }
           })
           .then(function (response) {
-            var images = response.data;
-            images = _.map(images, convertToKiwiiFormat);
-            console.log(images);
-            return images;
-          });
+            if (response) {
+              return deferred.resolve(_.map(response.data, convertToKiwiiFormat));
+            } else {
+              return deferred.resolve([]);
+            }
+          })
+          .fail(deferred.reject);
+        return deferred;
       }
     }
   };
