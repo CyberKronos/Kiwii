@@ -83,6 +83,26 @@
             controller: 'ProfileCtrl'
           }
         },
+        params: {
+          user: null
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.publicProfile', {
+        url: '/publicProfile',
+        cache: false,
+        views: {
+          'publicProfile': {
+            templateUrl: 'templates/profile.html',
+            controller: 'ProfileCtrl'
+          }
+        },
+        params: {
+          user: null
+        },
         data: {
           authenticate: true
         }
@@ -106,11 +126,15 @@
 
       .state('tab.followers', {
         url: '/followers',
+        cache: false,
         views: {
-          'profile': {
+          'publicProfile': {
             templateUrl: 'templates/followers.html',
             controller: 'FollowCtrl'
-          }
+          },
+        },
+        params: {
+          user : null
         },
         data: {
           authenticate: true
@@ -119,11 +143,15 @@
 
       .state('tab.following', {
         url: '/following',
+        cache: false,
         views: {
-          'profile': {
+          'publicProfile': {
             templateUrl: 'templates/following.html',
             controller: 'FollowCtrl'
           }
+        },
+        params: {
+          user : null
         },
         data: {
           authenticate: true

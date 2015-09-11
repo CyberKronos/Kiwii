@@ -7,8 +7,9 @@
 
   	<ion-content padding="true" scroll="true">
 		<div class="list card">
-		    <a class="item item-avatar item-button-right" href="#"
-		       ng-repeat="user in following">
+		    <a class="item item-avatar item-button-right"
+		       ng-repeat="user in following"
+		       ng-click="viewProfileFollowing(user)">
 				<img ng-src="{{ user.attributes.object.attributes.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
 				<h2 style="margin-top: 10px;">{{user.attributes.object.attributes.firstname}} {{user.attributes.object.attributes.lastname}}</h2>
 				<button class="button button-small button-assertive"

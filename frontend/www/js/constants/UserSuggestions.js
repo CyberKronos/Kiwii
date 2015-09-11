@@ -33,5 +33,10 @@ angular.module('kiwii')
 			name: 'Parawin Adisayathepkul',
 			fbPicture: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/p720x720/11831784_10155907856715057_1662137115973052351_n.jpg?oh=4671e4958db0062c502626878cbc4a24&oe=567B6B7C&__gda__=1447428071_8afa9b738bf8e746dfdfdb7fdbfc0e42'
 		},
+		{
+			fbId: '717362008408814',
+			name: 'Yvonne Tang',
+			fbPicture: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/t31.0-1/c212.0.720.720/p720x720/1402926_10150004552801901_469209496895221757_o.jpg'
+		}
 	]
 });
