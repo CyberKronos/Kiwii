@@ -5,16 +5,16 @@
     var Activity = Parse.Object.extend("Activity");
     var Follow = Activity.extend("Follow");
 
-    var getFollowingList = function() {
+    var getFollowingList = function(userData) {
       var Follow = Parse.Object.extend(FOLLOW_CLASS);
       var followQuery = new Parse.Query(Follow);
 
-      var currentUser = Parse.User.current();
+      var user = userData;
 
       followQuery.equalTo("actor", {
         __type: "Pointer",
         className: "_User",
-        objectId: currentUser.id
+        objectId: user.id
       });
 
       followQuery.include("actor");
@@ -28,16 +28,16 @@
         });
     };
 
-    var getFollowerList = function() {
+    var getFollowerList = function(userData) {
       var Follow = Parse.Object.extend(FOLLOW_CLASS);
       var followQuery = new Parse.Query(Follow);
 
-      var currentUser = Parse.User.current();
+      var user = userData;
 
       followQuery.equalTo("object", {
         __type: "Pointer",
         className: "_User",
-        objectId: currentUser.id
+        objectId: user.id
       });
 
       followQuery.include("actor");
@@ -123,15 +123,15 @@
             return result.destroy();
           });
       },
-      followingList: function() {
-        return getFollowingList()
+      followingList: function(userData) {
+        return getFollowingList(userData)
           .then(function (result){
             console.log(result);
             return result;
           });
       },
-      followerList: function() {
-        return getFollowerList()
+      followerList: function(userData) {
+        return getFollowerList(userData)
           .then(function (result){
             console.log(result);
             return result;

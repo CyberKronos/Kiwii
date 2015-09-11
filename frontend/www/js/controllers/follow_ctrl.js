@@ -1,15 +1,35 @@
 (function() {
-    var FollowCtrl = function($scope, $state, Following) {
+    var FollowCtrl = function($scope, $state, $stateParams, Following) {
         
-        Following.followingList()
+        var userData = $stateParams.user;
+
+        console.log(userData);
+
+        Following.followingList(userData)
         	.then(function(result) {
         		$scope.following = result;
+                console.log(result);
         	}); 
 
-       	Following.followerList()
+       	Following.followerList(userData)
         	.then(function(result) {
         		$scope.followers = result;
-        	});    
+                console.log(result);
+        	});  
+
+        $scope.viewProfileFollowing = function(user) {
+            console.log(user);
+            $state.go('tab.publicProfile', {
+                user: user.attributes.object
+            });
+        };
+
+        $scope.viewProfileFollowers = function(user) {
+            console.log(user);
+            $state.go('tab.publicProfile', {
+                user: user.attributes.actor
+            });
+        };
 
         $scope.unfollowUser = function(userData, index) {
             $scope.following.splice(index, 1);

@@ -6,7 +6,7 @@
          ng-if="showBackButton"></a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right" style="top:none; bottom: none;">
-      <button class="button button-clear icon-white" ng-click="logOut()">
+      <button class="button button-clear icon-white" ng-if="!showBackButton" ng-click="logOut()">
         Sign out
       </button>
     </ion-nav-buttons>
@@ -56,11 +56,11 @@
                 <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
                 <div class="text-light-grey">Cards</div>
               </div>
-              <div class="col col-25" ui-sref="tab.followers">
+              <div class="col col-25" ng-click="viewFollowers()">
                 <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
                 <div class="text-light-grey">Followers</div>
               </div>
-              <div class="col col-25" ui-sref="tab.following">
+              <div class="col col-25" ng-click="viewFollowing()">
                 <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
                 <div class="text-light-grey">Following</div>
               </div>
@@ -69,13 +69,6 @@
 
           <div class="list list-inset" 
                style="margin-top: 0px;">
-            <!-- <div class="list card" 
-                 style="margin-left: 2px; margin-right: 2px;">
-              <a class="item item-icon-right" ng-click="createList()">
-                <i class="icon ion-plus-circled text-orange"></i>
-                <p id="restaurant-name"><strong>Create a list</strong></p>
-              </a>
-            </div> -->
             <!-- Keep save for later list static -->
             <div class="list card"
                  style="margin-left: 2px; margin-right: 2px;">
