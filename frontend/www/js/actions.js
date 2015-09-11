@@ -14,81 +14,103 @@
 
     return {
       facebookLogin: function() {
-        return $cordovaFacebook.login(["public_profile", "email", "user_friends"])
-        .then(
-          function(success) {
-            console.log(success);
-            if (!success.authResponse){
-              console.log("Cannot find the authResponse");
-              return;
-            }
-            var expDate = new Date(
-              new Date().getTime() + success.authResponse.expiresIn * 1000
-              ).toISOString();
+        return $cordovaFacebook.getLoginStatus()
+          .then(function (success) {
+            if (success.authResponse === undefined) {
+              return $cordovaFacebook.login(["public_profile", "email", "user_friends"])
+                .then(
+                  function(success) {
+                    console.log(success);
+                    if (!success.authResponse){
+                      console.log("Cannot find the authResponse");
+                      return;
+                    }
+                    var expDate = new Date(
+                      new Date().getTime() + success.authResponse.expiresIn * 1000
+                      ).toISOString();
 
-            var authData = {
-              id: String(success.authResponse.userID),
-              access_token: success.authResponse.accessToken,
-              expiration_date: expDate
-            }
+                    var authData = {
+                      id: String(success.authResponse.userID),
+                      access_token: success.authResponse.accessToken,
+                      expiration_date: expDate
+                    }
 
-            return Parse.FacebookUtils.logIn(authData);
-          }, function(error) {
-            console.log(error);
-          }
-        )
-        .then(
-          function(userObject) {
-            if (!userObject.existed()) {
-              return $cordovaFacebook.api("/me", ["public_profile"])
-              .then(function(response) {
-                userObject.set('fbId', response.id);
-                userObject.set('firstname', response.first_name);
-                userObject.set('lastname', response.last_name);
-                userObject.set('email', response.email);
-                userObject.save();
+                    return Parse.FacebookUtils.logIn(authData);
+                  }, function(error) {
+                    console.log(error);
+                  }
+                )
+                .then(
+                  function(userObject) {
+                    if (!userObject.existed()) {
+                      return $cordovaFacebook.api("/me", ["public_profile"])
+                      .then(function(response) {
+                        userObject.set('fbId', response.id);
+                        userObject.set('firstname', response.first_name);
+                        userObject.set('lastname', response.last_name);
+                        userObject.set('email', response.email);
+                        userObject.save();
 
-                return $cordovaFacebook.api("/me/picture?redirect=false&width=500&height=500", ["public_profile"])
-                .then(function(response){
-                  userObject.set('fbPicture', response.data.url);
-                  userObject.save();
+                        return $cordovaFacebook.api("/me/picture?redirect=false&width=500&height=500", ["public_profile"])
+                        .then(function(response){
+                          userObject.set('fbPicture', response.data.url);
+                          userObject.save();
 
-                  console.log(userObject.attributes); 
-                  
-                  // Save to cache after successful login.
-                  var profileInfo = {
-                    fbId: userObject.attributes.fbId, 
-                    email: userObject.attributes.email, 
-                    fbPicture: userObject.attributes.fbPicture,
-                    firstname: userObject.attributes.firstname,
-                    lastname: userObject.attributes.lastname,
-                    username: userObject.attributes.username 
-                  };
+                          console.log(userObject.attributes); 
+                          
+                          // Save to cache after successful login.
+                          var profileInfo = {
+                            fbId: userObject.attributes.fbId, 
+                            email: userObject.attributes.email, 
+                            fbPicture: userObject.attributes.fbPicture,
+                            firstname: userObject.attributes.firstname,
+                            lastname: userObject.attributes.lastname,
+                            username: userObject.attributes.username 
+                          };
 
-                  console.log("User signed up through Facebook!");
+                          console.log("User signed up through Facebook!");
 
-                  // TODO: move to store.js
-                  $localStorage.$default({
-                    profileInfo: profileInfo
-                  });
+                          // TODO: move to store.js
+                          $localStorage.$default({
+                            profileInfo: profileInfo
+                          });
 
-                  return $rootScope.currentUser = profileInfo;
-                }, function(error) {
-                  console.log(error);
-                });
-              }, function(error) {
-                console.log(error);
-              });
+                          return $rootScope.currentUser = profileInfo;
+                        }, function(error) {
+                          console.log(error);
+                        });
+                      }, function(error) {
+                        console.log(error);
+                      });
+                    } else {
+                      console.log(userObject);
+                      console.log("User logged in through Facebook!");
+                      $rootScope.currentUser = userObject.attributes;
+                      return 'existing user';
+                    }
+                  }, function(error) {
+                    console.log(error);
+                  }
+                );
             } else {
-              console.log(userObject);
-              console.log("User logged in through Facebook!");
-              $rootScope.currentUser = userObject.attributes;
-              return 'existing user';
+              var expDate = new Date(
+                new Date().getTime() + success.authResponse.expiresIn * 1000
+                ).toISOString();
+              var authData = {
+                id: String(success.authResponse.userID),
+                access_token: success.authResponse.accessToken,
+                expiration_date: expDate
+              }
+              return Parse.FacebookUtils.logIn(authData)
+                .then(function (userData) {
+                  console.log(userData);
+                  return 'existing user';
+                });
             }
-          }, function(error) {
+          }, function (error) {
             console.log(error);
-          }
-        );
+            return error;
+          });
       },
 
       createHandle: function(userHandle, userObject) {
