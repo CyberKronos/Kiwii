@@ -1,10 +1,12 @@
-<ion-view view-title="Photo">
+<ion-view view-title="Card">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a class="button button-icon button-clear ion-gear-a" ng-click="cardSettings()"></a>
+      <a ng-if="author.id == Parse.User.current().id" 
+         ng-click="cardSettings()"
+         class="button button-icon button-clear ion-gear-a"></a>
     </ion-nav-buttons>
   </ion-nav-bar>
 
@@ -34,7 +36,7 @@
         </div>
         <div class="footer" style="margin-top: 4px;">
           <div class="attribution">
-            <img ng-src="{{ currentUser.fbPicture || './img/foursquare-logomark.png' }}" style="border-radius: 6%;"/>
+            <img ng-src="{{ author.attributes.fbPicture || './img/foursquare-logomark.png' }}" style="border-radius: 6%;"/>
           </div>
           <div class="action text-minor"
                ng-if="restaurantData.reservations && restaurantData.reservations.url"

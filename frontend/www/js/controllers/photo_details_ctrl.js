@@ -6,6 +6,7 @@
     var card = $stateParams.card
 
     $scope.restaurantDetails = function (foursquareId) {
+        console.log(card);
         $state.go('tab.details', {
             venueId: foursquareId,
             card: card
@@ -40,8 +41,8 @@
 
     function loadPhotoData() {
       $scope.photoData = $stateParams.card.attributes.photos[0].attributes;
+      $scope.author = $stateParams.card.attributes.author;
       $scope.restaurantData = $stateParams.card.attributes.taggedRestaurant.attributes;
-      console.log($scope.restaurantData);
     }
   };
 

@@ -111,7 +111,7 @@
       .state('tab.photoDetails', {
         url: '/photoDetails',
         views: {
-          'profile': {
+          'publicProfile': {
             templateUrl: 'templates/photo_details.html',
             controller: 'PhotoDetailsCtrl'
           }

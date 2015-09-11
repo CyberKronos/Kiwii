@@ -177,7 +177,7 @@
     function recordHistory(params) {
       ViewedHistory.record(Parse.User.current().id, {
         foursquareId : params.venueId,
-        cardId : params.card ? card.id : undefined
+        cardId : params.card ? params.card.id : undefined
       });
     }
   };
