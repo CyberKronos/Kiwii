@@ -1,7 +1,8 @@
 (function () {
-  var ProfileCtrl = function ($scope, $state, $cordovaStatusbar, $ionicModal, $ionicLoading,
+  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
                               RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
+    loadUserData();
     getUserCards();
     getUserLists();
     getFollowingCount();
@@ -21,6 +22,8 @@
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
+
+    $scope.showBackButton = $state.current.name === 'tab.publicProfile';
 
     $scope.newList = {};
 
@@ -89,6 +92,18 @@
       return returnValue;
     };
 
+    $scope.viewFollowing = function() {
+      $state.go('tab.following', {
+        user: $scope.user
+      });
+    };
+
+    $scope.viewFollowers = function() {
+      $state.go('tab.followers', {
+        user: $scope.user
+      });
+    };    
+
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;
       $scope.newList['categoryId'] = callback.item.id;
@@ -106,8 +121,20 @@
       $ionicLoading.hide();
     }
 
+    console.log($stateParams.user);
+
+    function loadUserData() {
+      if ($stateParams.user) {
+        $scope.userData = $stateParams.user.attributes;
+        $scope.user = $stateParams.user;
+      } else {
+        $scope.userData = Parse.User.current().attributes;
+        $scope.user = Parse.User.current();
+      }
+    }
+
     function getUserCards() {
-      Cards.getUserCards(Parse.User.current().id)
+      Cards.getUserCards($scope.user.id)
         .then(function (userCards) {
           console.log(userCards);
           $scope.userCards = userCards;
@@ -117,7 +144,7 @@
     }
 
     function getUserLists() {
-      var userLists = Parse.User.current().relation('lists');
+      var userLists = $scope.user.relation('lists');
       userLists.query().find()
         .then(function (lists) {
           $scope.userLists = lists;
@@ -127,14 +154,14 @@
     }
 
     function getFollowingCount() {
-      Following.followingList()
+      Following.followingList($scope.user)
         .then(function (result) {
           $scope.followingCount = result.length;
         });
     }
 
     function getFollowerCount() {
-      Following.followerList()
+      Following.followerList($scope.user)
         .then(function (result) {
           $scope.followerCount = result.length;
         });

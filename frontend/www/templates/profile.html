@@ -1,7 +1,12 @@
-<ion-view view-title="{{ currentUser.handle || 'Profile' }}">
+<ion-view view-title="{{ userData.handle || 'Profile' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" 
+         ng-click="goBack()"
+         ng-if="showBackButton"></a>
+    </ion-nav-buttons>
     <ion-nav-buttons side="right" style="top:none; bottom: none;">
-      <button class="button button-clear icon-white" ng-click="logOut()">
+      <button class="button button-clear icon-white" ng-if="!showBackButton" ng-click="logOut()">
         Sign out
       </button>
     </ion-nav-buttons>
@@ -26,14 +31,14 @@
           <div class="profile-top-container">
             <div class="row" style="padding: 10px 10px 0 10px;">
               <div class="col col-25">
-                <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+                <img class="profile-avatar" ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}">
               </div>
               <div class="col col-65">
                 <p class="title text-strong-grey">
-                  <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
-                  <i ng-if="currentUser.verified" class="icon ion-checkmark-circled positive"></i>
+                  <strong>{{ userData.firstname }} {{ userData.lastname }}</strong>
+                  <i ng-if="userData.verified" class="icon ion-checkmark-circled positive"></i>
                 </p>
-                <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
+                <p class="text-light-grey" ng-if="userData.handle">@{{ userData.handle }}</p>
                 <!-- <p class="text-light-grey">www.website.com</p> -->
               </div>
             </div>
@@ -51,11 +56,11 @@
                 <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
                 <div class="text-light-grey">Cards</div>
               </div>
-              <div class="col col-25" ui-sref="tab.followers">
+              <div class="col col-25" ng-click="viewFollowers()">
                 <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
                 <div class="text-light-grey">Followers</div>
               </div>
-              <div class="col col-25" ui-sref="tab.following">
+              <div class="col col-25" ng-click="viewFollowing()">
                 <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
                 <div class="text-light-grey">Following</div>
               </div>
@@ -64,15 +69,9 @@
 
           <div class="list list-inset" 
                style="margin-top: 0px;">
-            <!-- <div class="list card" 
-                 style="margin-left: 2px; margin-right: 2px;">
-              <a class="item item-icon-right" ng-click="createList()">
-                <i class="icon ion-plus-circled text-orange"></i>
-                <p id="restaurant-name"><strong>Create a list</strong></p>
-              </a>
-            </div> -->
-            <!-- Keep save for later list static -->
+            <!-- Keep save for later list static for user profile only -->
             <div class="list card"
+                 ng-if="userData.fbId == currentUser.fbId"
                  style="margin-left: 2px; margin-right: 2px;">
               <a class="item item-thumbnail-left" ng-click="listDetails('saveForLater')">
                 <img ng-src="{{'http://placehold.it/95x95?text=Kiwii'}}" width="100%" height="100%">
@@ -111,14 +110,14 @@
           <div class="profile-top-container">
             <div class="row" style="padding: 10px 10px 0 10px;">
               <div class="col col-25">
-                <img class="profile-avatar" ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+                <img class="profile-avatar" ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}">
               </div>
               <div class="col col-65">
                 <p class="title text-strong-grey">
-                  <strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong>
-                  <i ng-if="currentUser.verified" class="icon ion-checkmark-circled positive"></i>
+                  <strong>{{ userData.firstname }} {{ userData.lastname }}</strong>
+                  <i ng-if="userData.verified" class="icon ion-checkmark-circled positive"></i>
                 </p>
-                <p class="text-light-grey" ng-if="currentUser.handle">@{{ currentUser.handle }}</p>
+                <p class="text-light-grey" ng-if="userData.handle">@{{ userData.handle }}</p>
                 <!-- <p class="text-light-grey">www.website.com</p> -->
               </div>
               <!-- <div class="col col-10 text-right">

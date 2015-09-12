@@ -114,14 +114,12 @@
                 return savedRestaurants.query().collection().fetch()
                     .then(function(restaurants) {
                         $scope.favouritesList = restaurants.toJSON();
-                        $scope.$digest();
                     });
             } else {
                 var restaurants = $scope.listData.relation('restaurants');
                 return restaurants.query().collection().fetch()
                     .then(function(restaurants) {
                         $scope.restaurantList = restaurants.toJSON();
-                        $scope.$digest();
                     });
             }
         }

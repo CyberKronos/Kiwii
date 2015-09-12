@@ -13,7 +13,6 @@
       .then(function (lists) {
         $scope.userLists = lists;
         console.log($scope.userLists);
-        $scope.$digest();
       });
 
     $scope.doRefresh = function () {

@@ -22,9 +22,12 @@
       <div ng-repeat="feedItem in newsFeed" ng-if="feedItem.verb != 'follow' && !showLoading">
         <div class="item item-avatar">
           <img ng-src="{{ feedItem.actor_parse.attributes.fbPicture || 'http://placehold.it/95x95'}}"
+               ng-click="viewProfile(feedItem.actor_parse)"
                style="border-radius: 10%;">
 
-          <p>{{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}</p>
+          <p ng-click="viewProfile(feedItem.actor_parse)">
+            {{ feedItem.actor_parse.attributes.firstname }} {{ feedItem.actor_parse.attributes.lastname }}
+          </p>
 
           <p ng-if="feedItem.verb == 'listUpdate'">
             added

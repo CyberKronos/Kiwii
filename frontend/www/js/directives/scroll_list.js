@@ -92,17 +92,17 @@
             originaltouchMove.apply(sv, [e]);
           };
 
-          sv.mouseDown = function (e) {
-            e.preventDefault = function () {
-            };
-            originalmouseDown.apply(sv, [e]);
-          };
+          // sv.mouseDown = function (e) {
+          //   e.preventDefault = function () {
+          //   };
+          //   originalmouseDown.apply(sv, [e]);
+          // };
 
-          sv.mouseMove = function (e) {
-            e.preventDefault = function () {
-            };
-            originalmouseMove.apply(sv, [e]);
-          };
+          // sv.mouseMove = function (e) {
+          //   e.preventDefault = function () {
+          //   };
+          //   originalmouseMove.apply(sv, [e]);
+          // };
 
           container.addEventListener("touchstart", sv.touchStart, false);
           container.addEventListener("mousedown", sv.mouseDown, false);

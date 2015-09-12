@@ -4,7 +4,7 @@
   'use strict';
 
   var serviceId = 'AppModalService';
-  angular.module('kiwii').factory(serviceId, [
+  angular.module('kiwii').factory('AppModalService', [
     '$ionicModal', '$rootScope', '$q', '$injector', '$controller', AppModalService
   ]);
 
