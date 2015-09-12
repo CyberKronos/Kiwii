@@ -110,6 +110,7 @@
 
       .state('tab.photoDetails', {
         url: '/photoDetails',
+        cache: false,
         views: {
           'publicProfile': {
             templateUrl: 'templates/photo_details.html',

@@ -88,7 +88,7 @@
     function showLoading() {
       $scope.isLoading = true;
       $ionicLoading.show({
-        template: 'Posting photo...'
+        template: 'Creating card...'
       });
     }
 

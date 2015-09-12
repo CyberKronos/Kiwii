@@ -11,8 +11,6 @@
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    // $scope.getNewUsers = getNewUsers;
-
     $scope.getRestaurantName = function (foursquareId) {
       var Restaurants = Parse.Object.extend('Restaurants');
       var restaurant = new Parse.Query(Restaurants);
@@ -37,25 +35,6 @@
         });
     };
 
-    // Maybe should move to a service
-    // function getNewUsers() {
-    //   return FacebookApi.getFriendsInApp()
-    //     .then(function (response) {
-    //       var userInfoPromises = _.map(response.data, function (value) {
-    //         var fbId = value.id;
-    //         return getParseUserInfo(fbId)
-    //           .then(function (result) {
-    //             if (result != 'no results') {
-    //               value['userObject'] = result;
-    //             }
-    //             return value;
-    //           });
-    //       });
-    //       console.log(userInfoPromises);
-    //       return $q.all(userInfoPromises);
-    //     });
-    // }
-
     function getParseUserInfo(fbId) {
       var query = new Parse.Query(Parse.User);
       query.equalTo("fbId", fbId);
@@ -77,19 +56,23 @@
       Parse.Cloud.run('feed', {
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
-        angular.forEach(response.activities, function (value, key) {
-          if (value.verb == 'photo') {
-            var parseObject = value.object_parse.attributes;
-            if (parseObject.restaurant) {
-              getRestaurantName(value.object_parse.attributes.restaurant.id)
-                .then(function (result) {
-                  value.object_parse.attributes.restaurant = result;
-                });
-            }
+
+        // Need to move to parse cloud code
+        var activities = response.activities;
+        activities.forEach(function(value) {
+          if (value.verb == 'card') {
+            var author = value.object_parse.attributes.author;
+            var photo = value.object_parse.attributes.photos[0];
+            var taggedRestaurant = value.object_parse.attributes.taggedRestaurant;
+
+            author.fetch();
+            photo.fetch();
+            taggedRestaurant.fetch();
           }
         });
-        $scope.newsFeed = response.activities;
-        console.log($scope.newsFeed);
+
+        console.log(activities);
+        $scope.newsFeed = activities;
         $scope.showLoading = false;
       });
     }

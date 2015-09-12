@@ -41,6 +41,13 @@
       var deferred = $q.defer();
       var Card = Parse.Object.extend('Cards');
       var card = new Card();
+
+      // we write to the user feed
+      card.set('feedSlug', 'user');
+      card.set('feedUserId', cardData['author']['id']);
+
+      card.set('actor', cardData['author']);
+      card.set('verb', 'card');
       card.set('author', cardData['author']);
 
       FoursquareApi.getRestaurantById(cardData['taggedRestaurant'])
