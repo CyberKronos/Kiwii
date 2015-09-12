@@ -28,6 +28,13 @@
       $state.go('tab.lists');
     };
 
+    $scope.viewRestaurantDetails = function(card) {
+      $state.go('tab.details', {
+        venueId: card.attributes.taggedRestaurant.attributes.foursquareId,
+        card: card
+      });
+    };
+
     $scope.viewProfile = function (userObject) {
         $state.go('tab.publicProfile', {
             userId: userObject.id,
