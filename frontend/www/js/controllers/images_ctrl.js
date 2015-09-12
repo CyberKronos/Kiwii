@@ -5,7 +5,7 @@
     $scope.imagePost = {};
 
     $scope.openModal = function () {
-      AppModalService.show('templates/edit_image_popup.html', 'AddCardModalCtrl',
+      AppModalService.show('templates/add_card_modal.html', 'AddCardModalCtrl',
         {images: [$scope.imagePost]})
     };
 
