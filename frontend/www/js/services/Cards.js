@@ -2,7 +2,7 @@
   var Cards = function ($q, ParseObject, FoursquareApi, UserPhotos) {
 
     var CARDS_CLASS = 'Cards';
-    var CARDS_KEYS = ['author', 'taggedRestaurant', 'photos'];
+    var CARDS_KEYS = ['author', 'taggedRestaurant', 'photos', 'externalUrl'];
 
     // Private Methods
     function createUserPhotos(cardData) {
