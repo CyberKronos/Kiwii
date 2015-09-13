@@ -1,5 +1,5 @@
 (function () {
-    var RestaurantDetails = function ($q, FoursquareApi, InstagramApi, UserPhotos) {
+    var RestaurantDetails = function ($q, FoursquareApi, UserPhotos) {
 
         return {
             fetchVenue: fetchVenue
@@ -19,5 +19,5 @@
     };
 
     angular.module('kiwii')
-        .factory('RestaurantDetails', ['$q', 'FoursquareApi', 'InstagramApi', 'UserPhotos', RestaurantDetails]);
+        .factory('RestaurantDetails', ['$q', 'FoursquareApi', 'UserPhotos', RestaurantDetails]);
 })();

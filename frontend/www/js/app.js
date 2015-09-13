@@ -13,7 +13,6 @@
       'ionic.service.deploy',
       'ng-mfb',
       'angularMoment'
-      // 'ionic.service.analytics'
       ]);
 
   // the configs
@@ -26,7 +25,7 @@
       key: 'xwqcm8d4w27c',
       site: '5290'
     }
-  }
+  };
 
   // initialize parse
   Parse.initialize(config.parse.applicationId, config.parse.javascriptId);

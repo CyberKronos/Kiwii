@@ -63,23 +63,19 @@
       Parse.Cloud.run('feed', {
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
-
-        // Need to move to parse cloud code
-        var activities = response.activities;
-        activities.forEach(function(value) {
-          if (value.verb == 'card') {
-            var author = value.object_parse.attributes.author;
-            var photo = value.object_parse.attributes.photos[0];
-            var taggedRestaurant = value.object_parse.attributes.taggedRestaurant;
-
-            author.fetch();
-            photo.fetch();
-            taggedRestaurant.fetch();
+        angular.forEach(response.activities, function (activity, key) {
+          setTimestampToUTC(activity);
+          if (activity.verb == 'photo') {
+            var parseObject = activity.object_parse.attributes;
+            if (parseObject.restaurant) {
+              getRestaurantName(activity.object_parse.attributes.restaurant.id)
+                .then(function (result) {
+                  activity.object_parse.attributes.restaurant = result;
+                });
+            }
           }
         });
-
-        console.log(activities);
-        $scope.newsFeed = activities;
+        $scope.newsFeed = response.activities;
         $scope.showLoading = false;
       });
     }
@@ -94,6 +90,10 @@
           console.log(error);
           return;
         });
+    }
+
+    function setTimestampToUTC(activity) {
+      activity.time = moment(activity.time + '+00:00');
     }
   };
 

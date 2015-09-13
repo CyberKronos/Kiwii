@@ -22,13 +22,7 @@
     return {
       getLocationImages: function (foursquareId) {
         var deferred = $q.defer();
-        Parse.Cloud.run('searchLocation', {foursquareId: foursquareId})
-          .then(function (response) {
-            if (response.data && response.data.length) {
-              var id = response.data[0].id;
-              return Parse.Cloud.run('getRecentMediaByLocation', {locationId: id});
-            }
-          })
+        Parse.Cloud.run('getInstagramImagesByFoursquareId', {foursquareId: foursquareId})
           .then(function (response) {
             if (response) {
               return deferred.resolve(_.map(response.data, convertToKiwiiFormat));
@@ -37,7 +31,7 @@
             }
           })
           .fail(deferred.reject);
-        return deferred;
+        return deferred.promise;
       }
     }
   };
