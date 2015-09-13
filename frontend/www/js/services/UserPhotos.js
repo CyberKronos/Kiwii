@@ -115,8 +115,8 @@
           photosQ = $q.all([photosQ, InstagramApi.getLocationImages(options['restaurantId'])])
             .then(_.flatten);
         }
-        return photosQ.
-          catch(function () {
+        return photosQ
+          .catch(function () {
             return {message: 'Unable to fetch photos.'};
           });
       }

@@ -3,7 +3,7 @@
 
     loadPhotoData();
 
-    var card = $stateParams.card
+    var card = $stateParams.card;
 
     $scope.restaurantDetails = function (foursquareId) {
         console.log(card);

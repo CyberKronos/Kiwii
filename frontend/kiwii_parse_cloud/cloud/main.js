@@ -8,22 +8,17 @@ ig.initialize('83917d76cf494eb1a888bec8282f8611');
 // Paste your access_token here if needed
 ig.setAccessToken('10540106.83917d7.5369ddd80fec497da72ebce95b235cd5');
 
-Parse.Cloud.define('searchLocation', function (request, response) {
+Parse.Cloud.define('getInstagramImagesByFoursquareId', function (request, response) {
   ig.searchLocation({
     foursquare_v2_id: request.params.foursquareId
-  }).then(function (httpResponse) {
-      response.success(httpResponse.data);
-    },
-    function (error) {
-      response.error(error);
-    });
-});
-
-Parse.Cloud.define('getRecentMediaByLocation', function (request, response) {
-  ig.getRecentMediaByLocation(request.params.locationId, {})
+  })
+    .then(function (httpResponse) {
+      return ig.getRecentMediaByLocation(httpResponse.data.data[0].id, {});
+    })
     .then(function (httpResponse) {
       response.success(httpResponse.data);
-    },
+    })
+    .fail(
     function (error) {
       response.error(error);
     });
@@ -158,21 +153,21 @@ var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, set
  * Listen to the activityModels afterSave and afterDelete
  * and send the activities to getstream.io
  */
-_.each(settings.activityModels, function(model) {
-  Parse.Cloud.afterSave(model, function(request) {
+_.each(settings.activityModels, function (model) {
+  Parse.Cloud.afterSave(model, function (request) {
     // trigger fanout
     var activity = utils.parseToActivity(request.object);
     var feed = client.feed(activity.feed_slug, activity.feed_user_id);
     feed.addActivity(activity, utils.createHandler());
   });
 
-  Parse.Cloud.afterDelete(model, function(request) {
+  Parse.Cloud.afterDelete(model, function (request) {
     // trigger fanout to remove
     var activity = utils.parseToActivity(request.object);
     var feed = client.feed(activity.feed_slug, activity.feed_user_id);
     // remove by foreign id
     feed.removeActivity({
-      foreignId : activity.foreign_id
+      foreignId: activity.foreign_id
     }, utils.createHandler());
   });
 });
@@ -182,7 +177,7 @@ _.each(settings.activityModels, function(model) {
  *
  * Not being used since we are not using a Follow class to save folloing activity
  */
-Parse.Cloud.afterSave(settings.followModel, function(request) {
+Parse.Cloud.afterSave(settings.followModel, function (request) {
   // trigger fanout & follow
   var parseObject = request.object;
   var activity = utils.parseToActivity(parseObject);
@@ -193,13 +188,13 @@ Parse.Cloud.afterSave(settings.followModel, function(request) {
   flat.follow('user', parseObject.get('object').id, utils.createHandler());
 });
 
-Parse.Cloud.afterDelete(settings.followModel, function(request) {
+Parse.Cloud.afterDelete(settings.followModel, function (request) {
   // trigger fanout & unfollow
   var parseObject = request.object;
   var activity = utils.parseToActivity(parseObject);
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
   feed.removeActivity({
-    foreignId : activity.foreign_id
+    foreignId: activity.foreign_id
   }, utils.createHandler());
   // flat feed of user will follow user feed of target
   var flat = client.feed('flat', parseObject.get('actor').id);
@@ -211,7 +206,7 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
  * Accepts params
  */
 
-Parse.Cloud.define("addRestaurantToListActivity", function(request, response) {
+Parse.Cloud.define("addRestaurantToListActivity", function (request, response) {
   // trigger fanout
   var feedIdentifier = request.params.feed;
   var feedParts = feedIdentifier.split(':');
@@ -226,8 +221,8 @@ Parse.Cloud.define("addRestaurantToListActivity", function(request, response) {
   var activity = {
     feed_slug: feedSlug,
     feed_user_id: userId,
-    actor: actor, 
-    verb: 'listUpdate', 
+    actor: actor,
+    verb: 'listUpdate',
     object: object,
     foreign_id: foreign_id,
     target: target
@@ -242,7 +237,7 @@ Parse.Cloud.define("addRestaurantToListActivity", function(request, response) {
  * Accepts params
  */
 
-Parse.Cloud.define("removeRestaurantFromListActivity", function(request, response) {
+Parse.Cloud.define("removeRestaurantFromListActivity", function (request, response) {
   // trigger fanout
   var feedIdentifier = request.params.feed;
   var feedParts = feedIdentifier.split(':');
@@ -259,7 +254,7 @@ Parse.Cloud.define("removeRestaurantFromListActivity", function(request, respons
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
   // remove by foreign id
   feed.removeActivity({
-    foreignId : activity.foreign_id
+    foreignId: activity.foreign_id
   }, utils.createHandler());
   response.success('success!');
 });
@@ -273,7 +268,7 @@ Parse.Cloud.define("removeRestaurantFromListActivity", function(request, respons
  * id_lte: filter by activity id less than or equal to (for pagination)
  *
  */
-Parse.Cloud.define("feed", function(request, response) {
+Parse.Cloud.define("feed", function (request, response) {
   var feedIdentifier = request.params.feed;
   var feedParts = feedIdentifier.split(':');
   var feedSlug = feedParts[0];
@@ -281,22 +276,22 @@ Parse.Cloud.define("feed", function(request, response) {
   var id_lte = request.params.id_lte || undefined;
   var limit = request.params.limit || 100;
   var params = {
-    limit : limit
+    limit: limit
   };
   if (id_lte) {
     params.id_lte = limit;
   }
   // initialize the feed class
   var feed = client.feed(feedSlug, userId);
-  feed.get(params, function(httpResponse) {
+  feed.get(params, function (httpResponse) {
     var activities = httpResponse.data;
     // enrich the response with the database values where needed
     var promise = utils.enrich(activities.results);
-    promise.then(function(activities) {
+    promise.then(function (activities) {
       response.success({
-        activities : activities,
-        feed : feedIdentifier,
-        token : feed.token
+        activities: activities,
+        feed: feedIdentifier,
+        token: feed.token
       });
     });
   }, utils.createHandler(response));
@@ -306,7 +301,7 @@ Parse.Cloud.define("feed", function(request, response) {
  * Bit of extra logic for likes
  */
 
-Parse.Cloud.afterSave("Like", function(request) {
+Parse.Cloud.afterSave("Like", function (request) {
   // trigger fanout
   var activity = utils.parseToActivity(request.object);
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
@@ -316,27 +311,27 @@ Parse.Cloud.afterSave("Like", function(request) {
   var activityType = like.get('activity_type');
   var pointer = like.get('activity_' + activityType);
   var query = new Parse.Query(pointer.className);
-  query.get(pointer.id, function(activity){
+  query.get(pointer.id, function (activity) {
     // increment the likes
     activity.increment('likes');
     activity.save();
   });
 });
 
-Parse.Cloud.afterDelete("Like", function(request) {
+Parse.Cloud.afterDelete("Like", function (request) {
   // trigger fanout to remove
   var activity = utils.parseToActivity(request.object);
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
   // remove by foreign id
   feed.removeActivity({
-    foreignId : activity.foreign_id
+    foreignId: activity.foreign_id
   }, utils.createHandler());
   // get the related object
   var like = request.object;
   var activityType = like.get('activity_type');
   var pointer = like.get('activity_' + activityType);
   var query = new Parse.Query(pointer.className);
-  query.get(pointer.id, function(activity){
+  query.get(pointer.id, function (activity) {
     // decrement the likes
     activity.increment('likes', -1);
     activity.save();
