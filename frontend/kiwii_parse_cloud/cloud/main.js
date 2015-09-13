@@ -288,10 +288,31 @@ Parse.Cloud.define("feed", function (request, response) {
     // enrich the response with the database values where needed
     var promise = utils.enrich(activities.results);
     promise.then(function (activities) {
-      response.success({
-        activities: activities,
-        feed: feedIdentifier,
-        token: feed.token
+      activities.forEach(function(activity) {
+        if (activity.verb == 'card') {
+          var author = activity.object_parse.attributes.author;
+          var taggedRestaurant = activity.object_parse.attributes.taggedRestaurant;
+          var photo = activity.object_parse.attributes.photos[0];
+
+          author.fetch()
+          .then(function (result) {
+            
+            taggedRestaurant.fetch()
+            .then(function (result) {
+              
+              photo.fetch()
+              .then(function (result) {
+                
+                response.success({
+                  activities: activities,
+                  feed: feedIdentifier,
+                  token: feed.token
+                });
+                
+              });
+            });
+          });
+        }
       });
     });
   }, utils.createHandler(response));
