@@ -11,8 +11,6 @@
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    // $scope.getNewUsers = getNewUsers;
-
     $scope.getRestaurantName = function (foursquareId) {
       var Restaurants = Parse.Object.extend('Restaurants');
       var restaurant = new Parse.Query(Restaurants);
@@ -30,31 +28,19 @@
       $state.go('tab.lists');
     };
 
+    $scope.viewRestaurantDetails = function(card) {
+      $state.go('tab.details', {
+        venueId: card.attributes.taggedRestaurant.attributes.foursquareId,
+        card: card
+      });
+    };
+
     $scope.viewProfile = function (userObject) {
         $state.go('tab.publicProfile', {
             userId: userObject.id,
             user: userObject
         });
     };
-
-    // Maybe should move to a service
-    // function getNewUsers() {
-    //   return FacebookApi.getFriendsInApp()
-    //     .then(function (response) {
-    //       var userInfoPromises = _.map(response.data, function (value) {
-    //         var fbId = value.id;
-    //         return getParseUserInfo(fbId)
-    //           .then(function (result) {
-    //             if (result != 'no results') {
-    //               value['userObject'] = result;
-    //             }
-    //             return value;
-    //           });
-    //       });
-    //       console.log(userInfoPromises);
-    //       return $q.all(userInfoPromises);
-    //     });
-    // }
 
     function getParseUserInfo(fbId) {
       var query = new Parse.Query(Parse.User);
@@ -89,8 +75,8 @@
             }
           }
         });
-        $scope.newsFeed = response.activities;
-        console.log($scope.newsFeed);
+        console.log(activities);
+        $scope.newsFeed = activities;
         $scope.showLoading = false;
       });
     }

@@ -23,10 +23,7 @@
         var Photos = Parse.Object.extend(USER_PHOTOS_CLASS);
         var userPhoto = new Photos();
         var user = Parse.User.current();
-
-        // we write to the user feed
-        userPhoto.set('feedSlug', 'user');
-        userPhoto.set('feedUserId', user.id);
+        
         // the photo's data
         userPhoto.set('actor', user);
         userPhoto.set('verb', 'photo');

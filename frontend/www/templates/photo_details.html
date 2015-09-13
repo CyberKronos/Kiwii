@@ -4,7 +4,7 @@
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a ng-if="author.id == Parse.User.current().id" 
+      <a ng-if="author.id == user.id" 
          ng-click="cardSettings()"
          class="button button-icon button-clear ion-gear-a"></a>
     </ion-nav-buttons>
@@ -31,7 +31,7 @@
                style="font-weight: bold;"></div>
           <!-- <span class="text-minor" ng-if="!restaurant.hours.isOpen" style="margin-left: 4px;">Closed</span> -->
         </div>
-        <div class="text-minor" style="padding: 5px;">
+        <div class="text-minor description">
           {{ photoData.description }}
         </div>
         <div class="footer" style="margin-top: 4px;">

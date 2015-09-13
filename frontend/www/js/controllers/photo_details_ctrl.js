@@ -1,9 +1,11 @@
 (function () {
-  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, $ionicActionSheet, FoursquareApi, Cards) {
+  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, $ionicActionSheet, $cordovaInAppBrowser, FoursquareApi, Cards) {
 
     loadPhotoData();
 
     var card = $stateParams.card;
+
+    $scope.user = Parse.User.current();
 
     $scope.restaurantDetails = function (foursquareId) {
         console.log(card);
@@ -11,6 +13,16 @@
             venueId: foursquareId,
             card: card
         });
+    };
+
+    $scope.openWebsite = function (link) {
+      console.log(link);
+      var options = {
+        location: 'yes',
+        clearcache: 'yes',
+        toolbar: 'yes'
+      };
+      $cordovaInAppBrowser.open(link, '_blank', options);
     };
 
     $scope.cardSettings = function() {
