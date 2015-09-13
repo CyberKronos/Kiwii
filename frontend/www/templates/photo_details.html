@@ -4,7 +4,7 @@
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a ng-if="author.id == Parse.User.current().id" 
+      <a ng-if="author.id == user.id" 
          ng-click="cardSettings()"
          class="button button-icon button-clear ion-gear-a"></a>
     </ion-nav-buttons>
