@@ -77,13 +77,14 @@
       Parse.Cloud.run('feed', {
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
-        angular.forEach(response.activities, function (value, key) {
-          if (value.verb == 'photo') {
-            var parseObject = value.object_parse.attributes;
+        angular.forEach(response.activities, function (activity, key) {
+          setTimestampToUTC(activity);
+          if (activity.verb == 'photo') {
+            var parseObject = activity.object_parse.attributes;
             if (parseObject.restaurant) {
-              getRestaurantName(value.object_parse.attributes.restaurant.id)
+              getRestaurantName(activity.object_parse.attributes.restaurant.id)
                 .then(function (result) {
-                  value.object_parse.attributes.restaurant = result;
+                  activity.object_parse.attributes.restaurant = result;
                 });
             }
           }
@@ -104,6 +105,10 @@
           console.log(error);
           return;
         });
+    }
+
+    function setTimestampToUTC(activity) {
+      activity.time = moment(activity.time + '+00:00');
     }
   };
 
