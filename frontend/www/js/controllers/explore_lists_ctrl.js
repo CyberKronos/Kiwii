@@ -75,8 +75,7 @@
             }
           }
         });
-        console.log(activities);
-        $scope.newsFeed = activities;
+        $scope.newsFeed = response.activities;
         $scope.showLoading = false;
       });
     }
