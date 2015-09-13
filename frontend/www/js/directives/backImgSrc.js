@@ -4,13 +4,12 @@
 
         return function (scope, element, attrs) {
             var filter = '';
-            var bgPosition = '';
+            var bgPosition = 'center';
             if ('darken' in attrs) {
                 filter = 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), ';
             }
             if ('darkenStart' in attrs) {
                 filter = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), ';
-                bgPosition = 'center';
             }
             if ('toChild' in attrs) {
                 element = element.children();
