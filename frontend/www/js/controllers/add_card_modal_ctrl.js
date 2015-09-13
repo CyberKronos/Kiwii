@@ -12,10 +12,6 @@
     $scope.postPhoto = function () {
       showLoading();
 
-      _.forEach($scope.userPhotos, function (userPhoto) {
-        userPhoto['foursquareId'] = $scope.taggedRestaurant.foursquareId;
-      });
-
       Cards.createCard({
           userPhotos: $scope.userPhotos,
           author: Parse.User.current(),
@@ -25,7 +21,6 @@
         .then(function () {
           hideLoading();
           $scope.closeModal();
-          $state.go('tab.profile');
         })
         .catch(function (error) {
           hideLoading();
@@ -56,7 +51,8 @@
           CameraService.getPicture(button.actionType)
             .then(function (imageData) {
               $scope.userPhotos.push({
-                imageData : 'data:image/jpeg;base64,' + imageData
+                imageData: 'data:image/jpeg;base64,' + imageData,
+                foursquareId: $scope.taggedRestaurant.foursquareId
               })
             });
           return true;
@@ -82,7 +78,9 @@
     };
 
     $scope.restaurantsClicked = function (callback) {
-      $scope.taggedRestaurant = callback.item;
+      if (callback.item) {
+        $scope.taggedRestaurant = callback.item;
+      }
     };
 
     function showLoading() {

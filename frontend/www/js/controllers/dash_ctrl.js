@@ -42,11 +42,7 @@
         }
 
         function getRecentlyViewedRestaurants() {
-          return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id)
-            // TODO: Get Parse Restuarants class to use ParseObject
-            .then(function (result) {
-              return _.map(result, _.method('toJSON'));
-            })
+          return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id);
         }
 
         function showLocationError(positionError) {

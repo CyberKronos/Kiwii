@@ -1,9 +1,14 @@
 'use strict';
 
+var _ = require('underscore');
+
 var OAUTH_TOKEN = 'RGT5ZXHWBGVROTMD1ETZN1GMK0CLTNQEBYMUHEC3OY4XAQDQ';
 var API_VERSION = '20141020';
 var BASE_URL_VENUE = 'https://api.foursquare.com/v2/venues/';
 var IMAGE_SIZE = '500x500';
+var FOOD_CATEGORY_ID = '4d4b7105d754a06374d81259';
+var SEARCH_INTENT = 'browse';
+var SEARCH_LIMIT = 10;
 
 // Foursquare Api
 Parse.Cloud.define("callFoursquareApi", function (request, response) {
@@ -21,13 +26,75 @@ Parse.Cloud.define("callFoursquareApi", function (request, response) {
   });
 });
 
-Parse.Cloud.define('explore', function (request, response) {
-  if (request.params.queryParams.query == '') {
-    request.params.queryParams.section = 'food';
+Parse.Cloud.define('foursquareSearch', function (request, response) {
+  request.params.queryParams.categoryId = FOOD_CATEGORY_ID;
+  request.params.queryParams.oauth_token = OAUTH_TOKEN;
+  request.params.queryParams.v = API_VERSION;
+  request.params.queryParams.intent = SEARCH_INTENT;
+  request.params.queryParams.limit = SEARCH_LIMIT;
+
+  Parse.Cloud.httpRequest({
+    method: "GET",
+    url: BASE_URL_VENUE + 'search',
+    params: request.params.queryParams
+  })
+    .then(function (httpResponse) {
+      var venuesResponse = JSON.parse(httpResponse.text).response.venues;
+      return Parse.Promise.when(_.map(venuesResponse, function (venue) {
+        return Parse.Cloud.run('foursquareVenue', {venueId: venue.id})
+      }))
+    })
+    .then(function () {
+      response.success(_.toArray(arguments));
+    })
+    .fail(function (error) {
+      if (arguments.length > 1) {
+        response.error(_.toArray(arguments));
+      } else {
+        response.error(error);
+      }
+    })
+
+});
+
+Parse.Cloud.define('foursquareVenue', function (request, response) {
+  var venueId = request.params.venueId;
+  if (!venueId) {
+    response.error({message: 'foursquareVenue: Foursquare Venue ID is required.'});
   }
+
+  Parse.Cloud.httpRequest({
+    method: 'GET',
+    url: BASE_URL_VENUE + venueId,
+    params: {
+      oauth_token: OAUTH_TOKEN,
+      v: API_VERSION
+    },
+    success: parseVenueResponse,
+    error: function (httpResponse) {
+      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
+    }
+  });
+
+  function parseVenueResponse(httpResponse) {
+    var venueResponse = transformVenueResponse(JSON.parse(httpResponse.text).response);
+    cacheVenue(venueResponse)
+      .then(function (venue) {
+        response.success(venue);
+      })
+      .fail(function (error) {
+        response.error(error);
+      })
+  }
+});
+
+Parse.Cloud.define('explore', function (request, response) {
   request.params.queryParams.venuePhotos = 1;
   request.params.queryParams.oauth_token = OAUTH_TOKEN;
   request.params.queryParams.v = API_VERSION;
+  if (request.params.queryParams.query == '') {
+    request.params.queryParams.section = 'food';
+  }
 
   Parse.Cloud.httpRequest({
     method: "GET",
@@ -41,7 +108,6 @@ Parse.Cloud.define('explore', function (request, response) {
 
   function parseHttpResponse(httpResponse) {
     var apiResponse = JSON.parse(httpResponse.text).response;
-    console.log(apiResponse);
     var items = apiResponse.groups[0].items;
     var venues = items.map(transformVenueResponse);
 
@@ -98,29 +164,24 @@ function transformVenueResponse(item) {
   return venue;
 }
 
-function cacheVenues(venues) {
+function cacheVenue(venue) {
+  console.log(venue);
   var RESTAURANT_CLASS = 'Restaurants';
   var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
-  var promises = venues.map(function (venue) {
-    return new Parse.Query(RESTAURANT_CLASS)
-      .equalTo('foursquareId', venue.foursquareId)
-      .find()
-      .then(function (results) {
-        if (results.length) {
-          console.log('Updating cache for ' + venue.name);
-          return results[0].save(venue);
-        } else {
-          console.log('Saving new restaurant: ' + venue.name);
-          return new Restaurant().save(venue);
-        }
-      })
-      .then(function (restaurant) {
-        return restaurant;
-      },
-      function (error) {
-        console.log(error);
-        return error;
-      });
-  });
-  return Parse.Promise.when(promises);
+  var newRestaurant = new Restaurant();
+  var query = new Parse.Query(RESTAURANT_CLASS);
+  return query
+    .equalTo('foursquareId', venue.foursquareId)
+    .first()
+    .then(function (existingRestaurant) {
+      if (existingRestaurant) {
+        return existingRestaurant.save(venue);
+      } else {
+        return newRestaurant.save(venue);
+      }
+    });
+}
+
+function cacheVenues(venues) {
+  return Parse.Promise.when(venues.map(cacheVenue));
 }

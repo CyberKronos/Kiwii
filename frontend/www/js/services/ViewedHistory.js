@@ -8,15 +8,17 @@
       var RECORD_RETRIEVAL_LIMIT = 10;
 
       function resolveRestaurant(params) {
+        var deferred = $q.defer();
         if (params['restaurantId']) {
           var Restaurant = Parse.Object.extend('Restaurant');
-          return $q.when(Restaurant.createWithoutData(params['restaurantId']));
+          deferred.resolve(Restaurant.createWithoutData(params['restaurantId']));
         }
         else if (params['foursquareId']) {
-          return FoursquareApi.getRestaurantById(params['foursquareId'])
+          deferred.resolve(FoursquareApi.getRestaurantById(params['foursquareId']));
         } else {
-          return $q.reject({message: 'No Restaurant ID was provided to record viewed history.'});
+          deferred.resolve({message: 'No Restaurant ID was provided to record viewed history.'});
         }
+        return deferred.promise;
       }
 
       function saveRecord(user, restaurant, card) {
@@ -38,6 +40,26 @@
           .first();
       }
 
+      function fetchFullRecord(record) {
+        var deferred = $q.defer();
+        // TODO: Get Parse Restuarants class to use ParseObject
+        record.restaurant = record.restaurant.toJSON();
+        if (record.card) {
+          var query = new Parse.Query(Cards);
+          query
+            .include('author')
+            .include('photos')
+            .get(record.card.id)
+            .then(function (card) {
+              record.card = card;
+              deferred.resolve(record);
+            });
+        } else {
+          deferred.resolve(record);
+        }
+        return deferred.promise;
+      }
+
       var ViewedHistory = ParseObject.extend(VIEWED_HISTORY_CLASS, VIEWED_HISTORY_KEYS, {}, {
         record: record,
         retrieveRecentRestaurants: retrieveRecentRestaurants
@@ -56,7 +78,7 @@
             return saveRecord(user, restaurant, card);
           })
           .then(deferred.resolve)
-          .fail(deferred.reject);
+          .catch(deferred.reject);
 
         return deferred.promise;
       }
@@ -69,13 +91,18 @@
           .equalTo('user', user)
           .addDescending('updatedAt')
           .include('restaurant')
+          .include('card')
           .limit(RECORD_RETRIEVAL_LIMIT)
           .find()
           .then(function (result) {
-            return _.pluck(result, 'restaurant');
+            return Parse.Promise.when(_.map(result, fetchFullRecord));
           })
-          .then(deferred.resolve)
-          .fail(deferred.reject);
+          .then(function () {
+            deferred.resolve(_.toArray(arguments));
+          })
+          .fail(function () {
+            deferred.reject(_.toArray(arguments));
+          });
         return deferred.promise;
       }
 

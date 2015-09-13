@@ -1,9 +1,10 @@
 (function () {
 
-  var SearchCtrl = function($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, LocationService, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
+  var SearchCtrl = function($scope, $localStorage, $ionicSideMenuDelegate, $state, $ionicHistory, $cordovaGeolocation, $timeout,
+                            LocationService, $cordovaStatusbar, $ionicPopup, RestaurantExplorer, RestaurantDetails, CRITERIA_OPTIONS) {
 
     $scope.$on('$ionicView.leave', function () { //This is fired twice in a row
-      $scope.restaurantDetails = "";
+      $scope.restaurantDetails = '';
     });
 
     $scope.isLoadingLocation = true;
@@ -65,12 +66,15 @@
       if (!query) {
         return {};
       }
-      return RestaurantExplorer.findWithKiwii({
+      var params = {
         'query': query,
         'll': $scope.criteria['ll'],
         'radius': 50000,
         'limit': 10
-      })
+      };
+
+      triggerExternalSearch(params);
+      return RestaurantExplorer.findWithKiwii(params)
         .then(function (restaurants) {
           return {
             items: restaurants
@@ -78,7 +82,16 @@
         });
     };
 
+    var searchIdleTimer;
+    function triggerExternalSearch(params) {
+      if (searchIdleTimer) {
+        $timeout.cancel(searchIdleTimer);
+      }
+      searchIdleTimer = $timeout(RestaurantExplorer.findWithExternal.bind(null, params), 2000);
+    }
+
     $scope.restaurantsClicked = function (callback) {
+      console.log(callback);
       $state.go('tab.details', {venueId: callback.item.foursquareId});
     };
 
