@@ -135,7 +135,8 @@
           },
         },
         params: {
-          user : null
+          user : null,
+          followers: null
         },
         data: {
           authenticate: true
@@ -152,7 +153,8 @@
           }
         },
         params: {
-          user : null
+          user : null,
+          following: null
         },
         data: {
           authenticate: true
@@ -226,12 +228,12 @@
         }
       })
 
-      .state('tab.exploreLists', {
-        url: '/exploreLists',
+      .state('tab.activityFeed', {
+        url: '/activityFeed',
         views: {
-          'exploreLists': {
-            templateUrl: 'templates/explore_lists.html',
-            controller: 'ExploreListsCtrl'
+          'activityFeed': {
+            templateUrl: 'templates/activity_feed.html',
+            controller: 'ActivityFeedCtrl'
           }
         },
         data: {
@@ -242,7 +244,7 @@
       .state('tab.discoverUsers', {
         url: '/discoverUsers',
         views: {
-          'exploreLists': {
+          'activityFeed': {
             templateUrl: 'templates/discover_users.html',
             controller: 'DiscoverUsersCtrl'
           }

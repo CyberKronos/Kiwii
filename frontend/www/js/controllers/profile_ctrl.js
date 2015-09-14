@@ -5,14 +5,14 @@
     loadUserData();
     getUserCards();
     getUserLists();
-    getFollowingCount();
-    getFollowerCount();
+    getFollowingData();
+    getFollowerData();
 
     $scope.doRefresh = function () {
       getUserCards();
       getUserLists();
-      getFollowingCount();
-      getFollowerCount();
+      getFollowingData();
+      getFollowerData();
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
@@ -84,13 +84,15 @@
 
     $scope.viewFollowing = function () {
       $state.go('tab.following', {
-        user: $scope.user
+        user: $scope.user,
+        following: $scope.following
       });
     };
 
     $scope.viewFollowers = function () {
       $state.go('tab.followers', {
-        user: $scope.user
+        user: $scope.user,
+        followers: $scope.followers
       });
     };
 
@@ -143,17 +145,19 @@
         });
     }
 
-    function getFollowingCount() {
+    function getFollowingData() {
       Following.followingList($scope.user)
         .then(function (result) {
           $scope.followingCount = result.length;
+          $scope.following = result;
         });
     }
 
-    function getFollowerCount() {
+    function getFollowerData() {
       Following.followerList($scope.user)
         .then(function (result) {
           $scope.followerCount = result.length;
+          $scope.followers = result;
         });
     }
   };

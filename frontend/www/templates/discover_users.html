@@ -7,7 +7,10 @@
 
   <ion-content scroll="true">
     <div class="list card">
-      <a ng-repeat="user in kiwiiEndorsedUsers" ng-if="user.userObject" class="item item-avatar item-button-right" href="#">
+      <a ng-repeat="user in kiwiiEndorsedUsers" 
+         ng-if="user.userObject" 
+         ng-click="viewProfile(user.userObject)"
+         class="item item-avatar item-button-right">
         <img ng-src="{{ user.fbPicture || 'http://placehold.it/95x95?text=Kiwii'}}">
         <h2 style="margin-top: 10px;">{{user.name}}</h2>
         <button class="button button-small button-outline button-assertive"

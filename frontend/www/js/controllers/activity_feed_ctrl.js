@@ -1,5 +1,5 @@
 (function () {
-  var ExploreListsCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
+  var ActivityFeedCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
 
     $scope.showLoading = true;
 
@@ -87,5 +87,5 @@
   };
 
   angular.module('kiwii')
-    .controller('ExploreListsCtrl', ExploreListsCtrl)
+    .controller('ActivityFeedCtrl', ActivityFeedCtrl)
 })();

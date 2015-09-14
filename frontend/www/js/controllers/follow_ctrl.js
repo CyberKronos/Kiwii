@@ -2,20 +2,10 @@
     var FollowCtrl = function($scope, $state, $stateParams, Following) {
         
         var userData = $stateParams.user;
+        $scope.following = $stateParams.following;
+        $scope.followers = $stateParams.followers;
 
-        console.log(userData);
-
-        Following.followingList(userData)
-        	.then(function(result) {
-        		$scope.following = result;
-                console.log(result);
-        	}); 
-
-       	Following.followerList(userData)
-        	.then(function(result) {
-        		$scope.followers = result;
-                console.log(result);
-        	});  
+        console.log(userData); 
 
         $scope.viewProfileFollowing = function(user) {
             console.log(user);
