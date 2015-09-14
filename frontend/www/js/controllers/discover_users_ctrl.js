@@ -40,23 +40,6 @@
         console.log($scope.kiwiiEndorsedUsers);
       }
 
-      // function getFacebookUsers() {
-      //   FacebookApi.getFriendsInApp()
-      //   .then(function(response) {
-      //   	angular.forEach(response.data, function(value, key) {
-      //       	var fbId = value.id;
-      //       	getParseUserInfo(fbId)
-      //         		.then(function (result) {
-      //         			if (result != 'no results') {
-      //         				value['userObject'] = result;
-      //         				console.log(value);
-      //         			}
-      //         		});
-      //     });
-      //     $scope.suggestedFbFriends = response.data;
-      //   });
-      // }
-
       function getParseUserInfo(fbId) {
         var query = new Parse.Query(Parse.User);
         query.equalTo("fbId", fbId);
