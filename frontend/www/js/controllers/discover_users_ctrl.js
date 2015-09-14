@@ -12,6 +12,13 @@
       		});
       };
 
+      $scope.viewProfile = function (userObject) {
+        $state.go('tab.publicProfile', {
+            userId: userObject.id,
+            user: userObject
+        });
+    };
+
       function getKiwiiEndorsedUsers() {
         var kiwiiUsers = USER_SUGGESTIONS.KIWII_ENDORSED;
         angular.forEach(kiwiiUsers, function(value, key) {
