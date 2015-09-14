@@ -1,17 +1,13 @@
 (function () {
-  var Lists = function (FoursquareApi) {
+  var Lists = function (ParseObject, FoursquareApi) {
     var LISTS_CLASS = 'Lists';
-    var LISTS_ATTRIBUTE = 'lists';
+    var USER_LISTS_ATTRIBUTE = 'lists';
+    var LISTS_KEYS = ['cards', 'category', 'categoryId', 'description', 'name', 'restaurants', 'thumbnailUrl'];
 
     var getList = function (listData) {
       var List = Parse.Object.extend(LISTS_CLASS);
       var listQuery = new Parse.Query(List);
-
-      return listQuery.get(listData.objectId)
-        .then(function (result) {
-          console.log(result);
-          return result;
-        });
+      return listQuery.get(listData.objectId);
     };
 
     var getRestaurantsInList = function (list) {
@@ -33,22 +29,16 @@
         });
     };
 
-    var checkIfRestaurantInList = function(list, foursquareId) {
+    var checkIfRestaurantInList = function (list, foursquareId) {
       var relation = list.relation("restaurants");
       var query = relation.query();
       query.equalTo("foursquareId", foursquareId);
-      return query.find()
-        .then(function (results) {
-          console.log(results[0]);
-          return results[0];
-        }, function(error) {
-          console.log(error);
-          return error;
-        });
+      return query.first();
     };
 
-    /* Public Interface */
-    return {
+    var Lists = ParseObject.extend(LISTS_CLASS, LISTS_KEYS, {}, {
+
+      // Static Methods
       saveList: function (listData) {
         var List = Parse.Object.extend(LISTS_CLASS);
 
@@ -67,9 +57,8 @@
 
         return saveList.save()
           .then(function () {
-            var saveListRelation = Parse.User.current().relation(LISTS_ATTRIBUTE);
+            var saveListRelation = Parse.User.current().relation(USER_LISTS_ATTRIBUTE);
             saveListRelation.add(saveList);
-
             return Parse.User.current().save();
           });
       },
@@ -110,7 +99,7 @@
                     console.log(response);
                   });
 
-                  return list.save().then(function() {
+                  return list.save().then(function () {
                     // Save latest saved restaurant thumbnail to list
                     list.set("thumbnailUrl", restaurant.attributes.imageUrl);
 
@@ -143,7 +132,9 @@
           .then(updateThumbnailUrl)
           .then(_.method('save'));
       }
-    };
+    });
+
+    return Lists;
   };
 
   angular.module('kiwii')

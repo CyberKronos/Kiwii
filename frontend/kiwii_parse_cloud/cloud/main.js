@@ -157,19 +157,23 @@ var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, set
 _.each(settings.activityModels, function (model) {
   Parse.Cloud.afterSave(model, function (request) {
     // trigger fanout
-    var activity = utils.parseToActivity(request.object);
-    var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-    feed.addActivity(activity, utils.createHandler());
+    if (!request.object.get('externalSource')) {
+      var activity = utils.parseToActivity(request.object);
+      var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+      feed.addActivity(activity, utils.createHandler());
+    }
   });
 
   Parse.Cloud.afterDelete(model, function (request) {
     // trigger fanout to remove
-    var activity = utils.parseToActivity(request.object);
-    var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-    // remove by foreign id
-    feed.removeActivity({
-      foreignId: activity.foreign_id
-    }, utils.createHandler());
+    if (!request.object.get('externalSource')) {
+      var activity = utils.parseToActivity(request.object);
+      var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+      // remove by foreign id
+      feed.removeActivity({
+        foreignId: activity.foreign_id
+      }, utils.createHandler());
+    }
   });
 });
 
@@ -289,7 +293,7 @@ Parse.Cloud.define("feed", function (request, response) {
     // enrich the response with the database values where needed
     var promise = utils.enrich(activities.results);
     promise.then(function (activities) {
-      var feedItems = _.map(activities, function(activity) {
+      var feedItems = _.map(activities, function (activity) {
         if (activity.verb == 'card') {
           var author = activity.object_parse.attributes.author;
           var taggedRestaurant = activity.object_parse.attributes.taggedRestaurant;
@@ -300,7 +304,7 @@ Parse.Cloud.define("feed", function (request, response) {
           var p3 = photo.fetch();
 
           return Parse.Promise.when(p1, p2, p2)
-            .then(function(r1, r2, r2) {
+            .then(function (r1, r2, r2) {
               return activity;
             });
         } else {
@@ -310,14 +314,14 @@ Parse.Cloud.define("feed", function (request, response) {
 
       return Parse.Promise.when(feedItems);
     })
-    .then(function () {
-      var activities = _.toArray(arguments);
-      response.success({
-        activities: activities,
-        feed: feedIdentifier,
-        token: feed.token
+      .then(function () {
+        var activities = _.toArray(arguments);
+        response.success({
+          activities: activities,
+          feed: feedIdentifier,
+          token: feed.token
+        });
       });
-    });
   }, utils.createHandler(response));
 });
 

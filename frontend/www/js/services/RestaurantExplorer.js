@@ -1,7 +1,7 @@
 (function () {
   angular.module('kiwii')
-    .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
-      function ($q, FoursquareApi, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
+    .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'Cards', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
+      function ($q, FoursquareApi, Cards, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
         var prevRestaurants = [];
         var criteria = {
           radius: CRITERIA_DEFAULTS.DISTANCE,
@@ -66,6 +66,12 @@
           return deferred.promise;
         }
 
+        /**
+         * Calls Foursquare's venues/explore API and returns the results in an array of Cards.
+         * @param {Object} givenCritiera The search criteria parameter is expected to be in the same format as the one used for
+         searching through the Foursquare /venues/explore API.
+         * @returns {Array<Cards>} An array of Cards
+         */
         function exploreWithExternal(givenCritiera) {
           var queryCriteria = criteria;
           if (givenCritiera) {

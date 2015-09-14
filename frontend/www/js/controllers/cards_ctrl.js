@@ -1,7 +1,7 @@
 (function () {
   var CardsCtrl = function ($scope, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
-    fetchRestaurants().then(preloadRestaurantPhotos);
+    fetchCards().then(preloadRestaurantPhotos);
     AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
 
     var goNextOnSwipe = true;
@@ -43,20 +43,23 @@
 
     $scope.showSwipeHints = showSwipeHints;
 
-    function fetchRestaurants() {
+    function fetchCards() {
       showLoading();
       return RestaurantExplorer.fetch()
         .then(function () {
-          $scope.restaurants = RestaurantExplorer.results;
-          numberOfResults = $scope.restaurants.length;
-          console.log(numberOfResults);
+          $scope.cards = RestaurantExplorer.results;
+          numberOfResults = $scope.cards.length;
           if (numberOfResults <= 0) {
             showBackdropMessage({
               icon: 'ion-android-search calm',
               message: 'We cannot find any restaurants within the criteria you specified!'
             });
           }
-          return $scope.restaurants;
+          // TODO: Make Restaurants a ParseObject
+          _.forEach($scope.cards, function (card) {
+            card.taggedRestaurant = card.taggedRestaurant.toJSON();
+          });
+          return $scope.cards;
         })
         .fail(function (message) {
           showBackdropMessage({
@@ -67,7 +70,7 @@
         })
         .always(function () {
           hideLoading();
-          return $scope.restaurants;
+          return $scope.cards;
         });
     }
 
@@ -87,10 +90,8 @@
       $scope.isShowingHints = option;
     }
 
-    function preloadRestaurantPhotos(restaurants) {
-      return ImagePreloader.preloadImages(_.map(restaurants, function (r) {
-        return r['imageUrl'];
-      }));
+    function preloadRestaurantPhotos(cards) {
+      return ImagePreloader.preloadImages(_.pluck(cards, 'taggedRestaurant.imageUrl'));
     }
 
     function showBackdropMessage(settings) {

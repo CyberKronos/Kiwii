@@ -7,16 +7,16 @@
 
   <ion-content class="cards-container" padding="true" scroll="false">
 
-    <td-cards ng-if="restaurants.length && !isLoading && !apiError">
-      <td-card ng-repeat="restaurant in restaurants | limitTo: 1"
+    <td-cards ng-if="cards.length && !isLoading && !apiError">
+      <td-card ng-repeat="card in cards | limitTo: 1"
                on-swipe-right="prevRestaurant()"
                on-swipe-left="nextRestaurant()"
                on-partial-swipe="showSwipeHints(true)"
                on-snap-back="showSwipeHints(false)"
                on-destroy="swipeRestaurant()">
-        <restaurant-card restaurant="restaurant"
+        <restaurant-card restaurant="card.taggedRestaurant"
                          current-location="criteria.ll"
-                         ui-sref="tab.details({venueId: restaurant.foursquareId})">
+                         ui-sref="tab.details({venueId: card.taggedRestaurant.foursquareId, card: card})">
         </restaurant-card>
       </td-card>
     </td-cards>

@@ -2,6 +2,7 @@
 
 var _ = require('underscore');
 
+var FOURSQUARE = 'Foursquare';
 var OAUTH_TOKEN = 'RGT5ZXHWBGVROTMD1ETZN1GMK0CLTNQEBYMUHEC3OY4XAQDQ';
 var API_VERSION = '20141020';
 var BASE_URL_VENUE = 'https://api.foursquare.com/v2/venues/';
@@ -9,6 +10,9 @@ var IMAGE_SIZE = '500x500';
 var FOOD_CATEGORY_ID = '4d4b7105d754a06374d81259';
 var SEARCH_INTENT = 'browse';
 var SEARCH_LIMIT = 10;
+
+var RESTAURANT_CLASS = 'Restaurants';
+var CARD_CLASS = 'Cards';
 
 // Foursquare Api
 Parse.Cloud.define("callFoursquareApi", function (request, response) {
@@ -111,10 +115,10 @@ Parse.Cloud.define('explore', function (request, response) {
     var items = apiResponse.groups[0].items;
     var venues = items.map(transformVenueResponse);
 
-    // For caching to work, it must be done before returning the response (AFAIK a Parse restriction)
+    // For caching to work, it must be done before returning the response
     cacheVenues(venues)
-      .then(function () {
-        response.success(venues);
+      .then(function (cards) {
+        response.success(cards);
       },
       function (error) {
         response.error(error);
@@ -165,23 +169,73 @@ function transformVenueResponse(item) {
 }
 
 function cacheVenue(venue) {
-  console.log(venue);
-  var RESTAURANT_CLASS = 'Restaurants';
-  var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
-  var newRestaurant = new Restaurant();
   var query = new Parse.Query(RESTAURANT_CLASS);
   return query
     .equalTo('foursquareId', venue.foursquareId)
     .first()
     .then(function (existingRestaurant) {
-      if (existingRestaurant) {
-        return existingRestaurant.save(venue);
-      } else {
-        return newRestaurant.save(venue);
-      }
+      return existingRestaurant ? getCard(existingRestaurant) : saveRestaurant(venue);
     });
 }
 
 function cacheVenues(venues) {
-  return Parse.Promise.when(venues.map(cacheVenue));
+  return Parse.Promise.when(venues.map(cacheVenue))
+    .then(function () {
+      return _.toArray(arguments);
+    });
 }
+
+function getCard(restaurant) {
+  var query = new Parse.Query(CARD_CLASS);
+  return query.equalTo('taggedRestaurant', restaurant)
+    .equalTo('externalSource', FOURSQUARE)
+    .include('taggedRestaurant')
+    .first();
+}
+
+function saveRestaurant(venue) {
+  var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
+  var newRestaurant = new Restaurant();
+  return newRestaurant.save(venue)
+    .then(function (restuarant) {
+      newRestaurant = restuarant;
+      return restaurant;
+    })
+    .then(createFoursquareCard)
+    .then(function (card) {
+      card.set('taggedRestaurant', newRestaurant);
+      return card;
+    });
+}
+
+function createFoursquareCard(restaurant) {
+  var Card = Parse.Object.extend(CARD_CLASS);
+  var card = new Card();
+  return card.save({
+    taggedRestaurant: restaurant,
+    externalSource: FOURSQUARE
+  })
+    .fail(function () {
+      return {message: 'Cannot save new card: ' + restaurant.get('name')};
+    });
+}
+
+//Parse.Cloud.job('createFSQCards', function (request, status) {
+//  var cardsQuery = new Parse.Query('Cards');
+//  var restaurantQuery = new Parse.Query('Restaurants');
+//  cardsQuery
+//    .equalTo('externalSource', 'Foursquare')
+//    .find()
+//    .then(function (cards) {
+//      return Parse.Object.destroyAll(cards);
+//    })
+//    .then(function () {
+//      return restaurantQuery.each(createFoursquareCard);
+//    })
+//    .then(function () {
+//      status.success('Cards created!');
+//    })
+//    .fail(function (error) {
+//      status.error(error);
+//    });
+//});

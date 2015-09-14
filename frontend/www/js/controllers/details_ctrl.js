@@ -91,7 +91,7 @@
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
       var card = $stateParams.card;
-      if (card) {
+      if (card && !card.externalSource) {
         $scope.card = card;
         _.merge(card, {
           coverPhoto: card.photos[0],

@@ -45,18 +45,20 @@
 
             <div class="list">
 
-              <div class="item item-avatar" ng-if="card">
+              <div class="item item-avatar" ng-if="card.author">
                 <img ng-src="{{card.author.fbPicture}}">
                 <h2>{{card.author.firstname}} {{card.author.lastname}}</h2>
                 <p>{{card.createdAt | amCalendar}}</p>
               </div>
 
-              <div class="details-text" ng-if="card.description">
+              <div class="details-text" ng-if="card.description || restaurantDetails.description">
                 <p>
-                  {{card.description}}
+                  {{card.description || restaurantDetails.description}}
                 </p>
 
-                <button class="button button-block button-assertive" ng-click="openWebsite(card.externalUrl);">
+                <button class="button button-block button-assertive"
+                        ng-if="card.externalUrl"
+                        ng-click="openWebsite(card.externalUrl);">
                   Read the full article on Kiwii Guides
                 </button>
               </div>
@@ -96,12 +98,6 @@
                    ng-if="attribute.name != attribute.value">
                   <strong>{{ attribute.name }}</strong>
                   {{ attribute.value }}
-                </p>
-
-                <p ng-if="restaurantDetails.description">
-                  <strong>Description</strong>
-                  <br/>
-                  {{ restaurantDetails.description }}
                 </p>
 
                 <button class="button button-block button-assertive"
