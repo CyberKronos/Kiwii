@@ -63,19 +63,8 @@
       Parse.Cloud.run('feed', {
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
-        angular.forEach(response.activities, function (activity, key) {
-          setTimestampToUTC(activity);
-          if (activity.verb == 'photo') {
-            var parseObject = activity.object_parse.attributes;
-            if (parseObject.restaurant) {
-              getRestaurantName(activity.object_parse.attributes.restaurant.id)
-                .then(function (result) {
-                  activity.object_parse.attributes.restaurant = result;
-                });
-            }
-          }
-        });
         $scope.newsFeed = response.activities;
+        console.log($scope.newsFeed);
         $scope.showLoading = false;
       });
     }

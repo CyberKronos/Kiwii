@@ -1,6 +1,7 @@
 require('cloud/foursquareApi.js');
 require('cloud/restaurantsAfterSave.js');
 
+var _ = require('underscore');
 // Instagram Api
 var ig = require('cloud/instagram-v1-1.0.js');
 // Paste your client_id here
@@ -288,6 +289,29 @@ Parse.Cloud.define("feed", function (request, response) {
     // enrich the response with the database values where needed
     var promise = utils.enrich(activities.results);
     promise.then(function (activities) {
+      var feedItems = _.map(activities, function(activity) {
+        if (activity.verb == 'card') {
+          var author = activity.object_parse.attributes.author;
+          var taggedRestaurant = activity.object_parse.attributes.taggedRestaurant;
+          var photo = activity.object_parse.attributes.photos[0];
+
+          var p1 = author.fetch();
+          var p2 = taggedRestaurant.fetch();
+          var p3 = photo.fetch();
+
+          return Parse.Promise.when(p1, p2, p2)
+            .then(function(r1, r2, r2) {
+              return activity;
+            });
+        } else {
+          return activity;
+        }
+      });
+
+      return Parse.Promise.when(feedItems);
+    })
+    .then(function () {
+      var activities = _.toArray(arguments);
       response.success({
         activities: activities,
         feed: feedIdentifier,
