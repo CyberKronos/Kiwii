@@ -1,18 +1,12 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
-                              RestaurantDetails, RestaurantPreference, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
+                              RestaurantDetails, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
     loadUserData();
     getUserCards();
     getUserLists();
     getFollowingCount();
     getFollowerCount();
-
-    var saveForLaterList = {
-      name: 'Save for Later',
-      description: 'Save the restaurants you want to check out later.',
-      category: 'All restaurants'
-    };
 
     $scope.doRefresh = function () {
       getUserCards();
@@ -68,11 +62,7 @@
     };
 
     $scope.listDetails = function (list) {
-      if (list == 'saveForLater') {
-        ListDetails.setListDetails(saveForLaterList);
-      } else {
-        ListDetails.setListDetails(list);
-      }
+      ListDetails.setListDetails(list);
       $state.go('tab.lists');
     };
 
@@ -92,17 +82,17 @@
       return returnValue;
     };
 
-    $scope.viewFollowing = function() {
+    $scope.viewFollowing = function () {
       $state.go('tab.following', {
         user: $scope.user
       });
     };
 
-    $scope.viewFollowers = function() {
+    $scope.viewFollowers = function () {
       $state.go('tab.followers', {
         user: $scope.user
       });
-    };    
+    };
 
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;

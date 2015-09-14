@@ -1,9 +1,8 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantPreference, RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, ViewedHistory) {
+                              RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
-    var restaurantPreference = null;
 
     recordHistory($stateParams);
     getRestaurantInfo();
@@ -62,26 +61,15 @@
     };
 
     $scope.saveToList = function (list) {
-      if (list == 'saveForLater') {
-        restaurantPreference.set(!$scope.isFavourite)
-          .then(function () {
-            $scope.isFavourite = !$scope.isFavourite;
-            if ($scope.isFavourite) {
-              $scope.modal.hide();
-              createPopover();
-            }
-          });
-      } else {
-        Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-          .then(function (result) {
-            if (result == 'Restaurant is already in list') {
-              errorMsgPopover();
-            } else {
-              $scope.modal.hide();
-              createPopover();
-            }
-          });
-      }
+      Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
+        .then(function (result) {
+          if (result == 'Restaurant is already in list') {
+            errorMsgPopover();
+          } else {
+            $scope.modal.hide();
+            createPopover();
+          }
+        });
     };
 
     $scope.openPhotoDetails = function (photo) {
@@ -131,13 +119,7 @@
           $scope.instagramImages = result.images;
           $scope.restaurantReviews = result.reviews;
         }
-      ).then(function () {
-          restaurantPreference = new RestaurantPreference(Parse.User.current(), $stateParams.venueId);
-          return restaurantPreference.isFavourite();
-        }
-      ).then(function (isFavouriteRestaurant) {
-          $scope.isFavourite = isFavouriteRestaurant;
-        });
+      );
     }
 
     function openAddToListModal() {
@@ -175,8 +157,8 @@
 
     function recordHistory(params) {
       ViewedHistory.record(Parse.User.current().id, {
-        foursquareId : params.venueId,
-        cardId : params.card ? params.card.id : undefined
+        foursquareId: params.venueId,
+        cardId: params.card ? params.card.id : undefined
       });
     }
   };

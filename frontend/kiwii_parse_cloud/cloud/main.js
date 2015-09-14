@@ -250,7 +250,7 @@ Parse.Cloud.define("removeRestaurantFromListActivity", function (request, respon
     feed_slug: feedSlug,
     feed_user_id: userId,
     foreign_id: foreign_id
-  }
+  };
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
   // remove by foreign id
   feed.removeActivity({
