@@ -135,7 +135,8 @@
           },
         },
         params: {
-          user : null
+          user : null,
+          followers: null
         },
         data: {
           authenticate: true
@@ -152,7 +153,8 @@
           }
         },
         params: {
-          user : null
+          user : null,
+          following: null
         },
         data: {
           authenticate: true
