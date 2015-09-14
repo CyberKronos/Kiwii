@@ -4,7 +4,7 @@
     <h1 class="title">Create a Card</h1>
     <a class="button button-icon button-clear" ng-click="postPhoto()">Done</a>
   </ion-header-bar>
-  <ion-content scroll="false">
+  <ion-content overflow-scroll="true">
   	<div class="list">
   		<a class="item item-thumbnail-left" style="padding: 4px 4px 4px 102px;">
         <img ng-if="userPhotos[0].imageData" data-ng-src="{{userPhotos[0].imageData}}">
