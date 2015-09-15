@@ -61,15 +61,20 @@
     };
 
     $scope.saveToList = function (list) {
-      Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-        .then(function (result) {
-          if (result == 'Restaurant is already in list') {
-            errorMsgPopover();
-          } else {
-            $scope.modal.hide();
-            createPopover();
-          }
+      list.addCard($scope.card)
+        .then(function () {
+          $scope.modal.hide();
+          createPopover();
         });
+      //Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
+      //  .then(function (result) {
+      //    if (result == 'Restaurant is already in list') {
+      //      errorMsgPopover();
+      //    } else {
+      //      $scope.modal.hide();
+      //      createPopover();
+      //    }
+      //  });
     };
 
     $scope.openPhotoDetails = function (photo) {
@@ -91,8 +96,8 @@
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
       var card = $stateParams.card;
+      $scope.card = card;
       if (card && !card.externalSource) {
-        $scope.card = card;
         _.merge(card, {
           coverPhoto: card.photos[0],
           description: card.photos[0].description,

@@ -36,8 +36,13 @@
       return query.first();
     };
 
-    var Lists = ParseObject.extend(LISTS_CLASS, LISTS_KEYS, {}, {
+    var Lists = ParseObject.extend(LISTS_CLASS, LISTS_KEYS, {
+      // Instance Methods
+      addCard: addCard,
+      removeCard: removeCard,
+      fetchCards: fetchCards
 
+    }, {
       // Static Methods
       saveList: function (listData) {
         var List = Parse.Object.extend(LISTS_CLASS);
@@ -133,6 +138,39 @@
           .then(_.method('save'));
       }
     });
+
+    function addCard(card) {
+      var cardsRelation = this.relation('cards');
+      // Add to feed
+      cardsRelation.add(card);
+      return this.save()
+        .fail(function (error) {
+          console.log(error);
+        });
+    }
+
+    function removeCard(card) {
+      var cardsRelation = this.relation('cards');
+      // Remove from feed
+      cardsRelation.remove(card);
+      return this.save()
+        .fail(function (error) {
+          console.log(error);
+        });
+    }
+
+    function fetchCards() {
+      var cardsRelation = this.relation('cards');
+      return cardsRelation
+        .query()
+        .include('taggedRestaurant')
+        .include('author')
+        .include('photos')
+        .find()
+        .fail(function (error) {
+          console.log(error);
+        });
+    }
 
     return Lists;
   };
