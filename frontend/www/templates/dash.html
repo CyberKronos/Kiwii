@@ -48,21 +48,21 @@
         </micro-card>
       </scroll-list>
 
-      <h4 class="text-orange">Recently Viewed Restaurants</h4>
-      <scroll-list
-        ng-model="recentlyViewedRestaurants"
-        items-method="getRecentlyViewedRestaurants"
-        scroll-delegate="recently-viewed-restaurants-scroll"
-        parent-scroll-delegate="dash-content">
-        <micro-card
-          ng-repeat="record in recentlyViewedRestaurants"
-          ui-sref="tab.details({venueId: record.restaurant.foursquareId, card: record.card})"
-          title="{{record.restaurant.name}}"
-          subtitle="{{record.restaurant.category}}"
-          image-url="{{record.card.photos[0].photo.url() || record.restaurant.imageUrl}}"
-          fallback-image-url="http://placehold.it/100x100?text=Kiwii">
-        </micro-card>
-      </scroll-list>
+      <!--<h4 class="text-orange">Recently Viewed Restaurants</h4>-->
+      <!--<scroll-list-->
+        <!--ng-model="recentlyViewedRestaurants"-->
+        <!--items-method="getRecentlyViewedRestaurants"-->
+        <!--scroll-delegate="recently-viewed-restaurants-scroll"-->
+        <!--parent-scroll-delegate="dash-content">-->
+        <!--<micro-card-->
+          <!--ng-repeat="record in recentlyViewedRestaurants"-->
+          <!--ui-sref="tab.details({venueId: record.restaurant.foursquareId, card: record.card})"-->
+          <!--title="{{record.restaurant.name}}"-->
+          <!--subtitle="{{record.restaurant.category}}"-->
+          <!--image-url="{{record.card.photos[0].photo.url() || record.restaurant.imageUrl}}"-->
+          <!--fallback-image-url="http://placehold.it/100x100?text=Kiwii">-->
+        <!--</micro-card>-->
+      <!--</scroll-list>-->
 
       <h4 class="text-orange">Your Cards</h4>
       <scroll-list
