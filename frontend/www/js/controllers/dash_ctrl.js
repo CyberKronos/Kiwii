@@ -9,6 +9,13 @@
         $scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
 
+        $scope.$on('$ionicView.beforeEnter', function() {        
+          $scope.$broadcast('scrollList.refresh');
+
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+
         $scope.doRefresh = function () {
           $scope.$broadcast('scrollList.refresh');
 

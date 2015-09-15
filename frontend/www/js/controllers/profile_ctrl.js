@@ -2,11 +2,13 @@
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
                               RestaurantDetails, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
-    loadUserData();
-    getUserCards();
-    getUserLists();
-    getFollowingData();
-    getFollowerData();
+    $scope.$on('$ionicView.beforeEnter', function() {
+      loadUserData();
+      getUserCards();
+      getUserLists();
+      getFollowingData();
+      getFollowerData();
+    });
 
     $scope.doRefresh = function () {
       getUserCards();
