@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 
-Parse.Cloud.afterSave('Restaurants', function (request, response) {
+Parse.Cloud.afterSave('Restaurants', function (request) {
   updateGeoPoint(request.object);
   indexName(request.object);
   request.object.save()

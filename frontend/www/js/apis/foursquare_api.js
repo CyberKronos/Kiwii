@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
   var FoursquareApi = function ($q) {
     /* Private Methods */
@@ -21,7 +23,6 @@
           });
       },
       exploreRestaurants: function (queryParams) {
-        console.log(queryParams);
         return Parse.Cloud.run('explore', {queryParams: queryParams});
       },
       getRestaurantDetails: function (foursquareId) {

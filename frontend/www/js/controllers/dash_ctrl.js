@@ -6,7 +6,7 @@
                 LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
-        $scope.getSavedForLater = getSavedForLater;
+        //$scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
 
         $scope.$on('$ionicView.beforeEnter', function() {        
@@ -39,16 +39,16 @@
             .catch(showLocationError);
         }
 
-        function getSavedForLater() {
-          return Parse.User.current()
-            .relation('savedRestaurants')
-            .query().collection().fetch()
-            .then(_.method('toJSON'))
-            .fail(function (error) {
-              console.log(error);
-              return $q.reject($q);
-            });
-        }
+        //function getSavedForLater() {
+        //  return Parse.User.current()
+        //    .relation('savedRestaurants')
+        //    .query().collection().fetch()
+        //    .then(_.method('toJSON'))
+        //    .fail(function (error) {
+        //      console.log(error);
+        //      return $q.reject($q);
+        //    });
+        //}
 
         function getRecentlyViewedRestaurants() {
           return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id);

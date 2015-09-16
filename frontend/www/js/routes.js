@@ -132,7 +132,7 @@
           'publicProfile': {
             templateUrl: 'templates/followers.html',
             controller: 'FollowCtrl'
-          },
+          }
         },
         params: {
           user : null,
@@ -169,6 +169,9 @@
             templateUrl: 'templates/lists.html',
             controller: 'ListsCtrl'
           }
+        },
+        params: {
+          list: null
         }
       })
 
@@ -195,7 +198,8 @@
           }
         },
         params: {
-          card: null
+          card: null,
+          restaurant: null
         },
         data: {
           authenticate: true

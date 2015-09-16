@@ -92,7 +92,7 @@
 
     $scope.restaurantsClicked = function (callback) {
       console.log(callback);
-      $state.go('tab.details', {venueId: callback.item.foursquareId});
+      $state.go('tab.details', {venueId: callback.item.foursquareId, restaurant: callback.item});
     };
 
     function getDistanceLabel(distance) {

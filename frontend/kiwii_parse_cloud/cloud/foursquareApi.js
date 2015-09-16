@@ -10,6 +10,7 @@ var IMAGE_SIZE = '500x500';
 var FOOD_CATEGORY_ID = '4d4b7105d754a06374d81259';
 var SEARCH_INTENT = 'browse';
 var SEARCH_LIMIT = 10;
+var EXPLORE_LIMIT = 30;
 
 var RESTAURANT_CLASS = 'Restaurants';
 var CARD_CLASS = 'Cards';
@@ -96,6 +97,7 @@ Parse.Cloud.define('explore', function (request, response) {
   request.params.queryParams.venuePhotos = 1;
   request.params.queryParams.oauth_token = OAUTH_TOKEN;
   request.params.queryParams.v = API_VERSION;
+  request.params.queryParams.limit = EXPLORE_LIMIT;
   if (request.params.queryParams.query == '') {
     request.params.queryParams.section = 'food';
   }
@@ -190,15 +192,18 @@ function getCard(restaurant) {
   return query.equalTo('taggedRestaurant', restaurant)
     .equalTo('externalSource', FOURSQUARE)
     .include('taggedRestaurant')
-    .first();
+    .first()
+    .then(function (card) {
+      return !card ? createFoursquareCard(restaurant) : card;
+    });
 }
 
 function saveRestaurant(venue) {
   var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
   var newRestaurant = new Restaurant();
   return newRestaurant.save(venue)
-    .then(function (restuarant) {
-      newRestaurant = restuarant;
+    .then(function (restaurant) {
+      newRestaurant = restaurant;
       return restaurant;
     })
     .then(createFoursquareCard)

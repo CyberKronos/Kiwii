@@ -1,6 +1,6 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, ViewedHistory) {
+                              RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
 
@@ -61,23 +61,15 @@
     };
 
     $scope.saveToList = function (list) {
-      Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-        .then(function (result) {
-          if (result == 'Restaurant is already in list') {
-            errorMsgPopover();
-          } else {
-            $scope.modal.hide();
-            createPopover();
-          }
+      var cardPromise = $scope.card ? $q.when($scope.card) : Cards.getDefaultCard($stateParams.restaurant);
+      cardPromise
+        .then(function (card) {
+          list.addCard(card);
+        })
+        .then(function () {
+          $scope.modal.hide();
+          createPopover();
         });
-    };
-
-    $scope.openPhotoDetails = function (photo) {
-      if (photo && !photo.has('externalSource')) {
-        $state.go('tab.photoDetails', {
-          photo: photo
-        });
-      }
     };
 
     $scope.getFeaturePhotoUrl = function (restaurantDetails) {
@@ -91,8 +83,8 @@
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
       var card = $stateParams.card;
+      $scope.card = card;
       if (card && !card.externalSource) {
-        $scope.card = card;
         _.merge(card, {
           coverPhoto: card.photos[0],
           description: card.photos[0].description,

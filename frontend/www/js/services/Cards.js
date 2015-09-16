@@ -18,14 +18,13 @@
         });
     }
 
-    var Cards = ParseObject.extend(CARDS_CLASS, CARDS_KEYS, {
-
-    }, {
+    var Cards = ParseObject.extend(CARDS_CLASS, CARDS_KEYS, {}, {
       // Static Methods
       createCard: createCard,
       getCardById: getCardById,
       getUserCards: getUserCards,
-      deleteUserCard: deleteUserCard
+      deleteUserCard: deleteUserCard,
+      getDefaultCard: getDefaultCard
     });
 
     /**
@@ -118,6 +117,20 @@
           console.log('Photo deleted');
           return cardObject.destroy();
         });
+    }
+
+    function getDefaultCard(restaurant) {
+      var deferred = $q.defer();
+      var restaurantObject = Parse.Object.extend('Restaurants')
+        .createWithoutData(restaurant.id || restaurant.objectId);
+      var query = new Parse.Query('Cards');
+      query
+        .equalTo('taggedRestaurant', restaurantObject)
+        .exists('externalSource')
+        .first()
+        .then(deferred.resolve)
+        .fail(deferred.reject);
+      return deferred.promise;
     }
 
     return Cards;
