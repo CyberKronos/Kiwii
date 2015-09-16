@@ -208,7 +208,7 @@ function saveRestaurant(venue) {
     })
     .then(createFoursquareCard)
     .then(function (card) {
-      card.set('taggedRestaurant', newRestaurant);
+      card.attributes.taggedRestaurant = newRestaurant;
       return card;
     });
 }

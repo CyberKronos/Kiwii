@@ -1,13 +1,14 @@
 (function () {
   angular.module('kiwii').
     controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$q', '$templateCache',
-      'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'ViewedHistory', 'CRITERIA_OPTIONS',
+      'Cards', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'ViewedHistory', 'CRITERIA_OPTIONS',
       function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q, $templateCache,
-                LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
+                Cards, LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         //$scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
+        $scope.getUserCards = Cards.getUserCards.bind(null, Parse.User.current().id);
 
         $scope.$on('$ionicView.beforeEnter', function() {        
           $scope.$broadcast('scrollList.refresh');
@@ -38,17 +39,6 @@
             })
             .catch(showLocationError);
         }
-
-        //function getSavedForLater() {
-        //  return Parse.User.current()
-        //    .relation('savedRestaurants')
-        //    .query().collection().fetch()
-        //    .then(_.method('toJSON'))
-        //    .fail(function (error) {
-        //      console.log(error);
-        //      return $q.reject($q);
-        //    });
-        //}
 
         function getRecentlyViewedRestaurants() {
           return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id);
