@@ -62,6 +62,9 @@
       Parse.Cloud.run('feed', {
         feed: 'flat:' + currentUser.id
       }).then(function (response) {
+        angular.forEach(response.activities, function (activity) {
+          setTimestampToUTC(activity);
+        });
         $scope.newsFeed = response.activities;
         console.log($scope.newsFeed);
         $scope.showLoading = false;

@@ -2,7 +2,7 @@
   var Lists = function ($q, ParseObject) {
     var LISTS_CLASS = 'Lists';
     var USER_LISTS_ATTRIBUTE = 'lists';
-    var LISTS_KEYS = ['cards', 'category', 'categoryId', 'description', 'name', 'restaurants', 'thumbnailUrl'];
+    var LISTS_KEYS = ['actor', 'cards', 'category', 'categoryId', 'description', 'name', 'restaurants', 'thumbnailUrl'];
 
     var getList = function (listData) {
       var List = Parse.Object.extend(LISTS_CLASS);

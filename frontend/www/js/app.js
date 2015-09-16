@@ -1,4 +1,7 @@
 (function () {
+  // This is for template caching
+  angular.module('templates', []);
+  
   var kiwii = angular.module('kiwii',
     [ 'ionic',
       'ion-google-place',
@@ -12,7 +15,8 @@
       'ionic.service.core',
       'ionic.service.deploy',
       'ng-mfb',
-      'angularMoment'
+      'angularMoment',
+      'templates'
       ]);
 
   // the configs
@@ -56,12 +60,15 @@
         // Load current user from cache
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
+          $rootScope.currentUserId = Parse.User.current().id;
           $cordovaStatusbar.style(1);
           console.log($rootScope.currentUser);
         }
       } else {
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
+          $rootScope.currentUserId = Parse.User.current().id;
+          console.log($rootScope.currentUser);
         }
       }
     });

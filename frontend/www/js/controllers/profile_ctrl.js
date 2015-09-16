@@ -2,11 +2,13 @@
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
                               RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
-    loadUserData();
-    getUserCards();
-    getUserLists();
-    getFollowingData();
-    getFollowerData();
+    $scope.$on('$ionicView.beforeEnter', function() {
+      loadUserData();
+      getUserCards();
+      getUserLists();
+      getFollowingData();
+      getFollowerData();
+    });
 
     $scope.doRefresh = function () {
       getUserCards();
@@ -136,12 +138,14 @@
 
     function getUserLists() {
       var userLists = $scope.user.relation('lists');
-      userLists.query().find()
-        .then(function (lists) {
-          $scope.userLists = lists;
-          $scope.userListCount = lists.length;
-          console.log($scope.userLists);
-        });
+      userLists.query()
+      .include('actor')
+      .find()
+      .then(function (lists) {
+        $scope.userLists = lists;
+        $scope.userListCount = lists.length;
+        console.log($scope.userLists);
+      });
     }
 
     function getFollowingData() {

@@ -1,13 +1,20 @@
 (function () {
   angular.module('kiwii').
-    controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$q',
+    controller('DashCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', '$ionicPopup', '$q', '$templateCache',
       'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'ViewedHistory', 'CRITERIA_OPTIONS',
-      function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q,
+      function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q, $templateCache,
                 LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
 
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         //$scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
+
+        $scope.$on('$ionicView.beforeEnter', function() {        
+          $scope.$broadcast('scrollList.refresh');
+
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        });
 
         $scope.doRefresh = function () {
           $scope.$broadcast('scrollList.refresh');
@@ -15,6 +22,9 @@
           //Stop the ion-refresher from spinning
           $scope.$broadcast('scroll.refreshComplete');
         };
+
+        console.log($templateCache);
+        console.log($templateCache.info());
 
         function findRestaurantsNearby() {
           return LocationService.fetchCurrentLocation()

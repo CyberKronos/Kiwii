@@ -31,9 +31,9 @@
 
           <p ng-if="feedItem.verb == 'listUpdate'">
             added
-            <span ui-sref="tab.details({venueId: feedItem.object_parse.attributes.foursquareId})"
+            <span ui-sref="tab.details({venueId: feedItem.object_parse.attributes.taggedRestaurant.attributes.foursquareId})"
                   class="text-orange">
-              {{ feedItem.object_parse.attributes.name }}
+              {{ feedItem.object_parse.attributes.taggedRestaurant.attributes.name }}
             </span>
             to
             <span class="text-orange" ng-click="goToList(feedItem.target_parse)">{{ feedItem.target_parse.attributes.name }}</span>
@@ -55,12 +55,8 @@
           <p style="position: absolute; right: 12px; top: 16px;" am-time-ago="feedItem.time"></p>
         </div>
 
-        <div ng-if="feedItem.verb == 'card'" class="item item-image">
+        <div ng-if="feedItem.verb == 'card' || feedItem.verb == 'listUpdate'" class="item item-image">
           <img ng-src="{{ feedItem.object_parse.attributes.photos[0].attributes.photo._url || 'http://placehold.it/200x200'}}">
-        </div>
-
-        <div ng-if="feedItem.verb == 'listUpdate'" class="item item-image">
-          <img ng-src="{{ feedItem.object_parse.attributes.imageUrl || 'http://placehold.it/200x200'}}">
         </div>
 
         <div class="item item-body" ng-if="feedItem.verb == 'card'">

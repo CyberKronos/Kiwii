@@ -1,9 +1,9 @@
 require('cloud/foursquareApi.js');
 require('cloud/restaurantsAfterSave.js');
-
 var _ = require('underscore');
-// Instagram Api
 var ig = require('cloud/instagram-v1-1.0.js');
+var moment = require('moment');
+
 // Paste your client_id here
 ig.initialize('83917d76cf494eb1a888bec8282f8611');
 // Paste your access_token here if needed
@@ -187,7 +187,6 @@ Parse.Cloud.define("feed", function (request, response) {
           var p3 = photo.fetch();
 
           return Parse.Promise.when(p1, p2, p3)
-            .then(function () {
               return activity;
             });
         } else {
