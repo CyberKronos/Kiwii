@@ -24,7 +24,7 @@
         parent-scroll-delegate="dash-content">
         <micro-card
           ng-repeat="restaurant in nearbyRestaurants"
-          ui-sref="tab.details({venueId: restaurant.foursquareId})"
+          ui-sref="tab.details({venueId: restaurant.foursquareId, restaurant: restaurant})"
           title="{{restaurant.name}}"
           subtitle="{{restaurant.category}}"
           image-url="{{restaurant.imageUrl}}"
@@ -56,7 +56,7 @@
         parent-scroll-delegate="dash-content">
         <micro-card
           ng-repeat="record in recentlyViewedRestaurants"
-          ui-sref="tab.details({venueId: record.restaurant.foursquareId, card: record.card})"
+          ui-sref="tab.details({venueId: record.restaurant.foursquareId, card: record.card, restaurant: restaurant})"
           title="{{record.restaurant.name}}"
           subtitle="{{record.restaurant.category}}"
           image-url="{{record.card.photos[0].photo.url() || record.restaurant.imageUrl}}"
@@ -72,7 +72,7 @@
         parent-scroll-delegate="dash-content">
         <micro-card
           ng-repeat="card in userCards"
-          ui-sref="tab.details({venueId: restaurant.foursquareId, cardId: card.id})"
+          ui-sref="tab.details({venueId: restaurant.foursquareId, cardId: card.id, restaurant: restaurant})"
           title="{{card.description}}"
           subtitle="{{card.category}}"
           image-url="{{card.thumbnailUrl}}"

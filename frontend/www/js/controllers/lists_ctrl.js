@@ -14,7 +14,11 @@
     };
 
     $scope.goToDetails = function (card) {
-      $state.go('tab.details', {venueId: card.taggedRestaurant.foursquareId, card: card});
+      $state.go('tab.details', {
+        venueId: card.taggedRestaurant.foursquareId,
+        card: card,
+        restaurant: card.taggedRestaurant
+      });
     };
 
     function getCardsFromList() {

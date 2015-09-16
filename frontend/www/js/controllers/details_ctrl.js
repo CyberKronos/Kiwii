@@ -1,6 +1,6 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
-                              RestaurantDetails, Lists, RestaurantRatingPopup, AppModalService, ViewedHistory) {
+                              RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
 
@@ -61,7 +61,11 @@
     };
 
     $scope.saveToList = function (list) {
-      list.addCard($scope.card)
+      var cardPromise = $scope.card ? $q.when($scope.card) : Cards.getDefaultCard($stateParams.restaurant);
+      cardPromise
+        .then(function (card) {
+          list.addCard(card);
+        })
         .then(function () {
           $scope.modal.hide();
           createPopover();

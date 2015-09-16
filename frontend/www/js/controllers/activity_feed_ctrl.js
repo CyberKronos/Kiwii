@@ -29,7 +29,8 @@
     $scope.viewRestaurantDetails = function(card) {
       $state.go('tab.details', {
         venueId: card.attributes.taggedRestaurant.attributes.foursquareId,
-        card: card
+        card: card,
+        restaurant: card.attributes.taggedRestaurant
       });
     };
 

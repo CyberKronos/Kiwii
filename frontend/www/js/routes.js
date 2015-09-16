@@ -198,7 +198,8 @@
           }
         },
         params: {
-          card: null
+          card: null,
+          restaurant: null
         },
         data: {
           authenticate: true
