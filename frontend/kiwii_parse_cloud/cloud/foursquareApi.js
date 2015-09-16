@@ -202,8 +202,8 @@ function saveRestaurant(venue) {
   var Restaurant = Parse.Object.extend(RESTAURANT_CLASS);
   var newRestaurant = new Restaurant();
   return newRestaurant.save(venue)
-    .then(function (restuarant) {
-      newRestaurant = restuarant;
+    .then(function (restaurant) {
+      newRestaurant = restaurant;
       return restaurant;
     })
     .then(createFoursquareCard)

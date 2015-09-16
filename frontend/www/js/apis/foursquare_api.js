@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
   var FoursquareApi = function ($q) {
     /* Private Methods */

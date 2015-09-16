@@ -29,6 +29,8 @@
         });
     }
 
+    // Create List Popup
+
     $ionicModal.fromTemplateUrl('templates/create_list_popup.html', {
       scope: $scope,
       animation: 'slide-in-up'
