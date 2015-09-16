@@ -139,12 +139,14 @@
 
     function getUserLists() {
       var userLists = $scope.user.relation('lists');
-      userLists.query().find()
-        .then(function (lists) {
-          $scope.userLists = lists;
-          $scope.userListCount = lists.length;
-          console.log($scope.userLists);
-        });
+      userLists.query()
+      .include('actor')
+      .find()
+      .then(function (lists) {
+        $scope.userLists = lists;
+        $scope.userListCount = lists.length;
+        console.log($scope.userLists);
+      });
     }
 
     function getFollowingData() {

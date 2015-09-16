@@ -18,8 +18,9 @@
           Category: {{ listData.attributes.category || listData.category }}
         </div>
         <div class="item item-avatar">
-          <img ng-src="{{currentUser.fbPicture || 'img/user_placeholder.png'}}">
+          <img ng-src="{{listData.attributes.actor.attributes.fbPicture || 'img/user_placeholder.png'}}">
           <button ng-click="editList(listData)"
+                  ng-if="listData.attributes.actor.id == currentUserId"
                   class="button button-outline button-small button-assertive" 
                   style="right: 15px;
                         position: absolute;

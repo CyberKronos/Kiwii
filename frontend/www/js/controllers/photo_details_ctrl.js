@@ -5,8 +5,6 @@
 
     var card = $stateParams.card;
 
-    $scope.user = Parse.User.current();
-
     $scope.restaurantDetails = function (foursquareId) {
         console.log(card);
         $state.go('tab.details', {

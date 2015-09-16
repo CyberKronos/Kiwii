@@ -97,6 +97,7 @@
 
     function loadListData() {
       $scope.listData = ListDetails.getListDetails();
+      console.log($scope.listData);
       var restaurants = $scope.listData.relation('restaurants');
       return restaurants.query().collection().fetch()
         .then(function (restaurants) {

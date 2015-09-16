@@ -60,12 +60,15 @@
         // Load current user from cache
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
+          $rootScope.currentUserId = Parse.User.current().id;
           $cordovaStatusbar.style(1);
           console.log($rootScope.currentUser);
         }
       } else {
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
+          $rootScope.currentUserId = Parse.User.current().id;
+          console.log($rootScope.currentUser);
         }
       }
     });
