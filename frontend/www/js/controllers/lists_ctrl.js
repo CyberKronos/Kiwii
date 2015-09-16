@@ -1,5 +1,5 @@
 (function () {
-  var ListsCtrl = function ($scope, $state, $ionicModal, $ionicLoading, RestaurantDetails, ListDetails, Lists, ALL_CUISINE_TYPES) {
+  var ListsCtrl = function ($scope, $state, $stateParams, $ionicModal, $ionicLoading, RestaurantDetails, Lists, ALL_CUISINE_TYPES) {
     getCardsFromList();
 
     $scope.doRefresh = function () {
@@ -18,7 +18,8 @@
     };
 
     function getCardsFromList() {
-      $scope.list = ListDetails.getListDetails();
+      // TODO: Null check for list
+      $scope.list = $stateParams.list;
       $scope.list.fetchCards()
         .then(function (cards) {
           // TODO: Make Restaurant a ParseObject

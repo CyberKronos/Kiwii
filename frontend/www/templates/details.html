@@ -24,7 +24,7 @@
           <div class="slide-box box">
             <div class="restaurant-bg-img" darken
                  back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}"
-                 ng-click="openPhotoDetails(card.coverPhoto)">
+              >
               <div class="inner-container">
                 <div class="padding-fix">
                   <div class="title">{{ restaurantDetails.name }}</div>
@@ -47,7 +47,9 @@
 
               <div class="item item-avatar" ng-if="card.author">
                 <img ng-src="{{card.author.fbPicture}}">
+
                 <h2>{{card.author.firstname}} {{card.author.lastname}}</h2>
+
                 <p>{{card.createdAt | amCalendar}}</p>
               </div>
 

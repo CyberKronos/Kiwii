@@ -1,5 +1,5 @@
 (function () {
-  var ActivityFeedCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi, ListDetails) {
+  var ActivityFeedCtrl = function ($scope, $state, $timeout, $ionicScrollDelegate, $q, FacebookApi) {
 
     $scope.showLoading = true;
 
@@ -23,9 +23,7 @@
     };
 
     $scope.goToList = function(listData) {
-      console.log(listData);
-      ListDetails.setListDetails(listData);
-      $state.go('tab.lists');
+      $state.go('tab.lists', {list: listData});
     };
 
     $scope.viewRestaurantDetails = function(card) {

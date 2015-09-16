@@ -1,6 +1,6 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
-                              RestaurantDetails, PhotoDetails, Lists, ListDetails, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
+                              RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
     loadUserData();
     getUserCards();
@@ -62,8 +62,7 @@
     };
 
     $scope.listDetails = function (list) {
-      ListDetails.setListDetails(list);
-      $state.go('tab.lists');
+      $state.go('tab.lists', {list: list});
     };
 
     $scope.callbackValueModel = "";

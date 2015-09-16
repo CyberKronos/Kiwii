@@ -39,7 +39,7 @@
            style="margin-left: 2px; margin-right: 2px;">
         <a class="item item-thumbnail-left"
            ng-click="goToDetails(card)">
-          <img ng-src="{{card.taggedRestaurant.imageUrl || 'http://placehold.it/95x95'}}" width="100%" height="100%">
+          <img ng-src="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/95x95'}}" width="100%" height="100%">
 
           <div class="row row-center">
             <div class="col-90">

@@ -66,23 +66,6 @@
           $scope.modal.hide();
           createPopover();
         });
-      //Lists.saveRestaurantListRelation(list, $scope.restaurantDetails.id)
-      //  .then(function (result) {
-      //    if (result == 'Restaurant is already in list') {
-      //      errorMsgPopover();
-      //    } else {
-      //      $scope.modal.hide();
-      //      createPopover();
-      //    }
-      //  });
-    };
-
-    $scope.openPhotoDetails = function (photo) {
-      if (photo && !photo.has('externalSource')) {
-        $state.go('tab.photoDetails', {
-          photo: photo
-        });
-      }
     };
 
     $scope.getFeaturePhotoUrl = function (restaurantDetails) {

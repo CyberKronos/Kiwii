@@ -25,127 +25,9 @@ Parse.Cloud.define('getInstagramImagesByFoursquareId', function (request, respon
     });
 });
 
-// Parse.Cloud.define('searchTag', function(request, response) {
-//   ig.searchTag({
-//     q: 'latergram'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('searchUser', function(request, response) {
-//   ig.searchUser({
-//     q: 'jack',
-//     count: '3'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getUser', function(request, response) {
-//   ig.getUser('1574083', {}).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getTag', function(request, response) {
-//   ig.getTag('latergram', {}).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getLocation', function(request, response) {
-//   ig.getLocation('1', {}).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getPopularMedia', function(request, response) {
-//   ig.getPopularMedia({
-//     count:'3'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getRecentMediaByUser', function(request, response) {
-//   ig.getRecentMediaByUser('3', {
-//     count: '1'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getRecentMediaByTag', function(request, response) {
-//   ig.getRecentMediaByTag('latergram', {
-//     count: '1'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getSelfFeed', function(request, response) {
-//   ig.getSelfFeed({
-//     count:'1'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('getSelfLikedMedia', function(request, response) {
-//   ig.getSelfLikedMedia({
-//     count:'1'
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-//   function(error) {
-//     response.error(error);
-//   });
-// });
-
-// Parse.Cloud.define('testPagination', function(request, response) {
-//   ig.getSelfFeed({}).then(function(httpResponse) {
-//     var nextUrl = httpResponse.data.pagination.next_url;
-//     return ig.getNextPage(nextUrl);
-//   }).then(function(httpResponse) {
-//     response.success(httpResponse.data);
-//   },
-// 	function(error) {
-//     response.error(error);
-//   });
-// });
-
 var stream = require('cloud/getstream.js');
 var utils = require('cloud/utils.js');
 var settings = require('cloud/settings.js');
-var _ = require('underscore');
 
 // initialize the getstream.io client
 var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, settings.streamApp);
@@ -177,34 +59,6 @@ _.each(settings.activityModels, function (model) {
   });
 });
 
-/*
- * Sync the follow state to getstream.io
- *
- * Not being used since we are not using a Follow class to save folloing activity
- */
-Parse.Cloud.afterSave(settings.followModel, function (request) {
-  // trigger fanout & follow
-  var parseObject = request.object;
-  var activity = utils.parseToActivity(parseObject);
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  feed.addActivity(activity, utils.createHandler());
-  // flat feed of user will follow user feed of target
-  var flat = client.feed('flat', parseObject.get('actor').id);
-  flat.follow('user', parseObject.get('object').id, utils.createHandler());
-});
-
-Parse.Cloud.afterDelete(settings.followModel, function (request) {
-  // trigger fanout & unfollow
-  var parseObject = request.object;
-  var activity = utils.parseToActivity(parseObject);
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  feed.removeActivity({
-    foreignId: activity.foreign_id
-  }, utils.createHandler());
-  // flat feed of user will follow user feed of target
-  var flat = client.feed('flat', parseObject.get('actor').id);
-  flat.unfollow('user', parseObject.get('object').id, utils.createHandler());
-});
 
 /*
  * Newly added restaurant to a list - add to user feed
@@ -231,7 +85,7 @@ Parse.Cloud.define("addRestaurantToListActivity", function (request, response) {
     object: object,
     foreign_id: foreign_id,
     target: target
-  }
+  };
   var feed = client.feed(activity.feed_slug, activity.feed_user_id);
   feed.addActivity(activity, utils.createHandler());
   response.success('success!');
@@ -262,6 +116,35 @@ Parse.Cloud.define("removeRestaurantFromListActivity", function (request, respon
     foreignId: activity.foreign_id
   }, utils.createHandler());
   response.success('success!');
+});
+
+/*
+ * Sync the follow state to getstream.io
+ *
+ * Not being used since we are not using a Follow class to save folloing activity
+ */
+Parse.Cloud.afterSave(settings.followModel, function (request) {
+  // trigger fanout & follow
+  var parseObject = request.object;
+  var activity = utils.parseToActivity(parseObject);
+  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+  feed.addActivity(activity, utils.createHandler());
+  // flat feed of user will follow user feed of target
+  var flat = client.feed('flat', parseObject.get('actor').id);
+  flat.follow('user', parseObject.get('object').id, utils.createHandler());
+});
+
+Parse.Cloud.afterDelete(settings.followModel, function (request) {
+  // trigger fanout & unfollow
+  var parseObject = request.object;
+  var activity = utils.parseToActivity(parseObject);
+  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+  feed.removeActivity({
+    foreignId: activity.foreign_id
+  }, utils.createHandler());
+  // flat feed of user will follow user feed of target
+  var flat = client.feed('flat', parseObject.get('actor').id);
+  flat.unfollow('user', parseObject.get('object').id, utils.createHandler());
 });
 
 /*
@@ -303,8 +186,8 @@ Parse.Cloud.define("feed", function (request, response) {
           var p2 = taggedRestaurant.fetch();
           var p3 = photo.fetch();
 
-          return Parse.Promise.when(p1, p2, p2)
-            .then(function (r1, r2, r2) {
+          return Parse.Promise.when(p1, p2, p3)
+            .then(function () {
               return activity;
             });
         } else {
@@ -324,47 +207,3 @@ Parse.Cloud.define("feed", function (request, response) {
       });
   }, utils.createHandler(response));
 });
-
-/*
- * Bit of extra logic for likes
- */
-
-Parse.Cloud.afterSave("Like", function (request) {
-  // trigger fanout
-  var activity = utils.parseToActivity(request.object);
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  feed.addActivity(activity, utils.createHandler());
-  // get the related object
-  var like = request.object;
-  var activityType = like.get('activity_type');
-  var pointer = like.get('activity_' + activityType);
-  var query = new Parse.Query(pointer.className);
-  query.get(pointer.id, function (activity) {
-    // increment the likes
-    activity.increment('likes');
-    activity.save();
-  });
-});
-
-Parse.Cloud.afterDelete("Like", function (request) {
-  // trigger fanout to remove
-  var activity = utils.parseToActivity(request.object);
-  var feed = client.feed(activity.feed_slug, activity.feed_user_id);
-  // remove by foreign id
-  feed.removeActivity({
-    foreignId: activity.foreign_id
-  }, utils.createHandler());
-  // get the related object
-  var like = request.object;
-  var activityType = like.get('activity_type');
-  var pointer = like.get('activity_' + activityType);
-  var query = new Parse.Query(pointer.className);
-  query.get(pointer.id, function (activity) {
-    // decrement the likes
-    activity.increment('likes', -1);
-    activity.save();
-  });
-});
-
-
-
