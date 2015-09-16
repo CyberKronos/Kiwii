@@ -23,7 +23,6 @@
           $scope.$broadcast('scroll.refreshComplete');
         };
 
-        console.log($templateCache);
         console.log($templateCache.info());
 
         function findRestaurantsNearby() {

@@ -12,6 +12,7 @@ var uglify = require('gulp-uglifyjs');
 var wrap = require('gulp-wrap');
 var karma = require('karma').server;
 var angularTemplateCache = require('gulp-angular-templatecache');
+var addStream = require('add-stream');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -109,8 +110,14 @@ gulp.task('test-once', function(done) {
 });
 
 gulp.task('templates', function() {
-  return gulp.src('./www/templates/*.html')
+  return gulp.src('./www/**/*.html')
             .pipe(angularTemplateCache('templates.js', { standalone: true }))
             .pipe(concat('templates.js'))
-            .pipe(gulp.dest('./www/lib/'));
+            .pipe(gulp.dest('./www/js/'));
 });
+
+// function prepareTemplates() {
+//   return gulp.src('./www/templates/*.html')
+//     //.pipe(minify and preprocess the template html here)
+//     .pipe(angularTemplateCache('templates.js', { standalone: true }));
+// }
