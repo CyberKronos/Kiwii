@@ -187,6 +187,7 @@ Parse.Cloud.define("feed", function (request, response) {
           var p3 = photo.fetch();
 
           return Parse.Promise.when(p1, p2, p3)
+            .then(function () {
               return activity;
             });
         } else {
