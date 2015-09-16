@@ -1,4 +1,7 @@
 (function () {
+  // This is for template caching
+  angular.module('templates', []);
+  
   var kiwii = angular.module('kiwii',
     [ 'ionic',
       'ion-google-place',
@@ -12,7 +15,8 @@
       'ionic.service.core',
       'ionic.service.deploy',
       'ng-mfb',
-      'angularMoment'
+      'angularMoment',
+      'templates'
       ]);
 
   // the configs
