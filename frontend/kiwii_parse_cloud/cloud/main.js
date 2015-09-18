@@ -190,7 +190,16 @@ Parse.Cloud.define("feed", function (request, response) {
             .then(function () {
               return activity;
             });
-        } else {
+        } 
+        if (activity.verb == 'listUpdate') {
+          var taggedRestaurant = activity.object_parse.attributes.taggedRestaurant;
+          var p1 = taggedRestaurant.fetch();
+          return Parse.Promise.when(p1)
+            .then(function () {
+              return activity;
+            });
+        }
+        else {
           return activity;
         }
       });

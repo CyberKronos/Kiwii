@@ -56,7 +56,7 @@
         </div>
 
         <div ng-if="feedItem.verb == 'card' || feedItem.verb == 'listUpdate'" class="item item-image">
-          <img ng-src="{{ feedItem.object_parse.attributes.photos[0].attributes.photo._url || 'http://placehold.it/200x200'}}">
+          <img ng-src="{{ feedItem.object_parse.attributes.photos[0].attributes.photo._url || feedItem.object_parse.attributes.taggedRestaurant.attributes.imageUrl || 'http://placehold.it/200x200'}}">
         </div>
 
         <div class="item item-body" ng-if="feedItem.verb == 'card'">

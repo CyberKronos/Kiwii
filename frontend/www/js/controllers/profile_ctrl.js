@@ -86,14 +86,14 @@
     $scope.viewFollowing = function () {
       $state.go('tab.following', {
         user: $scope.user,
-        following: $scope.following
+        // following: $scope.following
       });
     };
 
     $scope.viewFollowers = function () {
       $state.go('tab.followers', {
         user: $scope.user,
-        followers: $scope.followers
+        // followers: $scope.followers
       });
     };
 
@@ -152,7 +152,7 @@
       Following.followingList($scope.user)
         .then(function (result) {
           $scope.followingCount = result.length;
-          $scope.following = result;
+          // $scope.following = result;
         });
     }
 
@@ -160,7 +160,7 @@
       Following.followerList($scope.user)
         .then(function (result) {
           $scope.followerCount = result.length;
-          $scope.followers = result;
+          // $scope.followers = result;
         });
     }
   };

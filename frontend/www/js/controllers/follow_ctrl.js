@@ -2,10 +2,10 @@
     var FollowCtrl = function($scope, $state, $stateParams, Following) {
         
         var userData = $stateParams.user;
-        $scope.following = $stateParams.following;
-        $scope.followers = $stateParams.followers;
+        getFollowingData();
+        getFollowerData();
 
-        console.log(userData); 
+        console.log(userData);
 
         $scope.viewProfileFollowing = function(user) {
             console.log(user);
@@ -30,6 +30,20 @@
                     console.log(error);
                 });
         };
+
+        function getFollowingData() {
+          Following.followingList(userData)
+            .then(function (result) {
+              $scope.following = result;
+            });
+        }
+
+        function getFollowerData() {
+          Following.followerList(userData)
+            .then(function (result) {
+              $scope.followers = result;
+            });
+        }
     };
 
     angular.module('kiwii')
