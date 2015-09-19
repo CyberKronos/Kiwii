@@ -37,7 +37,8 @@
   // initialize stream
   // StreamClient = stream.connect(config.stream.key, null, config.stream.site);
 
-  kiwii.config(function ($ionicAppProvider) {
+  kiwii.config(function ($ionicAppProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.views.transition('none');
     $ionicAppProvider.identify({
       // The App ID (from apps.ionic.io) for the server
       app_id: 'a0a3c396',

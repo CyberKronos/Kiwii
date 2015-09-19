@@ -12,7 +12,7 @@ var uglify = require('gulp-uglifyjs');
 var wrap = require('gulp-wrap');
 var karma = require('karma').server;
 var angularTemplateCache = require('gulp-angular-templatecache');
-var addStream = require('add-stream');
+// var addStream = require('add-stream');
 
 var paths = {
   sass: ['./scss/**/*.scss'],

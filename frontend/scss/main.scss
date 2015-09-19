@@ -47,6 +47,12 @@
   border: none;
 }
 
+.item p {
+  overflow: visible;
+  text-overflow: inherit;
+  white-space: normal;
+}
+
 /*Maps*/
 #map {
   width: 100%;
