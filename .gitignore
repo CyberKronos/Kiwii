@@ -15,6 +15,7 @@
 engine
 node_modules
 plugins
+!/plugins/fetch.json
 platforms/**/*
 www/lib
 www/dist/**/*
