@@ -1,0 +1,112 @@
+<ion-view view-title="Explore">
+  <ion-nav-bar class="bar-assertive">
+  </ion-nav-bar>
+
+  <div class="bar bar-assertive bar-header item-input-inset">
+    <label class="item-input-wrapper" style="text-align: center;">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <ion-autocomplete ng-model="restaurantDetails"
+                        template-url="app/widgets/search_restaurants_popup.html"
+                        item-value-key="name"
+                        item-view-value-key="name"
+                        item-view-value-key="foursquareId"
+                        items-method="getRestaurants(query)"
+                        items-method-value-key="items"
+                        placeholder="Find Restaurants by Name"
+                        items-clicked-method="restaurantsClicked(callback)"
+                        select-items-label="Select Restaurant:"/>
+    </label>
+  </div>
+
+  <ion-content padding="true"
+               has-bouncing="false"
+               ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
+    <div style="padding: 0 10px;">
+
+      <div class="padding-vertical">
+        <p class="text-orange">Choose a cuisine</p>
+        <label class="item item-input item-select" style="padding-left: 0; border: none;">
+          <select ng-model="criteria.query"
+                  ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
+                  class="cuisine-dropdown">
+          </select>
+        </label>
+      </div>
+
+      <div class="padding-vertical">
+        <p class="text-orange">Location</p>
+        <div class="row row-center location-input">
+          <div class="col-90">
+            <label class="item item-input ion-google-place-search">
+              <ion-google-place placeholder="Current location"
+                                ng-model="fields.location"
+                                ng-change="convertToLatLon(fields.location)"/>
+            </label>
+          </div>
+          <div class="col-10">
+            <i class="icon ion-location current-location-button"
+               ng-class="{'assertive': !fields.location, 'dark' : fields.location}"
+               ng-click="getCurrentLocation()" ></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="padding-vertical">
+        <p class="text-orange">Distance</p>
+
+        <div id="distance-label" class="item item-icon-left">
+          <h2>{{distanceLabel.text}}</h2>
+          <i class="icon {{distanceLabel.icon}}"></i>
+        </div>
+        <div class="range range-assertive">
+          <!--Min, max, step needs to be defined here due to a bug-->
+          <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
+          <input type="range"
+                 min="1000"
+                 max="20000"
+                 step="1000"
+                 value="{{criteria.radius}}"
+                 ng-model="criteria.radius"
+                 ng-change="updateDistanceLabel(criteria.radius)">
+          <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
+        </div>
+      </div>
+
+      <div class="padding-vertical">
+        <p class="text-orange">Price Range</p>
+
+        <div class="button-bar">
+          <ion-checkbox ng-repeat="item in priceList" 
+                        ng-model="item.checked"
+                        ng-change="updatePriceValue()"
+                        ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
+            {{ item.text }}
+          </ion-checkbox>
+        </div>
+      </div>
+
+      <div class="padding-vertical">
+        <ion-toggle class="toggle-all-restaurants" 
+                    ng-model="openNow.checked"
+                    ng-checked="openNow.checked"
+                    ng-change="updateOpenNowValue()"
+                    toggle-class="toggle-assertive">
+          {{ openNow.text }}
+        </ion-toggle>
+      </div>
+
+      <div class="padding-vertical">
+        <button class="button button-block button-assertive search-button"
+                ng-class="{'disabled': !criteria['ll']}"
+                ui-sref="tab.cards">
+          <div ng-if="!criteria['ll']">
+            Getting Current Location...
+          </div>
+          <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
+        </button>
+      </div>
+
+      <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->
+    </div>
+  </ion-content>
+</ion-view>
