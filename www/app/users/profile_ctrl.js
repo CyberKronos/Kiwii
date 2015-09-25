@@ -97,6 +97,12 @@
       });
     };
 
+    $scope.selectedIndex = 0;
+    $scope.segmentChange = function(index){
+      $scope.selectedIndex = index;
+      $scope.$apply();
+    }
+
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;
       $scope.newList['categoryId'] = callback.item.id;

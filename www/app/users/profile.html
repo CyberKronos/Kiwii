@@ -23,132 +23,89 @@
               ui-sref="tab.images()" ></button>
     </nav>
 
-    <ion-tabs class="tabs-light">
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
-      <ion-tab title="Lists">
-        <ion-content> 
+    <div class="profile-top-container">
+      <div class="row" style="padding: 10px;">
+        <div class="col col-25">
+          <img class="profile-avatar" ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}">
+        </div>
+        <div class="col col-65">
+          <p class="title text-strong-grey">
+            <strong>{{ userData.firstname }} {{ userData.lastname }}</strong>
+            <i ng-if="userData.verified" class="icon ion-checkmark-circled positive"></i>
+          </p>
+          <p class="text-light-grey" ng-if="userData.handle">@{{ userData.handle }}</p>
+          <!-- <p class="text-light-grey">www.website.com</p> -->
+        </div>
+      </div>
+      <div class="row" style="padding: 0 12px; border-bottom: #CCCCCC 2px solid; border-top: #CCCCCC 2px solid;">
+        <div class="col col-25">
+          <div class="title text-strong-grey"><strong>{{ userListCount || '0'}}</strong></div>
+          <div class="text-light-grey">Lists</div>
+        </div>
+        <div class="col col-25">
+          <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
+          <div class="text-light-grey">Cards</div>
+        </div>
+        <div class="col col-25" ng-click="viewFollowers()">
+          <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
+          <div class="text-light-grey">Followers</div>
+        </div>
+        <div class="col col-25" ng-click="viewFollowing()">
+          <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
+          <div class="text-light-grey">Following</div>
+        </div>
+      </div>
+    </div>
 
-          <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <div style="margin: 10px;">
+      <ti-segmented-control on-select="segmentChange($index)" style="width: 100%;">
+        <ti-segmented-control-button class="button-assertive" title="'Lists'" selected></ti-segmented-control-button>
+        <ti-segmented-control-button class="button-assertive" title="'Cards'"></ti-segmented-control-button>
+      </ti-segmented-control>
+    </div>
 
-          <div class="profile-top-container">
-            <div class="row" style="padding: 10px;">
-              <div class="col col-25">
-                <img class="profile-avatar" ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}">
-              </div>
-              <div class="col col-65">
-                <p class="title text-strong-grey">
-                  <strong>{{ userData.firstname }} {{ userData.lastname }}</strong>
-                  <i ng-if="userData.verified" class="icon ion-checkmark-circled positive"></i>
-                </p>
-                <p class="text-light-grey" ng-if="userData.handle">@{{ userData.handle }}</p>
-                <!-- <p class="text-light-grey">www.website.com</p> -->
-              </div>
-            </div>
-            <div class="row" style="padding: 0 12px; border-bottom: #CCCCCC 2px solid; border-top: #CCCCCC 2px solid;">
-              <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ userListCount || '0'}}</strong></div>
-                <div class="text-light-grey">Lists</div>
-              </div>
-              <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
-                <div class="text-light-grey">Cards</div>
-              </div>
-              <div class="col col-25" ng-click="viewFollowers()">
-                <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
-                <div class="text-light-grey">Followers</div>
-              </div>
-              <div class="col col-25" ng-click="viewFollowing()">
-                <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
-                <div class="text-light-grey">Following</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="list list-inset" 
-               style="margin-top: 0px;">
-            <!-- User created lists -->
-            <div class="list card"
-                 ng-repeat="userList in userLists" 
-                 style="margin-left: 2px; margin-right: 2px;">
-              <a class="item item-thumbnail-left" ng-click="listDetails(userList)">
-                <img ng-src="{{userList.attributes.thumbnailUrl || 'http://placehold.it/95x95?text=Kiwii'}}" width="100%" height="100%">
-                <div class="row row-center">
-                  <div class="col-90">
-                    <p id="restaurant-name"><strong>{{userList.attributes.name}}</strong></p>
-                    <p id="restaurant-category">{{userList.attributes.category}}</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </ion-content> 
-      </ion-tab>
-
-      <ion-tab title="Cards">
-        <ion-content> 
-
-          <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-          
-          <div class="profile-top-container">
-            <div class="row" style="padding: 10px">
-              <div class="col col-25">
-                <img class="profile-avatar" ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}">
-              </div>
-              <div class="col col-65">
-                <p class="title text-strong-grey">
-                  <strong>{{ userData.firstname }} {{ userData.lastname }}</strong>
-                  <i ng-if="userData.verified" class="icon ion-checkmark-circled positive"></i>
-                </p>
-                <p class="text-light-grey" ng-if="userData.handle">@{{ userData.handle }}</p>
-                <!-- <p class="text-light-grey">www.website.com</p> -->
-              </div>
-              <!-- <div class="col col-10 text-right">
-                <i class="icon ion-social-instagram-outline connect-ig"></i>
-              </div> -->
-            </div>
-            <div class="row" style="padding: 0 12px; border-bottom: #CCCCCC 2px solid; border-top: #CCCCCC 2px solid;">
-              <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ userListCount || '0'}}</strong></div>
-                <div class="text-light-grey">Lists</div>
-              </div>
-              <div class="col col-25">
-                <div class="title text-strong-grey"><strong>{{ userCardsCount || '0'}}</strong></div>
-                <div class="text-light-grey">Cards</div>
-              </div>
-              <div class="col col-25" ui-sref="tab.followers">
-                <div class="title text-strong-grey"><strong>{{ followerCount || '0'}}</strong></div>
-                <div class="text-light-grey">Followers</div>
-              </div>
-              <div class="col col-25" ui-sref="tab.following">
-                <div class="title text-strong-grey"><strong>{{ followingCount || '0'}}</strong></div>
-                <div class="text-light-grey">Following</div>
-              </div>
+    <div class="list list-inset" 
+         ng-if="selectedIndex === 0"
+         style="margin-top: 0px;">
+      <!-- User created lists -->
+      <div class="list card"
+           ng-repeat="userList in userLists" 
+           style="margin-left: 2px; margin-right: 2px;">
+        <a class="item item-thumbnail-left" ng-click="listDetails(userList)">
+          <img ng-src="{{userList.attributes.thumbnailUrl || 'http://placehold.it/95x95?text=Kiwii'}}" width="100%" height="100%">
+          <div class="row row-center">
+            <div class="col-90">
+              <p id="restaurant-name"><strong>{{userList.attributes.name}}</strong></p>
+              <p id="restaurant-category">{{userList.attributes.category}}</p>
             </div>
           </div>
+        </a>
+      </div>
+    </div>
 
-          <div ng-if="!photos.length" class="text-centered">
-            <div class="save-later-placeholder">
-              <img src="img/restaurant_placeholder.gif">
-            </div>
-            <p>Start uploading cards!</p>
+    <div ng-if="selectedIndex === 1">
+      <div ng-if="!photos.length" class="text-centered">
+        <div class="save-later-placeholder">
+          <img src="img/restaurant_placeholder.gif">
+        </div>
+        <p>Start uploading cards!</p>
+      </div>
+
+      <div collection-repeat="card in userCards" style="padding:2px 1px;" class="col col-25">
+        <a ng-click="photoDetails(card)">
+          <div style="background-image:url({{card.photos[0].photo._url}});
+                      background-repeat:no-repeat;
+                      background-size:contain; 
+                      background-position:center;
+                      width:100%;
+                      height:0;
+                      padding-top:100%"> 
           </div>
+        </a>
+      </div>
+    </div>
 
-          <div collection-repeat="card in userCards" style="padding:2px 1px;" class="col col-25">
-            <a ng-click="photoDetails(card)">
-              <div style="background-image:url({{card.photos[0].photo._url}});
-                          background-repeat:no-repeat;
-                          background-size:contain; 
-                          background-position:center;
-                          width:100%;
-                          height:0;
-                          padding-top:100%"> 
-              </div>
-            </a>
-          </div>
-
-        </ion-content> 
-      </ion-tab>
-
-    </ion-tabs>
   </ion-content>
 </ion-view>
