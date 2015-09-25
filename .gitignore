@@ -22,4 +22,4 @@ www/dist/**/*
 www/css/**/*
 www/test/coverage
 www/coverage
-www/app/templates.js
+www/cache

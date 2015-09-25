@@ -17,6 +17,7 @@ var angularTemplateCache = require('gulp-angular-templatecache');
 var paths = {
   sass: ['./scss/**/*.scss'],
   js: ['./www/app/**/*.js'],
+  html: ['./www/app/**/*.html'],
   vendor: ['./www/lib/**/*']
 };
 
@@ -70,7 +71,7 @@ gulp.task('js', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch([paths.sass, paths.js, paths.vendor], function() {
+  gulp.watch([paths.sass, paths.js, paths.vendor, paths.html], function() {
     gulp.start('default');
   });
   gulp.start('default');
@@ -113,7 +114,7 @@ gulp.task('templates', function() {
   return gulp.src('./www/**/*.html')
             .pipe(angularTemplateCache('templates.js', { standalone: true }))
             .pipe(concat('templates.js'))
-            .pipe(gulp.dest('./www/app/'));
+            .pipe(gulp.dest('./www/cache/'));
 });
 
 // function prepareTemplates() {
