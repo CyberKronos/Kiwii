@@ -15,6 +15,7 @@
     "cordova-exif": "https://github.com/guilhermefarias/cordova-exif.git",
     "exif-js": "https://github.com/exif-js/exif-js.git",
     "facebook-connect-plugin": "https://rawgit.com/Wizcorp/phonegap-facebook-plugin/0.10.1/www/js/facebookConnectPlugin.js",
+    "angular-ios9-uiwebview.patch": "https://gist.githubusercontent.com/IgorMinar/863acd413e3925bf282c/raw/58efa6bad10af41761e866084cb34bca28c7aa9d/angular-ios9-uiwebview.patch.js",
     "ion-autocomplete": "~0.2.3",
     "ion-google-place": "~0.0.1",
     "ion-slide-box-tabs": "https://github.com/JKnorr91/ion-slide-box-tabs.git",

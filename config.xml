@@ -68,8 +68,8 @@
           </dict>
           <key>placehold.it</key>
           <dict>
-            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
+            <key>NSExceptionRequiresForwardSecrecy</key>
+            <false/>
           </dict>
           <key>facebook.com</key>
           <dict>

@@ -8,7 +8,7 @@
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         //$scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
-        $scope.getUserCards = Cards.getUserCards.bind(null, Parse.User.current().id);
+        //$scope.getUserCards = getUserCards;
 
         $scope.$on('$ionicView.beforeEnter', function() {        
           $scope.$broadcast('scrollList.refresh');
@@ -25,6 +25,10 @@
         };
 
         console.log($templateCache.info());
+
+        function getUserCards() {
+          return Cards.getUserCards(Parse.User.current().id);
+        }
 
         function findRestaurantsNearby() {
           return LocationService.fetchCurrentLocation()

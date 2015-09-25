@@ -16,7 +16,8 @@
       'ionic.service.deploy',
       'ng-mfb',
       'angularMoment',
-      'templates'
+      'templates',
+      'ngIOS9UIWebViewPatch'
       ]);
 
   // the configs
@@ -38,7 +39,7 @@
   // StreamClient = stream.connect(config.stream.key, null, config.stream.site);
 
   kiwii.config(function ($ionicAppProvider, $ionicConfigProvider) {
-    $ionicConfigProvider.views.transition('none');
+    //$ionicConfigProvider.views.transition('none');
     $ionicAppProvider.identify({
       // The App ID (from apps.ionic.io) for the server
       app_id: 'a0a3c396',
