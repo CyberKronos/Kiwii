@@ -17,7 +17,8 @@
       'ng-mfb',
       'angularMoment',
       'templates',
-      'ngIOS9UIWebViewPatch'
+      'ngIOS9UIWebViewPatch',
+      'ti-segmented-control'
       ]);
 
   // the configs

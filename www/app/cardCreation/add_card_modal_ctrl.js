@@ -9,8 +9,14 @@
       $scope.taggedRestaurant = parameters.taggedRestaurant;
     }
 
+    console.log($scope.userPhotos);
+    console.log($scope.taggedRestaurant);
+
     $scope.postPhoto = function () {
       showLoading();
+
+      console.log($scope.taggedRestaurant);
+      console.log($scope.userPhotos);
 
       Cards.createCard({
           userPhotos: $scope.userPhotos,
@@ -80,6 +86,7 @@
     $scope.restaurantsClicked = function (callback) {
       if (callback.item) {
         $scope.taggedRestaurant = callback.item;
+        $scope.userPhotos[0]['foursquareId'] = $scope.taggedRestaurant.foursquareId;
       }
     };
 
