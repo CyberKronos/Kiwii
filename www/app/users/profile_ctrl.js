@@ -73,14 +73,26 @@
       var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
       var returnValue = {items: []};
       searchItems.forEach(function (item) {
-        if (item.name.toLowerCase().indexOf(query) > -1) {
+        var lowerCaseQuery = query.toLowerCase();
+        if (item.name.toLowerCase().indexOf(lowerCaseQuery) > -1) {
           returnValue.items.push(item);
         }
-        else if (item.id.toLowerCase().indexOf(query) > -1) {
+        else if (item.id.toLowerCase().indexOf(lowerCaseQuery) > -1) {
           returnValue.items.push(item);
         }
       });
       return returnValue;
+    };
+
+    $scope.selectedIndex = 0;
+    $scope.segmentChange = function(index){
+      $scope.selectedIndex = index;
+      $scope.$apply();
+    }
+
+    $scope.itemsClicked = function (callback) {
+      $scope.callbackValueModel = callback;
+      $scope.newList['categoryId'] = callback.item.id;
     };
 
     $scope.viewFollowing = function () {
@@ -95,17 +107,6 @@
         user: $scope.user,
         // followers: $scope.followers
       });
-    };
-
-    $scope.selectedIndex = 0;
-    $scope.segmentChange = function(index){
-      $scope.selectedIndex = index;
-      $scope.$apply();
-    }
-
-    $scope.itemsClicked = function (callback) {
-      $scope.callbackValueModel = callback;
-      $scope.newList['categoryId'] = callback.item.id;
     };
 
     function showLoading() {

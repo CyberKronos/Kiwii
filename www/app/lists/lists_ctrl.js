@@ -108,10 +108,11 @@
       var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
       var returnValue = {items: []};
       searchItems.forEach(function (item) {
-        if (item.name.toLowerCase().indexOf(query) > -1) {
+        var lowerCaseQuery = query.toLowerCase();
+        if (item.name.toLowerCase().indexOf(lowerCaseQuery) > -1) {
           returnValue.items.push(item);
         }
-        else if (item.id.toLowerCase().indexOf(query) > -1) {
+        else if (item.id.toLowerCase().indexOf(lowerCaseQuery) > -1) {
           returnValue.items.push(item);
         }
       });
