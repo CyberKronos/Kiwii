@@ -8,7 +8,7 @@
         $scope.findRestaurantsNearby = findRestaurantsNearby;
         //$scope.getSavedForLater = getSavedForLater;
         $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
-        //$scope.getUserCards = getUserCards;
+        $scope.getUserCards = getUserCards;
 
         $scope.$broadcast('scrollList.refresh');
         //Stop the ion-refresher from spinning
@@ -20,8 +20,6 @@
           //Stop the ion-refresher from spinning
           $scope.$broadcast('scroll.refreshComplete');
         };
-
-        console.log($templateCache.info());
 
         function getUserCards() {
           return Cards.getUserCards(Parse.User.current().id);

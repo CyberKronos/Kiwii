@@ -104,6 +104,7 @@
         .include('photos')
         .include('author')
         .include('taggedRestaurant')
+        .addDescending('updatedAt')
         .find()
         .then(deferred.resolve)
         .fail(deferred.reject);
