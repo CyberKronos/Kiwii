@@ -1,27 +1,28 @@
 <ion-view view-title="{{ userData.handle || 'Profile' }}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
     <ion-nav-buttons side="left">
-      <a class="button button-icon button-clear ion-chevron-left" 
+      <a class="button button-icon button-clear ion-chevron-left"
          ng-click="goBack()"
          ng-if="showBackButton"></a>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right" style="top:none; bottom: none;">
+    <ion-nav-buttons side="right">
       <button class="button button-clear icon-white" ng-if="!showBackButton" ng-click="logOut()">
         Sign out
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content has-bouncing="false" ng-controller="ProfileCtrl">
+  <nav mfb-menu position="br" effect="zoomin" label="Actions"
+       active-icon="ion-plus-round" resting-icon="ion-plus-round"
+       toggling-method="click"
+       class="mfb-has-tabs">
+    <button mfb-button icon="ion-ios-list" label="Create List"
+            ng-click="createList()"></button>
+    <button mfb-button icon="ion-android-list" label="Create Card"
+            ui-sref="tab.images()" ></button>
+  </nav>
 
-    <nav mfb-menu position="br" effect="zoomin" label="Actions"
-         active-icon="ion-plus-round" resting-icon="ion-plus-round"
-         toggling-method="click">
-      <button mfb-button icon="ion-ios-list" label="Create List"
-              ng-click="createList()"></button>
-      <button mfb-button icon="ion-android-list" label="Create Card" 
-              ui-sref="tab.images()" ></button>
-    </nav>
+  <ion-content ng-controller="ProfileCtrl">
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
 
@@ -66,12 +67,12 @@
       </ti-segmented-control>
     </div>
 
-    <div class="list list-inset" 
+    <div class="list list-inset"
          ng-if="selectedIndex === 0"
          style="margin-top: 0px;">
       <!-- User created lists -->
       <div class="list card"
-           ng-repeat="userList in userLists" 
+           ng-repeat="userList in userLists"
            style="margin-left: 2px; margin-right: 2px;">
         <a class="item item-thumbnail-left" ng-click="listDetails(userList)">
           <img ng-src="{{userList.attributes.thumbnailUrl || 'http://placehold.it/95x95?text=Kiwii'}}" width="100%" height="100%">
@@ -97,11 +98,11 @@
         <a ng-click="photoDetails(card)">
           <div style="background-image:url({{card.photos[0].photo._url}});
                       background-repeat:no-repeat;
-                      background-size:contain; 
+                      background-size:contain;
                       background-position:center;
                       width:100%;
                       height:0;
-                      padding-top:100%"> 
+                      padding-top:100%">
           </div>
         </a>
       </div>

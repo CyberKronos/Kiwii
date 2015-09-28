@@ -31,14 +31,4 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "micro_card";
 @import "full_card";
 @import "scroll_list";
-
-// ng-material-floating-button properties
-$border-distance: 10px;
-$main-color: $assertive;
-@import "../www/lib/ng-material-floating-button/mfb/src/mfb";
-
-// Override floating button to use absolute positioning rather than fixed (viewport-based) positioning
-%mfb-component{
-  @extend %mfb-component;
-  position: absolute;
-}
+@import "action_button";
