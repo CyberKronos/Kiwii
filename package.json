@@ -54,6 +54,10 @@
         "APP_ID": "1597756577154303",
         "APP_NAME": "Kiwii"
       }
+    },
+    {
+      "locator": "https://github.com/driftyco/ionic-plugins-keyboard.git",
+      "id": "ionic-plugin-keyboard"
     }
   ],
   "cordovaPlatforms": [

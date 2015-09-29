@@ -39,15 +39,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.ionic.deploy": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/driftyco/ionic-plugins-deploy.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-geolocation": {
         "source": {
             "type": "registry",
@@ -107,5 +98,14 @@
             "APP_ID": "1597756577154303",
             "APP_NAME": "Kiwii"
         }
+    },
+    "ionic-plugin-keyboard": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/driftyco/ionic-plugins-keyboard.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
