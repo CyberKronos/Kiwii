@@ -16,9 +16,10 @@
                on-destroy="swipeRestaurant()">
         <restaurant-card restaurant="card.taggedRestaurant"
                          current-location="criteria.ll"
-                         ui-sref="tab.details({venueId: card.taggedRestaurant.foursquareId,
-                         card: card,
-                         restaurant: card.taggedRestaurant})">
+                         ng-click="$state.go('tab.details', {
+                          venueId: card.taggedRestaurant.foursquareId,
+                          card: card,
+                          restaurant: card.taggedRestaurant})">
         </restaurant-card>
       </td-card>
     </td-cards>
@@ -47,7 +48,7 @@
 
         <p>{{backdropMessage}}</p>
         <br>
-        <button class="button button-assertive" ui-sref="tab.search">Back to Search</button>
+        <button class="button button-assertive" ng-click="$state.go('tab.search')">Back to Search</button>
       </div>
     </div>
 

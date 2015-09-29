@@ -97,7 +97,7 @@
       <div class="padding-vertical">
         <button class="button button-block button-assertive search-button"
                 ng-class="{'disabled': !criteria['ll']}"
-                ui-sref="tab.cards">
+                ng-click="$state.go('tab.cards')">
           <div ng-if="!criteria['ll']">
             Getting Current Location...
           </div>
