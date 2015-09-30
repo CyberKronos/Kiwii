@@ -39,14 +39,6 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     {
-      "locator": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
-      "id": "com.phonegap.plugins.facebookconnect",
-      "variables": {
-        "APP_ID": "1597756577154303",
-        "APP_NAME": "Kiwii"
-      }
-    },
-    {
       "locator": "https://github.com/driftyco/ionic-plugins-keyboard.git",
       "id": "com.ionic.keyboard"
     },
@@ -55,7 +47,14 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-camera",
     "cordova-plugin-file",
-    "cordova.plugins.diagnostic"
+    {
+      "locator": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
+      "id": "com.phonegap.plugins.facebookconnect",
+      "variables": {
+        "APP_ID": "1597756577154303",
+        "APP_NAME": "Kiwii"
+      }
+    }
   ],
   "cordovaPlatforms": [
     "ios",

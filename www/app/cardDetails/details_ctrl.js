@@ -52,6 +52,8 @@
       cardPromise
         .then(function (card) {
           list.addCard(card);
+          $rootScope.listSaveRN = $stateParams.restaurant.name;
+          $rootScope.listSaveLN = list.attributes.name;
         })
         .then(function () {
           $scope.modal.hide();
