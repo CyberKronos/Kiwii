@@ -116,9 +116,3 @@ gulp.task('templates', function() {
             .pipe(concat('templates.js'))
             .pipe(gulp.dest('./www/cache/'));
 });
-
-// function prepareTemplates() {
-//   return gulp.src('./www/templates/*.html')
-//     //.pipe(minify and preprocess the template html here)
-//     .pipe(angularTemplateCache('templates.js', { standalone: true }));
-// }

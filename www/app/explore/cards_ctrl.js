@@ -1,29 +1,24 @@
 (function () {
-  var CardsCtrl = function ($scope, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $q, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     fetchCards().then(preloadRestaurantPhotos);
     AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
 
     var goNextOnSwipe = true;
+    var exploreResults = [];
     var currentIndex = 0;
-    var numberOfResults;
+    var numberOfResults = 0;
 
     $scope.isShowingHints = false;
     $scope.criteria = RestaurantExplorer.criteria;
 
     $scope.swipeRestaurant = function () {
-      $scope.showSwipeHints(false);
-      if (goNextOnSwipe) {
-        RestaurantExplorer.nextRestaurant();
-      } else {
-        RestaurantExplorer.prevRestaurant();
-      }
+      $scope.cards = _.slice(exploreResults, currentIndex);
     };
 
     $scope.nextRestaurant = function () {
       goNextOnSwipe = true;
       currentIndex++;
-      console.log(currentIndex);
       if (currentIndex >= numberOfResults) {
         showBackdropMessage({
           icon: 'ion-android-search calm',
@@ -35,7 +30,6 @@
     $scope.prevRestaurant = function () {
       goNextOnSwipe = false;
       currentIndex--;
-      console.log(currentIndex);
       if (currentIndex < 0) {
         $state.go('tab.search');
       }
@@ -45,10 +39,11 @@
 
     function fetchCards() {
       showLoading();
-      return RestaurantExplorer.fetch()
-        .then(function () {
-          $scope.cards = RestaurantExplorer.results;
-          numberOfResults = $scope.cards.length;
+      return RestaurantExplorer.fetch(RestaurantExplorer.criteria)
+        .then(function (results) {
+          exploreResults = results;
+          numberOfResults = exploreResults.length;
+          $scope.cards = _.clone(exploreResults);
           if (numberOfResults <= 0) {
             showBackdropMessage({
               icon: 'ion-android-search calm',
@@ -95,7 +90,6 @@
     }
 
     function showBackdropMessage(settings) {
-      console.log('showineg message');
       $scope.backdropMessage = settings.message || 'ion-sad-outline';
       $scope.backdropIcon = settings.icon
         || 'Sorry, something went wrong! Try making a search again.';

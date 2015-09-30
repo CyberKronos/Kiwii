@@ -49,6 +49,8 @@
 
     <config-file platform="ios" target="*-Info.plist" parent="NSAppTransportSecurity">
       <dict>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>We want to find good places to eat near where you are.</string>
         <key>NSExceptionDomains</key>
         <dict>
           <key>files.parsetfss.com</key>

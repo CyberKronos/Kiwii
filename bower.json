@@ -31,7 +31,8 @@
     "ngstorage": "~0.3.4",
     "parse-angular-patch": "~0.1.2",
     "parse-js-sdk": "~1.4.2",
-    "ti-segmented-control": "https://github.com/tinga-dev/ti-ionic-segmented-control.git"
+    "ti-segmented-control": "https://github.com/tinga-dev/ti-ionic-segmented-control.git",
+    "ngtouch": "~1.0.1"
   },
   "resolutions": {
     "angular": "1.4.5"

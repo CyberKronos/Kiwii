@@ -2,7 +2,6 @@
   angular.module('kiwii')
     .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'Cards', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
       function ($q, FoursquareApi, Cards, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
-        var prevRestaurants = [];
         var criteria = {
           radius: CRITERIA_DEFAULTS.DISTANCE,
           price: CRITERIA_DEFAULTS.PRICES,
@@ -13,11 +12,8 @@
         var service = {
           fetch: exploreWithExternal,
           criteria: criteria,
-          results: [],
           findWithKiwii: findWithKiwii,
-          findWithExternal: findWithExternal,
-          nextRestaurant: nextRestaurant,
-          prevRestaurant: prevRestaurant
+          findWithExternal: findWithExternal
         };
 
         return service;
@@ -77,29 +73,7 @@
           if (givenCritiera) {
             queryCriteria = givenCritiera;
           }
-          clearOldSearchResults();
           return FoursquareApi.exploreRestaurants(queryCriteria)
-            .then(function (result) {
-              service.results = result;
-              return service.results;
-            });
-        }
-
-        function nextRestaurant() {
-          var lastRestaurant = service.results.shift();
-          prevRestaurants.push(lastRestaurant);
-          return service.results[0];
-        }
-
-        function prevRestaurant() {
-          var lastRestaurant = prevRestaurants.pop();
-          service.results.splice(0, 0, lastRestaurant);
-          return service.results[0];
-        }
-
-        function clearOldSearchResults() {
-          prevRestaurants = [];
-          service.results = [];
         }
 
         function toGeoPoint(string) {
