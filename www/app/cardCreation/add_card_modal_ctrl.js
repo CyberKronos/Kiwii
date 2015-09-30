@@ -1,5 +1,5 @@
 (function () {
-  var AddCardModalCtrl = function ($scope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet,
+  var AddCardModalCtrl = function ($scope, $rootScope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet,
                                    parameters, Cards, CameraService, RestaurantExplorer, LocationService) {
 
     fetchCurrentLocation();
@@ -65,24 +65,7 @@
         }
       });
     };
-
-    $scope.getRestaurants = function (query) {
-      if (!query) {
-        return {};
-      }
-      return RestaurantExplorer.findWithKiwii({
-        'query': query,
-        'll': $scope.latlng,
-        'radius': 50000,
-        'limit': 10
-      })
-        .then(function (restaurants) {
-          return {
-            items: restaurants
-          };
-        });
-    };
-
+    
     $scope.restaurantsClicked = function (callback) {
       if (callback.item) {
         $scope.taggedRestaurant = callback.item;
@@ -106,6 +89,7 @@
       LocationService.fetchCurrentLocation()
         .then(function (latLng) {
           $scope.latlng = latLng.lat + ',' + latLng.lng;
+          $rootScope.latlng = latLng.lat + ',' + latLng.lng;
         }, function (err) {
           // error
           var confirmPopup = $ionicPopup.confirm({

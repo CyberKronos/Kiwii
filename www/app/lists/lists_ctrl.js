@@ -104,21 +104,6 @@
 
     $scope.callbackValueModel = "";
 
-    $scope.getCuisineItems = function (query) {
-      var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
-      var returnValue = {items: []};
-      searchItems.forEach(function (item) {
-        var lowerCaseQuery = query.toLowerCase();
-        if (item.name.toLowerCase().indexOf(lowerCaseQuery) > -1) {
-          returnValue.items.push(item);
-        }
-        else if (item.id.toLowerCase().indexOf(lowerCaseQuery) > -1) {
-          returnValue.items.push(item);
-        }
-      });
-      return returnValue;
-    };
-
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;
       $scope.newList['categoryId'] = callback.item.id;
