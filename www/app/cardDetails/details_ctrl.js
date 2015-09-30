@@ -40,19 +40,6 @@
       RestaurantRatingPopup.askForRating($scope.restaurantDetails.id, Parse.User.current().get('fbId'));
     };
 
-    $scope.openWebsite = function (link) {
-      var options = {
-        location: 'yes',
-        clearcache: 'yes',
-        toolbar: 'yes'
-        // toolbarposition: 'top'
-      };
-
-      // to change window to $cordovaInAppBrowser to get options
-      // but it will break
-      $cordovaInAppBrowser.open(link, '_blank', options);
-    };
-
     $scope.addToList = function () {
       openAddToListModal()
         .then(function (modal) {

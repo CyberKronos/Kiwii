@@ -8,7 +8,7 @@
 
     <ion-slide-box show-pager="false" class="dash-feature">
       <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Kiwii+Guides"
-                 onclick="window.open('https://www.kiwiiguides.com', '_system', 'location=yes'); return false;">
+                 ng-click="::openWebsite('http://kiwiiguides.com')">
       </ion-slide>
       <ion-slide back-img="https://placehold.it/300x150/4465F8/000000?text=Feature+2">
       </ion-slide>
@@ -18,35 +18,19 @@
     <div class="padding-horizontal">
       <h4 class="text-orange">Near You</h4>
       <scroll-list
-        ng-model="nearbyRestaurants"
+        ng-model="nearbyRestaurants" cards
         items-method="findRestaurantsNearby"
         scroll-delegate="nearby-restaurants-scroll"
         parent-scroll-delegate="dash-content">
         <micro-card
-          ng-repeat="restaurant in nearbyRestaurants"
-          ui-sref="tab.details({venueId: restaurant.foursquareId, restaurant: restaurant})"
-          title="{{restaurant.name}}"
-          subtitle="{{restaurant.category}}"
-          image-url="{{restaurant.imageUrl}}"
+          ng-repeat="restaurant in nearbyRestaurants | limitTo:10"
+          ng-click="::$state.go('tab.details', {venueId: restaurant.foursquareId, restaurant: restaurant})"
+          title="{{::restaurant.name}}"
+          subtitle="{{::restaurant.category}}"
+          image-url="{{::restaurant.imageUrl}}"
           fallback-image-url="https://placehold.it/100x100?text=Kiwii">
         </micro-card>
       </scroll-list>
-
-      <!--<h4 class="text-orange">Saved For Later</h4>-->
-      <!--<scroll-list-->
-      <!--ng-model="savedRestaurants"-->
-      <!--items-method="getSavedForLater"-->
-      <!--scroll-delegate="saved-restaurants-scroll"-->
-      <!--parent-scroll-delegate="dash-content">-->
-      <!--<micro-card-->
-      <!--ng-repeat="restaurant in savedRestaurants"-->
-      <!--ui-sref="tab.details({venueId: restaurant.foursquareId})"-->
-      <!--title="{{restaurant.name}}"-->
-      <!--subtitle="{{restaurant.category}}"-->
-      <!--image-url="{{restaurant.imageUrl}}"-->
-      <!--fallback-image-url="https://placehold.it/100x100?text=Kiwii">-->
-      <!--</micro-card>-->
-      <!--</scroll-list>-->
 
       <h4 class="text-orange">Recently Viewed Restaurants</h4>
       <scroll-list
@@ -55,11 +39,11 @@
         scroll-delegate="recently-viewed-restaurants-scroll"
         parent-scroll-delegate="dash-content">
         <micro-card
-          ng-repeat="record in recentlyViewedRestaurants"
-          ui-sref="tab.details({venueId: record.restaurant.foursquareId, card: record.card, restaurant: record.restaurant})"
-          title="{{record.restaurant.name}}"
-          subtitle="{{record.restaurant.category}}"
-          image-url="{{record.card.photos[0].photo.url() || record.restaurant.imageUrl}}"
+          ng-repeat="record in recentlyViewedRestaurants | limitTo:10"
+          ng-click="::$state.go('tab.details',{venueId: record.restaurant.foursquareId, card: record.card, restaurant: record.restaurant})"
+          title="{{::record.restaurant.name}}"
+          subtitle="{{::record.restaurant.category}}"
+          image-url="{{::record.card.photos[0].photo.url() || record.restaurant.imageUrl}}"
           fallback-image-url="https://placehold.it/100x100?text=Kiwii">
         </micro-card>
       </scroll-list>
@@ -71,19 +55,18 @@
         scroll-delegate="user-cards-scroll"
         parent-scroll-delegate="dash-content">
         <micro-card
-          ng-repeat="card in userCards"
-          ui-sref="tab.details({venueId: card.taggedRestaurant.attributes.foursquareId, card: card, restaurant: card.taggedRestaurant})"
-          title="{{card.taggedRestaurant.attributes.name}}"
-          subtitle="{{card.taggedRestaurant.attributes.category}}"
-          image-url="{{card.photos[0].photo.url() || card.taggedRestaurant.attributes.imageUrl}}"
+          ng-repeat="card in userCards | limitTo:10"
+          ng-click="::$state.go('tab.details', {venueId: card.taggedRestaurant.attributes.foursquareId, card: card, restaurant: card.taggedRestaurant})"
+          title="{{::card.taggedRestaurant.attributes.name}}"
+          subtitle="{{::card.taggedRestaurant.attributes.category}}"
+          image-url="{{::card.photos[0].photo.url() || card.taggedRestaurant.attributes.imageUrl}}"
           fallback-image-url="https://placehold.it/100x100?text=Kiwii">
         </micro-card>
       </scroll-list>
 
       <button
-        ui-sref="tab.search"
         class="button button-block button-assertive search-button"
-        ng-click="goToSearch()">
+        ng-click="::$state.go('tab.search')">
         <strong>Explore Restaurants</strong>
       </button>
     </div>

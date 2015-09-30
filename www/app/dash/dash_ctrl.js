@@ -4,22 +4,13 @@
       'Cards', 'LocationService', 'RestaurantExplorer', 'RestaurantDetails', 'ViewedHistory', 'CRITERIA_OPTIONS',
       function ($scope, $rootScope, $timeout, $ionicScrollDelegate, $ionicPopup, $q, $templateCache,
                 Cards, LocationService, RestaurantExplorer, RestaurantDetails, ViewedHistory, CRITERIA_OPTIONS) {
+        loadContent();
 
-        $scope.findRestaurantsNearby = findRestaurantsNearby;
-        //$scope.getSavedForLater = getSavedForLater;
-        $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
-        $scope.getUserCards = getUserCards;
-
-        $scope.$broadcast('scrollList.refresh');
-        //Stop the ion-refresher from spinning
-        $scope.$broadcast('scroll.refreshComplete');
-
-        $scope.doRefresh = function () {
-          $scope.$broadcast('scrollList.refresh');
-
-          //Stop the ion-refresher from spinning
-          $scope.$broadcast('scroll.refreshComplete');
-        };
+        function loadContent() {
+          $scope.findRestaurantsNearby = findRestaurantsNearby;
+          $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
+          $scope.getUserCards = getUserCards;
+        }
 
         function getUserCards() {
           return Cards.getUserCards(Parse.User.current().id);
@@ -71,5 +62,12 @@
           });
           return $q.reject(positionError);
         }
+
+        $scope.doRefresh = function () {
+          $scope.$broadcast('scrollList.refresh');
+          loadContent();
+          //Stop the ion-refresher from spinning
+          $scope.$broadcast('scroll.refreshComplete');
+        };
       }]);
 })();

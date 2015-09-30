@@ -12,16 +12,6 @@
           var restaurantLocation = new Parse.GeoPoint($scope.restaurant.location.lat, $scope.restaurant.location.lng);
           return currentLocation.kilometersTo(restaurantLocation).toFixed(1);
         };
-
-        $scope.openWebsite = function (link) {
-          console.log(link);
-          var options = {
-            location: 'yes',
-            clearcache: 'yes',
-            toolbar: 'yes'
-          };
-          $cordovaInAppBrowser.open(link, '_blank', options);
-        };
       }];
 
     return {

@@ -30,8 +30,10 @@
     <script src="lib/collide/collide.js"></script>
     <script src="lib/angular-ios9-uiwebview.patch/index.js"></script>
     <script src="lib/ti-segmented-control/dist/ti-segmented-control.js"></script>
+    <script src="lib/ngtouch/build/ngTouch.min.js"></script>
 
     <script src="app/app.js"></script>
+    <script src="app/global_ctrl.js"></script>
     <script src="app/routes.js"></script>
     <script src="cache/templates.js"></script>
 
@@ -100,7 +102,7 @@
     <!-- using sass -->
     <link href="css/ionic.app.css" rel="stylesheet">
   </head>
-  <body ng-app="kiwii">
+  <body ng-app="kiwii" ng-controller="GlobalCtrl">
     <ion-nav-view></ion-nav-view>
   </body>
 </html>

@@ -14,16 +14,6 @@
       });
     };
 
-    $scope.openWebsite = function (link) {
-      console.log(link);
-      var options = {
-        location: 'yes',
-        clearcache: 'yes',
-        toolbar: 'yes'
-      };
-      $cordovaInAppBrowser.open(link, '_blank', options);
-    };
-
     $scope.cardSettings = function () {
       // Show the action sheet
       var hideSheet = $ionicActionSheet.show({
