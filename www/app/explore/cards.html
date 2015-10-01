@@ -16,6 +16,7 @@
                on-destroy="swipeRestaurant()">
         <restaurant-card restaurant="card.taggedRestaurant"
                          current-location="criteria.ll"
+                         open-website="openWebsite"
                          ng-click="$state.go('tab.details', {
                           venueId: card.taggedRestaurant.foursquareId,
                           card: card,

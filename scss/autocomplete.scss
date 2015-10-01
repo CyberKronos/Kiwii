@@ -1,0 +1,39 @@
+.ion-autocomplete-container > .bar-header {
+  background: #FFFFFF;
+}
+
+input.ion-google-place[readonly] {
+  font-size: 20px;
+}
+
+.ion-google-place-search {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: rgb(144, 144, 144);
+  border-width: 1px;
+  padding-left: 0;
+
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #4D4D4D;
+    font-weight: 200;
+  }
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #4D4D4D;
+    opacity: 1;
+    font-weight: 200;
+  }
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #4D4D4D;
+    opacity: 1;
+    font-weight: 200;
+  }
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #4D4D4D;
+    font-weight: 200;
+  }
+}

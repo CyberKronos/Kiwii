@@ -20,7 +20,7 @@
       <div class="attribution">
         <img ng-src="./img/foursquare-logomark.png"/>
       </div>
-      <div class="action text-minor"
+      <div id="reserve-button" class="action text-minor"
            ng-if="::(restaurant.reservations && restaurant.reservations.url)"
            ng-click="::openWebsite(restaurant.reservations.url); $event.stopPropagation();">
         <i class="icon ion-calendar assertive"></i>

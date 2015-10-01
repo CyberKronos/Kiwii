@@ -23,7 +23,7 @@
 
           image.attr('src', imageUrl);
           name.text(title);
-          subtitle ? type.text(subtitle) : type.style('display', 'none');
+          subtitle ? type.text(subtitle) : type.css('display', 'none');
         }
       }
     });

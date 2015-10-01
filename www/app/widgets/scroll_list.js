@@ -21,38 +21,27 @@
           var content = element.find('ion-scroll');
 
           callItemsMethod();
-
-          scope.$on('scrollList.refresh', function () {
-            showLoadingIcon();
-            return callItemsMethod();
-          });
+          attachRefreshEventListener();
 
           function callItemsMethod() {
-            if (angular.isFunction(scope.itemsMethod)) {
-              showLoadingIcon();
-              var promise = $q.when(scope.itemsMethod());
+            if (!angular.isFunction(scope.itemsMethod)) return;
 
-              promise.then(function (data) {
-                if (!data || data.length <= 0) {
-                  showErrorMessage('No Results');
-                } else {
-                  showContent(data);
-                }
-                return data;
-
-              }).catch(function (error) {
-                showErrorMessage(error.message || 'An Error Occurred');
-                return $q.reject(error);
-              })
-                .finally(loadingIcon.hide);
-            }
+            showLoadingIcon();
+            return $q.when(scope.itemsMethod())
+              .then(showContent)
+              .catch(showErrorMessage)
+              .finally(loadingIcon.hide);
           }
 
           function showContent(data) {
-            //scope.items = data;
-            ngModel.$setViewValue(data);
-            content.css('display', 'inherit');
-            loadingIcon.css('display', 'none');
+            if (!data || data.length <= 0) {
+              showErrorMessage('No Results');
+            } else {
+              ngModel.$setViewValue(data);
+              content.css('display', 'inherit');
+              loadingIcon.css('display', 'none');
+            }
+            return data;
           }
 
           function showLoadingIcon() {
@@ -61,10 +50,18 @@
             content.css('display', 'none');
           }
 
-          function showErrorMessage(message) {
-            errorMessage.text(message);
+          function showErrorMessage(error) {
+            errorMessage.text(error.message || 'An Error Occurred');
             loadingIcon.css('display', 'none');
             errorMessage.css('display', 'inherit');
+            return $q.reject(error);
+          }
+
+          function attachRefreshEventListener() {
+            scope.$on('scrollList.refresh', function () {
+              showLoadingIcon();
+              return callItemsMethod();
+            });
           }
         }
       };

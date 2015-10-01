@@ -12,7 +12,6 @@ angular.module('kiwii')
       $scope.$state = $state;
 
       $scope.openWebsite = function (link) {
-        console.log('quack');
         var options = {
           location: 'yes',
           clearcache: 'yes',
