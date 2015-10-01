@@ -1,5 +1,5 @@
 (function () {
-  var Routes = function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  var Routes = function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, CRITERIA_DEFAULTS) {
     $ionicConfigProvider.tabs.position('bottom');
 
     $stateProvider
@@ -118,7 +118,7 @@
           }
         },
         params: {
-          card : null
+          card: null
         },
         data: {
           authenticate: true
@@ -135,7 +135,7 @@
           }
         },
         params: {
-          user : null,
+          user: null,
           followers: null
         },
         data: {
@@ -153,7 +153,7 @@
           }
         },
         params: {
-          user : null,
+          user: null,
           following: null
         },
         data: {
@@ -181,6 +181,15 @@
           'search': {
             templateUrl: 'app/explore/cards.html',
             controller: 'CardsCtrl'
+          }
+        },
+        params: {
+          criteria: {
+            radius: CRITERIA_DEFAULTS.radius,
+            price: CRITERIA_DEFAULTS.price,
+            openNow: CRITERIA_DEFAULTS.openNow,
+            query: CRITERIA_DEFAULTS.query,
+            ll: '49.281441, -123.121682'
           }
         },
         data: {

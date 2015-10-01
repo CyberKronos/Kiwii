@@ -1,8 +1,9 @@
 (function () {
-  var CardsCtrl = function ($scope, $q, $state, $ionicLoading, $cordovaStatusbar, RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $q, $state, $stateParams, $ionicLoading, $cordovaStatusbar,
+                            RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
 
     fetchCards().then(preloadRestaurantPhotos);
-    AnalyticsTracking.searchQuery(RestaurantExplorer.criteria);
+    AnalyticsTracking.searchQuery($stateParams.criteria);
 
     var goNextOnSwipe = true;
     var exploreResults = [];
@@ -10,7 +11,7 @@
     var numberOfResults = 0;
 
     $scope.isShowingHints = false;
-    $scope.criteria = RestaurantExplorer.criteria;
+    $scope.criteria = $stateParams.criteria;
 
     $scope.swipeRestaurant = function () {
       $scope.cards = _.slice(exploreResults, currentIndex);
@@ -39,7 +40,7 @@
 
     function fetchCards() {
       showLoading();
-      return RestaurantExplorer.fetch(RestaurantExplorer.criteria)
+      return RestaurantExplorer.exploreWithExternal($stateParams.criteria)
         .then(function (results) {
           exploreResults = results;
           numberOfResults = exploreResults.length;
