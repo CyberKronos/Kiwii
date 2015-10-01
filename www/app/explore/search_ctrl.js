@@ -9,10 +9,7 @@
     $scope.cuisineList = CRITERIA_OPTIONS.CUISINE_TYPES;
     $scope.distanceLabel = getDistanceLabel($scope.criteria.radius);
     $scope.priceList = CRITERIA_OPTIONS.PRICES;
-    $scope.openNow = {
-      text: 'Open restaurants only',
-      checked: true
-    };
+    $scope.openNow = true;
 
     $scope.explore = explore;
     $scope.updateDistanceLabel = function (distance) {
