@@ -24,34 +24,6 @@
         $scope.criteria.ll = latlng.lat() + ',' + latlng.lng();
       }
     };
-    $scope.getRestaurants = function (query) {
-      if (!query) {
-        return {};
-      }
-      var params = {
-        'query': query,
-        'll': $scope.criteria['ll'],
-        'radius': 50000,
-        'limit': 10
-      };
-
-      triggerExternalSearch(params);
-      return RestaurantExplorer.findWithKiwii(params)
-        .then(function (restaurants) {
-          return {
-            items: restaurants
-          };
-        });
-    };
-
-    var searchIdleTimer;
-
-    function triggerExternalSearch(params) {
-      if (searchIdleTimer) {
-        $timeout.cancel(searchIdleTimer);
-      }
-      searchIdleTimer = $timeout(RestaurantExplorer.findWithExternal.bind(null, params), 2000);
-    }
 
     $scope.restaurantsClicked = function (callback) {
       $state.go('tab.details', {venueId: callback.item.foursquareId, restaurant: callback.item});

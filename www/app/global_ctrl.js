@@ -58,6 +58,7 @@ angular.module('kiwii')
       };
 
       var searchIdleTimer;
+      
       function triggerExternalSearch(params) {
         if (searchIdleTimer) {
           $timeout.cancel(searchIdleTimer);
