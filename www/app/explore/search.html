@@ -34,18 +34,19 @@
 
       <div class="padding-vertical">
         <p class="text-orange">Location</p>
+
         <div class="row row-center location-input">
           <div class="col-90">
             <label class="item item-input ion-google-place-search">
               <ion-google-place placeholder="Current location"
-                                ng-model="fields.location"
-                                ng-change="convertToLatLon(fields.location)"/>
+                                ng-model="location"
+                                ng-change="convertToLatLon(location)"/>
             </label>
           </div>
           <div class="col-10">
             <i class="icon ion-location current-location-button"
-               ng-class="{'assertive': !fields.location, 'dark' : fields.location}"
-               ng-click="getCurrentLocation()" ></i>
+               ng-class="{'assertive': !location, 'dark' : location}"
+               ng-click="::getCurrentLocation()"></i>
           </div>
         </div>
       </div>
@@ -66,7 +67,7 @@
                  step="1000"
                  value="{{criteria.radius}}"
                  ng-model="criteria.radius"
-                 ng-change="updateDistanceLabel(criteria.radius)">
+                 ng-change="::updateDistanceLabel(criteria.radius)">
           <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
         </div>
       </div>
@@ -75,29 +76,28 @@
         <p class="text-orange">Price Range</p>
 
         <div class="button-bar">
-          <ion-checkbox ng-repeat="item in priceList" 
+          <ion-checkbox ng-repeat="item in ::priceList"
                         ng-model="item.checked"
-                        ng-change="updatePriceValue()"
                         ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
-            {{ item.text }}
+            {{ ::item.text }}
           </ion-checkbox>
         </div>
       </div>
 
       <div class="padding-vertical">
-        <ion-toggle class="toggle-all-restaurants" 
-                    ng-model="openNow.checked"
-                    ng-checked="openNow.checked"
-                    ng-change="updateOpenNowValue()"
+        <ion-toggle class="toggle-all-restaurants"
+                    ng-model="openNow"
+                    ng-checked="openNow"
+                    ng-change="::updateOpenNowValue()"
                     toggle-class="toggle-assertive">
-          {{ openNow.text }}
+          Open restaurants only
         </ion-toggle>
       </div>
 
       <div class="padding-vertical">
         <button class="button button-block button-assertive search-button"
                 ng-class="{'disabled': !criteria['ll']}"
-                ng-click="$state.go('tab.cards')">
+                ng-click="::explore(criteria)">
           <div ng-if="!criteria['ll']">
             Getting Current Location...
           </div>

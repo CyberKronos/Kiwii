@@ -3,12 +3,6 @@ $border-distance: 10px;
 $main-color: $assertive;
 @import "../www/lib/ng-material-floating-button/mfb/src/mfb";
 
-// Override floating button to use absolute positioning rather than fixed (viewport-based) positioning
-%mfb-component{
-  @extend %mfb-component;
-  position: absolute;
-}
-
 .mfb-has-tabs {
   bottom: $tabs-height;
 }

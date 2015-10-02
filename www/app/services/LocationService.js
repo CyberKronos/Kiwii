@@ -1,8 +1,9 @@
 angular.module('kiwii')
-  .factory('LocationService', ['$cordovaGeolocation', '$q',
-    function ($cordovaGeolocation, $q) {
+  .factory('LocationService', ['$cordovaGeolocation', '$q', '$ionicPopup',
+    function ($cordovaGeolocation, $q, $ionicPopup) {
       return {
-        fetchCurrentLocation: fetchCurrentLocation
+        fetchCurrentLocation: fetchCurrentLocation,
+        showErrorPopup: showLocationError
       };
 
       function fetchCurrentLocation() {
@@ -25,5 +26,33 @@ angular.module('kiwii')
             positionError.label = errorMessage;
             return $q.reject(positionError);
           })
+      }
+
+      function showLocationError(positionError) {
+        var isAndroid = ionic.Platform.isAndroid();
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Current Location Unavailable',
+          template: positionError.label,
+          buttons: [
+            {
+              text: 'Cancel'
+            },
+            {
+              text: 'Ok',
+              type: 'button-assertive',
+              onTap: function () {
+                confirmPopup.close();
+                if (isAndroid) {
+                  cordova.plugins.diagnostic.switchToLocationSettings();
+                  setTimeout(function () {
+                    fetchCurrentLocation().then(function () {
+                      $scope.isLoadingLocation = false;
+                    });
+                  }, 8000);
+                }
+              }
+            }
+          ]
+        });
       }
     }]);

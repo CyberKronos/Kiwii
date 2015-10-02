@@ -1,22 +1,12 @@
 (function () {
   angular.module('kiwii')
     .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'Cards', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
-      function ($q, FoursquareApi, Cards, CRITERIA_DEFAULTS, CRITERIA_OPTIONS) {
-        var criteria = {
-          radius: CRITERIA_DEFAULTS.DISTANCE,
-          price: CRITERIA_DEFAULTS.PRICES,
-          query: CRITERIA_OPTIONS.CUISINE_TYPES[0]['name'],
-          openNow: CRITERIA_DEFAULTS.OPEN
-        };
-
-        var service = {
-          fetch: exploreWithExternal,
-          criteria: criteria,
+      function ($q, FoursquareApi) {
+        return {
+          exploreWithExternal: exploreWithExternal,
           findWithKiwii: findWithKiwii,
           findWithExternal: findWithExternal
         };
-
-        return service;
 
         /**
          Finds Restaurants with Kiwii's Database (in Parse).
@@ -64,16 +54,12 @@
 
         /**
          * Calls Foursquare's venues/explore API and returns the results in an array of Cards.
-         * @param {Object} givenCritiera The search criteria parameter is expected to be in the same format as the one used for
+         * @param {Object} criteria The search criteria parameter is expected to be in the same format as the one used for
          searching through the Foursquare /venues/explore API.
          * @returns {Array<Cards>} An array of Cards
          */
-        function exploreWithExternal(givenCritiera) {
-          var queryCriteria = criteria;
-          if (givenCritiera) {
-            queryCriteria = givenCritiera;
-          }
-          return FoursquareApi.exploreRestaurants(queryCriteria)
+        function exploreWithExternal(criteria) {
+          return FoursquareApi.exploreRestaurants(criteria)
         }
 
         function toGeoPoint(string) {

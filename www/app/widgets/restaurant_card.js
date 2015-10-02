@@ -1,8 +1,8 @@
 (function () {
   var restaurantCard = function () {
 
-    var controller = ['$scope', '$cordovaInAppBrowser',
-      function ($scope, $cordovaInAppBrowser) {
+    var controller = ['$scope',
+      function ($scope) {
         $scope.distanceBetweenRestaurant = function () {
           var currentLocation = $scope.currentLocation;
           if (_.isString($scope.currentLocation)) {
@@ -20,7 +20,8 @@
       replace: true,
       scope: {
         restaurant: '=',
-        currentLocation: '='
+        currentLocation: '=',
+        openWebsite: '='
       },
       controller: controller
     }
