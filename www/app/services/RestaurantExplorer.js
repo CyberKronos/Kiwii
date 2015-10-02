@@ -1,12 +1,18 @@
 (function () {
   angular.module('kiwii')
-    .factory('RestaurantExplorer', ['$q', 'FoursquareApi', 'Cards', 'CRITERIA_DEFAULTS', 'CRITERIA_OPTIONS',
-      function ($q, FoursquareApi) {
-        return {
+    .factory('RestaurantExplorer', ['$q', 'Restaurants', 'ParseObject', 'FoursquareApi',
+      function ($q, Restaurants, ParseObject, FoursquareApi) {
+
+        var RESTAURANTS_CLASS = 'Restaurants';
+        var RESTAURANTS_KEYS = ['foursquareId', 'name', 'rating', 'hours', 'url', 'location', 'imageUrl', 'category', 'geoPoint', 'reservations', 'tips'];
+
+        var Restaurants = ParseObject.extend(RESTAURANTS_CLASS, RESTAURANTS_KEYS, {}, {
           exploreWithExternal: exploreWithExternal,
           findWithKiwii: findWithKiwii,
           findWithExternal: findWithExternal
-        };
+        });
+
+        return Restaurants;
 
         /**
          Finds Restaurants with Kiwii's Database (in Parse).
@@ -27,11 +33,7 @@
           // Limit what could be a lot of points.
           query.limit(criteria.limit);
           // Final list of objects
-          return query.find()
-            .then(function (results) {
-              results = new Parse.Collection(results);
-              return results.toJSON();
-            });
+          return query.find();
         }
 
         /**
@@ -44,10 +46,7 @@
           var deferred = $q.defer();
 
           Parse.Cloud.run('foursquareSearch', {queryParams: criteria})
-            .then(function (response) {
-              var results = _.map(response, _.method('toJSON'));
-              return deferred.resolve(results);
-            })
+            .then(deferred.resolve)
             .fail(deferred.reject);
           return deferred.promise;
         }

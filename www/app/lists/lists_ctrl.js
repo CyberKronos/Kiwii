@@ -1,6 +1,8 @@
 (function () {
-  var ListsCtrl = function ($scope, $state, $stateParams, $ionicModal, $ionicLoading, RestaurantDetails, Lists, ALL_CUISINE_TYPES) {
-    getCardsFromList();
+  var ListsCtrl = function ($scope, $state, $stateParams, $ionicModal, $ionicLoading, Restaurants, RestaurantDetails, Lists, ALL_CUISINE_TYPES) {
+
+    $scope.list = $stateParams.list;
+    getCardsFromList($stateParams.list);
 
     $scope.doRefresh = function () {
       getCardsFromList();
@@ -21,21 +23,14 @@
       });
     };
 
-    function getCardsFromList() {
-      // TODO: Null check for list
-      $scope.list = $stateParams.list;
-      $scope.list.fetchCards()
+    function getCardsFromList(list) {
+      list.fetchCards()
         .then(function (cards) {
-          // TODO: Make Restaurant a ParseObject
-          $scope.cards = _.map(cards, function (card) {
-            card.taggedRestaurant = card.taggedRestaurant.toJSON();
-            return card;
-          })
+          $scope.cards = cards;
         });
     }
 
     // Create List Popup
-
     $ionicModal.fromTemplateUrl('app/lists/create_list_popup.html', {
       scope: $scope,
       animation: 'slide-in-up'

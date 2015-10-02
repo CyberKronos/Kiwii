@@ -1,6 +1,6 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
-                              RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
+                              RestaurantDetails, Lists, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
 
     $scope.$on('$ionicView.beforeEnter', function() {
       loadUserData();

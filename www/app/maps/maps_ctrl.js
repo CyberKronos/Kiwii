@@ -11,7 +11,6 @@
             });
 
           function showOnMap(restaurantDetails) {
-            // TODO: retrive lat/long from service instead of rootScope
             var myLatlng = new google.maps.LatLng(restaurantDetails.location.lat,
               restaurantDetails.location.lng);
 

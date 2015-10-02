@@ -51,10 +51,6 @@
               message: 'We cannot find any restaurants within the criteria you specified!'
             });
           }
-          // TODO: Make Restaurants a ParseObject
-          _.forEach($scope.cards, function (card) {
-            card.taggedRestaurant = card.taggedRestaurant.toJSON();
-          });
           return $scope.cards;
         })
         .fail(function (message) {
