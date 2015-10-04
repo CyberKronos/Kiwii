@@ -4,47 +4,54 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
 <div>
-<ion-tabs class="tabs-icon-only tabs-color-active-assertive">
+  <ion-tabs class="tabs-icon-only tabs-color-active-assertive">
 
-  <!-- Dashboard Tab -->
-  <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
-    <ion-nav-view name="dash"></ion-nav-view>
-  </ion-tab>
+    <!-- Dashboard Tab -->
+    <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
+      <ion-nav-view name="dash"></ion-nav-view>
+    </ion-tab>
 
-  <!-- Activity Feed Tab -->
-  <ion-tab title="Activity Feed" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/activityFeed">
-    <ion-nav-view name="activityFeed"></ion-nav-view>
-  </ion-tab>
+    <!-- Activity Feed Tab -->
+    <ion-tab title="Activity Feed" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/activityFeed">
+      <ion-nav-view name="activityFeed"></ion-nav-view>
+    </ion-tab>
 
-  <!-- Images Tab -->
-  <ion-tab title="Images" icon-off="ion-ios-camera-outline" icon-on="ion-ios-camera" href="#/tab/images">
-    <ion-nav-view name="images"></ion-nav-view>
-  </ion-tab>
+    <!-- Images Tab -->
+    <!--<ion-tab title="Images" icon-off="ion-ios-camera-outline" icon-on="ion-ios-camera" href="#/tab/images">-->
+    <!--<ion-nav-view name="images"></ion-nav-view>-->
+    <!--</ion-tab>-->
 
-  <!-- Search Tab -->
-  <ion-tab title="Search" icon-off="ion-ios-search" icon-on="ion-ios-search-strong" href="#/tab/search">
-    <ion-nav-view name="search"></ion-nav-view>
-  </ion-tab>
+    <!-- Add Tab -->
+    <action-tab icon-off="ion-plus-circled assertive" icon-on="ion-close-circled light">
+      <button class="button button-small button-light" ng-click="addList()">Add List</button>
+      <button class="button button-small button-light" ng-click="addCard()">Add Card</button>
+      <button class="button button-small button-light" ng-click="addFriends()">Add Friends</button>
+    </action-tab>
 
-  <!-- Profile Tab -->
-  <ion-tab title="Profile" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/profile">
-    <ion-nav-view name="profile"></ion-nav-view>
-  </ion-tab>
+    <!-- Search Tab -->
+    <ion-tab title="Search" icon-off="ion-ios-search" icon-on="ion-ios-search-strong" href="#/tab/search">
+      <ion-nav-view name="search"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Profile Tab -->
+    <ion-tab title="Profile" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/profile">
+      <ion-nav-view name="profile"></ion-nav-view>
+    </ion-tab>
 
     <!-- Hidden tab to render details -->
-  <ion-tab title="Details" href="#/tab/details" hidden="true">
-    <ion-nav-view name="details"></ion-nav-view>
-  </ion-tab>
+    <ion-tab title="Details" href="#/tab/details" hidden="true">
+      <ion-nav-view name="details"></ion-nav-view>
+    </ion-tab>
 
-  <!-- Hidden tab to render lists -->
-  <ion-tab title="Lists" href="#/tab/lists" hidden="true">
-    <ion-nav-view name="lists"></ion-nav-view>
-  </ion-tab>
+    <!-- Hidden tab to render lists -->
+    <ion-tab title="Lists" href="#/tab/lists" hidden="true">
+      <ion-nav-view name="lists"></ion-nav-view>
+    </ion-tab>
 
-  <!-- Hidden tab to render public profile -->
-  <ion-tab title="Public Profile" href="#/tab/publicProfile" hidden="true">
-    <ion-nav-view name="publicProfile"></ion-nav-view>
-  </ion-tab>
+    <!-- Hidden tab to render public profile -->
+    <ion-tab title="Public Profile" href="#/tab/publicProfile" hidden="true">
+      <ion-nav-view name="publicProfile"></ion-nav-view>
+    </ion-tab>
 
-</ion-tabs>
+  </ion-tabs>
 </div>

@@ -20,6 +20,7 @@
       'ti-segmented-control',
       'ngTouch',
       'ngIOS9UIWebViewPatch',
+      'rg.actionTab'
       ]);
 
   // the configs
