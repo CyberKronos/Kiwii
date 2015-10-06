@@ -1,6 +1,6 @@
 (function () {
 
-  var SearchCtrl = function ($scope, $state, $timeout, LocationService, RestaurantExplorer, CRITERIA_OPTIONS, CRITERIA_DEFAULTS) {
+  var SearchCtrl = function ($scope, $state, $timeout, LocationService, RestaurantExplorer, AutocompleteService, CRITERIA_OPTIONS, CRITERIA_DEFAULTS) {
 
     fetchCurrentLocation();
 
@@ -23,6 +23,10 @@
         var latlng = location.geometry.location;
         $scope.criteria.ll = latlng.lat() + ',' + latlng.lng();
       }
+    };
+
+    $scope.getRestaurants = function(query) {
+      return AutocompleteService.getRestaurants(query, $scope.criteria.ll, 'SEARCH');
     };
 
     $scope.restaurantsClicked = function (callback) {

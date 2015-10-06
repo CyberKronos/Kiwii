@@ -1,5 +1,5 @@
 (function () {
-  var ListsCtrl = function ($scope, $state, $stateParams, $ionicModal, $ionicLoading, RestaurantDetails, Lists, ALL_CUISINE_TYPES) {
+  var ListsCtrl = function ($scope, $state, $stateParams, $ionicModal, $ionicLoading, RestaurantDetails, Lists, AutocompleteService) {
     getCardsFromList();
 
     $scope.doRefresh = function () {
@@ -103,6 +103,10 @@
     }
 
     $scope.callbackValueModel = "";
+
+    $scope.getCuisineItems = function(query) {
+      return AutocompleteService.getCuisineItems(query);
+    };
 
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;

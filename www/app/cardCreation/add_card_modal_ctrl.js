@@ -1,6 +1,6 @@
 (function () {
-  var AddCardModalCtrl = function ($scope, $rootScope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet,
-                                   parameters, Cards, CameraService, RestaurantExplorer, LocationService) {
+  var AddCardModalCtrl = function ($scope, $state, $ionicLoading, $ionicPopup, $ionicActionSheet,
+                                   parameters, Cards, CameraService, RestaurantExplorer, LocationService, AutocompleteService) {
 
     fetchCurrentLocation();
     $scope.userPhotos = [];
@@ -65,6 +65,10 @@
         }
       });
     };
+
+    $scope.getRestaurants = function(query) {
+      return AutocompleteService.getRestaurants(query, $scope.latlng, 'ADDCARD');
+    };
     
     $scope.restaurantsClicked = function (callback) {
       if (callback.item) {
@@ -89,7 +93,6 @@
       LocationService.fetchCurrentLocation()
         .then(function (latLng) {
           $scope.latlng = latLng.lat + ',' + latLng.lng;
-          $rootScope.latlng = latLng.lat + ',' + latLng.lng;
         }, function (err) {
           // error
           var confirmPopup = $ionicPopup.confirm({

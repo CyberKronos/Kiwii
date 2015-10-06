@@ -1,6 +1,6 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
-                              RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, ALL_CUISINE_TYPES) {
+                              RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, ALL_CUISINE_TYPES) {
 
     $scope.$on('$ionicView.beforeEnter', function() {
       loadUserData();
@@ -74,6 +74,10 @@
     }
 
     $scope.callbackValueModel = "";
+
+    $scope.getCuisineItems = function(query) {
+      return AutocompleteService.getCuisineItems(query);
+    };
 
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;
