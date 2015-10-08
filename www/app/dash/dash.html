@@ -4,18 +4,163 @@
 
   <ion-content delegate-handle="dash-content">
 
-    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
 
-    <ion-slide-box show-pager="false" class="dash-feature">
+    <ion-slide-box show-pager="true" class="dash-feature">
+      <ion-slide back-img="https://placehold.it/300x150/4465F8/000000">
+        <div style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    font-size: 2.0em;
+                    color: white;">
+          Hi Alexander.
+        </div>
+      </ion-slide>
       <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Kiwii+Guides"
                  ng-click="::openWebsite('http://kiwiiguides.com')">
-      </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/4465F8/000000?text=Feature+2">
       </ion-slide>
       <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Feature+3">
       </ion-slide>
     </ion-slide-box>
-    <div class="padding-horizontal">
+
+    <!-- Search and nearby -->
+    <div class="list" style="margin-bottom: 0;">
+      <a class="item item-icon-left" href="#/tab/search">
+        <i class="icon ion-search"></i>
+        <h2>Quick Search</h2>
+        <p>Don't know where to eat? Find a place in seconds!</p>
+      </a>
+      <a class="item item-icon-left">
+        <i class="icon ion-location"></i>
+        <h2>Nearby Restaurants</h2>
+        <p>Discover all the restaurant near you.</p>
+      </a>
+    </div>
+
+    <!-- 3 Featured Lists -->
+    <ion-slide-box show-pager="false" class="dash-feature">
+      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000">
+        <div style="display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: flex-start;
+                    height: 100%;
+                    color: white;
+                    padding: 10px;">
+          <p style="font-size: 2.2em; font-weight: bold;">French</p>
+          <p style="font-size: 1.4em">Popular Cuisine List</p>
+        </div>
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
+      </ion-slide>
+    </ion-slide-box>
+    <ion-slide-box show-pager="false" class="dash-feature">
+      <ion-slide back-img="https://placehold.it/300x150/FF530D/000000">
+        <div style="display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: flex-start;
+                    height: 100%;
+                    color: white;
+                    padding: 10px;">
+          <p style="font-size: 2.2em; font-weight: bold;">Japanese</p>
+          <p style="font-size: 1.4em">Popular Cuisine List</p>
+        </div>
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
+      </ion-slide>
+    </ion-slide-box>
+    <ion-slide-box show-pager="false" class="dash-feature">
+      <ion-slide back-img="https://placehold.it/300x150/FF0DFF/000000">
+        <div style="display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: flex-start;
+                    height: 100%;
+                    color: white;
+                    padding: 10px;">
+          <p style="font-size: 2.2em; font-weight: bold;">Food Trucks</p>
+          <p style="font-size: 1.4em">Popular Cuisine List</p>
+        </div>
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+      </ion-slide>
+      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
+      </ion-slide>
+    </ion-slide-box>
+
+    <!-- 2 Featured Restaurants -->
+    <div>
+      <ion-slide-box show-pager="false" class="dash-restaurant">
+        <ion-slide back-img="https://placehold.it/300x150/2CE80C/000000?text=Photo+0">      
+        </ion-slide>
+        <ion-slide back-img="https://placehold.it/300x150/FF0DFF/000000?text=Photo+1">
+        </ion-slide>
+        <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Photo+2">
+        </ion-slide>
+      </ion-slide-box>
+      <div class="restaurant-card-details">
+        <div class="row name">
+          <div id="restaurant-name" style="font-weight: bold;">Name</div>
+          <div>
+            <i class="icon ion-star text-orange"></i>
+            10/10
+          </div>
+        </div>
+        <div class="status text-minor">
+          Open till 10pm
+        </div>
+        <div class="footer">
+          <div class="action text-minor">
+            <div class="label">
+              Category · 200 Photos · 100 Reviews
+            </div>
+          </div>
+          <div class="attribution">
+            <img ng-src="./img/foursquare-logomark.png"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ion-slide-box show-pager="false" class="dash-restaurant">
+        <ion-slide back-img="https://placehold.it/300x150/0C79E8/000000?text=Photo+0">      
+        </ion-slide>
+        <ion-slide back-img="https://placehold.it/300x150/FF0DFF/000000?text=Photo+1">
+        </ion-slide>
+        <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Photo+2">
+        </ion-slide>
+      </ion-slide-box>
+      <div class="restaurant-card-details">
+        <div class="row name">
+          <div id="restaurant-name" style="font-weight: bold;">Name</div>
+          <div>
+            <i class="icon ion-star text-orange"></i>
+            10/10
+          </div>
+        </div>
+        <div class="status text-minor">
+          Open till 10pm
+        </div>
+        <div class="footer">
+          <div class="action text-minor">
+            <div class="label">
+              Category · 200 Photos · 100 Reviews
+            </div>
+          </div>
+          <div class="attribution">
+            <img ng-src="./img/foursquare-logomark.png"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="padding-horizontal">
       <h4 class="text-orange">Near You</h4>
       <scroll-list
         ng-model="nearbyRestaurants"
@@ -69,6 +214,6 @@
         ng-click="::$state.go('tab.search')">
         <strong>Explore Restaurants</strong>
       </button>
-    </div>
+    </div> -->
   </ion-content>
 </ion-view>

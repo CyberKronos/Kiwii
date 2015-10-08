@@ -267,7 +267,7 @@
         }
       });
 
-    $urlRouterProvider.otherwise('/tab/search');
+    $urlRouterProvider.otherwise('/tab/dash');
   };
 
   angular.module('kiwii')
