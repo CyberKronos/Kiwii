@@ -21,7 +21,8 @@
       scope: {
         restaurant: '=',
         currentLocation: '=',
-        openWebsite: '='
+        openWebsite: '=',
+        goToMaps: '='
       },
       controller: controller
     }
