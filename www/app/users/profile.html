@@ -60,12 +60,12 @@
       </div>
     </div>
 
-    <div style="margin: 10px;">
-      <ti-segmented-control on-select="segmentChange($index)" style="width: 100%;">
-        <ti-segmented-control-button class="button-assertive" title="'Lists'" selected></ti-segmented-control-button>
-        <ti-segmented-control-button class="button-assertive" title="'Cards'"></ti-segmented-control-button>
-      </ti-segmented-control>
-    </div>
+    <ti-segmented-control on-select="segmentChange($index)" style="width: 100%;">
+      <ti-segmented-control-button class="button-assertive" style="border-radius: 0; max-height: 50px; line-height: 38px;" title="'Lists'" selected>
+      </ti-segmented-control-button>
+      <ti-segmented-control-button class="button-assertive" style="border-radius: 0; max-height: 50px; line-height: 38px;" title="'Cards'">
+      </ti-segmented-control-button>
+    </ti-segmented-control>
 
     <div class="list list-inset"
          ng-if="selectedIndex === 0"
