@@ -24,6 +24,7 @@
     function getCardsFromList() {
       // TODO: Null check for list
       $scope.list = $stateParams.list;
+      console.log($scope.list);
       $scope.list.fetchCards()
         .then(function (cards) {
           // TODO: Make Restaurant a ParseObject

@@ -8,6 +8,9 @@
             if ('darken' in attrs) {
                 filter = 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), ';
             }
+            if ('darkenSlider' in attrs) {
+                filter = 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), ';
+            }
             if ('darkenStart' in attrs) {
                 filter = 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), ';
             }

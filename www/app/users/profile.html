@@ -67,23 +67,53 @@
       </ti-segmented-control-button>
     </ti-segmented-control>
 
-    <div class="list list-inset"
-         ng-if="selectedIndex === 0"
-         style="margin-top: 0px;">
-      <!-- User created lists -->
-      <div class="list card"
-           ng-repeat="userList in userLists"
-           style="margin-left: 2px; margin-right: 2px;">
-        <a class="item item-thumbnail-left" ng-click="listDetails(userList)">
-          <img ng-src="{{userList.attributes.thumbnailUrl || 'http://placehold.it/95x95?text=Kiwii'}}" width="100%" height="100%">
-          <div class="row row-center">
-            <div class="col-90">
-              <p id="restaurant-name"><strong>{{userList.attributes.name}}</strong></p>
-              <p id="restaurant-category">{{userList.attributes.category}}</p>
+    <div ng-if="selectedIndex === 0">
+      <ion-slide-box show-pager="false" class="dash-feature" ng-repeat="userList in userLists">
+        <ion-slide darken-slider 
+                   back-img="{{userList.attributes.thumbnailUrl || 'https://placehold.it/300x150/33F25A/000000'}}"
+                   ng-click="listDetails(userList)">
+          <div style="display: flex;
+                      flex-direction: column;
+                      justify-content: flex-end;
+                      align-items: flex-start;
+                      height: 100%;
+                      color: white;
+                      padding: 10px;">
+            <p style="font-size: 2.0em; font-weight: bold;">{{userList.attributes.name}}</p>
+            <p style="font-size: 1.2em">{{userList.attributes.category}}</p>
+            <p style="font-size: 1.2em">2 Restaurants</p>
+          </div>
+        </ion-slide>
+        <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+          <div class="restaurant-card-details" 
+               style="position: absolute;
+                      bottom: 0;
+                      box-shadow: none;
+                      color: white;
+                      background-color: rgba(0,0,0,0.5);">
+            <div class="row name">
+              <div id="restaurant-name" style="font-weight: bold;">Name</div>
+              <div>
+                <i class="icon ion-star"></i>
+                10/10
+              </div>
+            </div>
+            <div class="status">
+              Open till 10pm
+            </div>
+            <div class="footer">
+              <div class="action">
+                <div class="label">
+                  Category · 200 Photos · 100 Reviews
+                </div>
+              </div>
+              <div class="attribution">
+                <img ng-src="./img/foursquare-logomark.png"/>
+              </div>
             </div>
           </div>
-        </a>
-      </div>
+        </ion-slide>
+      </ion-slide-box>
     </div>
 
     <div ng-if="selectedIndex === 1">
