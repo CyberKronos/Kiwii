@@ -1,5 +1,5 @@
 (function () {
-  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
+  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location, $ionicSlideBoxDelegate,
                               RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, ALL_CUISINE_TYPES) {
 
     $scope.$on('$ionicView.beforeEnter', function() {
@@ -138,6 +138,29 @@
       .include('actor')
       .find()
       .then(function (lists) {
+        // should move to service
+        var listItems = _.map(lists, function (list) {
+          var relation = list.relation("cards");
+
+          relation.query().find()
+          .then(function (cards) {
+
+            var cardsData = list.attributes;
+            cardsData['cardsData'] = cards;
+
+            var cardItems = _.map(cards, function (card) {
+              var taggedRestaurant = card.attributes.taggedRestaurant;
+              var p1 = taggedRestaurant.fetch();
+
+              return Parse.Promise.when(p1)
+                .then(function () {
+
+                });
+
+            });
+          });
+        });
+
         $scope.userLists = lists;
         $scope.userListCount = lists.length;
         console.log($scope.userLists);

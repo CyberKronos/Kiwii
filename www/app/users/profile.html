@@ -84,7 +84,8 @@
             <p style="font-size: 1.2em">2 Restaurants</p>
           </div>
         </ion-slide>
-        <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+
+        <ion-slide ng-repeat="card in userList.attributes.cardsData" back-img="{{card.attributes.taggedRestaurant.attributes.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=Photo+0'}}">
           <div class="restaurant-card-details" 
                style="position: absolute;
                       bottom: 0;
@@ -92,23 +93,23 @@
                       color: white;
                       background-color: rgba(0,0,0,0.5);">
             <div class="row name">
-              <div id="restaurant-name" style="font-weight: bold;">Name</div>
+              <div id="restaurant-name" style="font-weight: bold;">{{card.attributes.taggedRestaurant.attributes.name}}</div>
               <div>
                 <i class="icon ion-star"></i>
-                10/10
+                {{card.attributes.taggedRestaurant.attributes.rating}}/10
               </div>
             </div>
             <div class="status">
-              Open till 10pm
+              {{card.attributes.taggedRestaurant.attributes.hours.status}}
             </div>
             <div class="footer">
               <div class="action">
                 <div class="label">
-                  Category · 200 Photos · 100 Reviews
+                  {{card.attributes.taggedRestaurant.attributes.category}} · 200 Photos · 100 Reviews
                 </div>
               </div>
               <div class="attribution">
-                <img ng-src="./img/foursquare-logomark.png"/>
+                <img ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}"/>
               </div>
             </div>
           </div>
@@ -124,17 +125,24 @@
         <p>Start uploading cards!</p>
       </div>
 
-      <div collection-repeat="card in userCards" style="padding:2px 1px;" class="col col-25">
-        <a ng-click="photoDetails(card)">
-          <div style="background-image:url({{card.photos[0].photo._url}});
-                      background-repeat:no-repeat;
-                      background-size:contain;
-                      background-position:center;
-                      width:100%;
-                      height:0;
-                      padding-top:100%">
+      <div ng-repeat="card in userCards">
+        <div ng-click="photoDetails(card)" style="border-bottom: 1.5px black solid;">
+          <ion-slide-box show-pager="false" class="dash-restaurant">
+            <ion-slide back-img="{{card.photos[0].photo._url || 'https://placehold.it/300x150/0C79E8/000000'}}"></ion-slide>
+          </ion-slide-box>
+          <div class="restaurant-card-details">
+            <div class="row name">
+              <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.attributes.name}}</div>
+              <div>
+                <i class="icon ion-star text-orange"></i>
+                {{card.taggedRestaurant.attributes.rating}}/10
+              </div>
+            </div>
+            <div class="status text-minor">
+              {{card.photos[0].description}}
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
 
