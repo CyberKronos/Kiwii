@@ -1,9 +1,9 @@
 (function () {
   angular.module('kiwii').
     controller('DashCtrl', ['$scope', '$timeout', '$ionicScrollDelegate', '$q', '$templateCache',
-      'Cards', 'LocationService', 'RestaurantExplorer', 'ViewedHistory', 'CRITERIA_OPTIONS',
+      'Cards', 'LocationService', 'RestaurantExplorer', 'ViewedHistory', 'CRITERIA_OPTIONS', 'BrowserService',
       function ($scope, $timeout, $ionicScrollDelegate, $q, $templateCache,
-                Cards, LocationService, RestaurantExplorer, ViewedHistory, CRITERIA_OPTIONS) {
+                Cards, LocationService, RestaurantExplorer, ViewedHistory, CRITERIA_OPTIONS, BrowserService) {
         loadContent();
 
         function loadContent() {
@@ -33,6 +33,8 @@
         function getRecentlyViewedRestaurants() {
           return ViewedHistory.retrieveRecentRestaurants(Parse.User.current().id);
         }
+
+        $scope.openWebsite = BrowserService.open;
 
         $scope.doRefresh = function () {
           $scope.$broadcast('scrollList.refresh');

@@ -1,5 +1,6 @@
 (function () {
-  var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
+  var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate,
+                              $ionicScrollDelegate, $ionicModal, BrowserService, $cordovaStatusbar, $q,
                               RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
     var PHOTO_SIZE = '500x500';
@@ -68,6 +69,8 @@
         return null;
       }
     };
+
+    $scope.openWebsite = BrowserService.open;
 
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed

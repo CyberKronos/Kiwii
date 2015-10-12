@@ -11,15 +11,6 @@ angular.module('kiwii')
     function ($scope, $rootScope, $state, $cordovaInAppBrowser, $timeout, RestaurantExplorer, ALL_CUISINE_TYPES) {
       $scope.$state = $state;
 
-      $scope.openWebsite = function (link) {
-        var options = {
-          location: 'yes',
-          clearcache: 'yes',
-          toolbar: 'yes'
-        };
-        $cordovaInAppBrowser.open(link, '_blank', options);
-      };
-
       $scope.getCuisineItems = function (query) {
         var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
         var returnValue = {items: []};
