@@ -8,6 +8,10 @@
       getUserLists();
       getFollowingData();
       getFollowerData();
+      
+      setTimeout( function() { 
+        $ionicSlideBoxDelegate.update();
+      }, 1000);
     });
 
     $scope.doRefresh = function () {
@@ -15,6 +19,10 @@
       getUserLists();
       getFollowingData();
       getFollowerData();
+
+      setTimeout( function() { 
+        $ionicSlideBoxDelegate.update();
+      }, 1000);
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
