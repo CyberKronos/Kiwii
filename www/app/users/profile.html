@@ -72,20 +72,19 @@
         <ion-slide darken-slider 
                    back-img="{{userList.attributes.thumbnailUrl || 'https://placehold.it/300x150/33F25A/000000'}}"
                    ng-click="listDetails(userList)">
-          <div style="display: flex;
-                      flex-direction: column;
-                      justify-content: flex-end;
-                      align-items: flex-start;
-                      height: 100%;
+          <div style="position: absolute;
+                      bottom: 0;
                       color: white;
                       padding: 10px;">
-            <p style="font-size: 2.0em; font-weight: bold;">{{userList.attributes.name}}</p>
+            <p style="font-size: 1.8em; font-weight: bold;">{{userList.attributes.name}}</p>
             <p style="font-size: 1.2em">{{userList.attributes.category}}</p>
-            <p style="font-size: 1.2em">2 Restaurants</p>
+            <p style="font-size: 1.2em">{{userList.attributes.cardsData.length}} Restaurants</p>
           </div>
         </ion-slide>
 
-        <ion-slide ng-repeat="card in userList.attributes.cardsData" back-img="{{card.attributes.taggedRestaurant.attributes.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=Photo+0'}}">
+        <ion-slide ng-repeat="card in userList.attributes.cardsData" 
+                   back-img="{{card.attributes.photos[0].attributes.photo._url || card.attributes.taggedRestaurant.attributes.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}"
+                   ng-click="restaurantDetails(card)">
           <div class="restaurant-card-details" 
                style="position: absolute;
                       bottom: 0;
@@ -109,7 +108,7 @@
                 </div>
               </div>
               <div class="attribution">
-                <img ng-src="{{userData.fbPicture || 'img/user_placeholder.png'}}"/>
+                <img ng-src="{{card.attributes.author.attributes.fbPicture || './img/foursquare-logomark.png'}}"/>
               </div>
             </div>
           </div>

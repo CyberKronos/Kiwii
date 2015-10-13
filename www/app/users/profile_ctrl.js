@@ -106,6 +106,15 @@
       });
     };
 
+    $scope.restaurantDetails = function (card) {
+      console.log(card);
+      $state.go('tab.details', {
+        venueId: card.attributes.taggedRestaurant.attributes.foursquareId,
+        card: card,
+        restaurant: card.attributes.taggedRestaurant
+      });
+    };
+
     function showLoading() {
       $scope.isLoading = true;
       $ionicLoading.show({
@@ -157,10 +166,18 @@
             cardsData['cardsData'] = cards;
 
             var cardItems = _.map(cards, function (card) {
-              var taggedRestaurant = card.attributes.taggedRestaurant;
-              var p1 = taggedRestaurant.fetch();
+              if (card.attributes.photos != undefined && card.attributes.author != undefined) {
+                var author = card.attributes.author;
+                var photo = card.attributes.photos[0];
 
-              return Parse.Promise.when(p1)
+                var p1 = author.fetch();
+                var p2 = photo.fetch();
+              }
+
+              var taggedRestaurant = card.attributes.taggedRestaurant;
+              var p3 = taggedRestaurant.fetch();
+
+              return Parse.Promise.when(p3)
                 .then(function () {
 
                 });
