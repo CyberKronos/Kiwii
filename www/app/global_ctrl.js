@@ -7,10 +7,8 @@
  * Adds common functions that all controllers in Kiwii will inherit.
  */
 angular.module('kiwii')
-  .controller('GlobalCtrl', ['$scope', '$rootScope', '$state', '$cordovaInAppBrowser', '$timeout', 'RestaurantExplorer', 'ALL_CUISINE_TYPES',
-    function ($scope, $rootScope, $state, $cordovaInAppBrowser, $timeout, RestaurantExplorer, ALL_CUISINE_TYPES) {
-      $scope.$state = $state;
-
+  .controller('GlobalCtrl', ['$scope', '$rootScope', '$cordovaInAppBrowser', '$timeout', 'RestaurantExplorer', 'ALL_CUISINE_TYPES',
+    function ($scope, $rootScope, $cordovaInAppBrowser, $timeout, RestaurantExplorer, ALL_CUISINE_TYPES) {
       $scope.getCuisineItems = function (query) {
         var searchItems = ALL_CUISINE_TYPES.CUISINE_TYPES;
         var returnValue = {items: []};
