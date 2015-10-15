@@ -1,12 +1,12 @@
 <ion-view view-title="{{ userData.handle || 'Profile' }}">
-  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left"
          ng-click="goBack()"
          ng-if="showBackButton"></a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-clear icon-white" ng-if="!showBackButton" ng-click="logOut()">
+      <button class="button button-clear" ng-if="!showBackButton" ng-click="logOut()">
         Sign out
       </button>
     </ion-nav-buttons>

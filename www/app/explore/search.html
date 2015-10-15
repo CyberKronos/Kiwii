@@ -1,8 +1,8 @@
 <ion-view view-title="Explore">
-  <ion-nav-bar class="bar-assertive">
+  <ion-nav-bar class="bar-light">
   </ion-nav-bar>
 
-  <div class="bar bar-assertive bar-header item-input-inset">
+  <div class="bar bar-light bar-header item-input-inset">
     <label class="item-input-wrapper" style="text-align: center;">
       <i class="icon ion-ios-search placeholder-icon"></i>
       <ion-autocomplete ng-model="restaurantDetails"
@@ -23,7 +23,7 @@
     <div style="padding: 0 10px;">
 
       <div class="padding-vertical">
-        <p class="text-orange">Choose a cuisine</p>
+        <p class="text-orange">Choose a popular cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
@@ -56,7 +56,7 @@
 
         <div id="distance-label" class="item item-icon-left">
           <h2>{{distanceLabel.text}}</h2>
-          <i class="icon {{distanceLabel.icon}}"></i>
+          <i class="icon {{distanceLabel.icon}} assertive"></i>
         </div>
         <div class="range range-assertive">
           <!--Min, max, step needs to be defined here due to a bug-->
