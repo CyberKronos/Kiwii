@@ -30,18 +30,23 @@
       </a>
     </div>
 
-    <!-- 3 Featured Lists -->
+    <!-- Kiwii Guides Featured -->
     <ion-slide-box show-pager="false" class="dash-feature">
-      <ion-slide darken-slider back-img="https://placehold.it/300x150/33F25A/000000">
+      <ion-slide darken-slider 
+                 back-img="{{kiwiiFeaturedList.attributes.thumbnailUrl || 'https://placehold.it/300x150/33F25A/000000'}}"
+                 ng-click="listDetails(kiwiiFeaturedList)">
         <div style="position: absolute;
                     bottom: 0;
                     color: white;
                     padding: 10px;">
           <p style="font-size: 1.8em; font-weight: bold;">Kiwii Guides</p>
           <p style="font-size: 1.2em">Latest Reviewed Restaurants</p>
+          <p style="font-size: 1.2em">{{kiwiiFeaturedCards.length}} Restaurants</p>
         </div>
       </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
+      <ion-slide ng-repeat="card in kiwiiFeaturedCards" 
+                 back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}"
+                 ng-click="restaurantDetails(card)">
         <div class="restaurant-card-details" 
              style="position: absolute;
                     bottom: 0;
@@ -49,30 +54,29 @@
                     color: white;
                     background-color: rgba(0,0,0,0.5);">
           <div class="row name">
-            <div id="restaurant-name" style="font-weight: bold;">Name</div>
+            <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
             <div>
               <i class="icon ion-star"></i>
-              10/10
+              {{card.taggedRestaurant.rating}}/10
             </div>
           </div>
           <div class="status">
-            Open till 10pm
+            {{card.taggedRestaurant.hours.status}}
           </div>
           <div class="footer">
             <div class="action">
               <div class="label">
-                Category · 200 Photos · 100 Reviews
+                {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
               </div>
             </div>
             <div class="attribution">
-              <img ng-src="./img/foursquare-logomark.png"/>
+              <img ng-src="{{card.author.fbPicture || './img/foursquare-logomark.png'}}"/>
             </div>
           </div>
         </div>
       </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
-      </ion-slide>
     </ion-slide-box>
+
     <ion-slide-box show-pager="false" class="dash-feature">
       <ion-slide darken-slider back-img="https://placehold.it/300x150/FF530D/000000">
         <div style="position: absolute;

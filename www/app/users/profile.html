@@ -78,12 +78,12 @@
                       padding: 10px;">
             <p style="font-size: 1.8em; font-weight: bold;">{{userList.attributes.name}}</p>
             <p style="font-size: 1.2em">{{userList.attributes.category}}</p>
-            <p style="font-size: 1.2em">{{userList.attributes.cardsData.length}} Restaurants</p>
+            <p style="font-size: 1.2em">{{cards.length}} Restaurants</p>
           </div>
         </ion-slide>
 
-        <ion-slide ng-repeat="card in userList.attributes.cardsData" 
-                   back-img="{{card.attributes.photos[0].attributes.photo._url || card.attributes.taggedRestaurant.attributes.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}"
+        <ion-slide ng-repeat="card in cards" 
+                   back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}"
                    ng-click="restaurantDetails(card)">
           <div class="restaurant-card-details" 
                style="position: absolute;
@@ -92,23 +92,23 @@
                       color: white;
                       background-color: rgba(0,0,0,0.5);">
             <div class="row name">
-              <div id="restaurant-name" style="font-weight: bold;">{{card.attributes.taggedRestaurant.attributes.name}}</div>
+              <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
               <div>
                 <i class="icon ion-star"></i>
-                {{card.attributes.taggedRestaurant.attributes.rating}}/10
+                {{card.taggedRestaurant.rating}}/10
               </div>
             </div>
             <div class="status">
-              {{card.attributes.taggedRestaurant.attributes.hours.status}}
+              {{card.taggedRestaurant.hours.status}}
             </div>
             <div class="footer">
               <div class="action">
                 <div class="label">
-                  {{card.attributes.taggedRestaurant.attributes.category}} · 200 Photos · 100 Reviews
+                  {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
                 </div>
               </div>
               <div class="attribution">
-                <img ng-src="{{card.attributes.author.attributes.fbPicture || './img/foursquare-logomark.png'}}"/>
+                <img ng-src="{{card.author.fbPicture || './img/foursquare-logomark.png'}}"/>
               </div>
             </div>
           </div>

@@ -27,9 +27,11 @@
       console.log($scope.list);
       $scope.list.fetchCards()
         .then(function (cards) {
+          console.log(cards);
           // TODO: Make Restaurant a ParseObject
           $scope.cards = _.map(cards, function (card) {
             card.taggedRestaurant = card.taggedRestaurant.toJSON();
+            console.log(card);
             return card;
           })
         });

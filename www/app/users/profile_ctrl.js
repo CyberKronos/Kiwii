@@ -109,9 +109,9 @@
     $scope.restaurantDetails = function (card) {
       console.log(card);
       $state.go('tab.details', {
-        venueId: card.attributes.taggedRestaurant.attributes.foursquareId,
+        venueId: card.taggedRestaurant.foursquareId,
         card: card,
-        restaurant: card.attributes.taggedRestaurant
+        restaurant: card.taggedRestaurant
       });
     };
 
@@ -155,56 +155,27 @@
       .include('actor')
       .find()
       .then(function (lists) {
-        // need to move to service
         var listItems = _.map(lists, function (list) {
-          var relation = list.relation("cards");
-
-          var relationSearch = relation.query().find()
-          .then(function (cards) {
-
-            var cardsData = list.attributes;
-            cardsData['cardsData'] = cards;
-
-            var cardItems = _.map(cards, function (card) {
-              var taggedRestaurant = card.attributes.taggedRestaurant;
-              if (card.attributes.photos != undefined && card.attributes.author != undefined) {
-                var author = card.attributes.author;
-                var photo = card.attributes.photos[0];
-
-                var p1 = author.fetch();
-                var p2 = photo.fetch();
-                var p3 = taggedRestaurant.fetch();
-
-                return Parse.Promise.when(p1, p2, p3)
-                  .then(function () {
-                    return card;
-                  });
-              }
-
-              var p4 = taggedRestaurant.fetch();
-
-              return Parse.Promise.when(p4)
-                .then(function () {
-                  return card;
-                });
+          var fetchCards = list.fetchCards()
+          .then(function (cards) {     
+            $scope.cards = _.map(cards, function (card) {
+              card.taggedRestaurant = card.taggedRestaurant.toJSON();
+              return card;
             });
-            return Parse.Promise.when(cardItems);
+            return Parse.Promise.when($scope.cards);
           });
-
-          return Parse.Promise.when(relationSearch)
-            .then(function () {
-              return list;
-            });
-        });
-
-        return Parse.Promise.when(listItems)
+          return Parse.Promise.when(fetchCards)
           .then(function () {
-            return lists;
+            return list;
           });
+        });
+        return Parse.Promise.when(listItems)
+        .then(function () {
+          return lists;
+        });
       })
       .then(function (lists) {
         $scope.userLists = lists;
-        $scope.userListCount = lists.length;
         console.log($scope.userLists);
       });
     }
