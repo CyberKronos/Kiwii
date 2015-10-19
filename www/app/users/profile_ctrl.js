@@ -155,37 +155,54 @@
       .include('actor')
       .find()
       .then(function (lists) {
-        // should move to service
+        // need to move to service
         var listItems = _.map(lists, function (list) {
           var relation = list.relation("cards");
 
-          relation.query().find()
+          var relationSearch = relation.query().find()
           .then(function (cards) {
 
             var cardsData = list.attributes;
             cardsData['cardsData'] = cards;
 
             var cardItems = _.map(cards, function (card) {
+              var taggedRestaurant = card.attributes.taggedRestaurant;
               if (card.attributes.photos != undefined && card.attributes.author != undefined) {
                 var author = card.attributes.author;
                 var photo = card.attributes.photos[0];
 
                 var p1 = author.fetch();
                 var p2 = photo.fetch();
+                var p3 = taggedRestaurant.fetch();
+
+                return Parse.Promise.when(p1, p2, p3)
+                  .then(function () {
+                    return card;
+                  });
               }
 
-              var taggedRestaurant = card.attributes.taggedRestaurant;
-              var p3 = taggedRestaurant.fetch();
+              var p4 = taggedRestaurant.fetch();
 
-              return Parse.Promise.when(p3)
+              return Parse.Promise.when(p4)
                 .then(function () {
-
+                  return card;
                 });
-
             });
+            return Parse.Promise.when(cardItems);
           });
+
+          return Parse.Promise.when(relationSearch)
+            .then(function () {
+              return list;
+            });
         });
 
+        return Parse.Promise.when(listItems)
+          .then(function () {
+            return lists;
+          });
+      })
+      .then(function (lists) {
         $scope.userLists = lists;
         $scope.userListCount = lists.length;
         console.log($scope.userLists);
