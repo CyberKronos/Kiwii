@@ -28,6 +28,8 @@
 
         function loadContent() {
           $scope.findRestaurantsNearby = findRestaurantsNearby;
+          // $scope.findPopularLists = findPopularLists;
+          findPopularLists();
           $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
           $scope.getUserCards = getUserCards;
           getKiwiiFeatured();
@@ -76,6 +78,18 @@
                 limit: 10
               };
               return RestaurantExplorer.findWithKiwii(nearbyCriteria);
+            })
+            .catch(LocationService.showLocationError);
+        }
+
+        function findPopularLists() {
+          return LocationService.fetchCurrentLocation()
+            .then(function (latLng) {
+              var criteria = {
+                lat: latLng.lat,
+                lon: latLng.lng
+              };
+              return RestaurantExplorer.findZomatoCollections(criteria);
             })
             .catch(LocationService.showLocationError);
         }

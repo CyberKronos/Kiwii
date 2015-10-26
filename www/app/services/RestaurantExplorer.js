@@ -5,7 +5,8 @@
         return {
           exploreWithExternal: exploreWithExternal,
           findWithKiwii: findWithKiwii,
-          findWithExternal: findWithExternal
+          findWithExternal: findWithExternal,
+          findZomatoCollections: findZomatoCollections
         };
 
         /**
@@ -47,6 +48,22 @@
             .then(function (response) {
               var results = _.map(response, _.method('toJSON'));
               return deferred.resolve(results);
+            })
+            .fail(deferred.reject);
+          return deferred.promise;
+        }
+
+        /**
+         * Finds Zomato Collections.
+         */
+        function findZomatoCollections(criteria) {
+          var deferred = $q.defer();
+
+          Parse.Cloud.run('findCollections', {queryParams: criteria})
+            .then(function (response) {
+              var collections = response.collections;
+              console.log(collections)
+              return deferred.resolve(collections);
             })
             .fail(deferred.reject);
           return deferred.promise;

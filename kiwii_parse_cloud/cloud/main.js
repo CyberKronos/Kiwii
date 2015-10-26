@@ -1,4 +1,5 @@
 require('cloud/foursquareApi.js');
+require('cloud/zomatoApi.js');
 require('cloud/restaurantsAfterSave.js');
 var _ = require('underscore');
 var ig = require('cloud/instagram-v1-1.0.js');

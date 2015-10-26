@@ -6,7 +6,7 @@
 
     <!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
 
-    <ion-slide-box show-pager="true" class="dash-feature">
+    <!-- <ion-slide-box show-pager="true" class="dash-feature">
       <ion-slide darken-slider back-img="https://placehold.it/300x150/4465F8/000000">
       </ion-slide>
       <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Kiwii+Guides"
@@ -14,21 +14,7 @@
       </ion-slide>
       <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Feature+3">
       </ion-slide>
-    </ion-slide-box>
-
-    <!-- Search and nearby -->
-    <div class="list" style="margin-bottom: 0;">
-      <a class="item item-icon-left" href="#/tab/search">
-        <i class="icon ion-search assertive"></i>
-        <h2>Quick Search</h2>
-        <p>Don't know where to eat? Find a place in seconds!</p>
-      </a>
-      <a class="item item-icon-left">
-        <i class="icon ion-location assertive"></i>
-        <h2>Nearby Restaurants</h2>
-        <p>Discover all the restaurant near you.</p>
-      </a>
-    </div>
+    </ion-slide-box> -->
 
     <!-- Kiwii Guides Featured -->
     <ion-slide-box show-pager="false" class="dash-feature">
@@ -55,7 +41,7 @@
                     background-color: rgba(0,0,0,0.5);">
           <div class="row name">
             <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
-            <div>
+            <div ng-if="card.taggedRestaurant.rating">
               <i class="icon ion-star"></i>
               {{card.taggedRestaurant.rating}}/10
             </div>
@@ -76,6 +62,20 @@
         </div>
       </ion-slide>
     </ion-slide-box>
+
+    <!-- Search and nearby -->
+    <div class="list" style="margin-bottom: 0;">
+      <a class="item item-icon-left" href="#/tab/search">
+        <i class="icon ion-search assertive"></i>
+        <h2>Quick Search</h2>
+        <p>Don't know where to eat? Find a place in seconds!</p>
+      </a>
+      <a class="item item-icon-left">
+        <i class="icon ion-location assertive"></i>
+        <h2>Nearby Restaurants</h2>
+        <p>Discover all the restaurant near you.</p>
+      </a>
+    </div>
 
     <ion-slide-box show-pager="false" class="dash-feature">
       <ion-slide darken-slider back-img="https://placehold.it/300x150/FF530D/000000">

@@ -93,7 +93,7 @@
                       background-color: rgba(0,0,0,0.5);">
             <div class="row name">
               <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
-              <div>
+              <div ng-if="card.taggedRestaurant.rating">
                 <i class="icon ion-star"></i>
                 {{card.taggedRestaurant.rating}}/10
               </div>
