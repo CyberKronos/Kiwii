@@ -77,34 +77,54 @@
       </a>
     </div>
 
-    <ion-slide-box show-pager="false" class="dash-feature">
-      <ion-slide darken-slider back-img="https://placehold.it/300x150/FF530D/000000">
+    <!-- Popular Zomato Lists -->
+    <ion-slide-box show-pager="false" 
+                   class="dash-feature"
+                   ng-repeat="list in findPopularLists"
+                   ng-if="list.collection.restaurants.length != 0">
+      <ion-slide darken-slider 
+                 back-img="{{list.collection.image_url || 'https://placehold.it/300x150/33F25A/000000'}}">
         <div style="position: absolute;
                     bottom: 0;
                     color: white;
                     padding: 10px;">
-          <p style="font-size: 1.8em; font-weight: bold;">Japanese</p>
-          <p style="font-size: 1.2em">Popular Cuisine List</p>
+          <p style="font-size: 1.8em; font-weight: bold;">{{list.collection.title}}</p>
+          <p style="font-size: 1.2em">{{list.collection.restaurants.length}} Restaurants</p>
         </div>
       </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
-      </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
-      </ion-slide>
-    </ion-slide-box>
-    <ion-slide-box show-pager="false" class="dash-feature">
-      <ion-slide darken-slider back-img="https://placehold.it/300x150/FF0DFF/000000">
-        <div style="position: absolute;
+      <ion-slide ng-repeat="item in list.collection.restaurants" 
+                 back-img="{{item.restaurant.featured_image || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}">
+        <div class="restaurant-card-details" 
+             style="position: absolute;
                     bottom: 0;
+                    box-shadow: none;
                     color: white;
-                    padding: 10px;">
-          <p style="font-size: 1.8em; font-weight: bold;">Food Trucks</p>
-          <p style="font-size: 1.2em">Popular Cuisine List</p>
+                    background-color: rgba(0,0,0,0.5);">
+          <div class="row name">
+            <div id="restaurant-name" style="font-weight: bold;">{{item.restaurant.name}}</div>
+            <div ng-if="item.restaurant.user_rating">
+              <i class="icon ion-star"></i>
+              {{item.restaurant.user_rating.aggregate_rating}}/5 
+              (<i class="icon ion-person-stalker"></i> {{item.restaurant.user_rating.votes}})
+            </div>
+          </div>
+          <div class="status">
+            {{item.restaurant.cuisines}}
+          </div>
+          <div class="status">
+            ${{item.restaurant.average_cost_for_two}} for 2 people
+          </div>
+          <div class="footer">
+            <div class="action">
+              <div class="label">
+                200 Photos · 100 Reviews
+              </div>
+            </div>
+            <div class="attribution">
+              <img ng-src="{{card.author.fbPicture || './img/foursquare-logomark.png'}}"/>
+            </div>
+          </div>
         </div>
-      </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/FAFAFA/000000?text=Restaurant+1">
-      </ion-slide>
-      <ion-slide back-img="https://placehold.it/300x150/33F25A/000000?text=Restaurant+2">
       </ion-slide>
     </ion-slide-box>
 

@@ -10,7 +10,7 @@
           
           setTimeout( function() { 
             $ionicSlideBoxDelegate.update();
-          }, 1500);
+          }, 5500);
         });
 
         $scope.listDetails = function (list) {
@@ -28,10 +28,9 @@
 
         function loadContent() {
           $scope.findRestaurantsNearby = findRestaurantsNearby;
-          // $scope.findPopularLists = findPopularLists;
-          findPopularLists();
           $scope.getRecentlyViewedRestaurants = getRecentlyViewedRestaurants;
           $scope.getUserCards = getUserCards;
+          findPopularLists();
           getKiwiiFeatured();
         }
 
@@ -89,7 +88,10 @@
                 lat: latLng.lat,
                 lon: latLng.lng
               };
-              return RestaurantExplorer.findZomatoCollections(criteria);
+              return RestaurantExplorer.findZomatoCollections(criteria)
+                .then(function (result) {
+                  $scope.findPopularLists = result;
+                });
             })
             .catch(LocationService.showLocationError);
         }
