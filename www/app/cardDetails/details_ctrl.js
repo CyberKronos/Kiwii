@@ -98,6 +98,7 @@
 
           $scope.restaurantDetails = result.details;
           $scope.instagramImages = result.images;
+          console.log($scope.instagramImages);
           $scope.restaurantReviews = result.reviews;
         }
       );

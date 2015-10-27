@@ -17,105 +17,138 @@
             ng-click="openRatingModal()"></button>
   </nav>
 
-  <ion-content scroll="false">
+  <ion-content>
 
-    <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
+    <div class="restaurant-bg-img" darken
+         back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}"
+      >
+      <div class="inner-container">
+        <div class="padding-fix">
+          <div class="title">{{ restaurantDetails.name }}</div>
+        </div>
+        <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
+        <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
+          {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
+        </div>
+        <div class="subtext" ng-if="restaurantDetails.rating != null">
+          Rating: {{ restaurantDetails.rating }}/10
+        </div>
+
+        <br/>
+
+        <div>{{ restaurantDetails.hours.status }}</div>
+      </div>
+    </div>
+
+    <div class="list">
+
+      <div class="item item-avatar" ng-if="card.author">
+        <img ng-src="{{card.author.fbPicture}}">
+
+        <h2>{{card.author.firstname}} {{card.author.lastname}}</h2>
+
+        <p>{{card.createdAt | amCalendar}}</p>
+      </div>
+
+      <div class="details-text" ng-if="card.description || restaurantDetails.description">
+        <p>
+          {{card.description || restaurantDetails.description}}
+        </p>
+
+        <button class="button button-block button-assertive"
+                ng-if="card.externalUrl"
+                ng-click="openWebsite(card.externalUrl);">
+          Read the full article on Kiwii Guides
+        </button>
+      </div>
+
+      <div class="item item-divider" style="font-weight:normal; width: 100%;">
+        Photos
+      </div>
+      <div class="details-photos">
+        <div ng-repeat="image in instagramImages | limitTo: 6">
+          <img ng-src="{{ image.photo._url || image.photo.url }}"/>
+        </div>
+      </div>
+      <a class="item item-icon-left item-icon-right" href="#">
+        <i class="icon ion-images assertive"></i>
+        View more
+        <i class="icon ion-ios-arrow-right"></i>
+      </a>
+
+      <div class="item item-divider" style="font-weight:normal; width: 100%;">
+        Reviews
+      </div>
+      <div class="item" ng-repeat="tip in restaurantReviews | limitTo: 2" style="white-space: normal;">
+        <div>
+          {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+        </div>
+        <br/>
+        <div>
+          <strong>{{ tip.likes.count }} Likes</strong>
+        </div>
+      </div>
+      <a class="item item-icon-left item-icon-right" href="#">
+        <i class="icon ion-ios-paper assertive"></i>
+        See more reviews
+        <i class="icon ion-ios-arrow-right"></i>
+      </a>
+
+      <div class="item item-divider" style="font-weight:normal; width: 100%;">
+        Address
+      </div>
+      <div class="item" style="font-size: 14px; width: 100%;">
+        {{ restaurantDetails.location.formattedAddress[0] }}
+        <br/>
+        {{ restaurantDetails.location.formattedAddress[1] }}
+      </div>
+      <div class="item item-image map" ng-click="$state.go('tab.maps', {venueId: restaurantDetails.id})">
+        <img
+          ng-src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
+      </div>
+
+      <div class="item item-divider" style="font-weight:normal;">
+        Details
+      </div>
+      <div ng-if="restaurantDetails.contact.formattedPhone" class="details-text">
+        <p>
+          <strong>Phone</strong>
+          {{ restaurantDetails.contact.formattedPhone }}
+        </p>
+
+        <p>
+          <strong>Website</strong>
+          <u ng-if="restaurantDetails.url"
+             ng-click="openWebsite(restaurantDetails.url)">
+            {{ restaurantDetails.url }}
+          </u>
+        </p>
+
+        <p ng-repeat="attribute in detailsAttributes"
+           ng-if="attribute.name != attribute.value">
+          <strong>{{ attribute.name }}</strong>
+          {{ attribute.value }}
+        </p>
+
+        <button class="button button-block button-assertive"
+                ng-if="restaurantDetails.menu.mobileUrl"
+                ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
+          <strong>Menu</strong>
+        </button>
+
+        <button class="button button-block button-assertive"
+                ng-if="restaurantDetails.reservations.url"
+                ng-click="openWebsite(restaurantDetails.reservations.url)">
+          <strong>Make a reservation</strong>
+        </button>
+      </div>
+    </div>
+
+    <!-- <ion-slide-box slide-tabs-scrollable="false" show-pager="false" on-slide-changed="slideChanged()" ion-slide-tabs>
       <ion-slide class="slide" dynamic-height ion-slide-tab-label="Info">
         <ion-scroll class="scroll-height">
           <div class="slide-box box">
-            <div class="restaurant-bg-img" darken
-                 back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}"
-              >
-              <div class="inner-container">
-                <div class="padding-fix">
-                  <div class="title">{{ restaurantDetails.name }}</div>
-                </div>
-                <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
-                <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
-                  {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
-                </div>
-                <div class="subtext" ng-if="restaurantDetails.rating != null">
-                  Rating: {{ restaurantDetails.rating }}/10
-                </div>
-
-                <br/>
-
-                <div>{{ restaurantDetails.hours.status }}</div>
-              </div>
-            </div>
-
-            <div class="list">
-
-              <div class="item item-avatar" ng-if="card.author">
-                <img ng-src="{{card.author.fbPicture}}">
-
-                <h2>{{card.author.firstname}} {{card.author.lastname}}</h2>
-
-                <p>{{card.createdAt | amCalendar}}</p>
-              </div>
-
-              <div class="details-text" ng-if="card.description || restaurantDetails.description">
-                <p>
-                  {{card.description || restaurantDetails.description}}
-                </p>
-
-                <button class="button button-block button-assertive"
-                        ng-if="card.externalUrl"
-                        ng-click="openWebsite(card.externalUrl);">
-                  Read the full article on Kiwii Guides
-                </button>
-              </div>
-
-              <div class="item item-divider" style="font-weight:normal; width: 100%;">
-                Address
-              </div>
-              <div class="item" style="font-size: 14px; width: 100%;">
-                {{ restaurantDetails.location.formattedAddress[0] }}
-                <br/>
-                {{ restaurantDetails.location.formattedAddress[1] }}
-              </div>
-              <div class="item item-image map" ng-click="$state.go('tab.maps', {venueId: restaurantDetails.id})">
-                <img
-                  ng-src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
-              </div>
-
-              <div class="item item-divider" style="font-weight:normal;">
-                Details
-              </div>
-
-              <div ng-if="restaurantDetails.contact.formattedPhone" class="details-text">
-                <p>
-                  <strong>Phone</strong>
-                  {{ restaurantDetails.contact.formattedPhone }}
-                </p>
-
-                <p>
-                  <strong>Website</strong>
-                  <u ng-if="restaurantDetails.url"
-                     ng-click="openWebsite(restaurantDetails.url)">
-                    {{ restaurantDetails.url }}
-                  </u>
-                </p>
-
-                <p ng-repeat="attribute in detailsAttributes"
-                   ng-if="attribute.name != attribute.value">
-                  <strong>{{ attribute.name }}</strong>
-                  {{ attribute.value }}
-                </p>
-
-                <button class="button button-block button-assertive"
-                        ng-if="restaurantDetails.menu.mobileUrl"
-                        ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
-                  <strong>Menu</strong>
-                </button>
-
-                <button class="button button-block button-assertive"
-                        ng-if="restaurantDetails.reservations.url"
-                        ng-click="openWebsite(restaurantDetails.reservations.url)">
-                  <strong>Make a reservation</strong>
-                </button>
-              </div>
-            </div>
+            
           </div>
         </ion-scroll>
       </ion-slide>
@@ -163,6 +196,7 @@
           </div>
         </ion-scroll>
       </ion-slide>
-    </ion-slide-box>
+    </ion-slide-box> -->
+
   </ion-content>
 </ion-view>

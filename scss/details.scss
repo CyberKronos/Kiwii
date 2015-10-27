@@ -1,3 +1,22 @@
+.details-photos {
+  font-size: 0;
+  flex-flow: row wrap; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-photos div { 
+  flex: auto; 
+  width: 33%;
+}
+
+.details-photos div img { 
+  display: flex;
+  width: 100%; 
+  height: auto; 
+}
+
 .restaurant-bg-img {
   height: 50vh;
   width: 100%;
