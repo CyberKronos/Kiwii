@@ -55,6 +55,7 @@
           _.forEach($scope.cards, function (card) {
             card.taggedRestaurant = card.taggedRestaurant.toJSON();
           });
+          console.log($scope.cards);
           return $scope.cards;
         })
         .fail(function (message) {
