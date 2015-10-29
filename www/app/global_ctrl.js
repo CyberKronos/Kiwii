@@ -7,12 +7,16 @@
  * Adds common functions that all controllers in Kiwii will inherit.
  */
 angular.module('kiwii')
-  .controller('GlobalCtrl', ['$scope', '$state', '$cordovaInAppBrowser',
-    function ($scope, $state, $cordovaInAppBrowser) {
+  .controller('GlobalCtrl', ['$scope', '$state', '$cordovaInAppBrowser', 'RestaurantDetails',
+    function ($scope, $state, $cordovaInAppBrowser, RestaurantDetails) {
       $scope.$state = $state;
 
       $scope.goToMaps = function (id) {
         $state.go('tab.maps', {venueId: id});
+      };
+
+      $scope.goToPhotos = function (id) {
+        $state.go('tab.photos', {venueId: id});
       };
 
       $scope.openWebsite = function (link) {

@@ -29,7 +29,8 @@
           Reserve
         </div>
       </div>
-      <div class="action-item">
+      <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
+           class="action-item">
         <i class="icon ion-images"></i>
         <div>
           Photos

@@ -108,6 +108,24 @@
         }
       })
 
+      .state('tab.photos', {
+        url: '/photos',
+        cache: false,
+        views: {
+          'photos': {
+            templateUrl: 'app/photos/photos.html',
+            controller: 'PhotosCtrl'
+          }
+        },
+        params: {
+          photos: null,
+          venueId: null
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
       .state('tab.photoDetails', {
         url: '/photoDetails',
         cache: false,
@@ -222,6 +240,22 @@
             templateUrl: 'app/maps/maps.html',
             controller: 'MapsCtrl'
           }
+        },
+        data: {
+          authenticate: true
+        }
+      })
+
+      .state('tab.reviews', {
+        url: '/reviews',
+        views: {
+          'details': {
+            templateUrl: 'app/reviews/reviews.html',
+            controller: 'ReviewsCtrl'
+          }
+        },
+        params: {
+          reviews: null,
         },
         data: {
           authenticate: true

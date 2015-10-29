@@ -1,0 +1,23 @@
+<ion-view cache-view="false" view-title="Reviews">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+	<ul class="list">
+	  <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;">
+	    <div>
+	      {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+	    </div>
+	    <br/>
+
+	    <div>
+	      <strong>{{ tip.likes.count }} Likes</strong>
+	    </div>
+	  </li>
+	</ul>
+	</div>
+  </ion-content>
+</ion-view>

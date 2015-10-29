@@ -22,7 +22,8 @@
         restaurant: '=',
         currentLocation: '=',
         openWebsite: '=',
-        goToMaps: '='
+        goToMaps: '=',
+        goToPhotos: '='
       },
       controller: controller
     }

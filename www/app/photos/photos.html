@@ -1,0 +1,29 @@
+<ion-view cache-view="false" view-title="Photos">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">
+      <div class="item item-image">
+        <img ng-src="{{ image.photo._url || image.photo.url }}"/>
+      </div>
+      <div ng-if="image.description" class="item item-body">
+        <p>
+          {{ image.description }}
+        </p>
+
+        <p>
+          <a class="subdued" ng-if="image.externalSource == 'instagram'">
+            <i class="icon ion-social-instagram"></i>
+          </a>
+          <a href="" class="subdued">{{ image.likes || 0 }} Likes</a>
+          <a href="" class="subdued">{{ image.commentsCount || 0}} Comments</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  </ion-content>
+</ion-view>
