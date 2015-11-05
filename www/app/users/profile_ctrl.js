@@ -1,5 +1,5 @@
 (function () {
-  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location,
+  var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location, $ionicSlideBoxDelegate,
                               RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, ALL_CUISINE_TYPES) {
 
     $scope.$on('$ionicView.beforeEnter', function() {
@@ -8,6 +8,10 @@
       getUserLists();
       getFollowingData();
       getFollowerData();
+      
+      setTimeout( function() { 
+        $ionicSlideBoxDelegate.update();
+      }, 1000);
     });
 
     $scope.doRefresh = function () {
@@ -15,11 +19,15 @@
       getUserLists();
       getFollowingData();
       getFollowerData();
+
+      setTimeout( function() { 
+        $ionicSlideBoxDelegate.update();
+      }, 1000);
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    $scope.showBackButton = $state.current.name === 'tab.publicProfile';
+    $scope.showBackButton = $state.current.name === 'publicProfile';
 
     $scope.newList = {};
 
@@ -39,7 +47,7 @@
     };
 
     $scope.photoDetails = function (card) {
-      $state.go('tab.photoDetails', {
+      $state.go('photoDetails', {
         card: card
       });
     };
@@ -64,7 +72,7 @@
     };
 
     $scope.listDetails = function (list) {
-      $state.go('tab.lists', {list: list});
+      $state.go('listDetails', {list: list});
     };
 
     $scope.selectedIndex = 0;
@@ -85,16 +93,25 @@
     };
 
     $scope.viewFollowing = function () {
-      $state.go('tab.following', {
+      $state.go('following', {
         user: $scope.user,
         // following: $scope.following
       });
     };
 
     $scope.viewFollowers = function () {
-      $state.go('tab.followers', {
+      $state.go('followers', {
         user: $scope.user,
         // followers: $scope.followers
+      });
+    };
+
+    $scope.restaurantDetails = function (card) {
+      console.log(card);
+      $state.go('details', {
+        venueId: card.taggedRestaurant.foursquareId,
+        card: card,
+        restaurant: card.taggedRestaurant
       });
     };
 
@@ -138,8 +155,27 @@
       .include('actor')
       .find()
       .then(function (lists) {
+        var listItems = _.map(lists, function (list) {
+          var fetchCards = list.fetchCards()
+          .then(function (cards) {     
+            $scope.cards = _.map(cards, function (card) {
+              card.taggedRestaurant = card.taggedRestaurant.toJSON();
+              return card;
+            });
+            return Parse.Promise.when($scope.cards);
+          });
+          return Parse.Promise.when(fetchCards)
+          .then(function () {
+            return list;
+          });
+        });
+        return Parse.Promise.when(listItems)
+        .then(function () {
+          return lists;
+        });
+      })
+      .then(function (lists) {
         $scope.userLists = lists;
-        $scope.userListCount = lists.length;
         console.log($scope.userLists);
       });
     }

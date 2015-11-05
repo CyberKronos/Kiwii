@@ -1,0 +1,69 @@
+<ion-view view-title="{{ list.name}}">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
+    <ion-nav-buttons side="left">
+      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <div>
+      <div class="item item-text-wrap" style="font-size: 14px;">
+        {{ list.description }}
+      </div>
+      <div class="item item-divider" style="font-weight: 200; font-size: 14px;">
+        Category: {{ list.category }}
+      </div>
+      <div class="item item-avatar">
+        <img ng-src="{{list.actor.attributes.fbPicture || 'img/user_placeholder.png'}}">
+        <button ng-click="editList(list)"
+                ng-if="list.attributes.actor.id === currentUserId"
+                class="button button-outline button-small button-assertive"
+                style="right: 15px;
+                      position: absolute;
+                      margin-top: 4px;
+                      min-width: 80px;
+                      min-height: 30px;
+                      line-height: 28px;
+                      font-size: 14px;">
+          Edit
+        </button>
+      </div>
+    </div>
+
+    <!-- List of Cards -->
+    <div ng-repeat="card in cards">
+      <div ng-click="goToDetails(card)">
+        <ion-slide-box show-pager="false" class="dash-restaurant">
+          <ion-slide back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/200x200'}}">
+          </ion-slide>
+        </ion-slide-box>
+        <div class="restaurant-card-details">
+          <div class="row name">
+            <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
+            <div ng-if="card.taggedRestaurant.rating">
+              <i class="icon ion-star text-orange"></i>
+              {{card.taggedRestaurant.rating}}/10
+            </div>
+          </div>
+          <div class="status text-minor">
+            {{card.taggedRestaurant.hours.status}}
+          </div>
+          <div class="status text-minor">
+            {{card.photos[0].description}}
+          </div>
+          <div class="footer">
+            <div class="action text-minor">
+              <div class="label">
+                {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
+              </div>
+            </div>
+            <div class="attribution">
+              <img ng-src="{{card.author.attributes.fbPicture || './img/foursquare-logomark.png'}}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

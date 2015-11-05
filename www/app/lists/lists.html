@@ -1,62 +1,61 @@
-<ion-view view-title="{{ list.name}}">
-  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+<ion-view view-title="Lists">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
     <ion-nav-buttons side="left">
-      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
+      <a class="button button-icon button-clear ion-chevron-left"
+         ng-click="goBack()"></a>
     </ion-nav-buttons>
   </ion-nav-bar>
 
   <ion-content>
+
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-    <div class="list list-inset"
-         style="margin-top: 0px;">
-      <div class="list card"
-           style="margin-left: 2px; margin-right: 2px;">
-        <div class="item item-text-wrap" style="font-size: 14px;">
-          {{ list.description }}
+
+    <ion-slide-box show-pager="false" class="dash-feature" ng-repeat="userList in userLists">
+      <ion-slide darken-slider 
+                 back-img="{{userList.attributes.thumbnailUrl || 'https://placehold.it/300x150/33F25A/000000'}}"
+                 ng-click="listDetails(userList)">
+        <div style="position: absolute;
+                    bottom: 0;
+                    color: white;
+                    padding: 10px;">
+          <p style="font-size: 1.8em; font-weight: bold;">{{userList.attributes.name}}</p>
+          <p style="font-size: 1.2em">{{userList.attributes.category}}</p>
+          <p style="font-size: 1.2em">{{cards.length}} Restaurants</p>
         </div>
-        <div class="item item-divider" style="font-weight: 200; font-size: 14px;">
-          Category: {{ list.category }}
-        </div>
-        <div class="item item-avatar">
-          <img ng-src="{{list.actor.attributes.fbPicture || 'img/user_placeholder.png'}}">
-          <button ng-click="editList(list)"
-                  ng-if="list.actor.id === currentUserId"
-                  class="button button-outline button-small button-assertive"
-                  style="right: 15px;
-                        position: absolute;
-                        margin-top: 4px;
-                        min-width: 80px;
-                        min-height: 30px;
-                        line-height: 28px;
-                        font-size: 14px;">
-            Edit
-          </button>
-        </div>
-      </div>
+      </ion-slide>
 
-      <!-- List of Cards -->
-      <div class="list card"
-           ng-repeat="card in cards"
-           style="margin-left: 2px; margin-right: 2px;">
-        <a class="item item-thumbnail-left"
-           ng-click="goToDetails(card)">
-          <img ng-src="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/95x95'}}" width="100%" height="100%">
-
-          <div class="row row-center">
-            <div class="col-90">
-              <p id="restaurant-name"><strong>{{card.taggedRestaurant.name}}</strong></p>
-
-              <p id="restaurant-category">{{card.taggedRestaurant.category}}</p>
-
-              <p id="restaurant-rating" ng-if="card.taggedRestaurant.rating">{{card.taggedRestaurant.rating}}/10</p>
-            </div>
-            <div class="col-10"
-                 ng-click="removeCard(card, $index); $event.stopPropagation(); ">
-              <h1 class="icon ion-ios-close-empty"></h1>
+      <ion-slide ng-repeat="card in cards" 
+                 back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image'}}"
+                 ng-click="restaurantDetails(card)">
+        <div class="restaurant-card-details" 
+             style="position: absolute;
+                    bottom: 0;
+                    box-shadow: none;
+                    color: white;
+                    background-color: rgba(0,0,0,0.5);">
+          <div class="row name">
+            <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
+            <div ng-if="card.taggedRestaurant.rating">
+              <i class="icon ion-star"></i>
+              {{card.taggedRestaurant.rating}}/10
             </div>
           </div>
-        </a>
-      </div>
-    </div>
+          <div class="status">
+            {{card.taggedRestaurant.hours.status}}
+          </div>
+          <div class="footer">
+            <div class="action">
+              <div class="label">
+                {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
+              </div>
+            </div>
+            <div class="attribution">
+              <img ng-src="{{card.author.fbPicture || './img/foursquare-logomark.png'}}"/>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+
   </ion-content>
 </ion-view>

@@ -1,5 +1,5 @@
 <ion-view view-title="{{ cuisineType || 'All Restaurants' }}">
-  <ion-nav-bar ng-controller="NavCtrl" class="bar-assertive">
+  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
     <ion-nav-buttons side="right">
       <a class="button button-icon ion-android-close" ng-click="goBack()"></a>
     </ion-nav-buttons>
@@ -17,7 +17,9 @@
         <restaurant-card restaurant="card.taggedRestaurant"
                          current-location="criteria.ll"
                          open-website="openWebsite"
-                         ng-click="$state.go('tab.details', {
+                         go-to-maps="goToMaps"
+                         go-to-photos="goToPhotos"
+                         ng-click="$state.go('details', {
                           venueId: card.taggedRestaurant.foursquareId,
                           card: card,
                           restaurant: card.taggedRestaurant})">
@@ -49,7 +51,7 @@
 
         <p>{{backdropMessage}}</p>
         <br>
-        <button class="button button-assertive" ng-click="$state.go('tab.search')">Back to Search</button>
+        <button class="button button-assertive" ng-click="$state.go('search')">Back to Search</button>
       </div>
     </div>
 
