@@ -19,7 +19,7 @@
                          open-website="openWebsite"
                          go-to-maps="goToMaps"
                          go-to-photos="goToPhotos"
-                         ng-click="$state.go('tab.details', {
+                         ng-click="$state.go('details', {
                           venueId: card.taggedRestaurant.foursquareId,
                           card: card,
                           restaurant: card.taggedRestaurant})">
@@ -51,7 +51,7 @@
 
         <p>{{backdropMessage}}</p>
         <br>
-        <button class="button button-assertive" ng-click="$state.go('tab.search')">Back to Search</button>
+        <button class="button button-assertive" ng-click="$state.go('search')">Back to Search</button>
       </div>
     </div>
 

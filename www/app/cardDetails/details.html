@@ -70,7 +70,7 @@
           <img ng-src="{{ image.photo._url || image.photo.url }}"/>
         </div>
       </div>
-      <a class="item item-icon-left item-icon-right" ng-click="$state.go('tab.photos', {photos: instagramImages})">
+      <a class="item item-icon-left item-icon-right" ng-click="$state.go('photos', {photos: instagramImages})">
         <i class="icon ion-images assertive"></i>
         View more
         <i class="icon ion-ios-arrow-right"></i>
@@ -84,7 +84,7 @@
         <br/>
         {{ restaurantDetails.location.formattedAddress[1] }}
       </div>
-      <div class="item item-image map" ng-click="$state.go('tab.maps', {venueId: restaurantDetails.id})">
+      <div class="item item-image map" ng-click="$state.go('maps', {venueId: restaurantDetails.id})">
         <img
           ng-src="https://api.tiles.mapbox.com/v4/cyberkronos.kjdbl1id/pin-l-restaurant+F52636({{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }})/{{ restaurantDetails.location.lng }},{{ restaurantDetails.location.lat }},15/400x250.png?access_token=pk.eyJ1IjoiY3liZXJrcm9ub3MiLCJhIjoia3RMOFJ5byJ9.Nvqs957NLHa4w5eV1IcjmQ">
       </div>
@@ -101,7 +101,7 @@
           <strong>{{ tip.likes.count }} Likes</strong>
         </div>
       </div>
-      <a class="item item-icon-left item-icon-right" ng-click="$state.go('tab.reviews', {reviews: restaurantReviews})">
+      <a class="item item-icon-left item-icon-right" ng-click="$state.go('reviews', {reviews: restaurantReviews})">
         <i class="icon ion-ios-paper assertive"></i>
         See more reviews
         <i class="icon ion-ios-arrow-right"></i>

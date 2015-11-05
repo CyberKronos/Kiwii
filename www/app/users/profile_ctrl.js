@@ -27,7 +27,7 @@
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    $scope.showBackButton = $state.current.name === 'tab.publicProfile';
+    $scope.showBackButton = $state.current.name === 'publicProfile';
 
     $scope.newList = {};
 
@@ -47,7 +47,7 @@
     };
 
     $scope.photoDetails = function (card) {
-      $state.go('tab.photoDetails', {
+      $state.go('photoDetails', {
         card: card
       });
     };
@@ -72,7 +72,7 @@
     };
 
     $scope.listDetails = function (list) {
-      $state.go('tab.lists', {list: list});
+      $state.go('listDetails', {list: list});
     };
 
     $scope.selectedIndex = 0;
@@ -93,14 +93,14 @@
     };
 
     $scope.viewFollowing = function () {
-      $state.go('tab.following', {
+      $state.go('following', {
         user: $scope.user,
         // following: $scope.following
       });
     };
 
     $scope.viewFollowers = function () {
-      $state.go('tab.followers', {
+      $state.go('followers', {
         user: $scope.user,
         // followers: $scope.followers
       });
@@ -108,7 +108,7 @@
 
     $scope.restaurantDetails = function (card) {
       console.log(card);
-      $state.go('tab.details', {
+      $state.go('details', {
         venueId: card.taggedRestaurant.foursquareId,
         card: card,
         restaurant: card.taggedRestaurant

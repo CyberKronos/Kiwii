@@ -1,27 +1,31 @@
-<ion-view view-title="Explore">
+<ion-view view-title="Kiwii">
   <ion-nav-bar class="bar-light">
+    <ion-nav-buttons side="right">
+      <a class="button button-icon ion-person" href="#/profile"></a>
+    </ion-nav-buttons>
   </ion-nav-bar>
 
-  <div class="bar bar-light bar-header item-input-inset">
-    <label class="item-input-wrapper" style="text-align: center;">
-      <i class="icon ion-ios-search placeholder-icon"></i>
-      <ion-autocomplete ng-model="restaurantDetails"
-                        template-url="app/widgets/search_restaurants_popup.html"
-                        item-value-key="name"
-                        item-view-value-key="name"
-                        item-view-value-key="foursquareId"
-                        items-method="getRestaurants(query)"
-                        items-method-value-key="items"
-                        placeholder="Find Restaurants by Name"
-                        items-clicked-method="restaurantsClicked(callback)"
-                        select-items-label="Select Restaurant:"/>
-    </label>
-  </div>
+  <ion-content ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
 
-  <ion-content padding="true"
-               ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
-    <div style="padding: 0 10px;">
+    <div class="list" style="margin-bottom: 0;">
+      <div class="item item-icon-left">
+        <i class="icon ion-search assertive"></i>
+        <label class="item item-input ion-google-restaurant-search">
+          <ion-autocomplete ng-model="restaurantDetails"
+                            template-url="app/widgets/search_restaurants_popup.html"
+                            item-value-key="name"
+                            item-view-value-key="name"
+                            item-view-value-key="foursquareId"
+                            items-method="getRestaurants(query)"
+                            items-method-value-key="items"
+                            placeholder="Find Restaurants by Name"
+                            items-clicked-method="restaurantsClicked(callback)"
+                            select-items-label="Select Restaurant:"/>
+        </label>
+      </div>
+    </div>
 
+    <div style="padding: 0 20px;">
       <div class="padding-vertical">
         <p class="text-orange">Choose a popular cuisine</p>
         <label class="item item-input item-select" style="padding-left: 0; border: none;">
@@ -37,7 +41,7 @@
 
         <div class="row row-center location-input">
           <div class="col-90">
-            <label class="item item-input ion-google-place-search">
+            <label class="item item-input ion-google-location-search">
               <ion-google-place placeholder="Current location"
                                 ng-model="location"
                                 ng-change="convertToLatLon(location)"/>

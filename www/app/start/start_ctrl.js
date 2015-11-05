@@ -17,7 +17,7 @@
       .then(function(response) {
         console.log(response);
         if (response == 'existing user') {
-          $state.go('tab.dash');
+          $state.go('search');
         } else {
           $state.go('handle');
         }

@@ -6,6 +6,7 @@
     function loadPhotoData() {
     	var photos = $stateParams.photos;
     	var venueId = $stateParams.venueId;
+      console.log($stateParams);
     	if (photos != null) {
     		return $scope.instagramImages = $stateParams.photos;
     	} else {

@@ -12,11 +12,11 @@ angular.module('kiwii')
       $scope.$state = $state;
 
       $scope.goToMaps = function (id) {
-        $state.go('tab.maps', {venueId: id});
+        $state.go('maps', {venueId: id});
       };
 
       $scope.goToPhotos = function (id) {
-        $state.go('tab.photos', {venueId: id});
+        $state.go('photos', {venueId: id});
       };
 
       $scope.openWebsite = function (link) {

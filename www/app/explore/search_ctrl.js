@@ -30,7 +30,7 @@
     };
 
     $scope.restaurantsClicked = function (callback) {
-      $state.go('tab.details', {venueId: callback.item.foursquareId, restaurant: callback.item});
+      $state.go('details', {venueId: callback.item.foursquareId, restaurant: callback.item});
     };
 
     function getDistanceLabel(distance) {
@@ -42,7 +42,7 @@
 
     function explore(criteria) {
       serializePriceFilter($scope.priceList);
-      $state.go('tab.cards', {criteria: criteria});
+      $state.go('cards', {criteria: criteria});
     }
 
     function serializePriceFilter(priceList) {

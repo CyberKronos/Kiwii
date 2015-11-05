@@ -6,7 +6,7 @@ input.ion-google-place[readonly] {
   font-size: 20px;
 }
 
-.ion-google-place-search {
+.ion-google-location-search {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -35,5 +35,27 @@ input.ion-google-place[readonly] {
     /* Internet Explorer 10+ */
     color: #4D4D4D;
     font-weight: 200;
+  }
+}
+
+.ion-google-restaurant-search {
+  border: none;
+  padding: 0;
+
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-size: 16px;
+  }
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-size: 16px;
+  }
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    font-size: 16px;
+  }
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    font-size: 16px;
   }
 }
