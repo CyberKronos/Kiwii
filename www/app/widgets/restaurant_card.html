@@ -11,14 +11,14 @@
   <div class="action-bar">
     <a class="action-item" ng-href="tel: 7788612106" ng-click="$event.stopPropagation();" style="text-decoration: none;">
       <i class="icon ion-ios-telephone"></i>
-      <div>
+      <div class="action-label">
         Call
       </div>
     </a>
     <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-map"></i>
-      <div>
+      <div class="action-label">
         Directions
       </div>
     </div>
@@ -26,20 +26,20 @@
          ng-click="::openWebsite(restaurant.reservations.url); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-calendar"></i>
-      <div>
+      <div class="action-label"> 
         Reserve
       </div>
     </div>
     <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-images"></i>
-      <div>
+      <div class="action-label">
         Photos
       </div>
     </div>
     <div class="action-item">
       <i class="icon ion-heart"></i>
-      <div>
+      <div class="action-label">
         Like
       </div>
     </div>

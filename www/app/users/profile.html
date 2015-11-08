@@ -11,16 +11,6 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <nav mfb-menu position="br" effect="zoomin" label="Actions"
-       active-icon="ion-plus-round" resting-icon="ion-plus-round"
-       toggling-method="click"
-       class="mfb-has-tabs">
-    <button mfb-button icon="ion-ios-list" label="Create List"
-            ng-click="createList()"></button>
-    <button mfb-button icon="ion-android-list" label="Create Card"
-            ng-click="$state.go('tab.images')" ></button>
-  </nav>
-
   <ion-content ng-controller="ProfileCtrl">
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
