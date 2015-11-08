@@ -62,6 +62,7 @@
       }
       if (window.StatusBar) {
         $cordovaStatusbar.overlaysWebView(true);
+        $cordovaStatusbar.style(0);
         // Load current user from cache
         if (Parse.User.current()) {
           $rootScope.currentUser = Parse.User.current().attributes;
