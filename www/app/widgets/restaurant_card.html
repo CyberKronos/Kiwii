@@ -7,40 +7,40 @@
     </div>
   </div>
   <div class="restaurant-card-image" back-img="{{::restaurant.imageUrl}}">
-    <div class="action-bar">
-      <a class="action-item" ng-href="tel: 7788612106" ng-click="$event.stopPropagation();" style="text-decoration: none;">
-        <i class="icon ion-ios-telephone"></i>
-        <div>
-          Call
-        </div>
-      </a>
-      <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
-           class="action-item">
-        <i class="icon ion-map"></i>
-        <div>
-          Directions
-        </div>
+  </div>
+  <div class="action-bar">
+    <a class="action-item" ng-href="tel: 7788612106" ng-click="$event.stopPropagation();" style="text-decoration: none;">
+      <i class="icon ion-ios-telephone"></i>
+      <div>
+        Call
       </div>
-      <div ng-if="::(restaurant.reservations && restaurant.reservations.url)"
-           ng-click="::openWebsite(restaurant.reservations.url); $event.stopPropagation();"
-           class="action-item">
-        <i class="icon ion-calendar"></i>
-        <div>
-          Reserve
-        </div>
+    </a>
+    <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
+         class="action-item">
+      <i class="icon ion-map"></i>
+      <div>
+        Directions
       </div>
-      <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
-           class="action-item">
-        <i class="icon ion-images"></i>
-        <div>
-          Photos
-        </div>
+    </div>
+    <div ng-if="::(restaurant.reservations && restaurant.reservations.url)"
+         ng-click="::openWebsite(restaurant.reservations.url); $event.stopPropagation();"
+         class="action-item">
+      <i class="icon ion-calendar"></i>
+      <div>
+        Reserve
       </div>
-      <div class="action-item">
-        <i class="icon ion-heart"></i>
-        <div>
-          Like
-        </div>
+    </div>
+    <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
+         class="action-item">
+      <i class="icon ion-images"></i>
+      <div>
+        Photos
+      </div>
+    </div>
+    <div class="action-item">
+      <i class="icon ion-heart"></i>
+      <div>
+        Like
       </div>
     </div>
   </div>
