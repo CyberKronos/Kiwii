@@ -5,22 +5,24 @@
     $scope.$on('$ionicView.beforeEnter', function() {
       loadUserData();
       getUserCards();
-      getUserLists();
+    //  getUserLists();
+      getFavoritesList()
       getFollowingData();
       getFollowerData();
-      
-      setTimeout( function() { 
+
+      setTimeout( function() {
         $ionicSlideBoxDelegate.update();
       }, 1000);
     });
 
     $scope.doRefresh = function () {
       getUserCards();
-      getUserLists();
+   //   getUserLists();
+      getFavoritesList()
       getFollowingData();
       getFollowerData();
 
-      setTimeout( function() { 
+      setTimeout( function() {
         $ionicSlideBoxDelegate.update();
       }, 1000);
       //Stop the ion-refresher from spinning
@@ -115,6 +117,14 @@
       });
     };
 
+    $scope.goToDetails = function (card) {
+      $state.go('details', {
+        venueId: card.taggedRestaurant.foursquareId,
+        card: card,
+        restaurant: card.taggedRestaurant
+      });
+    };
+
     function showLoading() {
       $scope.isLoading = true;
       $ionicLoading.show({
@@ -149,6 +159,11 @@
         });
     }
 
+    function getFavoritesList() {
+      getUserLists();
+      getCardsFromList();
+    }
+
     function getUserLists() {
       var userLists = $scope.user.relation('lists');
       userLists.query()
@@ -157,7 +172,7 @@
       .then(function (lists) {
         var listItems = _.map(lists, function (list) {
           var fetchCards = list.fetchCards()
-          .then(function (cards) {     
+          .then(function (cards) {
             $scope.cards = _.map(cards, function (card) {
               card.taggedRestaurant = card.taggedRestaurant.toJSON();
               return card;
@@ -175,9 +190,26 @@
         });
       })
       .then(function (lists) {
-        $scope.userLists = lists;
-        console.log($scope.userLists);
+        // $scope.userLists = lists;
+        // console.log($scope.userLists);
+
+        // Get favorites list
+        $scope.favoritesList = lists[0];
       });
+    }
+
+    function getCardsFromList() {
+      // TODO: Null check for list
+      $scope.favoritesList.fetchCards()
+        .then(function (cards) {
+          console.log(cards);
+          // TODO: Make Restaurant a ParseObject
+          $scope.cards = _.map(cards, function (card) {
+            card.taggedRestaurant = card.taggedRestaurant.toJSON();
+            console.log(card);
+            return card;
+          })
+        });
     }
 
     function getFollowingData() {
