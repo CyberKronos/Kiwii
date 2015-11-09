@@ -153,13 +153,21 @@ function transformVenueResponse(item) {
   venue['foursquareId'] = apiVenue.id;
   venue['name'] = apiVenue.name;
   venue['rating'] = apiVenue.rating;
+  venue['ratingCount'] = apiVenue.ratingSignals;
   venue['category'] = apiVenue.categories[0].shortName;
   venue['hours'] = apiVenue.hours;
   venue['url'] = apiVenue.url;
   venue['location'] = apiVenue.location;
+  venue['stats'] = apiVenue.stats;
   venue['tips'] = item.tips;
   venue['reservations'] = apiVenue.reservations;
 
+  if (apiVenue.menu) {
+    venue['menu'] = apiVenue.menu;
+  }
+  if (apiVenue.contact) {
+    venue['contact'] = apiVenue.contact;
+  }
   if (apiVenue.featuredPhotos && apiVenue.featuredPhotos.count > 0) {
     var featuredPhoto = apiVenue.featuredPhotos.items[0];
     venue['imageUrl'] = featuredPhoto.prefix + IMAGE_SIZE + featuredPhoto.suffix;
