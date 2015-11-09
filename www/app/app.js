@@ -53,6 +53,11 @@
     });
   });
 
+  kiwii.run(function ($rootScope, $state) {
+    // Attach $state to $rootScope since it's used across all templates
+    $rootScope.$state = $state;
+  });
+
   kiwii.run(function ($ionicPlatform, $ionicApp, $rootScope, $state, $cordovaStatusbar) {
     console.log('Running', $ionicApp.getApp());
 

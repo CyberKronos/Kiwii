@@ -1,6 +1,6 @@
 (function () {
   var ImagesCtrl = function ($scope, $localStorage, $state, $cordovaCamera, $cordovaStatusbar, $ionicModal, $ionicLoading, $ionicPopup,
-                             Cards, RestaurantExplorer, CameraService, LocationService, AppModalService) {
+                             Cards, CameraService, LocationService, AppModalService) {
 
     $scope.imagePost = {};
 

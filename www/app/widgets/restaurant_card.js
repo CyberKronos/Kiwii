@@ -1,8 +1,9 @@
 (function () {
-  var restaurantCard = function () {
+  var restaurantCard = function (BrowserService) {
 
     var controller = ['$scope',
       function ($scope) {
+        $scope.openWebsite = BrowserService.open;
         $scope.distanceBetweenRestaurant = function () {
           var currentLocation = $scope.currentLocation;
           if (_.isString($scope.currentLocation)) {
@@ -20,10 +21,7 @@
       replace: true,
       scope: {
         restaurant: '=',
-        currentLocation: '=',
-        openWebsite: '=',
-        goToMaps: '=',
-        goToPhotos: '='
+        currentLocation: '='
       },
       controller: controller
     }
