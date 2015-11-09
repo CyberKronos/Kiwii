@@ -9,12 +9,6 @@
   <div class="restaurant-card-image" back-img="{{::restaurant.imageUrl}}">
   </div>
   <div class="action-bar">
-    <a class="action-item" ng-href="tel: 7788612106" ng-click="$event.stopPropagation();" style="text-decoration: none;">
-      <i class="icon ion-ios-telephone"></i>
-      <div class="action-label">
-        Call
-      </div>
-    </a>
     <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-map"></i>
