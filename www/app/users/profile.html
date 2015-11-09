@@ -11,6 +11,17 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
+<!-- Add Lists Icon -->
+<!--   <nav mfb-menu position="br" effect="zoomin" label="Actions"
+       active-icon="ion-plus-round" resting-icon="ion-plus-round"
+       toggling-method="click"
+       class="mfb-has-tabs">
+    <button mfb-button icon="ion-ios-list" label="Create List"
+            ng-click="createList()"></button>
+    <button mfb-button icon="ion-android-list" label="Create Card"
+            ng-click="$state.go('tab.images')" ></button>
+  </nav>
+ -->
   <ion-content ng-controller="ProfileCtrl">
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
@@ -49,6 +60,42 @@
       </div>
     </div> -->
 
+    <div ng-repeat="card in cards">
+      <div ng-click="goToDetails(card)">
+        <ion-slide-box show-pager="false" class="dash-restaurant">
+          <ion-slide back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/200x200'}}">
+          </ion-slide>
+        </ion-slide-box>
+        <div class="restaurant-card-details">
+          <div class="row name">
+            <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
+            <div ng-if="card.taggedRestaurant.rating">
+              <i class="icon ion-star text-orange"></i>
+              {{card.taggedRestaurant.rating}}/10
+            </div>
+          </div>
+          <div class="status text-minor">
+            {{card.taggedRestaurant.hours.status}}
+          </div>
+          <div class="status text-minor">
+            {{card.photos[0].description}}
+          </div>
+          <div class="footer">
+            <div class="action text-minor">
+              <div class="label">
+                {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
+              </div>
+            </div>
+            <div class="attribution">
+              <img ng-src="{{card.author.attributes.fbPicture || './img/foursquare-logomark.png'}}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Slidebox of all user lists  -->
+<!--
     <ion-slide-box show-pager="false" class="dash-feature" ng-repeat="userList in userLists">
       <ion-slide darken-slider 
                  back-img="{{userList.attributes.thumbnailUrl || 'https://placehold.it/300x150/33F25A/000000'}}"
@@ -95,6 +142,8 @@
         </div>
       </ion-slide>
     </ion-slide-box>
+ -->
+
 
     <!-- <ti-segmented-control on-select="segmentChange($index)" style="width: 100%;">
       <ti-segmented-control-button class="button-assertive" style="border-radius: 0; border-top: none; border-left: none; border-right: none; max-height: 50px; line-height: 38px;" title="'Lists'" selected>
