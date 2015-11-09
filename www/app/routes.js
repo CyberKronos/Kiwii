@@ -68,7 +68,6 @@
 
       .state('details', {
         url: '/details/{venueId}',
-        cache: false,
         templateUrl: 'app/cardDetails/details.html',
         controller: 'DetailsCtrl',
         params: {
@@ -103,7 +102,6 @@
 
       .state('photos', {
         url: '/photos',
-        cache: false,
         templateUrl: 'app/photos/photos.html',
         controller: 'PhotosCtrl',
         params: {
@@ -129,7 +127,6 @@
 
       .state('lists', {
         url: '/lists',
-        cache: false,
         templateUrl: 'app/lists/lists.html',
         controller: 'ListsCtrl',
         params: {
@@ -142,7 +139,6 @@
 
       .state('listDetails', {
         url: '/listDetails',
-        cache: false,
         templateUrl: 'app/lists/list_details.html',
         controller: 'ListDetailsCtrl',
         params: {
