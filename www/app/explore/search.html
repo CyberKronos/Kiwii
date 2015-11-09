@@ -43,14 +43,14 @@
           <div class="col-90">
             <label class="item item-input ion-google-location-search">
               <ion-google-place placeholder="Current location"
-                                ng-model="location"
-                                ng-change="convertToLatLon(location)"/>
+                                ng-model="specifiedLocation.result"
+                                ng-change="convertToLatLon(specifiedLocation.result)"/>
             </label>
           </div>
           <div class="col-10">
             <i class="icon ion-location current-location-button"
-               ng-class="{'assertive': !location, 'dark' : location}"
-               ng-click="::getCurrentLocation()"></i>
+               ng-class="{'assertive': !specifiedLocation.result, 'dark' : specifiedLocation.result}"
+               ng-click="::clearSpecifiedLocation()"></i>
           </div>
         </div>
       </div>

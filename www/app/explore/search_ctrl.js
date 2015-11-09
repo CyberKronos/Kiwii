@@ -10,6 +10,7 @@
     $scope.distanceLabel = getDistanceLabel($scope.criteria.radius);
     $scope.priceList = CRITERIA_OPTIONS.PRICES;
     $scope.openNow = true;
+    $scope.specifiedLocation = {};
 
     $scope.explore = explore;
     $scope.updateDistanceLabel = function (distance) {
@@ -33,6 +34,14 @@
       $state.go('details', {venueId: callback.item.foursquareId, restaurant: callback.item});
     };
 
+    $scope.clearSpecifiedLocation = function () {
+      if ($scope.specifiedLocation.result) {
+        $scope.specifiedLocation.result= '';
+        $scope.criteria.ll = '';
+        fetchCurrentLocation();
+      }
+    };
+
     function getDistanceLabel(distance) {
       var labels = CRITERIA_OPTIONS.DISTANCE_LABELS;
       return _.filter(labels, function (label) {
@@ -53,7 +62,7 @@
     function fetchCurrentLocation() {
       return LocationService.fetchCurrentLocation()
         .then(function (latLng) {
-          $scope.criteria['ll'] = latLng.lat + ',' + latLng.lng;
+          $scope.criteria.ll = latLng.lat + ',' + latLng.lng;
         })
         .catch(LocationService.showErrorPopup);
     }
