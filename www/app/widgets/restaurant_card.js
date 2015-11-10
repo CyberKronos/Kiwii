@@ -1,9 +1,17 @@
 (function () {
   var restaurantCard = function (BrowserService) {
 
-    var controller = ['$scope',
-      function ($scope) {
+    var controller = ['$scope', '$state',
+      function ($scope, $state) {
         $scope.openWebsite = BrowserService.open;
+        $scope.goToMaps = function (id) {
+          $state.go('maps', {venueId: id});
+        };
+
+        $scope.goToPhotos = function (id) {
+          $state.go('photos', {venueId: id});
+        };
+
         $scope.distanceBetweenRestaurant = function () {
           var currentLocation = $scope.currentLocation;
           if (_.isString($scope.currentLocation)) {
