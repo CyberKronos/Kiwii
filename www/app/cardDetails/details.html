@@ -31,14 +31,15 @@
       <ion-slide ng-repeat="image in instagramImages | limitTo: 6" 
                  back-img="{{ image.photo._url || image.photo.url || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image' }}"
                  ng-click="restaurantDetails(card)">
-        <div class="restaurant-card-details" 
+        <div ng-if="image.description"
+             class="restaurant-card-details carousel-image" 
              style="position: absolute;
                     bottom: 0;
                     box-shadow: none;
                     color: white;
                     background-color: rgba(0,0,0,0.5);">
           <div class="row name">
-            <div>{{image.description }}</div>
+            <div class="description">{{image.description }}</div>
           </div>
         </div>
       </ion-slide>

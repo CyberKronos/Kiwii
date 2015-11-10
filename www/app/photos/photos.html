@@ -6,7 +6,12 @@
   </ion-nav-bar>
 
   <ion-content>
-    <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">
+    <div class="details-photos">
+      <div ng-repeat="image in instagramImages">
+        <img ng-src="{{ image.photo._url || image.photo.url }}"/>
+      </div>
+    </div>
+    <!-- <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">
       <div class="item item-image">
         <img ng-src="{{ image.photo._url || image.photo.url }}"/>
       </div>
@@ -23,7 +28,7 @@
           <a href="" class="subdued">{{ image.commentsCount || 0}} Comments</a>
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
   </ion-content>
 </ion-view>
