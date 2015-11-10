@@ -21,23 +21,23 @@
   height: 50vh;
   width: 100%;
   position: relative;
+}
 
-  .inner-container {
-    color: #ffffff;
-    position: absolute;
-    bottom: 0;
-    padding: 20px;
-    width: 95%;
+.inner-container {
+  color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  padding: 20px;
+  width: 95%;
 
-    .padding-fix {
-      padding-right: 14px;
+  .padding-fix {
+    padding-right: 14px;
 
-      .favourite-icon {
-        position: absolute;
-        top: 9px;
-        right: 0;
-        font-size: 30px;
-      }
+    .favourite-icon {
+      position: absolute;
+      top: 9px;
+      right: 0;
+      font-size: 30px;
     }
   }
 }

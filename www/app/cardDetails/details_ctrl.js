@@ -2,10 +2,17 @@
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicModal, $cordovaInAppBrowser, $cordovaStatusbar, $q,
                               RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory) {
 
+    $scope.$on('$ionicView.beforeEnter', function() {
+      getRestaurantInfo();
+      
+      setTimeout( function() { 
+        $ionicSlideBoxDelegate.update();
+      }, 2000);
+    });
+
     var PHOTO_SIZE = '500x500';
 
     recordHistory($stateParams);
-    getRestaurantInfo();
 
     var userLists = Parse.User.current().relation('lists');
     userLists.query().find()
