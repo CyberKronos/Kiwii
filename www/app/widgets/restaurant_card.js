@@ -1,8 +1,14 @@
 (function () {
-  var restaurantCard = function (BrowserService) {
+  var restaurantCard = function (BrowserService, SavedForLater) {
 
     var controller = ['$scope', '$state',
       function ($scope, $state) {
+        $scope.isSaved = false;
+        SavedForLater.contains($scope.card)
+          .then(function (card) {
+            $scope.isSaved = card ? true : false;
+          });
+        $scope.restaurant = $scope.card.taggedRestaurant;
         $scope.openWebsite = BrowserService.open;
         $scope.goToMaps = function (id) {
           $state.go('maps', {venueId: id});
@@ -10,6 +16,19 @@
 
         $scope.goToPhotos = function (id) {
           $state.go('photos', {venueId: id});
+        };
+
+        $scope.toggleSave = function (card) {
+          var currentState = $scope.isSaved;
+          var toggle = !$scope.isSaved ? SavedForLater.add : SavedForLater.remove;
+          toggle(card)
+            .then(function () {
+              $scope.isSaved = !currentState;
+            })
+            .catch(function (error) {
+              $scope.isSaved = currentState;
+              console.log(error);
+            })
         };
 
         $scope.distanceBetweenRestaurant = function () {
@@ -28,7 +47,7 @@
       templateUrl: 'app/widgets/restaurant_card.html',
       replace: true,
       scope: {
-        restaurant: '=',
+        card: '=',
         currentLocation: '='
       },
       controller: controller

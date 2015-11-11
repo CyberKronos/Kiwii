@@ -14,11 +14,8 @@
                on-transition-right="prevRestaurant()"
                on-transition-left="nextRestaurant()"
                on-destroy="swipeRestaurant()">
-        <restaurant-card restaurant="card.taggedRestaurant"
+        <restaurant-card card="card"
                          current-location="criteria.ll"
-                         open-website="openWebsite"
-                         go-to-maps="goToMaps"
-                         go-to-photos="goToPhotos"
                          ng-click="$state.go('details', {
                           venueId: card.taggedRestaurant.foursquareId,
                           card: card,

@@ -1,9 +1,9 @@
 (function () {
-  var User = function ($q, ParseObject) {
+  var User = function ($q, ParseObject, Lists) {
 
     var USER_CLASS = '_User';
     var USER_KEYS = ['username', 'fbId', 'handle', 'firstname', 'lastname', 'email', 'fbPicture', 'verified', 
-                     'uploadedPhotos', 'savedRestaurants', 'lists', 'searchHistory', 'selectedVenueHistory'];
+                     'uploadedPhotos', 'savedRestaurants', 'savedForLater', 'lists', 'searchHistory', 'selectedVenueHistory'];
 
     var User = ParseObject.extend(USER_CLASS, USER_KEYS, {}, {
       // Static Methods
