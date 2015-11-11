@@ -7,20 +7,10 @@
 
     var User = ParseObject.extend(USER_CLASS, USER_KEYS, {}, {
       // Static Methods
-      getCurrentUser: getCurrentUser,
       getUserById: getUserById
     });
 
     return User;
-
-    /**
-     * Gets the current authenticated user.
-     * @returns {Promise} Angular promise that resolves to a User,
-     *  rejects with a Parse.Error object.
-     */
-    function getCurrentUser() {
-      return Parse.User.current();
-    }
 
     /**
      * Gets a user by its id.
