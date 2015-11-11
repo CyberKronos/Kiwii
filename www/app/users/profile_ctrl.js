@@ -4,8 +4,9 @@
 
     $scope.$on('$ionicView.beforeEnter', function () {
       loadUserData();
-      //getUserCards();
       getFavoritesList();
+
+      //getUserCards();
       //getFollowingData();
       //getFollowerData();
 
@@ -15,8 +16,8 @@
     });
 
     $scope.doRefresh = function () {
-      //getUserCards();
       getFavoritesList();
+      //getUserCards();
       //getFollowingData();
       //getFollowerData();
 
@@ -26,6 +27,14 @@
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
+
+    function getFavoritesList() {
+      SavedForLater.get()
+        .then(_.method('fetchCards'))
+        .then(function (cards) {
+          $scope.cards = cards;
+        })
+    }
 
     $scope.showBackButton = $state.current.name === 'publicProfile';
 
@@ -149,14 +158,6 @@
           $scope.userCardsCount = userCards.length;
           $scope.photos = _(userCards).pluck('photos').flatten().value();
         });
-    }
-
-    function getFavoritesList() {
-      SavedForLater.get()
-        .then(function (cards) {
-          console.log(cards);
-          $scope.cards = cards;
-        })
     }
 
     function getUserLists() {

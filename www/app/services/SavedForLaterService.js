@@ -4,31 +4,8 @@ angular.module('kiwii')
     var savedForLaterPromise = getSavedForLaterList();
 
     return {
-      get: function get() {
-        return savedForLaterPromise
-          .then(function (list) {
-            return list.fetchCards();
-          });
-      },
-      add: function add(card) {
-        return savedForLaterPromise
-          .then(function (list) {
-            list.addCard(card)
-          });
-      },
-      remove: function remove(card) {
-        return savedForLaterPromise
-          .then(function (list) {
-            list.removeCard(card)
-          });
-      },
-      contains: function contains(card) {
-        return savedForLaterPromise
-          .then(function (list) {
-            return list.relation('cards')
-              .query()
-              .get(card.id);
-          });
+      get: function () {
+        return savedForLaterPromise;
       }
     };
 
