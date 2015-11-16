@@ -9,7 +9,7 @@
   <div class="restaurant-card-image" back-img="{{::restaurant.imageUrl}}">
   </div>
   <div class="action-bar">
-    <a class="action-item" ng-href="tel:{{::restaurant.contact.phone}}" ng-click="$event.stopPropagation();" style="text-decoration: none;">
+    <a class="action-item" ng-if="::(restaurant.contact.phone)" ng-href="tel:{{::restaurant.contact.phone}}" ng-click="$event.stopPropagation();" style="text-decoration: none;">
       <i class="icon ion-ios-telephone"></i>
       <div class="action-label">
         Call

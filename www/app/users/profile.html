@@ -11,17 +11,6 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-<!-- Add Lists Icon -->
-<!--   <nav mfb-menu position="br" effect="zoomin" label="Actions"
-       active-icon="ion-plus-round" resting-icon="ion-plus-round"
-       toggling-method="click"
-       class="mfb-has-tabs">
-    <button mfb-button icon="ion-ios-list" label="Create List"
-            ng-click="createList()"></button>
-    <button mfb-button icon="ion-android-list" label="Create Card"
-            ng-click="$state.go('tab.images')" ></button>
-  </nav>
- -->
   <ion-content ng-controller="ProfileCtrl">
 
     <ion-refresher on-refresh="doRefresh()"></ion-refresher>
@@ -62,28 +51,31 @@
 
     <div ng-repeat="card in cards">
       <div ng-click="goToDetails(card)">
-        <ion-slide-box show-pager="false" class="dash-restaurant">
+        <ion-slide-box show-pager="false" class="profile-slidebox">
           <ion-slide back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/200x200'}}">
           </ion-slide>
         </ion-slide-box>
+
         <div class="restaurant-card-details">
           <div class="row name">
-            <div id="restaurant-name" style="font-weight: bold;">{{card.taggedRestaurant.name}}</div>
-            <div ng-if="card.taggedRestaurant.rating">
+            <div id="restaurant-name" ng-bind-html="::(card.taggedRestaurant.name | unsafe)" style="font-weight: bold;"></div>
+            <div ng-if="::(card.taggedRestaurant.rating)">
               <i class="icon ion-star text-orange"></i>
-              {{card.taggedRestaurant.rating}}/10
+              {{::card.taggedRestaurant.rating}}/10
+              <span ng-if="::(card.taggedRestaurant.ratingCount)">(<i class="icon ion-person text-orange"></i> {{::card.taggedRestaurant.ratingCount}})</span>
             </div>
           </div>
           <div class="status text-minor">
-            {{card.taggedRestaurant.hours.status}}
+            {{::card.taggedRestaurant.hours.status}}
           </div>
           <div class="status text-minor">
-            {{card.photos[0].description}}
+            {{::card.photos[0].description}}
           </div>
           <div class="footer">
             <div class="action text-minor">
               <div class="label">
-                {{card.taggedRestaurant.category}} · 200 Photos · 100 Reviews
+               {{card.taggedRestaurant.category}} 
+               <span ng-if="::(card.taggedRestaurant.stats.tipCount)">· {{::card.taggedRestaurant.stats.tipCount}} Reviews</span>
               </div>
             </div>
             <div class="attribution">

@@ -22,7 +22,7 @@
       currentIndex++;
       if (currentIndex >= numberOfResults) {
         showBackdropMessage({
-          icon: 'ion-android-search calm',
+          icon: 'ion-ios-search assertive',
           message: 'You have viewed all the restaurants found under your criteria.'
         });
       }
@@ -32,7 +32,7 @@
       goNextOnSwipe = false;
       currentIndex--;
       if (currentIndex < 0) {
-        $state.go('tab.search');
+        $state.go('search');
       }
     };
 
@@ -47,7 +47,7 @@
           $scope.cards = _.clone(exploreResults);
           if (numberOfResults <= 0) {
             showBackdropMessage({
-              icon: 'ion-android-search calm',
+              icon: 'ion-ios-search assertive',
               message: 'We cannot find any restaurants within the criteria you specified!'
             });
           }
