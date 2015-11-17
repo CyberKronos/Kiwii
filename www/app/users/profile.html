@@ -50,9 +50,13 @@
       </div>
     </div> -->
 
-      <div ng-if="!cards || !cards.length">
-        No restaurants were saved. Go explore now!
-      </div>
+    <div ng-if="!cards || !cards.length" class="save-for-later-msg">
+      <i class="icon ion-ios-bookmarks-outline" style="font-size: 80px;"></i>
+      <br/>
+      <span style="font-weight: 400;">Add a restaurant to check out later.</span>
+      <br/>
+      There are plenty of places you gotta check out. Tap the bookmark in the upper right of any restaurant profile. They will be saved here for you.
+    </div>
     <div ng-repeat="card in cards">
       <div ng-click="goToDetails(card)">
         <ion-slide-box show-pager="false" class="profile-slidebox">

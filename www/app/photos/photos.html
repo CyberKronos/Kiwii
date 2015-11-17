@@ -8,7 +8,7 @@
   <ion-content>
     <div class="details-photos">
       <div ng-repeat="image in instagramImages">
-        <img ng-src="{{ image.photo._url || image.photo.url }}"/>
+        <img ng-src="{{ image.photo._url || image.photo.url }}" ng-click="showImages($index)"/>
       </div>
     </div>
     <!-- <div class="list ig-spacing-fix" ng-repeat="image in instagramImages">

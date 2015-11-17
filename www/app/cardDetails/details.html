@@ -77,7 +77,7 @@
       </div>
       <div class="details-photos">
         <div ng-repeat="image in instagramImages | limitTo: 6">
-          <img ng-src="{{ image.photo._url || image.photo.url }}"/>
+          <img ng-src="{{ image.photo._url || image.photo.url }}" ng-click="showImages($index)"/>
         </div>
       </div>
       <a class="item item-icon-left item-icon-right" ng-click="$state.go('photos', {photos: instagramImages})">
