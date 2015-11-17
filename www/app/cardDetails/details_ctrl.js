@@ -1,12 +1,13 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate,
                               $ionicScrollDelegate, $ionicModal, BrowserService, $cordovaStatusbar, $q,
-                              RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory) {
+                              RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory,
+                              SavedForLater) {
 
-    $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.$on('$ionicView.beforeEnter', function () {
       getRestaurantInfo();
-      
-      setTimeout( function() { 
+
+      setTimeout(function () {
         $ionicSlideBoxDelegate.update();
       }, 2000);
     });
@@ -33,6 +34,9 @@
         $scope.modal.remove();
       }
     });
+
+    $scope.toggleSave = toggleSave;
+    $scope.isSaved = false;
 
     $scope.openAddCardModal = function () {
       AppModalService.show('app/cardCreation/add_card_modal.html', 'AddCardModalCtrl', {
@@ -80,19 +84,8 @@
     $scope.openWebsite = BrowserService.open;
 
     function getRestaurantInfo() {
-      // TODO: Update cards schema so this 'conversion' is not needed
-      var card = $stateParams.card;
-      $scope.card = card;
-      if (card && !card.externalSource) {
-        _.merge(card, {
-          coverPhoto: card.photos[0],
-          description: card.photos[0].description,
-          author: card.author
-        });
-        if (card.author.toJSON) {
-          card.author = card.author.toJSON();
-        }
-      }
+      $scope.card = $stateParams.card;
+      updateCardSaveState($scope.card);
       RestaurantDetails.fetchVenue($stateParams.venueId).then(
         function (result) {
           $scope.detailsAttributes = [];
@@ -112,6 +105,30 @@
           $scope.restaurantReviews = result.reviews;
         }
       );
+    }
+
+    function updateCardSaveState(card) {
+      return SavedForLater.get()
+        .then(function (list) {
+          return list.containsCard(card);
+        })
+        .then(function (result) {
+          $scope.isSaved = result;
+        });
+    }
+
+    function toggleSave(card) {
+      var currentState = $scope.isSaved;
+      var toggle = !$scope.isSaved ? 'addCard' : 'removeCard';
+      return SavedForLater.get()
+        .then(_.method(toggle, card))
+        .then(function () {
+          $scope.isSaved = !currentState;
+        })
+        .catch(function (error) {
+          $scope.isSaved = currentState;
+          console.log(error);
+        });
     }
 
     function openAddToListModal() {
