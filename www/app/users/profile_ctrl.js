@@ -1,33 +1,40 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location, $ionicSlideBoxDelegate,
-                              RestaurantDetails, PhotoDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, ALL_CUISINE_TYPES) {
+                              RestaurantDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, SavedForLater) {
 
-    $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.$on('$ionicView.beforeEnter', function () {
       loadUserData();
-      getUserCards();
-    //  getUserLists();
-      getFavoritesList()
-      getFollowingData();
-      getFollowerData();
+      getFavoritesList();
 
-      setTimeout( function() {
+      //getUserCards();
+      //getFollowingData();
+      //getFollowerData();
+
+      setTimeout(function () {
         $ionicSlideBoxDelegate.update();
       }, 1000);
     });
 
     $scope.doRefresh = function () {
-      getUserCards();
-   //   getUserLists();
-      getFavoritesList()
-      getFollowingData();
-      getFollowerData();
+      getFavoritesList();
+      //getUserCards();
+      //getFollowingData();
+      //getFollowerData();
 
-      setTimeout( function() {
+      setTimeout(function () {
         $ionicSlideBoxDelegate.update();
       }, 1000);
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
+
+    function getFavoritesList() {
+      SavedForLater.get()
+        .then(_.method('fetchCards'))
+        .then(function (cards) {
+          $scope.cards = cards;
+        })
+    }
 
     $scope.showBackButton = $state.current.name === 'publicProfile';
 
@@ -78,14 +85,14 @@
     };
 
     $scope.selectedIndex = 0;
-    $scope.segmentChange = function(index){
+    $scope.segmentChange = function (index) {
       $scope.selectedIndex = index;
       $scope.$apply();
     }
 
     $scope.callbackValueModel = "";
 
-    $scope.getCuisineItems = function(query) {
+    $scope.getCuisineItems = function (query) {
       return AutocompleteService.getCuisineItems(query);
     };
 
@@ -137,16 +144,10 @@
       $ionicLoading.hide();
     }
 
-    console.log($stateParams.user);
-
     function loadUserData() {
-      if ($stateParams.user) {
-        $scope.userData = $stateParams.user.attributes;
-        $scope.user = $stateParams.user;
-      } else {
-        $scope.userData = Parse.User.current().attributes;
-        $scope.user = Parse.User.current();
-      }
+      var selectedUser = $stateParams.user || Parse.User.current();
+      $scope.userData = selectedUser.attributes;
+      $scope.user = selectedUser;
     }
 
     function getUserCards() {
@@ -159,43 +160,31 @@
         });
     }
 
-    function getFavoritesList() {
-      getUserLists();
-      getCardsFromList();
-    }
-
     function getUserLists() {
       var userLists = $scope.user.relation('lists');
-      userLists.query()
-      .include('actor')
-      .find()
-      .then(function (lists) {
-        var listItems = _.map(lists, function (list) {
-          var fetchCards = list.fetchCards()
-          .then(function (cards) {
-            $scope.cards = _.map(cards, function (card) {
-              card.taggedRestaurant = card.taggedRestaurant.toJSON();
-              return card;
+      return userLists.query()
+        .include('actor')
+        .find()
+        .then(function (lists) {
+          var listItems = _.map(lists, function (list) {
+            var fetchCards = list.fetchCards()
+              .then(function (cards) {
+                $scope.cards = _.map(cards, function (card) {
+                  card.taggedRestaurant = card.taggedRestaurant.toJSON();
+                  return card;
+                });
+                return Parse.Promise.when($scope.cards);
+              });
+            return Parse.Promise.when(fetchCards)
+              .then(function () {
+                return list;
+              });
+          });
+          return Parse.Promise.when(listItems)
+            .then(function () {
+              return lists;
             });
-            return Parse.Promise.when($scope.cards);
-          });
-          return Parse.Promise.when(fetchCards)
-          .then(function () {
-            return list;
-          });
         });
-        return Parse.Promise.when(listItems)
-        .then(function () {
-          return lists;
-        });
-      })
-      .then(function (lists) {
-        // $scope.userLists = lists;
-        // console.log($scope.userLists);
-
-        // Get favorites list
-        $scope.favoritesList = lists[0];
-      });
     }
 
     function getCardsFromList() {

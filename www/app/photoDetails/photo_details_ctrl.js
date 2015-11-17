@@ -1,9 +1,12 @@
 (function () {
-  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, $ionicActionSheet, $cordovaInAppBrowser, FoursquareApi, Cards) {
+  var PhotoDetailsCtrl = function ($scope, $state, $stateParams, $ionicActionSheet, $cordovaInAppBrowser,
+                                   FoursquareApi, Cards, BrowserService) {
 
     loadPhotoData();
 
     var card = $stateParams.card;
+
+    $scope.openWebsite = BrowserService.open;
 
     $scope.restaurantDetails = function (foursquareId) {
       console.log(card);

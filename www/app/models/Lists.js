@@ -63,6 +63,7 @@
       // Instance Methods
       addCard: addCard,
       removeCard: removeCard,
+      containsCard: containsCard,
       fetchCards: fetchCards
     }, {
       // Static Methods
@@ -142,6 +143,18 @@
           console.log(error);
           return deferred.reject(error);
         });
+      return deferred.promise;
+    }
+
+    function containsCard(card) {
+      var deferred = $q.defer();
+      var cardsRelation = this.relation('cards');
+      cardsRelation.query().get(card.id)
+        .then(function (card) {
+          return card ? true : false;
+        })
+        .then(deferred.resolve)
+        .fail(deferred.reject);
       return deferred.promise;
     }
 

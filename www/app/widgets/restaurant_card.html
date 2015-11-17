@@ -18,6 +18,7 @@
     <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-map"></i>
+
       <div class="action-label">
         Map
       </div>
@@ -26,7 +27,8 @@
          ng-click="::openWebsite(restaurant.reservations.url); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-calendar"></i>
-      <div class="action-label"> 
+
+      <div class="action-label">
         Reserve
       </div>
     </div>
@@ -41,14 +43,22 @@
     <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-images"></i>
+
       <div class="action-label">
         Photos
       </div>
     </div>
-    <div class="action-item">
-      <i class="icon ion-heart"></i>
-      <div class="action-label">
-        Like
+    <div class="action-item" ng-click="::toggleSave(card); $event.stopPropagation();">
+      <i class="icon"
+         ng-class="{
+         'ion-ios-bookmarks': isSaved,
+         'ion-ios-bookmarks-outline': !isSaved}">
+      </i>
+      <div class="action-label" ng-if="!isSaved">
+        Save
+      </div>
+      <div class="action-label" ng-if="isSaved">
+        Remove
       </div>
     </div>
   </div>

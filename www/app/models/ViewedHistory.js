@@ -42,8 +42,6 @@
 
       function fetchFullRecord(record) {
         var deferred = $q.defer();
-        // TODO: Get Parse Restuarants class to use ParseObject
-        record.restaurant = record.restaurant.toJSON();
         if (record.card) {
           var query = new Parse.Query(Cards);
           query

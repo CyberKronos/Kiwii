@@ -1,6 +1,6 @@
 (function () {
-  var CardsCtrl = function ($scope, $q, $state, $stateParams, $ionicLoading, $cordovaStatusbar,
-                            RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking) {
+  var CardsCtrl = function ($scope, $q, $state, $stateParams, $ionicLoading, $cordovaStatusbar, Cards,
+                            RestaurantExplorer, RestaurantDetails, ImagePreloader, AnalyticsTracking, Restaurants) {
 
     fetchCards().then(preloadRestaurantPhotos);
     AnalyticsTracking.searchQuery($stateParams.criteria);
@@ -51,10 +51,6 @@
               message: 'We cannot find any restaurants within the criteria you specified!'
             });
           }
-          // TODO: Make Restaurants a ParseObject
-          _.forEach($scope.cards, function (card) {
-            card.taggedRestaurant = card.taggedRestaurant.toJSON();
-          });
           console.log($scope.cards);
           return $scope.cards;
         })
