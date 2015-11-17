@@ -79,6 +79,37 @@
 
     $scope.openWebsite = BrowserService.open;
 
+    $scope.zoomMin = 1;
+
+    $scope.showImages = function(index) {
+      
+      $scope.activeSlide = index;
+      $scope.showModal('app/photos/photos_zoomview.html');
+    };
+
+    $scope.showModal = function(templateUrl) {
+      $ionicModal.fromTemplateUrl(templateUrl, {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modal = modal;
+        $scope.modal.show();
+      });
+    }
+     
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+      $scope.modal.remove()
+    };
+     
+    $scope.updateSlideStatus = function(slide) {
+      var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition().zoom;
+      if (zoomFactor == $scope.zoomMin) {
+        $ionicSlideBoxDelegate.enableSlide(true);
+      } else {
+        $ionicSlideBoxDelegate.enableSlide(false);
+      }
+    };
+
     function getRestaurantInfo() {
       // TODO: Update cards schema so this 'conversion' is not needed
       var card = $stateParams.card;
