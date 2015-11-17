@@ -1,28 +1,25 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location, $ionicSlideBoxDelegate,
-                              RestaurantDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, SavedForLater) {
+                              $timeout, RestaurantDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, SavedForLater) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
-      loadUserData();
-      getFavoritesList();
-
-      setTimeout(function () {
-        $ionicSlideBoxDelegate.update();
-      }, 1000);
+      updatePage();
     });
 
     $scope.doRefresh = function () {
-      getFavoritesList();
-
-      setTimeout(function () {
-        $ionicSlideBoxDelegate.update();
-      }, 1000);
+      updatePage();
       //Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     };
 
     $scope.removeFromSave = removeFromSave;
 
+    function updatePage() {
+      $timeout(function () {
+        loadUserData();
+        getFavoritesList();
+      }, 0);
+    }
     function getFavoritesList() {
       SavedForLater.get()
         .then(_.method('fetchCards'))
