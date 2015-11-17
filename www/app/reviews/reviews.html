@@ -9,12 +9,11 @@
 	<ul class="list">
 	  <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;">
 	    <div>
-	      {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+	      {{ tip.text }}
 	    </div>
 	    <br/>
-
 	    <div>
-	      <strong>{{ tip.likes.count }} Likes</strong>
+	      <strong>{{ tip.user.firstName }} {{ tip.user.lastName }}</strong>
 	    </div>
 	  </li>
 	</ul>
