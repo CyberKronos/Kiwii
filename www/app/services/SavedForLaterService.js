@@ -34,29 +34,4 @@ angular.module('kiwii')
       }
       return deferred.promise;
     }
-
-    function saved(card) {
-      return getSavedForLater()
-        .then(_.method('containsCard', card))
-        .catch(function (error) {
-          console.log(error);
-          return $q.reject(error);
-        });
-    }
-
-    function toggleSave(card) {
-      return saved(card)
-        .then(function (isSaved) {
-          var toggle = !isSaved ? 'addCard' : 'removeCard';
-          return savedForLaterPromise
-            .then(_.method(toggle, card))
-            .then(function () {
-              return isSaved;
-            });
-        })
-        .catch(function (error) {
-          console.log(error);
-          return $q.reject(error);
-        });
-    }
   }]);
