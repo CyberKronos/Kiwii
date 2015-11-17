@@ -7,26 +7,43 @@
 
   <ion-content>
 
-    <div class="restaurant-bg-img" darken
-         back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}"
-      >
-      <div class="inner-container">
-        <div class="padding-fix">
-          <div class="title">{{ restaurantDetails.name }}</div>
-        </div>
-        <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
-        <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
-          {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
-        </div>
-        <div class="subtext" ng-if="restaurantDetails.rating != null">
-          Rating: {{ restaurantDetails.rating }}/10
-        </div>
+    <ion-slide-box show-pager="false" class="details-slidebox">
+      <ion-slide darken-slider 
+                 back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}">
+        <div class="inner-container">
+          <div class="padding-fix">
+            <div class="title">{{ restaurantDetails.name }}</div>
+          </div>
+          <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
+          <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
+            {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
+          </div>
+          <div class="subtext" ng-if="restaurantDetails.rating != null">
+            Rating: {{ restaurantDetails.rating }}/10
+          </div>
 
-        <br/>
+          <br/>
 
-        <div>{{ restaurantDetails.hours.status }}</div>
-      </div>
-    </div>
+          <div>{{ restaurantDetails.hours.status }}</div>
+        </div>
+      </ion-slide>
+
+      <ion-slide ng-repeat="image in instagramImages | limitTo: 6" 
+                 back-img="{{ image.photo._url || image.photo.url || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image' }}"
+                 ng-click="restaurantDetails(card)">
+        <div ng-if="image.description"
+             class="restaurant-card-details carousel-image" 
+             style="position: absolute;
+                    bottom: 0;
+                    box-shadow: none;
+                    color: white;
+                    background-color: rgba(0,0,0,0.5);">
+          <div class="row name">
+            <div class="description">{{image.description }}</div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
 
     <div class="list">
 

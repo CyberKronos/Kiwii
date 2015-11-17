@@ -153,13 +153,21 @@ function transformVenueResponse(item) {
   venue['foursquareId'] = apiVenue.id;
   venue['name'] = apiVenue.name;
   venue['rating'] = apiVenue.rating;
+  venue['ratingCount'] = apiVenue.ratingSignals;
   venue['category'] = apiVenue.categories[0].shortName;
   venue['hours'] = apiVenue.hours;
   venue['url'] = apiVenue.url;
   venue['location'] = apiVenue.location;
+  venue['stats'] = apiVenue.stats;
   venue['tips'] = item.tips;
   venue['reservations'] = apiVenue.reservations;
 
+  if (apiVenue.menu) {
+    venue['menu'] = apiVenue.menu;
+  }
+  if (apiVenue.contact) {
+    venue['contact'] = apiVenue.contact;
+  }
   if (apiVenue.featuredPhotos && apiVenue.featuredPhotos.count > 0) {
     var featuredPhoto = apiVenue.featuredPhotos.items[0];
     venue['imageUrl'] = featuredPhoto.prefix + IMAGE_SIZE + featuredPhoto.suffix;
@@ -223,6 +231,79 @@ function createFoursquareCard(restaurant) {
     .fail(function () {
       return {message: 'Cannot save new card: ' + restaurant.get('name')};
     });
+}
+
+Parse.Cloud.job('saveDataFromExplore', function (request, response) {
+  // Generates 1 point that is in a 35km radius from the given lat and lng point.
+  var randomGeoPoint = generateRandomPoint({'lat':34.05, 'lng':-118.25}, 35000, 1);
+  Parse.Cloud.httpRequest({
+    method: "GET",
+    url: BASE_URL_VENUE + 'explore?ll='+randomGeoPoint+'&limit=40&section=food&venuePhotos=1&oauth_token='+OAUTH_TOKEN+'&v='+API_VERSION,
+    success: parseHttpResponse,
+    error: function (httpResponse) {
+      response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
+    }
+  });
+
+  function parseHttpResponse(httpResponse) {
+    var apiResponse = JSON.parse(httpResponse.text).response;
+    var items = apiResponse.groups[0].items;
+    var venues = items.map(transformVenueResponse);
+
+    // For caching to work, it must be done before returning the response
+    cacheVenues(venues)
+      .then(function (cards) {
+        response.success('Job is successful!');
+      },
+      function (error) {
+        response.error(error);
+      });
+  }
+});
+
+/**
+* Generates number of random geolocation points given a center and a radius.
+* @param  {Object} center A JS object with lat and lng attributes.
+* @param  {number} radius Radius in meters.
+* @param {number} count Number of points to generate.
+* @return {array} Array of Objects with lat and lng attributes.
+*/
+function generateRandomPoints(center, radius, count) {
+  var points = [];
+  for (var i=0; i<count; i++) {
+    points.push(generateRandomPoint(center, radius));
+  }
+  return points;
+}
+
+/**
+* Generates number of random geolocation points given a center and a radius.
+* Reference URL: http://goo.gl/KWcPE.
+* @param  {Object} center A JS object with lat and lng attributes.
+* @param  {number} radius Radius in meters.
+* @return {Object} The generated random points as JS object with lat and lng attributes.
+*/
+function generateRandomPoint(center, radius) {
+  var x0 = center.lng;
+  var y0 = center.lat;
+  // Convert Radius from meters to degrees.
+  var rd = radius/111300;
+
+  var u = Math.random();
+  var v = Math.random();
+
+  var w = rd * Math.sqrt(u);
+  var t = 2 * Math.PI * v;
+  var x = w * Math.cos(t);
+  var y = w * Math.sin(t);
+
+  var xp = x/Math.cos(y0);
+
+  var lat = y+y0;
+  var lng = xp+x0;
+
+  // Resulting point.
+  return lat + ',' + lng;
 }
 
 //Parse.Cloud.job('createFSQCards', function (request, status) {

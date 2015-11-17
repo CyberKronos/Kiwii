@@ -9,12 +9,18 @@
   <div class="restaurant-card-image" back-img="{{::restaurant.imageUrl}}">
   </div>
   <div class="action-bar">
+    <a class="action-item" ng-if="::(restaurant.contact.phone)" ng-href="tel:{{::restaurant.contact.phone}}" ng-click="$event.stopPropagation();" style="text-decoration: none;">
+      <i class="icon ion-ios-telephone"></i>
+      <div class="action-label">
+        Call
+      </div>
+    </a>
     <div ng-click="::goToMaps(restaurant.foursquareId); $event.stopPropagation();"
          class="action-item">
       <i class="icon ion-map"></i>
 
       <div class="action-label">
-        Directions
+        Map
       </div>
     </div>
     <div ng-if="::(restaurant.reservations && restaurant.reservations.url)"
@@ -24,6 +30,14 @@
 
       <div class="action-label">
         Reserve
+      </div>
+    </div>
+    <div ng-if="::(restaurant.menu)"
+         ng-click="::openWebsite(restaurant.menu.mobileUrl); $event.stopPropagation();"
+         class="action-item">
+      <i class="icon ion-ios-list"></i>
+      <div class="action-label"> 
+        Menu
       </div>
     </div>
     <div ng-click="::goToPhotos(restaurant.foursquareId); $event.stopPropagation();"
@@ -54,6 +68,7 @@
       <div ng-if="::(restaurant.rating)">
         <i class="icon ion-star text-orange"></i>
         {{::restaurant.rating}}/10
+        <span ng-if="::(restaurant.ratingCount)">(<i class="icon ion-person text-orange"></i> {{::restaurant.ratingCount}})</span>
       </div>
       <!-- <span class="text-minor" ng-if="!restaurant.hours.isOpen" style="margin-left: 4px;">Closed</span> -->
     </div>
@@ -64,9 +79,9 @@
       {{::restaurant.tips[0].text}}
     </div>
     <div class="footer">
-      <div class="action text-minor">
+      <div class="action text-minor" ng-if="restaurant.stats.tipCount">
         <div class="label">
-          200 Photos · 100 Reviews
+         {{restaurant.stats.tipCount}} Reviews
         </div>
       </div>
       <div class="attribution">
