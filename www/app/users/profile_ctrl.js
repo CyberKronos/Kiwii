@@ -6,10 +6,6 @@
       loadUserData();
       getFavoritesList();
 
-      //getUserCards();
-      //getFollowingData();
-      //getFollowerData();
-
       setTimeout(function () {
         $ionicSlideBoxDelegate.update();
       }, 1000);
@@ -17,9 +13,6 @@
 
     $scope.doRefresh = function () {
       getFavoritesList();
-      //getUserCards();
-      //getFollowingData();
-      //getFollowerData();
 
       setTimeout(function () {
         $ionicSlideBoxDelegate.update();
@@ -28,11 +21,25 @@
       $scope.$broadcast('scroll.refreshComplete');
     };
 
+    $scope.removeFromSave = removeFromSave;
+
     function getFavoritesList() {
       SavedForLater.get()
         .then(_.method('fetchCards'))
         .then(function (cards) {
           $scope.cards = cards;
+        })
+    }
+
+    function removeFromSave(cards, index) {
+      var card = cards[index];
+      $scope.cards.splice(index, 1);
+      SavedForLater.get()
+        .then(function (list) {
+          return list.removeCard(card);
+        })
+        .catch(function (error) {
+          console.log(error);
         })
     }
 

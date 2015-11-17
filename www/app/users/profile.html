@@ -57,6 +57,8 @@
       <div ng-click="goToDetails(card)">
         <ion-slide-box show-pager="false" class="profile-slidebox">
           <ion-slide back-img="{{card.photos[0].photo.url() || card.taggedRestaurant.imageUrl || 'http://placehold.it/200x200'}}">
+            <i class="box-remove-button icon ion-close-round light"
+              ng-click="removeFromSave(cards, $index)"></i>
           </ion-slide>
         </ion-slide-box>
 
@@ -78,7 +80,7 @@
           <div class="footer">
             <div class="action text-minor">
               <div class="label">
-               {{card.taggedRestaurant.category}} 
+               {{card.taggedRestaurant.category}}
                <span ng-if="::(card.taggedRestaurant.stats.tipCount)">· {{::card.taggedRestaurant.stats.tipCount}} Reviews</span>
               </div>
             </div>
