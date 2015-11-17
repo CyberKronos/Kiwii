@@ -104,11 +104,11 @@
       </div>
       <div class="item" ng-repeat="tip in restaurantReviews | limitTo: 2" style="white-space: normal;">
         <div>
-          {{ tip.text }} - {{ tip.user.firstName }} {{ tip.user.lastName }}
+          {{ tip.text }}
         </div>
         <br/>
         <div>
-          <strong>{{ tip.likes.count }} Likes</strong>
+          <strong>{{ tip.user.firstName }} {{ tip.user.lastName }}</strong>
         </div>
       </div>
       <a class="item item-icon-left item-icon-right" ng-click="$state.go('reviews', {reviews: restaurantReviews})">
