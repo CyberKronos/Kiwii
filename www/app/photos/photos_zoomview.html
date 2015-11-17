@@ -1,7 +1,15 @@
 <div class="modal image-modal transparent" on-swipe-down="closeModal()">
   	<ion-slide-box on-slide-changed="slideChanged(index)" active-slide="activeSlide" show-pager="false">
     	<ion-slide ng-repeat="image in instagramImages">
- 			
+
+ 			<div style="text-align: center;
+					    color: #fff;
+					    position: absolute;
+					    right: 0;
+					    left: 0;
+					    top: 10px;">
+				Slide down to close
+			</div>
 			<ion-scroll direction="xy" scrollbar-x="false" scrollbar-y="false"
 			zooming="true" min-zoom="{{zoomMin}}" style="width: 100%; height: 100%"
 			delegate-handle="scrollHandle{{$index}}" on-scroll="updateSlideStatus(activeSlide)" on-release="updateSlideStatus(activeSlide)">
