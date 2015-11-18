@@ -16,11 +16,7 @@
       Actions.facebookLogin()
       .then(function(response) {
         console.log(response);
-        if (response == 'existing user') {
-          $state.go('search');
-        } else {
-          $state.go('handle');
-        }
+        $state.go('search');
       });
     };
   };

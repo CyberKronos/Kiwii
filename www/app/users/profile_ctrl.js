@@ -20,6 +20,7 @@
         getFavoritesList();
       }, 0);
     }
+    
     function getFavoritesList() {
       SavedForLater.get()
         .then(_.method('fetchCards'))
