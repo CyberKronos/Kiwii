@@ -4,7 +4,7 @@
       function ($q, ParseObject) {
 
         var RESTAURANTS_CLASS = 'Restaurants';
-        var RESTAURANTS_KEYS = ['foursquareId', 'name', 'rating', 'hours', 'url', 'location', 'imageUrl', 'category', 'geoPoint', 'reservations', 'tips'];
+        var RESTAURANTS_KEYS = ['foursquareId', 'name', 'rating', 'hours', 'url', 'location', 'imageUrl', 'category', 'geoPoint', 'reservations', 'tips', 'contact', 'ratingCount', 'menu', 'stats'];
 
         var Restaurants = ParseObject.extend(RESTAURANTS_CLASS, RESTAURANTS_KEYS, {}, {});
 

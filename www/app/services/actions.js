@@ -1,21 +1,22 @@
 (function() {
   var Actions = function($rootScope, $localStorage, $cordovaFacebook) { 
 
-    var handleLookup = function(handle) {
-      var query = new Parse.Query(Parse.User);
-      query.equalTo("handle", handle);
-      return query.find()
-        .then(function(result) {
-          return result;
-        }, function(error) {
-          return error;
-        });
-    };
+    // var handleLookup = function(handle) {
+    //   var query = new Parse.Query(Parse.User);
+    //   query.equalTo("handle", handle);
+    //   return query.find()
+    //     .then(function(result) {
+    //       return result;
+    //     }, function(error) {
+    //       return error;
+    //     });
+    // };
 
     return {
       facebookLogin: function() {
         return $cordovaFacebook.getLoginStatus()
           .then(function (success) {
+            console.log(success);
             if (success.authResponse === undefined) {
               return $cordovaFacebook.login(["public_profile", "email", "user_friends"])
                 .then(
@@ -113,22 +114,22 @@
           });
       },
 
-      createHandle: function(userHandle, userObject) {
-        return handleLookup(userHandle.handle)
-          .then(function(result) {
-            if (result[0]) {
-              return 'Handle is taken';
-            } else {
-              userObject.set('handle', userHandle.handle);
-              return userObject.save();
-            }
-          });
-      },
-
       logout: function() {
         delete $localStorage.profileInfo;
         return Parse.User.logOut();
       }
+
+      // createHandle: function(userHandle, userObject) {
+      //   return handleLookup(userHandle.handle)
+      //     .then(function(result) {
+      //       if (result[0]) {
+      //         return 'Handle is taken';
+      //       } else {
+      //         userObject.set('handle', userHandle.handle);
+      //         return userObject.save();
+      //       }
+      //     });
+      // },
 
       // login: function(username, password) {
       //   return Parse.User.logIn(username, password)

@@ -17,24 +17,18 @@ input.ion-google-place[readonly] {
   ::-webkit-input-placeholder {
     /* WebKit browsers */
     color: #4D4D4D;
-    font-weight: 200;
   }
   :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     color: #4D4D4D;
-    opacity: 1;
-    font-weight: 200;
   }
   ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
     color: #4D4D4D;
-    opacity: 1;
-    font-weight: 200;
   }
   :-ms-input-placeholder {
     /* Internet Explorer 10+ */
     color: #4D4D4D;
-    font-weight: 200;
   }
 }
 

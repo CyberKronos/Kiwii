@@ -1,3 +1,31 @@
+/* Font Replace */
+body, .ionic-body {
+  font-family: "Brandon Grotesque", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+p {
+  font-size: 16px !important;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Brandon Grotesque", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.tab-item {
+  font-family: "Brandon Grotesque", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+input, button, select, textarea {
+  font-family: "Brandon Grotesque", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.roboto {
+  font-family: "Brandon Grotesque", "Roboto", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+.roboto input {
+  font-family: "Brandon Grotesque", "Roboto", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
 /* Utility Styles */
 .title {
   font-size: 20px;
@@ -290,7 +318,6 @@
 .cuisine-dropdown {
   color: #4D4D4D !important; 
   font-size: 20px !important; 
-  font-weight: 200;
   direction: ltr !important; 
   padding: 0 !important; 
   position: relative !important; 
@@ -304,22 +331,22 @@
 
 .location-input .current-location-button {
   display: block;
-  font-size: 32px;
+  font-size: 40px;
   text-align: center;
 }
 
 
 #distance-textbox {
   width: 52px;
+  font-size: 20px;
   text-align: right;
-  font-weight: 200;
 }
 
 #distance-label {
   border: none;
-
+  font-size: 20px;
   h2 {
-    font-weight: 200;
+    font-size: 20px;
     color: #4D4D4D;
   }
 }
@@ -351,6 +378,7 @@
 
 .search-button {
   height: 60px;
+  font-size: 22px;
 }
 
 .background-tab {
