@@ -1,4 +1,4 @@
-<ion-view cache-view="false" view-title="{{restaurantDetails.name || 'Restaurant Details'}}">
+<ion-view view-title="{{restaurantDetails.name || 'Restaurant Details'}}">
   <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
     <ion-nav-buttons side="left">
       <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
@@ -17,26 +17,26 @@
                  back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}">
         <div class="inner-container">
           <div class="padding-fix">
-            <div class="title">{{ restaurantDetails.name }}</div>
+            <div class="title">{{::restaurantDetails.name }}</div>
           </div>
-          <div class="subtext">{{ restaurantDetails.categories[0].shortName }}</div>
-          <div class="subtext" ng-if="restaurantDetails.price.tier">Price:
-            {{'$'.repeat(restaurantDetails.price.tier)}} ({{ restaurantDetails.price.message }})
+          <div class="subtext">{{::restaurantDetails.categories[0].shortName }}</div>
+          <div class="subtext" ng-if="::restaurantDetails.price.tier">Price:
+            {{:: '$'.repeat(restaurantDetails.price.tier)}} ({{:: restaurantDetails.price.message }})
           </div>
           <div class="subtext" ng-if="restaurantDetails.rating != null">
-            Rating: {{ restaurantDetails.rating }}/10
+            Rating: {{::restaurantDetails.rating }}/10
           </div>
 
           <br/>
 
-          <div>{{ restaurantDetails.hours.status }}</div>
+          <div>{{::restaurantDetails.hours.status }}</div>
         </div>
       </ion-slide>
 
       <ion-slide ng-repeat="image in instagramImages | limitTo: 6" 
-                 back-img="{{ image.photo._url || image.photo.url || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image' }}"
+                 back-img="{{:: (image.photo._url || image.photo.url || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image') }}"
                  ng-click="restaurantDetails(card)">
-        <div ng-if="image.description"
+        <div ng-if="::image.description"
              class="restaurant-card-details carousel-image" 
              style="position: absolute;
                     bottom: 0;
@@ -44,7 +44,7 @@
                     color: white;
                     background-color: rgba(0,0,0,0.5);">
           <div class="row name">
-            <div class="description">{{image.description }}</div>
+            <div class="description">{{::image.description }}</div>
           </div>
         </div>
       </ion-slide>
@@ -53,16 +53,16 @@
     <div class="list">
 
       <div class="item item-avatar" ng-if="card.author">
-        <img ng-src="{{card.author.fbPicture}}">
+        <img ng-src="{{:: card.author.fbPicture}}">
 
-        <h2>{{card.author.firstname}} {{card.author.lastname}}</h2>
+        <h2>{{::card.author.firstname}} {{::card.author.lastname}}</h2>
 
-        <p>{{card.createdAt | amCalendar}}</p>
+        <p>{{::card.createdAt | amCalendar}}</p>
       </div>
 
       <div class="details-text" ng-if="card.description || restaurantDetails.description">
         <p>
-          {{card.description || restaurantDetails.description}}
+          {{:: card.description || restaurantDetails.description}}
         </p>
 
         <button class="button button-block button-assertive"
@@ -77,7 +77,7 @@
       </div>
       <div class="details-photos">
         <div ng-repeat="image in instagramImages | limitTo: 6">
-          <img ng-src="{{ image.photo._url || image.photo.url }}" ng-click="showImages($index)"/>
+          <img ng-src="{{ ::(image.photo._url || image.photo.url) }}" ng-click="showImages($index)"/>
         </div>
       </div>
       <a class="item item-icon-left item-icon-right" ng-click="$state.go('photos', {photos: instagramImages})">
@@ -90,9 +90,9 @@
         Address
       </div>
       <div class="item" style="font-size: 14px; width: 100%;">
-        {{ restaurantDetails.location.formattedAddress[0] }}
+        {{ ::restaurantDetails.location.formattedAddress[0] }}
         <br/>
-        {{ restaurantDetails.location.formattedAddress[1] }}
+        {{ ::restaurantDetails.location.formattedAddress[1] }}
       </div>
       <div class="item item-image map" ng-click="$state.go('maps', {venueId: restaurantDetails.id})">
         <img
@@ -104,11 +104,11 @@
       </div>
       <div class="item" ng-repeat="tip in restaurantReviews | limitTo: 2" style="white-space: normal;">
         <div>
-          {{ tip.text }}
+          {{ ::tip.text }}
         </div>
         <br/>
         <div>
-          <strong>{{ tip.user.firstName }} {{ tip.user.lastName }}</strong>
+          <strong>{{ ::tip.user.firstName }} {{ ::tip.user.lastName }}</strong>
         </div>
       </div>
       <a class="item item-icon-left item-icon-right" ng-click="$state.go('reviews', {reviews: restaurantReviews})">
@@ -120,35 +120,35 @@
       <div class="item item-divider" style="font-weight:normal;">
         Details
       </div>
-      <div ng-if="restaurantDetails.contact.formattedPhone" class="details-text">
+      <div ng-if="::restaurantDetails.contact.formattedPhone" class="details-text">
         <p>
           <strong>Phone</strong>
-          {{ restaurantDetails.contact.formattedPhone }}
+          {{ ::restaurantDetails.contact.formattedPhone }}
         </p>
 
         <p>
           <strong>Website</strong>
-          <u ng-if="restaurantDetails.url"
-             ng-click="openWebsite(restaurantDetails.url)">
-            {{ restaurantDetails.url }}
+          <u ng-if="::restaurantDetails.url"
+             ng-click="::openWebsite(restaurantDetails.url)">
+            {{ ::restaurantDetails.url }}
           </u>
         </p>
 
         <p ng-repeat="attribute in detailsAttributes"
-           ng-if="attribute.name != attribute.value">
-          <strong>{{ attribute.name }}</strong>
-          {{ attribute.value }}
+           ng-if="::attribute.name != attribute.value">
+          <strong>{{::attribute.name }}</strong>
+          {{::attribute.value }}
         </p>
 
         <button class="button button-block button-assertive"
-                ng-if="restaurantDetails.menu.mobileUrl"
-                ng-click="openWebsite(restaurantDetails.menu.mobileUrl)">
+                ng-if="::restaurantDetails.menu.mobileUrl"
+                ng-click="::openWebsite(restaurantDetails.menu.mobileUrl)">
           <strong>Menu</strong>
         </button>
 
         <button class="button button-block button-assertive"
-                ng-if="restaurantDetails.reservations.url"
-                ng-click="openWebsite(restaurantDetails.reservations.url)">
+                ng-if="::restaurantDetails.reservations.url"
+                ng-click="::openWebsite(restaurantDetails.reservations.url)">
           <strong>Make a reservation</strong>
         </button>
       </div>
