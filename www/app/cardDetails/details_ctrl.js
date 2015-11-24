@@ -6,10 +6,9 @@
 
     $scope.$on('$ionicView.beforeEnter', function () {
       getRestaurantInfo();
-
-      setTimeout(function () {
+      $timeout(function () {
         $ionicSlideBoxDelegate.update();
-      }, 2000);
+      }, 1500);
     });
 
     var PHOTO_SIZE = '500x500';
@@ -85,27 +84,27 @@
 
     $scope.zoomMin = 1;
 
-    $scope.showImages = function(index) {
-      
+    $scope.showImages = function (index) {
+
       $scope.activeSlide = index;
       $scope.showModal('app/photos/photos_zoomview.html');
     };
 
-    $scope.showModal = function(templateUrl) {
+    $scope.showModal = function (templateUrl) {
       $ionicModal.fromTemplateUrl(templateUrl, {
         scope: $scope
-      }).then(function(modal) {
+      }).then(function (modal) {
         $scope.modal = modal;
         $scope.modal.show();
       });
     }
-     
-    $scope.closeModal = function() {
+
+    $scope.closeModal = function () {
       $scope.modal.hide();
       $scope.modal.remove()
     };
-     
-    $scope.updateSlideStatus = function(slide) {
+
+    $scope.updateSlideStatus = function (slide) {
       var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition().zoom;
       if (zoomFactor == $scope.zoomMin) {
         $ionicSlideBoxDelegate.enableSlide(true);
@@ -115,9 +114,9 @@
     };
 
     function getRestaurantInfo() {
-      $scope.card = $stateParams.card;
-      updateCardSaveState($scope.card);
-      RestaurantDetails.fetchVenue($stateParams.venueId).then(
+      var cardQ = resolveRestaurantCard()
+        .then(updateCardSaveState);
+      var venueQ = RestaurantDetails.fetchVenue($stateParams.venueId).then(
         function (result) {
           $scope.detailsAttributes = [];
           var detailsAttributes = result.details.attributes.groups;
@@ -136,6 +135,15 @@
           $scope.restaurantReviews = result.reviews;
         }
       );
+      return $q.all(cardQ, venueQ);
+    }
+
+    function resolveRestaurantCard() {
+      var cardQ = $stateParams.card ? $q.when($stateParams.card) : Cards.getDefaultCard($stateParams.restaurant);
+      return cardQ.then(function (card) {
+        $scope.card = card;
+        return $scope.card;
+      });
     }
 
     function updateCardSaveState(card) {

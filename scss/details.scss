@@ -92,3 +92,7 @@
     overflow: hidden;
   }
 }
+
+.zoom-box:nth-child(2n) {
+  background: transparent !important;
+}

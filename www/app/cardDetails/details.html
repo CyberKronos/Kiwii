@@ -13,7 +13,7 @@
   <ion-content>
 
     <ion-slide-box show-pager="false" class="details-slidebox">
-      <ion-slide darken-slider 
+      <ion-slide darken-slider
                  back-img="{{card.coverPhoto.photo.url() || getFeaturePhotoUrl(restaurantDetails) || instagramImages[0] ||  'http://placehold.it/500x500?text=No+Image'}}">
         <div class="inner-container">
           <div class="padding-fix">
@@ -37,7 +37,7 @@
                  back-img="{{:: (image.photo._url || image.photo.url || 'https://placehold.it/300x150/0C79E8/000000?text=No+Image') }}"
                  ng-click="restaurantDetails(card)">
         <div ng-if="::image.description"
-             class="restaurant-card-details carousel-image" 
+             class="restaurant-card-details carousel-image"
              style="position: absolute;
                     bottom: 0;
                     box-shadow: none;
