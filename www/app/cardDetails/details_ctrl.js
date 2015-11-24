@@ -1,7 +1,7 @@
 (function () {
   var DetailsCtrl = function ($rootScope, $scope, $stateParams, $ionicLoading, $timeout, $ionicSlideBoxDelegate,
                               $ionicScrollDelegate, $ionicModal, BrowserService, $cordovaStatusbar, $q,
-                              RestaurantDetails, Lists, Cards, RestaurantRatingPopup, AppModalService, ViewedHistory,
+                              RestaurantDetails, Lists, Cards, AppModalService, ViewedHistory,
                               SavedForLater) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -45,10 +45,6 @@
           name: $scope.restaurantDetails.name
         }
       });
-    };
-
-    $scope.openRatingModal = function () {
-      RestaurantRatingPopup.askForRating($scope.restaurantDetails.id, Parse.User.current().get('fbId'));
     };
 
     $scope.addToList = function () {

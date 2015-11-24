@@ -1,6 +1,6 @@
 (function () {
   var ProfileCtrl = function ($scope, $state, $stateParams, $cordovaStatusbar, $ionicModal, $ionicLoading, $location, $ionicSlideBoxDelegate,
-                              $timeout, RestaurantDetails, Lists, FacebookApi, Following, Cards, AutocompleteService, SavedForLater) {
+                              $timeout, RestaurantDetails, Lists, FacebookApi, Cards, SavedForLater) {
 
     $scope.$on('$ionicView.beforeEnter', function () {
       updatePage();
@@ -43,24 +43,7 @@
         })
     }
 
-    $scope.showBackButton = $state.current.name === 'publicProfile';
-
     $scope.newList = {};
-
-    $ionicModal.fromTemplateUrl('app/lists/create_list_popup.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-      $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-      $scope.modal.hide();
-    };
 
     $scope.photoDetails = function (card) {
       $state.go('photoDetails', {
@@ -87,40 +70,12 @@
         });
     };
 
-    $scope.listDetails = function (list) {
-      $state.go('listDetails', {list: list});
-    };
-
-    $scope.selectedIndex = 0;
-    $scope.segmentChange = function (index) {
-      $scope.selectedIndex = index;
-      $scope.$apply();
-    }
-
-    $scope.callbackValueModel = "";
-
-    $scope.getCuisineItems = function (query) {
-      return AutocompleteService.getCuisineItems(query);
-    };
 
     $scope.itemsClicked = function (callback) {
       $scope.callbackValueModel = callback;
       $scope.newList['categoryId'] = callback.item.id;
     };
 
-    $scope.viewFollowing = function () {
-      $state.go('following', {
-        user: $scope.user,
-        // following: $scope.following
-      });
-    };
-
-    $scope.viewFollowers = function () {
-      $state.go('followers', {
-        user: $scope.user,
-        // followers: $scope.followers
-      });
-    };
 
     $scope.restaurantDetails = function (card) {
       console.log(card);
@@ -155,73 +110,6 @@
       var selectedUser = $stateParams.user || Parse.User.current();
       $scope.userData = selectedUser.attributes;
       $scope.user = selectedUser;
-    }
-
-    function getUserCards() {
-      Cards.getUserCards($scope.user.id)
-        .then(function (userCards) {
-          console.log(userCards);
-          $scope.userCards = userCards;
-          $scope.userCardsCount = userCards.length;
-          $scope.photos = _(userCards).pluck('photos').flatten().value();
-        });
-    }
-
-    function getUserLists() {
-      var userLists = $scope.user.relation('lists');
-      return userLists.query()
-        .include('actor')
-        .find()
-        .then(function (lists) {
-          var listItems = _.map(lists, function (list) {
-            var fetchCards = list.fetchCards()
-              .then(function (cards) {
-                $scope.cards = _.map(cards, function (card) {
-                  card.taggedRestaurant = card.taggedRestaurant.toJSON();
-                  return card;
-                });
-                return Parse.Promise.when($scope.cards);
-              });
-            return Parse.Promise.when(fetchCards)
-              .then(function () {
-                return list;
-              });
-          });
-          return Parse.Promise.when(listItems)
-            .then(function () {
-              return lists;
-            });
-        });
-    }
-
-    function getCardsFromList() {
-      // TODO: Null check for list
-      $scope.favoritesList.fetchCards()
-        .then(function (cards) {
-          console.log(cards);
-          // TODO: Make Restaurant a ParseObject
-          $scope.cards = _.map(cards, function (card) {
-            card.taggedRestaurant = card.taggedRestaurant.toJSON();
-            console.log(card);
-            return card;
-          })
-        });
-    }
-
-    function getFollowingData() {
-      Following.followingList($scope.user)
-        .then(function (result) {
-          $scope.followingCount = result.length;
-          // $scope.following = result;
-        });
-    }
-
-    function getFollowerData() {
-      Following.followerList($scope.user)
-        .then(function (result) {
-          $scope.followerCount = result.length;
-          // $scope.followers = result;
-        });
     }
   };
 
