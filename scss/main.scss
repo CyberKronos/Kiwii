@@ -1,4 +1,9 @@
 /* Font Replace */
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('../fonts/Brandon_reg.ttf') format('truetype');
+}
+
 body, .ionic-body {
   font-family: "Brandon Grotesque", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }

@@ -22,10 +22,12 @@
     }
     
     function getFavoritesList() {
+      $scope.loading = true;
       SavedForLater.get()
         .then(_.method('fetchCards'))
         .then(function (cards) {
           $scope.cards = cards;
+          $scope.loading = false;
         })
     }
 
