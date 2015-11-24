@@ -50,7 +50,10 @@
       </div>
     </div> -->
 
-    <div ng-if="!cards || !cards.length" class="save-for-later-msg">
+    <div ng-if="loading" class="favourite-list-loader">
+      <ion-spinner icon="ios"></ion-spinner>
+    </div>
+    <div ng-if="(!loading && !cards) || (!loading && !cards.length)" class="save-for-later-msg">
       <i class="icon ion-ios-bookmarks-outline" style="font-size: 80px;"></i>
       <br/>
       <span style="font-weight: 400;">Add a restaurant to check out later.</span>
