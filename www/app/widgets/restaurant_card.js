@@ -4,6 +4,7 @@
     var controller = ['$scope', '$state',
       function ($scope, $state) {
         $scope.restaurant = $scope.card.taggedRestaurant;
+        console.log($scope.restaurant);
         $scope.isSaved = false;
         SavedForLater.get()
           .then(_.method('containsCard', $scope.card))

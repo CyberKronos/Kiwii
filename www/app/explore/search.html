@@ -83,7 +83,7 @@
           <ion-checkbox ng-repeat="item in ::priceList"
                         ng-model="item.checked"
                         ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
-            {{ ::item.text }}
+            <b>{{ ::item.text }}</b>
           </ion-checkbox>
         </div>
       </div>
@@ -94,7 +94,7 @@
                     ng-checked="openNow"
                     ng-change="::updateOpenNowValue()"
                     toggle-class="toggle-assertive">
-          Open restaurants only
+          <p class="text-orange">Open restaurants only</p>
         </ion-toggle>
       </div>
 
