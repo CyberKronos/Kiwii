@@ -10,7 +10,7 @@ var IMAGE_SIZE = '500x500';
 var FOOD_CATEGORY_ID = '4d4b7105d754a06374d81259';
 var SEARCH_INTENT = 'browse';
 var SEARCH_LIMIT = 10;
-var EXPLORE_LIMIT = 15;
+var EXPLORE_LIMIT = 25;
 
 var RESTAURANT_CLASS = 'Restaurants';
 var CARD_CLASS = 'Cards';
