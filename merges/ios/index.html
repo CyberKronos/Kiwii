@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Kiwii</title>
+    <link href='https://fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Libraries -->
+    <script src="lib/parse-js-sdk/lib/parse.js"></script>
+    <script src="lib/lodash/lodash.js"></script>
+    <script src="app/ionic.bundle.js"></script>
+    <script src="lib/ionic-service-core/ionic-core.js"></script>
+    <script src="lib/ionic-service-deploy/ionic-deploy.js"></script>
+    <script src="lib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
+    <script src="lib/collide/collide.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/angular-jwt/dist/angular-jwt.js"></script>
+    <script src="lib/ngstorage/ngStorage.js"></script>
+    <script src="lib/angular-flux-helpers/angular-flux.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false"></script>
+    <script src="app/ion-google-place.js"></script>
+    <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
+    <script src="lib/parse-angular-patch/src/parse-angular.js"></script>
+    <script src="lib/ion-slide-box-tabs/src/js/slidingTabsDirective.js"></script>
+    <script src="lib/cordova-exif/cordova-exif.js"></script>
+    <script src="lib/exif-js/exif.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/angular-moment/angular-moment.min.js"></script>
+    <script src="lib/ng-material-floating-button/src/mfb-directive.js"></script>
+    <script src="lib/collide/collide.js"></script>
+    <script src="lib/angular-ios9-uiwebview.patch/index.js"></script>
+    <script src="lib/ti-segmented-control/dist/ti-segmented-control.js"></script>
+    <script src="lib/ngtouch/build/ngTouch.min.js"></script>
+    <script src="lib/ionic-action-backdrop/js/rgActionBackdropTabItem.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/routes.js"></script>
+    <script src="cache/templates.js"></script>
+
+    <!--Frontend-->
+    <script src="app/cardCreation/add_card_modal_ctrl.js"></script>
+    <script src="app/cardCreation/images_ctrl.js"></script>
+    <script src="app/cardDetails/details_ctrl.js"></script>
+    <script src="app/dash/dash_ctrl.js"></script>
+    <script src="app/explore/cards_ctrl.js"></script>
+    <script src="app/explore/search_ctrl.js"></script>
+    <script src="app/feed/activity_feed_ctrl.js"></script>
+    <script src="app/layouts/nav_ctrl.js"></script>
+    <script src="app/lists/lists_ctrl.js"></script>
+    <script src="app/lists/list_details_ctrl.js"></script>
+    <script src="app/maps/maps_ctrl.js"></script>
+    <script src="app/photoDetails/photo_details_ctrl.js"></script>
+    <script src="app/photos/photos_ctrl.js"></script>
+    <script src="app/reviews/reviews_ctrl.js"></script>
+    <script src="app/ratings/RestaurantRatingPopup.js"></script>
+    <script src="app/start/handle_ctrl.js"></script>
+    <script src="app/start/intro_ctrl.js"></script>
+    <script src="app/start/login_ctrl.js"></script>
+    <script src="app/start/register_ctrl.js"></script>
+    <script src="app/start/start_ctrl.js"></script>
+    <script src="app/users/discover_users_ctrl.js"></script>
+    <script src="app/users/follow_ctrl.js"></script>
+    <script src="app/users/profile_ctrl.js"></script>
+    <script src="app/widgets/micro_card.js"></script>
+    <script src="app/widgets/restaurant_card.js"></script>
+    <script src="app/widgets/scroll_list.js"></script>
+
+    <!-- Apis -->
+    <script src="app/apis/facebook_api.js"></script>
+    <script src="app/apis/foursquare_api.js"></script>
+    <script src="app/apis/instagram_api.js"></script>
+
+    <!-- Services -->
+    <script src="app/models/User.js"></script>
+    <script src="app/models/Cards.js"></script>
+    <script src="app/models/Following.js"></script>
+    <script src="app/models/Lists.js"></script>
+    <script src="app/models/Ratings.js"></script>
+    <script src="app/models/Restaurants.js"></script>
+    <script src="app/models/UserPhotos.js"></script>
+    <script src="app/models/ViewedHistory.js"></script>
+    <script src="app/services/actions.js"></script>
+    <script src="app/services/AnalyticsTracking.js"></script>
+    <script src="app/services/BrowserService.js"></script>
+    <script src="app/services/CameraService.js"></script>
+    <script src="app/services/ImagePreloader.js"></script>
+    <script src="app/services/LocationService.js"></script>
+    <script src="app/services/RestaurantDetails.js"></script>
+    <script src="app/services/RestaurantExplorer.js"></script>
+    <script src="app/services/SavedForLaterService.js"></script>
+    <script src="app/services/AutocompleteService.js"></script>
+
+    <!-- Utils -->
+    <script src="app/utils/AppModalService.js"></script>
+    <script src="app/utils/ParseObject.js"></script>
+    <script src="app/utils/backImgSrc.js"></script>
+    <script src="app/utils/horizontal_scroll_fix.js"></script>
+
+    <!-- Constants -->
+    <script src="app/constants/AllCuisineTypes.js"></script>
+    <script src="app/constants/CriteriaDefaults.js"></script>
+    <script src="app/constants/CriteriaOptions.js"></script>
+    <script src="app/constants/UserSuggestions.js"></script>
+
+    <div id="fb-root"></div>
+    <!-- Need to place at the end to prevent appendChild error -->
+    <script src="lib/facebook-connect-plugin/index.js"></script>
+
+    <!-- using sass -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="lib/ionic-contrib-tinder-cards/ionic.tdcards.css" rel="stylesheet">
+    <link href="lib/ion-autocomplete/dist/ion-autocomplete.min.css" rel="stylesheet">
+    <link href="lib/ion-google-place/ion-google-place.css" rel="stylesheet">
+
+  </head>
+  <body ng-app="kiwii">
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

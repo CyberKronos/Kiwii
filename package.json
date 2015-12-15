@@ -1,6 +1,6 @@
 {
   "name": "Kiwii",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Personal decision making app for food",
   "dependencies": {
     "add-stream": "^1.0.0",
@@ -8,7 +8,7 @@
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
     "gulp-rename": "^1.2.0",
-    "gulp-sass": "^0.7.1"
+    "gulp-sass": "^2.0.4"
   },
   "devDependencies": {
     "bower": "^1.3.3",
