@@ -1,5 +1,5 @@
 (function() {
-  var StartCtrl = function($scope, $state, Actions) {
+  var StartCtrl = function($scope, $state, $ionicHistory, Actions) {
     $scope.goLogin = function() {
       $state.go('login');
     };
@@ -16,6 +16,9 @@
       Actions.facebookLogin()
       .then(function(response) {
         console.log(response);
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
         $state.go('search');
       });
     };

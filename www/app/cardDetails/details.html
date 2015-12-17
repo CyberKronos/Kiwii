@@ -1,14 +1,10 @@
 <ion-view view-title="{{restaurantDetails.name || 'Restaurant Details'}}">
-  <ion-nav-bar ng-controller="NavCtrl" class="bar-light">
-    <ion-nav-buttons side="left">
-      <a class="button button-icon button-clear ion-chevron-left" ng-click="goBack()"></a>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <a class="button button-icon button-clear"
-        ng-class="{'ion-ios-bookmarks-outline': !isSaved, 'ion-ios-bookmarks': isSaved}"
-        ng-click="toggleSave(card)"></a>
-    </ion-nav-buttons>
-  </ion-nav-bar>
+
+  <ion-nav-buttons side="right">
+    <a class="button button-icon button-clear"
+      ng-class="{'ion-ios-bookmarks-outline': !isSaved, 'ion-ios-bookmarks': isSaved}"
+      ng-click="toggleSave(card)"></a>
+  </ion-nav-buttons>
 
   <ion-content>
 

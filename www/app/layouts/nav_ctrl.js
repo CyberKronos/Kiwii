@@ -8,6 +8,9 @@
     $scope.logOut = function () {
       Actions.logout()
         .then(function () {
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
           $state.go('start');
         });
     };
