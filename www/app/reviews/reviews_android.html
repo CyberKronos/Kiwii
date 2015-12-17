@@ -1,0 +1,16 @@
+<ion-view cache-view="false" view-title="Reviews">
+  <ion-content>
+	<ul class="list">
+	  <li class="item" ng-repeat="tip in restaurantReviews" style="white-space: normal;">
+	    <div>
+	      {{ tip.text }}
+	    </div>
+	    <br/>
+	    <div>
+	      <strong>{{ tip.user.firstName }} {{ tip.user.lastName }}</strong>
+	    </div>
+	  </li>
+	</ul>
+	</div>
+  </ion-content>
+</ion-view>

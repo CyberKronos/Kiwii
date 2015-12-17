@@ -12,31 +12,52 @@ angular.module('ion-google-place', [])
                 restrict: 'E',
                 template: '<input type="text" readonly="readonly" class="ion-google-place" autocomplete="off">',
                 replace: true,
-                link: function(scope, element, attrs, ngModel) {
+                link: function(scope, element, attrs, ngModel, ionicPlatform) {
                     scope.locations = [];
                     var geocoder = new google.maps.Geocoder();
                     var searchEventTimeout = undefined;
 
-                    var POPUP_TPL = [
-                        '<div class="ion-google-place-container">',
-                            '<div class="bar bar-header item-input-inset">',
-                                '<label class="item-input-wrapper">',
-                                    '<i class="icon ion-ios7-search placeholder-icon"></i>',
-                                    '<input class="google-place-search" type="search" ng-model="searchQuery" placeholder="Enter an address, place or ZIP code">',
-                                '</label>',
-                                '<button class="button button-clear">',
-                                    'Cancel',
-                                '</button>',
-                            '</div>',
-                            '<ion-content class="has-header has-header">',
-                                '<ion-list>',
-                                    '<ion-item ng-repeat="location in locations" type="item-text-wrap" ng-click="selectLocation(location)">',
-                                        '{{location.formatted_address}}',
-                                    '</ion-item>',
-                                '</ion-list>',
-                            '</ion-content>',
-                        '</div>'
-                    ].join('');
+                    if (ionic.Platform.isAndroid()) {
+                        var POPUP_TPL = [
+                            '<div class="ion-google-place-container">',
+                                '<div class="bar bar-header item-input-inset">',
+                                    '<label class="item-input-wrapper">',
+                                        '<i class="icon ion-ios7-search placeholder-icon"></i>',
+                                        '<input class="google-place-search" type="search" ng-model="searchQuery" placeholder="Enter an address, place or ZIP code">',
+                                    '</label>',
+                                    '<button class="button button-clear button-icon ion-android-close"></button>',
+                                '</div>',
+                                '<ion-content class="has-header has-header">',
+                                    '<ion-list>',
+                                        '<ion-item ng-repeat="location in locations" type="item-text-wrap" ng-click="selectLocation(location)">',
+                                            '{{location.formatted_address}}',
+                                        '</ion-item>',
+                                    '</ion-list>',
+                                '</ion-content>',
+                            '</div>'
+                        ].join('');
+                    } else {
+                        var POPUP_TPL = [
+                            '<div class="ion-google-place-container">',
+                                '<div class="bar bar-header item-input-inset">',
+                                    '<label class="item-input-wrapper">',
+                                        '<i class="icon ion-ios7-search placeholder-icon"></i>',
+                                        '<input class="google-place-search" type="search" ng-model="searchQuery" placeholder="Enter an address, place or ZIP code">',
+                                    '</label>',
+                                    '<button class="button button-clear">',
+                                        'Cancel',
+                                    '</button>',
+                                '</div>',
+                                '<ion-content class="has-header has-header">',
+                                    '<ion-list>',
+                                        '<ion-item ng-repeat="location in locations" type="item-text-wrap" ng-click="selectLocation(location)">',
+                                            '{{location.formatted_address}}',
+                                        '</ion-item>',
+                                    '</ion-list>',
+                                '</ion-content>',
+                            '</div>'
+                        ].join('');
+                    }
 
                     var popupPromise = $ionicTemplateLoader.compile({
                         template: POPUP_TPL,

@@ -41,7 +41,12 @@
 
       .state('search', {
         url: '/search',
-        templateUrl: 'app/explore/search.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/explore/search_android.html";
+          }
+          return "app/explore/search.html";
+        },
         controller: 'SearchCtrl',
         data: {
           authenticate: true
@@ -50,7 +55,12 @@
 
       .state('cards', {
         url: '/cards',
-        templateUrl: 'app/explore/cards.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/explore/cards_android.html";
+          }
+          return "app/explore/cards.html";
+        },
         controller: 'CardsCtrl',
         params: {
           criteria: {
@@ -68,7 +78,12 @@
 
       .state('details', {
         url: '/details/{venueId}',
-        templateUrl: 'app/cardDetails/details.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/cardDetails/details_android.html";
+          }
+          return "app/cardDetails/details.html";
+        },
         controller: 'DetailsCtrl',
         params: {
           card: null,
@@ -81,7 +96,12 @@
 
       .state('maps', {
         url: '/maps/{venueId}',
-        templateUrl: 'app/maps/maps.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/maps/maps_android.html";
+          }
+          return "app/maps/maps.html";
+        },
         controller: 'MapsCtrl',
         data: {
           authenticate: true
@@ -90,7 +110,12 @@
 
       .state('reviews', {
         url: '/reviews',
-        templateUrl: 'app/reviews/reviews.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/reviews/reviews_android.html";
+          }
+          return "app/reviews/reviews.html";
+        },
         controller: 'ReviewsCtrl',
         params: {
           reviews: null,
@@ -102,7 +127,12 @@
 
       .state('photos', {
         url: '/photos',
-        templateUrl: 'app/photos/photos.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/photos/photos_android.html";
+          }
+          return "app/photos/photos.html";
+        },
         controller: 'PhotosCtrl',
         params: {
           photos: null,
@@ -115,7 +145,12 @@
 
       .state('profile', {
         url: '/profile',
-        templateUrl: 'app/users/profile.html',
+        templateUrl: function() {
+          if (ionic.Platform.isAndroid()) {
+            return "app/users/profile_android.html";
+          }
+          return "app/users/profile.html";
+        },
         controller: 'ProfileCtrl',
         params: {
           user: null

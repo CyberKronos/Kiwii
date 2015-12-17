@@ -1,0 +1,50 @@
+<ion-view view-title="Let's Eat!">
+  <ion-content class="cards-container" padding="true" scroll="false">
+
+    <td-cards ng-if="cards.length && !isLoading && !apiError">
+      <td-card ng-repeat="card in cards | limitTo: 1"
+               ng-touchstart="showSwipeHints(true)"
+               ng-touchend="showSwipeHints(false)"
+               on-transition-right="prevRestaurant()"
+               on-transition-left="nextRestaurant()"
+               on-destroy="swipeRestaurant()">
+        <restaurant-card card="card"
+                         current-location="criteria.ll"
+                         ng-click="$state.go('details', {
+                          venueId: card.taggedRestaurant.foursquareId,
+                          card: card,
+                          restaurant: card.taggedRestaurant})">
+        </restaurant-card>
+      </td-card>
+    </td-cards>
+
+    <div class="cards-hint row">
+      <div class="text-minor">
+        <div ng-if="isShowingHints">
+          <i class="icon ion-arrow-left-a">
+          </i>
+          Next
+        </div>
+      </div>
+
+      <div class="text-minor">
+        <div ng-if="isShowingHints" style="text-align: right">
+          Last
+          <i class="icon ion-arrow-right-a">
+          </i>
+        </div>
+      </div>
+    </div>
+
+    <div class="row row-center" ng-if="backdropMessage">
+      <div class="col-80 col-offset-10 text-centered">
+        <i ng-class="backdropIcon" class="icon message-icon"></i>
+
+        <p>{{backdropMessage}}</p>
+        <br>
+        <button class="button button-assertive" ng-click="$state.go('search')">Back to Search</button>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

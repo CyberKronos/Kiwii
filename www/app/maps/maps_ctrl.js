@@ -51,6 +51,7 @@
           } 
           if (isAndroid) {
             console.log('this is android');
+            window.open('geo:' + $scope.latlong.lat + ',' + $scope.latlong.lng + '?q=' + $scope.latlong.address, '_system');
           }
         };
 

@@ -1,5 +1,9 @@
-.ion-autocomplete-container > .bar-header {
+.platform-ios .ion-autocomplete-container > .bar-header {
   background: #FFFFFF;
+}
+
+.platform-android .ion-google-place-container > .bar-header {
+  background: $assertive;
 }
 
 input.ion-google-place[readonly] {
