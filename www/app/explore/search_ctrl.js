@@ -2,7 +2,9 @@
 
   var SearchCtrl = function ($scope, $state, $timeout, LocationService, RestaurantExplorer, AutocompleteService, CRITERIA_OPTIONS, CRITERIA_DEFAULTS) {
 
-    fetchCurrentLocation();
+    $scope.$on('$ionicView.afterEnter', function () {
+      fetchCurrentLocation();
+    });
 
     $scope.isLoadingLocation = true;
     $scope.criteria = _.clone(CRITERIA_DEFAULTS);

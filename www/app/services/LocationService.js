@@ -7,7 +7,7 @@ angular.module('kiwii')
       };
 
       function fetchCurrentLocation() {
-        var posOptions = {timeout: 50000, enableHighAccuracy: false};
+        var posOptions = {timeout: 10000, enableHighAccuracy: true, maximumAge: 0};
         return $cordovaGeolocation
           .getCurrentPosition(posOptions)
           .then(function (position) {
@@ -17,13 +17,16 @@ angular.module('kiwii')
             };
           })
           .catch(function (positionError) {
-            var errorMessage = '';
-            if (positionError.code === positionError.PERMISSION_DENIED) {
-              errorMessage = 'Kiwii has no permission to get your location. Please check your settings.'
-            } else {
-              errorMessage = 'Your device is having trouble getting your location. Please check your settings.'
+            switch (positionError.code) {
+              case positionError.PERMISSION_DENIED:
+                positionError.label = 'Kiwii has no permission to get your location. Please check your settings.';
+                break;
+              case positionError.TIMEOUT:
+                positionError.label = 'Location timeout - Your device is having trouble getting your location. Please check your reception.'
+                break;
+              default:
+                positionError.label = 'Your device is having trouble getting your location. Please check your settings.'
             }
-            positionError.label = errorMessage;
             return $q.reject(positionError);
           })
       }

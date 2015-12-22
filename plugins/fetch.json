@@ -39,14 +39,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-geolocation": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-geolocation"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-whitelist": {
         "source": {
             "type": "registry",
@@ -108,25 +100,21 @@
         "is_top_level": true,
         "variables": {}
     },
-    "ionic-plugin-deploy": {
+    "cordova-plugin-geolocation": {
         "source": {
             "type": "git",
-            "url": "https://github.com/driftyco/ionic-plugins-deploy",
+            "url": "https://github.com/apache/cordova-plugin-geolocation.git",
             "subdir": "."
         },
         "is_top_level": true,
         "variables": {}
     },
-    "phonegap-facebook-plugin": {
+    "cordova-plugin-crosswalk-webview": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "cordova-plugin-crosswalk-webview"
         },
         "is_top_level": true,
-        "variables": {
-            "APP_ID": "1597756577154303",
-            "APP_NAME": "Kiwii"
-        }
+        "variables": {}
     }
 }
