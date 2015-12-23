@@ -98,16 +98,18 @@
 
       <div class="padding-vertical">
         <button class="button button-block button-assertive search-button"
-                ng-class="{'disabled': !criteria['ll']}"
-                ng-click="::explore(criteria)">
-          <div ng-if="!criteria['ll']">
-            Getting Current Location...
+                ng-class="{'disabled': !criteria['ll']} && !currentLocationError"
+                ng-click="!currentLocationError ? explore(criteria) : refreshCurrentLocation()">
+          <div ng-if="!currentLocationError">
+            <div ng-if="!criteria['ll']">
+              Getting Current Location
+            </div>
+            <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
           </div>
-          <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
-        </button>
+          <div ng-if="currentLocationError"
+          <div>Refresh Location</div>
       </div>
-
-      <!-- <p class="text-centered">Or not sure what you're looking for?</p> -->
+    </div>
     </div>
   </ion-content>
 </ion-view>

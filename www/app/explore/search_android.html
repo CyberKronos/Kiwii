@@ -1,113 +1,117 @@
 <ion-view title="Kiwii">
-    <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-    </ion-nav-buttons>        
-    <!-- Either leave here or move to another template file -->
-    <ion-content class="has-header" ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+  </ion-nav-buttons>
+  <!-- Either leave here or move to another template file -->
+  <ion-content class="has-header" ng-class="{'cards-container': true, 'out-of-focus': sideMenuIsOpen()}">
 
-        <div class="list" style="margin-bottom: 0;">
-            <div class="item item-icon-left">
-                <i class="icon ion-search assertive"></i>
-                <label class="item item-input ion-google-restaurant-search">
-                <ion-autocomplete   ng-model="restaurantDetails"
-                                    template-url="app/widgets/search_restaurants_popup_android.html"
-                                    item-value-key="name"
-                                    item-view-value-key="name"
-                                    item-view-value-key="foursquareId"
-                                    items-method="getRestaurants(query)"
-                                    items-method-value-key="items"
-                                    placeholder="Search Restaurants by Name"
-                                    items-clicked-method="restaurantsClicked(callback)"
-                                    select-items-label="Select Restaurant:"/>
-                </label>
-            </div>
+    <div class="list" style="margin-bottom: 0;">
+      <div class="item item-icon-left">
+        <i class="icon ion-search assertive"></i>
+        <label class="item item-input ion-google-restaurant-search">
+          <ion-autocomplete ng-model="restaurantDetails"
+                            template-url="app/widgets/search_restaurants_popup_android.html"
+                            item-value-key="name"
+                            item-view-value-key="name"
+                            item-view-value-key="foursquareId"
+                            items-method="getRestaurants(query)"
+                            items-method-value-key="items"
+                            placeholder="Search Restaurants by Name"
+                            items-clicked-method="restaurantsClicked(callback)"
+                            select-items-label="Select Restaurant:"/>
+        </label>
+      </div>
+    </div>
+
+    <div style="padding: 0 16px;">
+      <div class="padding-vertical">
+        <p class="text-orange">Choose a popular cuisine</p>
+        <label class="item item-input item-select" style="padding-left: 0; border: none;">
+          <select ng-model="criteria.query"
+                  ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
+                  class="cuisine-dropdown">
+          </select>
+        </label>
+      </div>
+
+      <div class="padding-vertical">
+        <p class="text-orange">Location</p>
+
+        <div class="row row-center location-input">
+          <div class="col-90">
+            <label class="item item-input ion-google-location-search">
+              <ion-google-place placeholder="Current location"
+                                ng-model="specifiedLocation.result"
+                                ng-change="convertToLatLon(specifiedLocation.result)"/>
+            </label>
+          </div>
+          <div class="col-10">
+            <i class="icon ion-location current-location-button"
+               ng-class="{'assertive': !specifiedLocation.result, 'dark' : specifiedLocation.result}"
+               ng-click="::clearSpecifiedLocation()"></i>
+          </div>
         </div>
+      </div>
 
-        <div style="padding: 0 16px;">
-            <div class="padding-vertical">
-                <p class="text-orange">Choose a popular cuisine</p>
-                <label class="item item-input item-select" style="padding-left: 0; border: none;">
-                    <select ng-model="criteria.query"
-                            ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
-                            class="cuisine-dropdown">
-                    </select>
-                </label>
-            </div>
+      <div class="padding-vertical">
+        <p class="text-orange">Distance</p>
 
-            <div class="padding-vertical">
-                <p class="text-orange">Location</p>
-
-                <div class="row row-center location-input">
-                    <div class="col-90">
-                        <label class="item item-input ion-google-location-search">
-                        <ion-google-place   placeholder="Current location"
-                                            ng-model="specifiedLocation.result"
-                                            ng-change="convertToLatLon(specifiedLocation.result)"/>
-                        </label>
-                    </div>
-                    <div class="col-10">
-                        <i class="icon ion-location current-location-button"
-                           ng-class="{'assertive': !specifiedLocation.result, 'dark' : specifiedLocation.result}"
-                           ng-click="::clearSpecifiedLocation()"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="padding-vertical">
-                <p class="text-orange">Distance</p>
-
-                <div id="distance-label" class="item item-icon-left">
-                    <h2>{{distanceLabel.text}}</h2>
-                    <i class="icon {{distanceLabel.icon}} assertive"></i>
-                </div>
-                <div class="range range-assertive">
-                    <!--Min, max, step needs to be defined here due to a bug-->
-                    <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
-                    <input  type="range"
-                            min="1000"
-                            max="20000"
-                            step="1000"
-                            value="{{criteria.radius}}"
-                            ng-model="criteria.radius"
-                            ng-change="::updateDistanceLabel(criteria.radius)">
-                    <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
-                </div>
-            </div>
-
-            <div class="padding-vertical">
-                <p class="text-orange">Price Range</p>
-
-                <div class="button-bar">
-                    <ion-checkbox   ng-repeat="item in ::priceList"
-                                    ng-model="item.checked"
-                                    ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
-                        <b>{{ ::item.text }}</b>
-                    </ion-checkbox>
-                </div>
-            </div>
-
-            <div class="padding-vertical">
-                <ion-toggle class="toggle-all-restaurants"
-                            ng-model="openNow"
-                            ng-checked="openNow"
-                            ng-change="::updateOpenNowValue()"
-                            toggle-class="toggle-assertive">
-                    <p class="text-orange">Open restaurants only</p>
-                </ion-toggle>
-            </div>
-
-            <div class="padding-vertical">
-                <button class="button button-block button-assertive search-button"
-                        ng-class="{'disabled': !criteria['ll']}"
-                        ng-click="::explore(criteria)">
-                    <div ng-if="!criteria['ll']">
-                        Getting Current Location...
-                    </div>
-                    <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
-                </button>
-            </div>
+        <div id="distance-label" class="item item-icon-left">
+          <h2>{{distanceLabel.text}}</h2>
+          <i class="icon {{distanceLabel.icon}} assertive"></i>
         </div>
-    </ion-content> 
+        <div class="range range-assertive">
+          <!--Min, max, step needs to be defined here due to a bug-->
+          <!--https://github.com/angular/angular.js/issues/2404, fixed in later versions of ng.-->
+          <input type="range"
+                 min="1000"
+                 max="20000"
+                 step="1000"
+                 value="{{criteria.radius}}"
+                 ng-model="criteria.radius"
+                 ng-change="::updateDistanceLabel(criteria.radius)">
+          <span id="distance-textbox">{{criteria.radius / 1000}} km</span>
+        </div>
+      </div>
+
+      <div class="padding-vertical">
+        <p class="text-orange">Price Range</p>
+
+        <div class="button-bar">
+          <ion-checkbox ng-repeat="item in ::priceList"
+                        ng-model="item.checked"
+                        ng-class="{'button': true, 'button-assertive': true, 'button-outline': true, 'active': item.checked}">
+            <b>{{ ::item.text }}</b>
+          </ion-checkbox>
+        </div>
+      </div>
+
+      <div class="padding-vertical">
+        <ion-toggle class="toggle-all-restaurants"
+                    ng-model="openNow"
+                    ng-checked="openNow"
+                    ng-change="::updateOpenNowValue()"
+                    toggle-class="toggle-assertive">
+          <p class="text-orange">Open restaurants only</p>
+        </ion-toggle>
+      </div>
+
+      <div class="padding-vertical">
+        <button class="button button-block button-assertive search-button"
+                ng-class="{'disabled': !criteria['ll']} && !currentLocationError"
+                ng-click="!currentLocationError ? explore(criteria) : refreshCurrentLocation()">
+          <div ng-if="!currentLocationError">
+            <div ng-if="!criteria['ll']">
+              Getting Current Location
+            </div>
+            <div ng-if="criteria['ll']"><strong>Let's eat!</strong></div>
+          </div>
+          <div ng-if="currentLocationError"
+          <div>Refresh Location</div>
+      </div>
+    </div>
+    </div>
+  </ion-content>
 </ion-view>
 
 

@@ -32,30 +32,26 @@ angular.module('kiwii')
       }
 
       function showLocationError(positionError) {
-        var isAndroid = ionic.Platform.isAndroid();
         var confirmPopup = $ionicPopup.confirm({
           title: 'Current Location Unavailable',
           template: positionError.label,
-          buttons: [
-            {
-              text: 'Cancel'
-            },
-            {
-              text: 'Ok',
+          buttons: buildButtonSet()
+        });
+
+        function buildButtonSet() {
+          var buttons = [{text: 'OK'}];
+          var isAndroid = ionic.Platform.isAndroid();
+          if (isAndroid) {
+            buttons.push({
+              text: 'Settings',
               type: 'button-assertive',
               onTap: function () {
                 confirmPopup.close();
-                if (isAndroid) {
-                  cordova.plugins.diagnostic.switchToLocationSettings();
-                  setTimeout(function () {
-                    fetchCurrentLocation().then(function () {
-                      $scope.isLoadingLocation = false;
-                    });
-                  }, 8000);
-                }
+                cordova.plugins.diagnostic.switchToLocationSettings();
               }
-            }
-          ]
-        });
+            })
+          }
+          return buttons;
+        }
       }
     }]);

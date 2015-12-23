@@ -37,6 +37,7 @@
     "ionic-material": "~0.4.2"
   },
   "resolutions": {
-    "angular": "1.4.5"
+    "angular": "1.4.5",
+    "ionic": "1.1.0"
   }
 }
