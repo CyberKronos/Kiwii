@@ -1,13 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.kiwiiapp.Kiwii" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.kiwiiapp.Kiwii" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Kiwii</name>
   <description>
 
-        Personal decision making app for food
+        Personal decision making app for food
+
     </description>
   <author email="alex44nguyen@gmail.com" href="http://www.alexandernguyen.me">
 
-        Alexander Nguyen
+        Alexander Nguyen
+
     </author>
     <content src="index.html" />
     <access origin="*" />

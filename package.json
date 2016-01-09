@@ -61,7 +61,8 @@
       "locator": "https://github.com/driftyco/ionic-plugins-keyboard.git",
       "id": "ionic-plugin-keyboard"
     },
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     "ios",
