@@ -13,26 +13,26 @@
 			    <img class="profile-avatar" 
 			    	 ng-src="{{ currentUser.fbPicture || 'http://placehold.it/100x100?text=Kiwii'}}">
 			</div>
-			<label class="item item-input">
+			<ion-label class="item item-input">
 		    	<i class="icon ion-ios-email placeholder-icon" style="font-size: 24px;"></i>
 		    	<input type="text" 
 		    		   value="{{ currentUser.email }}" 
 		    		   placeholder="Email" 
 		    		   disabled 
 		    		   style="background-color: transparent;">
-		  	</label>
-			<label class="item item-input">
+		  	</ion-label>
+			<ion-label class="item item-input">
 		    	<i class="icon ion-person placeholder-icon" style="font-size: 24px;"></i>
 		    	<input type="text" 
 		    		   value="{{ currentUser.firstname }} {{ currentUser.lastname }}" 
 		    		   placeholder="Name" 
 		    		   disabled 
 		    		   style="background-color: transparent;">
-		  	</label>
-		  	<label class="item item-input">
+		  	</ion-label>
+		  	<ion-label class="item item-input">
 		    	<i class="icon ion-at placeholder-icon" style="font-size: 24px;"></i>
 		    	<input type="text" placeholder="Create a username" ng-model="socialHandle.handle">
-		  	</label>
+		  	</ion-label>
 		</div>
 
 	</ion-content>

@@ -13,7 +13,7 @@
              ng-click="openAddPhotoActionSheet()">
       </div>
 
-      <label class="item item-input">
+      <ion-label class="item item-input">
         <i class="icon ion-pricetag placeholder-icon"></i>
         <ion-autocomplete ng-model="taggedRestaurant.name"
                           template-url="app/widgets/search_restaurants_popup.html"
@@ -25,7 +25,7 @@
                           placeholder="Tag Restaurant"
                           items-clicked-method="restaurantsClicked(callback)"
                           select-items-label="Select Restaurant:"/>
-      </label>
+      </ion-label>
 
       <textarea placeholder="Write a description..." 
                 style="width: 100%;

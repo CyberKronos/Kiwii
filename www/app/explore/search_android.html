@@ -8,7 +8,7 @@
     <div class="list" style="margin-bottom: 0;">
       <div class="item item-icon-left">
         <i class="icon ion-search assertive"></i>
-        <label class="item item-input ion-google-restaurant-search">
+        <ion-label class="item item-input ion-google-restaurant-search">
           <ion-autocomplete ng-model="restaurantDetails"
                             template-url="app/widgets/search_restaurants_popup_android.html"
                             item-value-key="name"
@@ -19,19 +19,19 @@
                             placeholder="Search Restaurants by Name"
                             items-clicked-method="restaurantsClicked(callback)"
                             select-items-label="Select Restaurant:"/>
-        </label>
+        </ion-label>
       </div>
     </div>
 
     <div style="padding: 0 16px;">
       <div class="padding-vertical">
         <p class="text-orange">Choose a popular cuisine</p>
-        <label class="item item-input item-select" style="padding-left: 0; border: none;">
+        <ion-label class="item item-input item-select" style="padding-left: 0; border: none;">
           <select ng-model="criteria.query"
                   ng-options="cuisine.name as cuisine.type for cuisine in cuisineList"
                   class="cuisine-dropdown">
           </select>
-        </label>
+        </ion-label>
       </div>
 
       <div class="padding-vertical">
@@ -39,11 +39,11 @@
 
         <div class="row row-center location-input">
           <div class="col-90">
-            <label class="item item-input ion-google-location-search">
+            <ion-label class="item item-input ion-google-location-search">
               <ion-google-place placeholder="Current location"
                                 ng-model="specifiedLocation.result"
                                 ng-change="convertToLatLon(specifiedLocation.result)"/>
-            </label>
+            </ion-label>
           </div>
           <div class="col-10">
             <i class="icon ion-location current-location-button"
@@ -111,7 +111,4 @@
     </div>
     </div>
   </ion-content>
-</ion-view>
-
-
-
+</ion-view>>
