@@ -235,10 +235,10 @@ function createFoursquareCard(restaurant) {
 
 Parse.Cloud.job('saveDataFromExplore', function (request, response) {
   // Generates 1 point that is in a 35km radius from the given lat and lng point.
-    var randomGeoPoint = generateRandomPoint({'lat':34.05, 'lng':-118.25}, 35000, 1);
+  var randomGeoPoint = generateRandomPoint({'lat':43.70, 'lng':-79.40}, 35000);
   Parse.Cloud.httpRequest({
     method: "GET",
-    url: BASE_URL_VENUE + 'explore?ll='+randomGeoPoint+'&limit=40&section=food&venuePhotos=1&oauth_token='+OAUTH_TOKEN+'&v='+API_VERSION,
+    url: BASE_URL_VENUE + 'explore?ll='+randomGeoPoint+'&limit=50&section=food&venuePhotos=1&oauth_token='+OAUTH_TOKEN+'&v='+API_VERSION,
     success: parseHttpResponse,
     error: function (httpResponse) {
       response.error("Request failed with response code:" + httpResponse.status + " Message: " + httpResponse.text);
